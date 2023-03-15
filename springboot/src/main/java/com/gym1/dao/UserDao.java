@@ -1,8 +1,10 @@
 package com.gym1.dao;
 
-public class UserDao {
+import com.gym1.dao.daoInterface.UserDaoInt;
 
-    private
+public class UserDao implements UserDaoInt {
+
+
 
 
 
