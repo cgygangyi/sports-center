@@ -1,113 +1,68 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
+  <div class="md-layout text-center">
+    <div
+      class="md-layout-item md-size-33 md-medium-size-50 md-small-size-70 md-xsmall-size-100"
+    >
+      <login-card header-color="green">
+        <h4 slot="title" class="title">Log in</h4>
+        <md-button
+          slot="buttons"
+          href="#facebook"
+          class="md-just-icon md-simple md-white"
         >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
+          <i class="fab fa-facebook-square"></i>
+        </md-button>
+        <md-button
+          slot="buttons"
+          href="#twitter"
+          class="md-just-icon md-simple md-white"
         >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
+          <i class="fab fa-twitter"></i>
+        </md-button>
+        <md-button
+          slot="buttons"
+          href="#google"
+          class="md-just-icon md-simple md-white"
         >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+          <i class="fab fa-google-plus-g"></i>
+        </md-button>
+        <p slot="description" class="description">Or Be Classical</p>
+        <md-field class="md-form-group" slot="inputs">
+          <md-icon>face</md-icon>
+          <label>First Name...</label>
+          <md-input v-model="firstname"></md-input>
+        </md-field>
+        <md-field class="md-form-group" slot="inputs">
+          <md-icon>email</md-icon>
+          <label>Email...</label>
+          <md-input v-model="email" type="email"></md-input>
+        </md-field>
+        <md-field class="md-form-group" slot="inputs">
+          <md-icon>lock_outline</md-icon>
+          <label>Password...</label>
+          <md-input v-model="password"></md-input>
+        </md-field>
+        <md-button slot="footer" class="md-simple md-success md-lg">
+          Lets Go
+        </md-button>
+      </login-card>
+    </div>
   </div>
 </template>
-
 <script>
+import { LoginCard } from '@/components'
 export default {
-  name: 'HelloWorld',
+  components: {
+    LoginCard
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      firstname: null,
+      email: null,
+      password: null
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
+<style></style>
