@@ -11,8 +11,12 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public int addUser(User user){
+    public int registerService(User user){
+        return userMapper.addUser(user);
+    }
 
+    public User loginService(String username){
+        return userMapper.queryUserByUsername(username);
     }
 
 
