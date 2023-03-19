@@ -12,7 +12,7 @@ let routes = [
 	{
 		path: '/',
 		name: 'Home',
-		redirect: '/dashboard',
+		redirect: '/user/login',
 	},
 	{
 		path: '/home',
@@ -21,37 +21,10 @@ let routes = [
 		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Home.vue'),
 	},
 	{
-		path: '/dashboard',
-		name: 'Dashboard',
-		layout: "dashboard",
-		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
-	},
-	{
 		path: '/layout',
 		name: 'Layout',
 		layout: "dashboard",
 		component: () => import('../views/Layout.vue'),
-	},
-	{
-		path: '/tables',
-		name: 'Tables',
-		layout: "dashboard",
-		component: () => import('../views/Tables.vue'),
-	},
-	{
-		path: '/billing',
-		name: 'Billing',
-		layout: "dashboard",
-		component: () => import('../views/Billing.vue'),
-	},
-	{
-		path: '/Profile',
-		name: 'Profile',
-		layout: "dashboard",
-		meta: {
-			layoutClass: 'layout-profile',
-		},
-		component: () => import('../views/Profile.vue'),
 	},
 	{
 		path: '/login',
@@ -59,7 +32,7 @@ let routes = [
 		component: () => import('../views/Login.vue'),
 	},
 	{
-		path: '/register',
+		path: '/user/register',
 		name: 'register',
 		component: () => import('../views/Register.vue'),
 	},

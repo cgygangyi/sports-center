@@ -5,7 +5,6 @@ import App from './App.vue'
 import DefaultLayout from './layouts/Default.vue'
 import DashboardLayout from './layouts/Dashboard.vue'
 import router from './router'
-// import './plugins/click-away'
 
 import './scss/app.scss';
 

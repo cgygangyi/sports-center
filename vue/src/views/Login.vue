@@ -17,7 +17,7 @@
                 <a-form-item class="mb-10">
                     <a-input
                         v-decorator="[
-						'Username',
+						'username',
 						{ rules: [{ required: true, message: 'Please input your username!' }] },
 						]"
                         placeholder="Userame"
@@ -51,25 +51,33 @@
 </template>
 
 <script>
-
+    import {userLogin} from "../api/user";
+    import {map} from "core-js/internals/array-iteration";
 	export default ({
 		data() {
 			return {
-				// Binded model property for "Sign In Form" switch button for "Remember Me" .
-				rememberMe: true,
+				rememberMe: false,
 			}
 		},
 		beforeCreate() {
-			// Creates the form and adds to it component's "form" property.
 			this.form = this.$form.createForm(this, { name: 'normal_login' });
+            this.map=new Map()
 		},
 		methods: {
-			// Handles input validation after submission.
 			handleSubmit(e) {
 				e.preventDefault();
 				this.form.validateFields((err, values) => {
 					if ( !err ) {
-						console.log('Received values of form: ', values) ;
+						console.log('Received values of form: ', values.username,values.password);
+                        userLogin(values).then(resp=>{
+                            console.log(resp.data)
+                            if(resp.data.code==0){
+                                this.$message.success(resp.data.message)
+                                this.$router.push({path:"/home"})
+                            }else{
+                                this.$message.error(resp.data.message)
+                            }
+                        })
 					}
 				});
 			},
