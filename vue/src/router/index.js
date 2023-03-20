@@ -12,7 +12,7 @@ let routes = [
 	{
 		path: '/',
 		name: 'Home',
-		redirect: '/user/login',
+		redirect: '/login',
 	},
 	{
 		path: '/home',
@@ -32,10 +32,26 @@ let routes = [
 		component: () => import('../views/Login.vue'),
 	},
 	{
-		path: '/user/register',
+		path: '/register',
 		name: 'register',
 		component: () => import('../views/Register.vue'),
 	},
+	{
+		path: '/profile',
+		name: 'profile',
+		layout: "dashboard",
+		component: () => import('../views/Profile.vue'),
+	},
+	{
+		path: '/timepicker',
+		name: 'time',
+		component: () => import('../views/TimePicker.vue'),
+	},
+	{
+		path: '/timepicker2',
+		name: 'time2',
+		component: () => import('../views/TimePicker2.vue'),
+	}
 ]
 
 // Adding layout property from each route to the meta

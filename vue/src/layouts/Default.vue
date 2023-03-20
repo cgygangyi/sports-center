@@ -12,7 +12,7 @@
 			<!-- / Page Content -->
 
 			<!-- Layout Footer -->
-			<DefaultFooter></DefaultFooter>
+			<Footer></Footer>
 			<!-- / Layout Footer -->
 
 		</a-layout>
@@ -22,14 +22,11 @@
 </template>
 
 <script>
-
-	import DefaultHeader from '../components/Headers/DefaultHeader' ;
-	import DefaultFooter from '../components/Footers/DefaultFooter' ;
+	import Footer from '../components/Footer' ;
 
 	export default ({
 		components: {
-			DefaultHeader,
-			DefaultFooter,
+			Footer,
 		},
 		data() {
 			return {

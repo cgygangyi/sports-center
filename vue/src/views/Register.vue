@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="sign-up-header" style="background-image: url('images/bg-signup.jpg')">
+		<div class="sign-up-header" style="background-image: url('images/a.jpg')">
 			<div class="content">
 				<h1 class="mb-5">Sign Up</h1>
 			</div>
