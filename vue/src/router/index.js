@@ -21,12 +21,6 @@ let routes = [
 		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Home.vue'),
 	},
 	{
-		path: '/layout',
-		name: 'Layout',
-		layout: "dashboard",
-		component: () => import('../views/Layout.vue'),
-	},
-	{
 		path: '/login',
 		name: 'login',
 		component: () => import('../views/Login.vue'),
@@ -41,6 +35,12 @@ let routes = [
 		name: 'profile',
 		layout: "dashboard",
 		component: () => import('../views/Profile.vue'),
+	},
+	{
+		path: '/admin',
+		name: 'admin',
+		layout: "dashboard",
+		component: () => import('../views/Admin.vue'),
 	},
 	{
 		path: '/timepicker',

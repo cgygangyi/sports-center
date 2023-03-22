@@ -18,23 +18,33 @@ public class UserController {
 
     @PostMapping("/login")
     public int login(@RequestBody Map map){
-        System.out.println(map.get("username") + " , " + map.get("password"));
-//        User res = userService.loginService(username);
-//        if (res == null){
-//            return 0;
-//        }else if(res.getPassword().equals(password)){
-//            return 1;
-//        }else{
-//            return -1;
-//        }
-        return 1;
+        String username = (String) map.get("username");
+        String password = (String) map.get("password");
+        User res = userService.loginService(username);
+        if (res == null){
+            return 0;
+        }else if(res.getPassword().equals(password)){
+            return 1;
+        }else{
+            return -1;
+        }
     }
 
-    //@PostMapping("/register")
-    //public int register(@RequestParam Map<String,String> map){
+    @PostMapping("/register")
+    public int register(@RequestParam Map<String,String> map){
+        String username = map.get("username");
+        String password = map.get("password");
+        String name = map.get("name");
+        String phoneNumber = map.get("phoneNumber");
+        String email = map.get("email");
+        String age = map.get("age");
+        String sex = map.get("sex");
+        int a = Integer.parseInt(age);
+        User user = new User(username,password,name,phoneNumber,email,age,sex,a);
+        int res = userService.registerService(user);
+        return res;
 
-
-    //}
+    }
 
 
 

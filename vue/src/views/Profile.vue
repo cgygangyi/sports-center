@@ -17,8 +17,7 @@
 					<a-col :span="24" :md="12" class="col-info">
 						<a-avatar :size="74" shape="square" src="images/face-1.jpg" />
 						<div class="avatar-info">
-							<h4 class="font-semibold m-0">Sarah Jacob</h4>
-							<p>CEO / Co-Founder</p>
+							<h4 class="font-semibold m-0">{{username}}</h4>
 						</div>
 					</a-col>
 					<a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
@@ -30,40 +29,27 @@
 		<!-- User Profile Card -->
 
 		<a-row type="flex" :gutter="24">
-
-			<!-- Platform Settings Column -->
 			<a-col :span="24" :md="8" class="mb-24">
-
-				<!-- Platform Settings Card -->
-				<CardPlatformSettings></CardPlatformSettings>
-				<!-- / Platform Settings Card -->
-
-			</a-col>
-			<!-- / Platform Settings Column -->
-
-			<!-- Profile Information Column -->
-			<a-col :span="24" :md="8" class="mb-24">
-
-				<!-- Profile Information Card -->
 				<CardProfileInformation></CardProfileInformation>
-				<!-- / Profile Information Card -->
-
 			</a-col>
-			<!-- / Profile Information Column -->
 
-			<!-- Conversations Column -->
 			<a-col :span="24" :md="8" class="mb-24">
-
-				<!-- Conversations Card -->
 				<CardConversations
 					:data="conversationsData"
 				></CardConversations>
-				<!-- / Conversations Card -->
-
 			</a-col>
-			<!-- / Conversations Column -->
-
 		</a-row>
+
+
+        <a-row :gutter="24" type="flex">
+            <a-col :span="24" class="mb-24">
+                <CardAuthorTable
+                    :data="table1Data"
+                    :columns="table1Columns"
+                ></CardAuthorTable>
+            </a-col>
+        </a-row>
+
 
 		<!-- Projects Card -->
 		<a-card :bordered="false" class="header-solid h-full mb-24" :bodyStyle="{paddingTop: '14px'}">
@@ -84,9 +70,8 @@
 						:team="project.team"
 					></CardProject>
 				</a-col>
-				<!-- / Project Column -->
 
-				<!-- Project Column -->
+
 				<a-col :span="24" :md="12" :xl="6">
 
 					<!-- Project Upload Component -->
@@ -126,6 +111,123 @@
 	import CardProfileInformation from "../components/Cards/CardProfileInformation"
 	import CardConversations from "../components/Cards/CardConversations"
 	import CardProject from "../components/Cards/CardProject"
+    import CardAuthorTable from "../components/Cards/CardAuthorTable"
+
+    const table1Columns = [
+        {
+            title: 'AUTHOR',
+            dataIndex: 'author',
+            scopedSlots: { customRender: 'author' },
+        },
+        {
+            title: 'FUNCTION',
+            dataIndex: 'func',
+            scopedSlots: { customRender: 'func' },
+        },
+        {
+            title: 'STATUS',
+            dataIndex: 'status',
+            scopedSlots: { customRender: 'status' },
+        },
+        {
+            title: 'EMPLOYED',
+            dataIndex: 'employed',
+            class: 'text-muted',
+        },
+        {
+            title: '',
+            scopedSlots: { customRender: 'editBtn' },
+            width: 50,
+        },
+    ];
+
+    // "Authors" table list of rows and their properties.
+    const table1Data = [
+        {
+            key: '1',
+            author: {
+                avatar: 'images/face-2.jpg',
+                name: 'Michael John',
+                email: 'michael@mail.com',
+            },
+            func: {
+                job: 'Manager',
+                department: 'Organization',
+            },
+            status: 1,
+            employed: '23/04/18',
+        },
+        {
+            key: '2',
+            author: {
+                avatar: 'images/face-3.jpg',
+                name: 'Alexa Liras',
+                email: 'alexa@mail.com',
+            },
+            func: {
+                job: 'Programator',
+                department: 'Developer',
+            },
+            status: 0,
+            employed: '23/12/20',
+        },
+        {
+            key: '3',
+            author: {
+                avatar: 'images/face-1.jpg',
+                name: 'Laure Perrier',
+                email: 'laure@mail.com',
+            },
+            func: {
+                job: 'Executive',
+                department: 'Projects',
+            },
+            status: 1,
+            employed: '13/04/19',
+        },
+        {
+            key: '4',
+            author: {
+                avatar: 'images/face-4.jpg',
+                name: 'Miriam Eric',
+                email: 'miriam@mail.com',
+            },
+            func: {
+                job: 'Marketing',
+                department: 'Organization',
+            },
+            status: 1,
+            employed: '03/04/21',
+        },
+        {
+            key: '5',
+            author: {
+                avatar: 'images/face-5.jpeg',
+                name: 'Richard Gran',
+                email: 'richard@mail.com',
+            },
+            func: {
+                job: 'Manager',
+                department: 'Organization',
+            },
+            status: 0,
+            employed: '23/03/20',
+        },
+        {
+            key: '6',
+            author: {
+                avatar: 'images/face-6.jpeg',
+                name: 'John Levi',
+                email: 'john@mail.com',
+            },
+            func: {
+                job: 'Tester',
+                department: 'Developer',
+            },
+            status: 0,
+            employed: '14/04/17',
+        },
+    ];
 
 	// Conversation's list data.
 	const conversationsData = [
@@ -199,6 +301,30 @@
 				"images/face-3.jpg",
 			],
 		},
+        {
+            id: 4,
+            title: "Minimalist",
+            content: "Different people have different taste, and various types of music, Zimbali Resort.",
+            cover: "images/home-decor-1.jpeg",
+            team: [
+                "images/face-1.jpg",
+                "images/face-4.jpg",
+                "images/face-2.jpg",
+                "images/face-3.jpg",
+            ],
+        },
+        {
+            id: 5,
+            title: "Minimalist",
+            content: "Different people have different taste, and various types of music, Zimbali Resort.",
+            cover: "images/home-decor-1.jpeg",
+            team: [
+                "images/face-1.jpg",
+                "images/face-4.jpg",
+                "images/face-2.jpg",
+                "images/face-3.jpg",
+            ],
+        },
 	] ;
 
 	export default ({
@@ -207,15 +333,20 @@
 			CardProfileInformation,
 			CardConversations,
 			CardProject,
+            CardAuthorTable,
 		},
 		data() {
 			return {
+                username: "admin",
 				// Active button for the "User Profile" card's radio button group.
 				profileHeaderBtns: 'overview',
 
 				// Associating Conversation's list data with its corresponding property.
 				conversationsData,
+                table1Data: table1Data,
 
+                // Associating "Authors" table columns with its corresponding property.
+                table1Columns: table1Columns,
 				// Project cards data
 				projects,
 			}
