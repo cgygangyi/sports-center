@@ -9,6 +9,11 @@ public class VenueState {
     private Date begin;
     private Date end;
 
+    public VenueState(int venueId, Date begin, Date end){
+        this.venueId = venueId;
+        this.begin = begin;
+        this.end = end;
+    }
     public VenueState(int id, int venueId, Date begin, Date end){
         this.id = id;
         this.venueId = venueId;

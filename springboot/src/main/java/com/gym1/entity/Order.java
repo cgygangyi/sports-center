@@ -7,6 +7,11 @@ public class Order {
     private int venueStateId;
     private int userId;
 
+    public Order(int venueId, int venueStateId, int userId) {
+        this.venueId = venueId;
+        this.venueStateId = venueStateId;
+        this.userId = userId;
+    }
     public Order(int id, int venueId, int venueStateId, int userId) {
         this.id = id;
         this.venueId = venueId;

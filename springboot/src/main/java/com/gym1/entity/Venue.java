@@ -8,6 +8,13 @@ public class Venue {
     private String address;
     private double price;
 
+    public Venue(int type, String name, String address, double price, int personNum) {
+        this.type = type;
+        this.name = name;
+        this.address = address;
+        this.price = price;
+
+    }
 
     public Venue(int id, int type, String name, String address, double price, int personNum) {
         this.id = id;

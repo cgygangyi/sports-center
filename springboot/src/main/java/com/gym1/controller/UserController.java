@@ -34,20 +34,7 @@ public class UserController {
 
     @PostMapping("/register")
     public int register(@RequestParam Map<String,String> map){
-        String username = map.get("username");
-        String password = map.get("password");
-        String name = map.get("name");
-        String phoneNumber = map.get("phoneNumber");
-        String email = map.get("email");
-        int age = Integer.parseInt(map.get("age"));
-        String sex = map.get("sex");
-
-        User user = new User(username,password,name,phoneNumber,email,age,sex);
-        int res = userService.registerService(user);
-        return res;
-
+        return userService.registerService(map);
     }
-
-
 
 }

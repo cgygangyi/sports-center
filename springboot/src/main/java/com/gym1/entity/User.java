@@ -13,7 +13,7 @@ public class User {
     private String email;
 
 
-    public User( String username, String password, int sex, String name,
+    public User(String username, String password, int sex, String name,
                 String phoneNumber, String email, int age){
         this.username = username;
         this.password = password;
