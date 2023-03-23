@@ -10,16 +10,18 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @PostMapping("/login")
-    public int login(@RequestBody Map map){
+    public int login(@RequestParam Map map){
+
         String username = (String) map.get("username");
         String password = (String) map.get("password");
+
         User res = userService.loginService(username);
         if (res == null){
             return 0;
@@ -37,10 +39,10 @@ public class UserController {
         String name = map.get("name");
         String phoneNumber = map.get("phoneNumber");
         String email = map.get("email");
-        String age = map.get("age");
+        int age = Integer.parseInt(map.get("age"));
         String sex = map.get("sex");
-        int a = Integer.parseInt(age);
-        User user = new User(username,password,name,phoneNumber,email,age,sex,a);
+
+        User user = new User(username,password,name,phoneNumber,email,age,sex);
         int res = userService.registerService(user);
         return res;
 

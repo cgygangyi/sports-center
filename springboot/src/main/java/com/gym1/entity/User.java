@@ -13,6 +13,16 @@ public class User {
     private String email;
 
 
+    public User( String username, String password, int sex, String name,
+                String phoneNumber, String email, int age){
+        this.username = username;
+        this.password = password;
+        this.sex = sex;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.age = age;
+    }
     public User(int id, String username, String password, int sex, String name,
                 String phoneNumber, String email, int age){
         this.id = id;
