@@ -1,9 +1,12 @@
 package com.gym1.service;
 
+
 import com.gym1.entity.User;
 import com.gym1.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class UserService {
@@ -11,8 +14,23 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public int registerService(User user){
-        return userMapper.addUser(user);
+    public int registerService(Map<String, String> map){
+        String username = map.get("username");
+        String password = map.get("password");
+        String name = map.get("name");
+        String email = map.get("email");
+        String phoneNumber = map.get("phoneNumber");
+        int age = Integer.parseInt(map.get("age"));
+        int sex = 1;
+        if(map.get("sex").equals("Female")){
+            sex = 0;
+        }
+        User user = new User(username, password, sex, name, phoneNumber, email, age);
+        if(userMapper.queryUserByUsername(username) != null){
+            return -1;
+        }else{
+            return userMapper.addUser(user);
+        }
     }
 
     public User loginService(String username){

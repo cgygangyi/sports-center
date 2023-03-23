@@ -52,7 +52,6 @@
 
 <script>
     import {userLogin} from "../api/user";
-    import {map} from "core-js/internals/array-iteration";
 	export default ({
 		data() {
 			return {
@@ -61,7 +60,6 @@
 		},
 		beforeCreate() {
 			this.form = this.$form.createForm(this, { name: 'normal_login' });
-            this.map=new Map()
 		},
 		methods: {
 			handleSubmit(e) {
@@ -69,13 +67,13 @@
 				this.form.validateFields((err, values) => {
 					if ( !err ) {
 						console.log('Received values of form: ', values.username,values.password);
-                        userLogin(values).then(resp=>{
-                            console.log(resp.data)
-                            if(resp.data.code==0){
-                                this.$message.success(resp.data.message)
+                        userLogin(values).then(res=>{
+                            console.log(res.data)
+                            if(res.data==1){
+                                this.$message.success("welcome back")
                                 this.$router.push({path:"/home"})
                             }else{
-                                this.$message.error(resp.data.message)
+                                this.$message.error("wrong username or password")
                             }
                         })
 					}

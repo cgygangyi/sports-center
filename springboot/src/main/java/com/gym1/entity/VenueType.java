@@ -6,6 +6,10 @@ public class VenueType {
     private String introduction;
     private String type;
 
+    public VenueType( double price, String introduction, String type){
+        this.type = type;
+        this.introduction = introduction;
+    }
     public VenueType(int id, double price, String introduction, String type){
         this.id = id;
         this.type = type;

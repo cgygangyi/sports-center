@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -18,24 +18,26 @@ public class UserController {
 
     @PostMapping("/login")
     public int login(@RequestBody Map map){
-        System.out.println(map.get("username") + " , " + map.get("password"));
-//        User res = userService.loginService(username);
-//        if (res == null){
-//            return 0;
-//        }else if(res.getPassword().equals(password)){
-//            return 1;
-//        }else{
-//            return -1;
-//        }
-        return 1;
+
+        String username = (String) map.get("username");
+        String password = (String) map.get("password");
+
+        System.out.println(username);
+        System.out.println(password);
+        User res = userService.loginService(username);
+        if (res == null){
+            return 0;
+        }else if(res.getPassword().equals(password)){
+            return 1;
+        }else{
+            return -1;
+        }
     }
 
-    //@PostMapping("/register")
-    //public int register(@RequestParam Map<String,String> map){
-
-
-    //}
-
-
+    @PostMapping("/register")
+    public int register(@RequestBody Map map){
+        System.out.println(map);
+        return userService.registerService(map);
+    }
 
 }

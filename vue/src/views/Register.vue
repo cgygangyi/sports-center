@@ -17,8 +17,10 @@
 				<a-form-item class="mb-10">
 					<a-input
 						v-decorator="[
-						'Username',
-						{ rules: [{ required: true, message: 'Please input your username!' }] },
+						'username',
+						{ rules: [{ required: true, message: 'Please input your username!' },
+						            { max: 20, message: 'Max length of username is 20'},
+						            { min: 4, message: 'Min length of username is 4'}] },
 						]"
 						placeholder="Userame"
 					>
@@ -78,23 +80,25 @@
                 </a-form-item>
                 <a-form-item class="mb-10">
                     <a-input
-                        v-decorator="[
-						'age',
-                        { rules: [{ required: true, message: 'Please input your age!' }] },
-                        ]"
+                        v-decorator="['age']"
+                        type="number"
                         placeholder="Age"
                     >
                     </a-input>
                 </a-form-item>
                 <a-form-item class="mb-10">
-                    <a-input
-                        v-decorator="[
-                        'sex',
-						{ rules: [{ required: true, message: 'Please input your sex!' }] },
-						]"
-                        placeholder="Sex"
+                    <a-select
+                        v-decorator="['sex']"
+                        placeholder="Select a option and change input text above"
+                        @change="handleSelectChange"
                     >
-                    </a-input>
+                        <a-select-option value="Male">
+                            Male
+                        </a-select-option>
+                        <a-select-option value="Female">
+                            Female
+                        </a-select-option>
+                    </a-select>
                 </a-form-item>
 				<a-form-item>
 					<a-button type="primary" block html-type="submit" class="login-form-button">
@@ -110,21 +114,30 @@
 
 <script>
 
-	export default ({
+	import {userRegister} from "@/api/user";
+
+    export default ({
 		data() {
 			return {
 			}
 		},
 		beforeCreate() {
-			// Creates the form and adds to it component's "form" property.
 			this.form = this.$form.createForm(this, { name: 'normal_login' });
 		},
 		methods: {
-			// Handles input validation after submission.
 			handleSubmit(e) {
 				e.preventDefault();
 				this.form.validateFields((err, values) => {
 					if ( !err ) {
+                        userRegister(values).then(res => {
+                            console.log(res);
+                            if(res.data==-1){
+                                this.$message.error("username already exists")
+                            }else{
+                                this.$message.success("sign up successfully")
+                                this.$router.push({path:"/login"})
+                            }
+                        })
 						console.log('Received values of form: ', values) ;
 					}
 				});

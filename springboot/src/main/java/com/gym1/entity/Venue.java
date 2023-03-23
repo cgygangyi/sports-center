@@ -7,7 +7,14 @@ public class Venue {
     private String name;
     private String address;
     private double price;
-    private int personNum;
+
+    public Venue(int type, String name, String address, double price, int personNum) {
+        this.type = type;
+        this.name = name;
+        this.address = address;
+        this.price = price;
+
+    }
 
     public Venue(int id, int type, String name, String address, double price, int personNum) {
         this.id = id;
@@ -15,7 +22,7 @@ public class Venue {
         this.name = name;
         this.address = address;
         this.price = price;
-        this.personNum = personNum;
+
     }
 
     public int getId() {
@@ -58,13 +65,7 @@ public class Venue {
         this.price = price;
     }
 
-    public int getPersonNum() {
-        return personNum;
-    }
 
-    public void setPersonNum(int personNum) {
-        this.personNum = personNum;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -76,7 +77,6 @@ public class Venue {
         if (getId() != venue.getId()) return false;
         if (getType() != venue.getType()) return false;
         if (Double.compare(venue.getPrice(), getPrice()) != 0) return false;
-        if (getPersonNum() != venue.getPersonNum()) return false;
         if (getName() != null ? !getName().equals(venue.getName()) : venue.getName() != null) return false;
         return getAddress() != null ? getAddress().equals(venue.getAddress()) : venue.getAddress() == null;
     }
@@ -91,7 +91,6 @@ public class Venue {
         result = 31 * result + (getAddress() != null ? getAddress().hashCode() : 0);
         temp = Double.doubleToLongBits(getPrice());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + getPersonNum();
         return result;
     }
 
@@ -103,7 +102,6 @@ public class Venue {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", price=" + price +
-                ", personNum=" + personNum +
                 '}';
     }
 }
