@@ -13,7 +13,7 @@ public class User {
     private String email;
 
 
-    public User(String username, String password, int sex, String name,
+    public User( String username, String password, int sex, String name,
                 String phoneNumber, String email, int age){
         this.username = username;
         this.password = password;
@@ -23,8 +23,8 @@ public class User {
         this.email = email;
         this.age = age;
     }
-    public User(int id, int age, int sex, String username, String password, String phoneNumber,String name,
-                String email){
+    public User(int id, String username, String password, int sex, String name,
+                String phoneNumber, String email, int age){
         this.id = id;
         this.username = username;
         this.password = password;

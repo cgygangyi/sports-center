@@ -17,13 +17,11 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public int login(@RequestBody Map map){
+    public int login(@RequestParam Map map){
 
         String username = (String) map.get("username");
         String password = (String) map.get("password");
 
-        System.out.println(username);
-        System.out.println(password);
         User res = userService.loginService(username);
         if (res == null){
             return 0;
@@ -35,9 +33,21 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public int register(@RequestBody Map map){
-        System.out.println(map);
-        return userService.registerService(map);
+    public int register(@RequestParam Map<String,String> map){
+        String username = map.get("username");
+        String password = map.get("password");
+        String name = map.get("name");
+        String phoneNumber = map.get("phoneNumber");
+        String email = map.get("email");
+        int age = Integer.parseInt(map.get("age"));
+        String sex = map.get("sex");
+
+        User user = new User(username,password,name,phoneNumber,email,age,sex);
+        int res = userService.registerService(user);
+        return res;
+
     }
+
+
 
 }
