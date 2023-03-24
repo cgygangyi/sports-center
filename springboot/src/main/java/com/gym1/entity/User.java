@@ -4,17 +4,22 @@ import java.util.Objects;
 
 public class User {
     private int id;
-    private int sex;
     private int age;
+    private int sex;
     private String username;
     private String password;
-    private String name;
     private String phoneNumber;
+    private String name;
     private String email;
-
-
-    public User(String username, String password, int sex, String name,
-                String phoneNumber, String email, int age){
+    public User(String username, String password, String phoneNumber, String name,String email){
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+    public User(int age, int sex, String username, String password,
+                String phoneNumber, String name,String email){
         this.username = username;
         this.password = password;
         this.sex = sex;
@@ -23,8 +28,9 @@ public class User {
         this.email = email;
         this.age = age;
     }
-    public User(int id, String username, String password, int sex, String name,
-                String phoneNumber, String email, int age){
+
+    public User(int id, int age, int sex, String username, String password,
+                String phoneNumber, String name,String email){
         this.id = id;
         this.username = username;
         this.password = password;
