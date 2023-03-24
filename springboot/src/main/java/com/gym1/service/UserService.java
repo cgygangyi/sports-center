@@ -20,17 +20,39 @@ public class UserService {
         String name = map.get("name");
         String email = map.get("email");
         String phoneNumber = map.get("phoneNumber");
-        int age = Integer.parseInt(map.get("age"));
-        int sex = 1;
-        if(map.get("sex").equals("Female")){
-            sex = 0;
+
+        User user = new User(username, password, name, phoneNumber, email);
+
+        System.out.println("================================");
+        System.out.println(map.get("age") == null);
+        System.out.println(map.get("sex"));
+        if(map.get("age")==null && map.get("sex").equals("None")){
+
+        }else if(map.get("sex").equals("None")){
+            int age = Integer.parseInt(map.get("age"));
+            user.setAge(age);
+        }else if(map.get("age")==null){
+            System.out.println(user);
+            int sex = 1;
+            if(map.get("sex").equals("Female")){
+                sex = 0;
+            }
+            user.setSex(sex);
+        }else{
+            int age = Integer.parseInt(map.get("age"));
+            int sex = 1;
+            if(map.get("sex").equals("Female")){
+                sex = 0;
+            }
+            user.setSex(sex);
+            user.setAge(age);
         }
-        User user = new User(username, password, sex, name, phoneNumber, email, age);
+
         if(userMapper.queryUserByUsername(username) != null){
             return -1;
-        }else{
-            return userMapper.addUser(user);
         }
+        return userMapper.addUser(user);
+
     }
 
     public User loginService(String username){
