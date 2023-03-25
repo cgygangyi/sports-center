@@ -15,44 +15,41 @@ public class UserService {
     private UserMapper userMapper;
 
     public int registerService(Map<String, String> map){
+//        get parameters
         String username = map.get("username");
         String password = map.get("password");
+        String phoneNumber = map.get("phoneNumber");
         String name = map.get("name");
         String email = map.get("email");
-        String phoneNumber = map.get("phoneNumber");
-
-        User user = new User(username, password, name, phoneNumber, email);
-
-        System.out.println("================================");
-        System.out.println(map.get("age") == null);
-        System.out.println(map.get("sex"));
-        if(map.get("age")==null && map.get("sex").equals("None")){
-
-        }else if(map.get("sex").equals("None")){
-            int age = Integer.parseInt(map.get("age"));
-            user.setAge(age);
-        }else if(map.get("age")==null){
-            System.out.println(user);
-            int sex = 1;
-            if(map.get("sex").equals("Female")){
-                sex = 0;
+        User user = new User(username, password, phoneNumber, name, email);
+        String sex = map.get("sex");
+        String age = map.get("age");
+//        judge if the potential parameters are entered
+        if(age != null || !sex.equals("None")){
+            if(age == null){
+                int temp = 1;
+                if(sex.equals("Female")){
+                    temp = 0;
+                }
+                user.setSex(temp);
+                user.setAge(-1);
+            } else if (sex.equals("None")) {
+                user.setAge(Integer.parseInt(age));
+            }else{
+                int temp = 1;
+                if(sex.equals("Female")){
+                    temp = 0;
+                }
+                user.setSex(temp);
+                user.setAge(Integer.parseInt(age));
             }
-            user.setSex(sex);
-        }else{
-            int age = Integer.parseInt(map.get("age"));
-            int sex = 1;
-            if(map.get("sex").equals("Female")){
-                sex = 0;
-            }
-            user.setSex(sex);
-            user.setAge(age);
         }
-
-        if(userMapper.queryUserByUsername(username) != null){
+//        judge if the username is existed
+        if(userMapper.queryUserByUsername(username) == null){
             return -1;
+        }else{
+            return userMapper.addUser(user);
         }
-        return userMapper.addUser(user);
-
     }
 
     public User loginService(String username){
