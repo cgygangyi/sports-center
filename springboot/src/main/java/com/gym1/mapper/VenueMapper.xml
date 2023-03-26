@@ -6,7 +6,8 @@
 <mapper namespace="com.gym1.mapper.VenueMapper">
 
     <select id="queryAllVenue" resultType="com.gym1.entity.Venue">
-        select * from venue
+        select *
+        from venue
     </select>
 
 

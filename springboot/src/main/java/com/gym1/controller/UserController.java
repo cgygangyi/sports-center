@@ -17,10 +17,12 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
+    HttpServletRequest request;
+    @Autowired
     private UserService userService;
 
     @PostMapping("/login")
-    public int login(HttpServletRequest request, @RequestParam Map map){
+    public int login(@RequestBody Map map){
 
         String username = (String) map.get("username");
         String password = (String) map.get("password");
