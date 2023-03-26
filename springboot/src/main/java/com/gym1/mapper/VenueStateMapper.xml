@@ -3,11 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="gms.cuit.mapper.VenueStateMapper">
-    <select id="queryAllVenue" resultType="com.gym1.entity.VenueState">
+<mapper namespace="com.gym1.mapper.VenueStateMapper">
+
+    <select id="queryVenueStateByIdDate" resultType="com.gym1.entity.VenueState">
         select *
         from venue_state
-        where id=#{id}
-          and before between #{now} and #{max}
+        where venueId=#{id}
+          and begin between #{now} and #{max}
     </select>
+
 </mapper>

@@ -2,6 +2,7 @@ package com.gym1.controller;
 
 import com.gym1.entity.User;
 import com.gym1.service.UserService;
+import com.gym1.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ public class UserController {
     HttpServletRequest request;
     @Autowired
     private UserService userService;
+    @Autowired
+    private VenueService venueService;
+
 
     @PostMapping("/login")
     public int login(@RequestBody Map map){

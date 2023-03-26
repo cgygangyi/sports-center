@@ -1,7 +1,11 @@
 package com.gym1.mapper;
 
 import com.gym1.entity.VenueType;
+import org.apache.ibatis.annotations.Mapper;
 
+
+
+@Mapper
 public interface VenueTypeMapper {
 
     int addVenueType(VenueType venueType);
