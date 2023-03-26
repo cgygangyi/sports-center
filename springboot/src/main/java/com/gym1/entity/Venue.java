@@ -8,7 +8,7 @@ public class Venue {
     private String address;
     private double price;
 
-    public Venue(int type, String name, String address, double price, int personNum) {
+    public Venue(int type, String name, String address, double price) {
         this.type = type;
         this.name = name;
         this.address = address;
@@ -16,7 +16,7 @@ public class Venue {
 
     }
 
-    public Venue(int id, int type, String name, String address, double price, int personNum) {
+    public Venue(int id, int type, String name, String address, double price) {
         this.id = id;
         this.type = type;
         this.name = name;

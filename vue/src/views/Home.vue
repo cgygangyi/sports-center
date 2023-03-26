@@ -1,9 +1,7 @@
 <template>
     <div>
-        <!-- Counter Widgets -->
         <a-row :gutter="24">
             <a-col :span="24" :lg="12" :xl="6" class="mb-24" v-for="(stat, index) in stats" :key="index">
-                <!-- Widget 1 Card -->
                 <WidgetCounter
                     :title="stat.title"
                     :value="stat.value"
@@ -12,57 +10,41 @@
                     :icon="stat.icon"
                     :status="stat.status"
                 ></WidgetCounter>
-                <!-- / Widget 1 Card -->
             </a-col>
         </a-row>
-        <!-- / Counter Widgets -->
 
-        <!-- Cards -->
-        <a-row :gutter="24" type="flex" align="stretch">
-            <a-col :span="24" :xl="12" class="mb-24">
 
-                <!-- Information Card 1 -->
-                <CardInfo
-                :data="venueData"
-                ></CardInfo>
-                <!-- / Information Card 1 -->
+        <a-card :bordered="false" class="header-solid h-full mb-24" :bodyStyle="{paddingTop: '14px'}">
+            <template #title>
+                <h6 class="font-semibold">{{a}}</h6>
+            </template>
 
-            </a-col>
-            <a-col :span="24" :xl="12" class="mb-24">
-
-                <!-- Information Card 2 -->
-                <CardInfo2></CardInfo2>
-                <!-- / Information Card 2 -->
-
-            </a-col>
-        </a-row>
-        <!-- / Cards -->
-        <a-button type="primary" @click="showModal">
-            Open Modal
-        </a-button>
-        <a-modal v-model="visible" title="Basic Modal" @ok="handleOk">
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-        </a-modal>
+            <a-row type="flex" :gutter="[24,24]" align="stretch">
+                <a-col :span="24" :md="12" :xl="6" v-for="(project, index) in projects" :key="index">
+                    <CardProject
+                        :id="project.id"
+                        :name="project.name"
+                        :address="project.address"
+                        :cover="project.cover"
+                        :price="project.price"
+                        class="mb-15"
+                    ></CardProject>
+                </a-col>
+            </a-row>
+        </a-card>
     </div>
 </template>
 
 <script>
 // Counter Widgets
 import WidgetCounter from '../components/Widgets/WidgetCounter' ;
-
-// Information card 1.
-import CardInfo from '../components/Cards/CardInfo' ;
-
-// Information card 2.
-import CardInfo2 from '../components/Cards/CardInfo2' ;
+import CardProject from "../components/Cards/CardProject";
 
 // Counter Widgets stats
 const stats = [
     {
         title: "Real-time attendance",
-        value: 3200,
+        value: 32,
         icon: `
 						<svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M9 6C9 7.65685 7.65685 9 6 9C4.34315 9 3 7.65685 3 6C3 4.34315 4.34315 3 6 3C7.65685 3 9 4.34315 9 6Z" fill="#111827"/>
@@ -73,18 +55,40 @@ const stats = [
     },
 ] ;
 
+import {getAllVenues} from '../api/venue';
+import {getUserSession} from "@/api/user";
+
 export default ({
     components: {
         WidgetCounter,
-        CardInfo,
-        CardInfo2,
+        CardProject
     },
     data() {
         return {
+            a:'',
             visible: false,
-            stats
+            stats,
+            projects:[],
         }
     },
+
+    beforeCreate() {
+        getUserSession(12345678).then((response) => {
+            console.log(response)
+            window.sessionStorage.setItem("user", response.data);
+        });
+        getAllVenues().then((response) => {
+            this.a = window.sessionStorage.getItem('user');
+            console.log(this.a);
+            let img = ['images/venue-1.jpeg', 'images/venue-2.jpeg', 'images/venue-3.jpeg', "images/venue-4.jpeg", "images/venue-5.jpeg"];
+            this.projects = response.data;
+            for (let i = 0; i < this.projects.length; i++) {
+                let index = parseInt(Math.random() * img.length);
+                this.projects[i].cover = img[index];
+            }
+        });
+    },
+
     methods: {
         showModal() {
             this.visible = true;
@@ -95,6 +99,8 @@ export default ({
         },
     },
 })
+
+
 
 </script>
 

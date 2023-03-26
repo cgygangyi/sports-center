@@ -20,3 +20,11 @@ export function userRegister(map) {
         data: map
     })
 }
+
+// get user session
+export function getUserSession(id) {
+    return request({
+        url: '/user/getSession/' + id,
+        method: 'get',
+    })
+}

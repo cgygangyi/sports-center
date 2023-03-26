@@ -1,45 +1,46 @@
 <template>
-
-	<!-- Project Card -->
 	<a-card class="card-project">
-		<img
-			slot="cover"
-			alt="example"
-			:src="cover"
-		/>
-		<div class="card-tag">Project #{{ id }}</div>
-		<h5>{{ title }}</h5>
+		<img slot="cover" alt="example" :src="cover" width="1920" height="200"/>
+		<div class="card-tag">id: {{ id }}</div>
+		<h5>{{ name }}</h5>
 		<p>
-			{{ content }}
+			{{ address }}
 		</p>
+        <p>
+            price: {{ price }} CNY/hour
+        </p>
 		<a-row type="flex" :gutter="6" class="card-footer" align="middle">
 			<a-col :span="12">
-				<a-button size="small">VIEW PROJECT</a-button>
-			</a-col>
-			<a-col :span="12" class="text-right">
-				<a-space :size="-12" class="avatar-chips">
-					<a-avatar  size="small" v-for="(img, index) in team" :key="index" :src="img" />
-				</a-space>
+                <div>
+                    <a-button size="small" @click="showModal">Book</a-button>
+                    <a-modal
+                        title="Title"
+                        :visible="visible"
+                        :confirm-loading="confirmLoading"
+                        @ok="handleOk"
+                        @cancel="handleCancel"
+                    >
+                        <p>{{ ModalText }}</p>
+                    </a-modal>
+                </div>
 			</a-col>
 		</a-row>
 	</a-card>
-	<!-- / Project Card -->
 
 </template>
 
 <script>
-
 	export default ({
 		props: {
 			id: {
 				type: Number,
 				required: true,
 			},
-			title: {
+			name: {
 				type: String,
 				default: "",
 			},
-			content: {
+			address: {
 				type: String,
 				default: "",
 			},
@@ -47,15 +48,36 @@
 				type: String,
 				default: "",
 			},
-			team: {
-				type: Array,
-				default: () => [],
-			},
+            price: {
+                type: Number,
+                default: 0,
+            },
 		},
 		data() {
 			return {
+                ModalText: 'Content of the modal',
+                visible: false,
+                confirmLoading: false,
 			}
 		},
-	})
 
+        methods: {
+            showModal() {
+                this.visible = true;
+                this.ModalText = 'Content of the modal';
+            },
+            handleOk(e) {
+                this.ModalText = 'Booking......';
+                this.confirmLoading = true;
+                setTimeout(() => {
+                    this.visible = false;
+                    this.confirmLoading = false;
+                }, 1000);
+            },
+            handleCancel(e) {
+                console.log('Clicked cancel button');
+                this.visible = false;
+            },
+        },
+    })
 </script>

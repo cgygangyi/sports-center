@@ -5,7 +5,7 @@ import request from "../utils/request";
 // get all venues
 export function getAllVenues() {
     return request({
-        url: '/venue/all',
+        url: '/venue/getAll',
         method: 'get',
     })
 }
