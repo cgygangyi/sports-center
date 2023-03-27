@@ -1,17 +1,17 @@
 <template>
     <div>
-        <a-row>
-            <a-col :span="4"></a-col>
+        <a-row :gutter="[8,8]">
+            <a-col :span="5"></a-col>
             <a-col :span="4">3.28</a-col>
             <a-col :span="4">3.29</a-col>
             <a-col :span="4">3.30</a-col>
             <a-col :span="4">3.31</a-col>
         </a-row>
-        <a-row v-for="(index,i) in list" bordered title="Custom Size">
-            <a-col :span="4">
-                {{ index }}
+        <a-row v-for="(index,i) in list" bordered title="Custom Size" :gutter="[8,8]">
+            <a-col :span="5">
+                {{ index+9-3*i+':00 - ' + (index+10-3*i)+':00' }}
             </a-col>
-            <a-col :span="4" :id="index" @click="isClick(index)" style="border: 0;">&nbsp;&nbsp;&nbsp;</a-col>
+            <a-col :span="4" :id="index" @click="isClick(index)" style="background-color: #52C41A">&nbsp;&nbsp;&nbsp;</a-col>
             <a-col :span="4" :id="index+1" @click="isClick(index+1)">&nbsp;&nbsp;&nbsp;</a-col>
             <a-col :span="4" :id="index+2" @click="isClick(index+2)">&nbsp;&nbsp;&nbsp;</a-col>
             <a-col :span="4" :id="index+3" @click="isClick(index+3)">&nbsp;&nbsp;&nbsp;</a-col>
@@ -22,9 +22,6 @@
 
 <script>
 
-window.onload=function () {
-
-}
 
 export default {
     components: {
@@ -76,7 +73,7 @@ export default {
 </script>
 
 <style>
-    a-row {
-        border: solid 1px black;
+    a-col {
+        background-color: gray;
     }
 </style>

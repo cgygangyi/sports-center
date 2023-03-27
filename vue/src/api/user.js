@@ -28,3 +28,12 @@ export function getUserSession(id) {
         method: 'get',
     })
 }
+
+// edit user profile
+export function editUserProfile(map) {
+    return request({
+        url: '/user/editProfile',
+        method: 'post',
+        data: map
+    })
+}

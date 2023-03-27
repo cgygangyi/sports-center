@@ -4,6 +4,7 @@ import 'ant-design-vue/dist/antd.css';
 import App from './App.vue'
 import DefaultLayout from './layouts/Default.vue'
 import DashboardLayout from './layouts/Dashboard.vue'
+import AdminDashboardLayout from './layouts/AdminDashboard.vue'
 import router from './router'
 
 import './scss/app.scss';
@@ -15,6 +16,7 @@ Vue.config.productionTip = false
 // Adding template layouts to the vue components.
 Vue.component("layout-default", DefaultLayout);
 Vue.component("layout-dashboard", DashboardLayout);
+Vue.component("layout-admindashboard", AdminDashboardLayout);
 
 new Vue({
   router,

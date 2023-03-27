@@ -43,16 +43,22 @@ let routes = [
 		component: () => import('../views/Profile.vue'),
 	},
 	{
-		path: '/admin',
+		path: '/admin/venues',
 		name: 'admin',
-		layout: "dashboard",
-		component: () => import('../views/Admin.vue'),
+		layout: "admindashboard",
+		component: () => import('../views/AdminVenues.vue'),
 	},
 	{
 		path: '/timepicker',
 		name: 'time',
 		component: () => import('../views/TimePicker.vue'),
 	},
+	{
+		path: '/payment',
+		name: 'payment',
+		layout: "dashboard",
+		component: () => import('../views/Payment.vue'),
+	}
 ]
 
 // Adding layout property from each route to the meta
@@ -88,6 +94,23 @@ const router = new VueRouter({
 			behavior: 'smooth',
 		}
 	}
+})
+
+router.beforeEach((to, from, next) => {
+	let token = sessionStorage.getItem('user')
+	if (to.path == '/login' || to.path == '/register') {
+		next()
+	} else if (token.username=='admin' && (to.path == '/admin/venues' || to.path == '/admin/users' || to.path == 'admin/bills')) {
+		next()
+	}
+	else {
+		if (token == '' || token == null) {
+			next('/login');
+		} else {
+			next()
+		}
+	}
+
 })
 
 export default router

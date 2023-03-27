@@ -71,9 +71,14 @@
                             if(res.data==null){
                                 this.$message.error("wrong username or password")
                             }else{
-                                this.$message.success("welcome back")
-                                this.$router.push({path:"/home"})
                                 sessionStorage.setItem("user", JSON.stringify(res.data))
+                                this.$message.success("welcome back")
+                                // check admin
+                                if(res.data.username=="admin"){
+                                    console.log(res.data.username)
+                                    this.$router.push({path:"/admin/venues"})
+                                }
+                                this.$router.push({path:"/home"})
                                 //check
                                 console.log(JSON.parse(sessionStorage.getItem("user")))
                             }

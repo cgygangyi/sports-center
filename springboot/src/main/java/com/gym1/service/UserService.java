@@ -45,7 +45,7 @@ public class UserService {
             }
         }
 //        judge if the username is existed
-        if(userMapper.queryUserByUsername(username) == null){
+        if(userMapper.queryUserByUsername(username) != null){
             return -1;
         }else{
             return userMapper.addUser(user);

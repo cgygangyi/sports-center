@@ -12,13 +12,12 @@
             <div slot="nextArrow" slot-scope="props" class="custom-slick-arrow" style="right: 10px">
                 <a-icon type="right-circle" />
             </div>
-            <div><img src="images/carousel-1.jpeg" alt="" width="100%"></div>
-            <div><img src="images/carousel-2.jpeg" alt="" width="100%"></div>
-            <div><img src="images/carousel-3.jpeg" alt="" width="100%"></div>
-            <div><img src="images/carousel-1.jpeg" alt="" width="100%"></div>
+            <div><img src="images/carousel-1.jpeg" alt="" height="380px"></div>
+            <div><img src="images/carousel-2.jpeg" alt="" height="380px"></div>
+            <div><img src="images/carousel-3.jpeg" alt="" height="380px"></div>
         </a-carousel>
-        <a-row :gutter="24">
-            <a-col :span="24" :lg="12" :xl="6" class="mb-24" v-for="(stat, index) in stats" :key="index">
+        <a-row :gutter="24" style="margin-bottom: 20px; margin-top: 20px">
+            <a-col :span="24" :lg="12" :xl="6" class="my-24" v-for="(stat, index) in stats" :key="index">
                 <WidgetCounter
                     :title="stat.title"
                     :value="stat.value"
@@ -29,17 +28,25 @@
                 ></WidgetCounter>
             </a-col>
         </a-row>
+        <a-col :span="24" :lg="24" class="mb-24">
+
+            <!-- Orders History Timeline Card -->
+            <CardOrderHistory></CardOrderHistory>
+            <!-- / Orders History Timeline Card -->
+
+        </a-col>
     </div>
 </template>
 
 <script>
 import WidgetCounter from '../components/Widgets/WidgetCounter' ;
+import CardOrderHistory from '../components/Cards/CardOrderHistory' ;
 
 // Counter Widgets stats
 const stats = [
     {
         title: "Real-time attendance",
-        value: 32,
+        value: 4,
         icon: `
 						<svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M9 6C9 7.65685 7.65685 9 6 9C4.34315 9 3 7.65685 3 6C3 4.34315 4.34315 3 6 3C7.65685 3 9 4.34315 9 6Z" fill="#111827"/>
@@ -54,6 +61,7 @@ const stats = [
 export default ({
     components: {
         WidgetCounter,
+        CardOrderHistory,
     },
     data() {
         return {
@@ -76,8 +84,8 @@ export default ({
 /* For demo */
 .ant-carousel >>> .slick-slide {
     text-align: center;
-    height: 480px;
-    line-height: 480px;
+    height: 380px;
+    line-height: 380px;
     background: #364d79;
     overflow: hidden;
 }

@@ -13,7 +13,7 @@
 						</div>
 					</a-col>
 					<a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
-                        <a-button size="small">Edit </a-button>
+                        <a-button size="small" @click="geta()">Edit </a-button>
 					</a-col>
 				</a-row>
 			</template>
@@ -21,7 +21,16 @@
 
 		<a-row type="flex" :gutter="24">
 			<a-col :span="24" :md="8" class="mb-24">
-				<CardProfileInformation></CardProfileInformation>
+				<CardProfileInformation
+                :id="id"
+                :username="username"
+                :age="age"
+                :email="email"
+                :name="name"
+                :password="password"
+                :phoneNumber="phoneNumber"
+                :sex="sex"
+                ></CardProfileInformation>
 			</a-col>
 
             <a-col :span="24" :md="16" class="mb-24">
@@ -47,28 +56,38 @@
 		},
 		data() {
 			return {
-
 				profileHeaderBtns: 'overview',
                 id: 1,
-                username: "",
+                username: '',
                 age: 0,
-                email: "",
-                name: "",
-                password: "",
-                phoneNumber: "",
-                sex: 0,
+                email: '',
+                name: '',
+                password: 0,
+                phoneNumber: this.user.phoneNumber,
+                sex: '',
 			}
 		},
-        start() {
-            // get user session
-            let user = JSON.parse(localStorage.getItem("user"));
+        beforeCreate() {
+            let user = JSON.parse(sessionStorage.getItem("user"));
             this.id = user.id;
             this.username = user.username;
             this.age = user.age;
             this.email = user.email;
             this.name = user.name;
             this.password = user.password;
-            console.log(user);
+            this.phoneNumber = user.phoneNumber;
+            if (user.sex === 1) {
+                this.sex = 'Male'
+            }
+            else {
+                this.sex = 'Female'
+            }
+        },
+        methods: {
+            geta() {
+                console.log(this.username);
+                console.log(JSON.parse(sessionStorage.getItem("user")));
+            }
         }
     })
 
