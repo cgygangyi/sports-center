@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
+
 @RestController
 @CrossOrigin
 @RequestMapping("/user")
@@ -26,22 +27,24 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public int login(@RequestBody Map map){
+    public User login(@RequestBody Map map){
 
         String username = (String) map.get("username");
         String password = (String) map.get("password");
         User res = userService.loginService(username);
         if (res == null){
-            return 0;
+            return null;
         }else if(res.getPassword().equals(password)){
             HttpSession session = request.getSession();
+            System.out.println(session);
             if(session.getAttribute("user") != null){
                 session.removeAttribute("user");
             }
             session.setAttribute("user", res);
-            return 1;
+            System.out.println(session.getAttribute("user"));
+            return res;
         }else{
-            return -1;
+            return null;
         }
     }
 

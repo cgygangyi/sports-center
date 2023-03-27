@@ -15,7 +15,7 @@ public interface VenueMapper {
     List<Venue> queryAllVenue();
     List<Venue> queryVenueByType(String type);
     List<Venue> queryVenueByName(String name);
-
+    List<Venue> queryVenueByNameType(String type, String name);
 
 
 
