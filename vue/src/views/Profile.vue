@@ -18,18 +18,17 @@
 				</a-row>
 			</template>
 		</a-card>
-		<!-- User Profile Card -->
 
 		<a-row type="flex" :gutter="24">
 			<a-col :span="24" :md="8" class="mb-24">
 				<CardProfileInformation></CardProfileInformation>
 			</a-col>
 
-			<a-col :span="24" :md="8" class="mb-24">
-				<CardConversations
-					:data="conversationsData"
-				></CardConversations>
-			</a-col>
+            <a-col :span="24" :md="16" class="mb-24">
+
+                <CardBillingInfo></CardBillingInfo>
+
+            </a-col>
 		</a-row>
 	</div>
 </template>
@@ -38,57 +37,40 @@
 
 	import CardPlatformSettings from "../components/Cards/CardPlatformSettings"
 	import CardProfileInformation from "../components/Cards/CardProfileInformation"
-	import CardConversations from "../components/Cards/CardConversations"
-
-	// Conversation's list data.
-	const conversationsData = [
-		{
-			id: "1",
-			title: "Sophie B.",
-			code: "Hi! I need more information…",
-			avatar: "images/face-3.jpg",
-		},
-		{
-			id: "2",
-			title: "Anne Marie",
-			code: "Awesome work, can you…",
-			avatar: "images/face-4.jpg",
-		},
-		{
-			id: "3",
-			title: "Ivan",
-			code: "About files I can…",
-			avatar: "images/face-5.jpeg",
-		},
-		{
-			id: "4",
-			title: "Peterson",
-			code: "Have a great afternoon…",
-			avatar: "images/face-6.jpeg",
-		},
-		{
-			id: "5",
-			title: "Nick Daniel",
-			code: "Hi! I need more information…",
-			avatar: "images/face-2.jpg",
-		},
-	] ;
+    import CardBillingInfo from "../components/Cards/CardBillingInfo"
 
 	export default ({
 		components: {
 			CardPlatformSettings,
 			CardProfileInformation,
-			CardConversations,
+            CardBillingInfo
 		},
 		data() {
 			return {
-                username: "admin",
-				profileHeaderBtns: 'overview',
-				conversationsData,
 
+				profileHeaderBtns: 'overview',
+                id: 1,
+                username: "",
+                age: 0,
+                email: "",
+                name: "",
+                password: "",
+                phoneNumber: "",
+                sex: 0,
 			}
 		},
-	})
+        start() {
+            // get user session
+            let user = JSON.parse(localStorage.getItem("user"));
+            this.id = user.id;
+            this.username = user.username;
+            this.age = user.age;
+            this.email = user.email;
+            this.name = user.name;
+            this.password = user.password;
+            console.log(user);
+        }
+    })
 
 </script>
 

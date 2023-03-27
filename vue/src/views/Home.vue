@@ -1,5 +1,22 @@
 <template>
     <div>
+        <a-carousel arrows>
+            <div
+                slot="prevArrow"
+                slot-scope="props"
+                class="custom-slick-arrow"
+                style="left: 10px;zIndex: 1"
+            >
+                <a-icon type="left-circle" />
+            </div>
+            <div slot="nextArrow" slot-scope="props" class="custom-slick-arrow" style="right: 10px">
+                <a-icon type="right-circle" />
+            </div>
+            <div><img src="images/carousel-1.jpeg" alt="" width="100%"></div>
+            <div><img src="images/carousel-2.jpeg" alt="" width="100%"></div>
+            <div><img src="images/carousel-3.jpeg" alt="" width="100%"></div>
+            <div><img src="images/carousel-1.jpeg" alt="" width="100%"></div>
+        </a-carousel>
         <a-row :gutter="24">
             <a-col :span="24" :lg="12" :xl="6" class="mb-24" v-for="(stat, index) in stats" :key="index">
                 <WidgetCounter
@@ -12,33 +29,11 @@
                 ></WidgetCounter>
             </a-col>
         </a-row>
-
-
-        <a-card :bordered="false" class="header-solid h-full mb-24" :bodyStyle="{paddingTop: '14px'}">
-            <template #title>
-                <h6 class="font-semibold">{{a}}</h6>
-            </template>
-
-            <a-row type="flex" :gutter="[24,24]" align="stretch">
-                <a-col :span="24" :md="12" :xl="6" v-for="(project, index) in projects" :key="index">
-                    <CardProject
-                        :id="project.id"
-                        :name="project.name"
-                        :address="project.address"
-                        :cover="project.cover"
-                        :price="project.price"
-                        class="mb-15"
-                    ></CardProject>
-                </a-col>
-            </a-row>
-        </a-card>
     </div>
 </template>
 
 <script>
-// Counter Widgets
 import WidgetCounter from '../components/Widgets/WidgetCounter' ;
-import CardProject from "../components/Cards/CardProject";
 
 // Counter Widgets stats
 const stats = [
@@ -55,48 +50,21 @@ const stats = [
     },
 ] ;
 
-import {getAllVenues} from '../api/venue';
-import {getUserSession} from "@/api/user";
 
 export default ({
     components: {
         WidgetCounter,
-        CardProject
     },
     data() {
         return {
-            a:'',
-            visible: false,
             stats,
-            projects:[],
         }
     },
 
     beforeCreate() {
-        getUserSession(12345678).then((response) => {
-            console.log(response)
-            window.sessionStorage.setItem("user", response.data);
-        });
-        getAllVenues().then((response) => {
-            this.a = window.sessionStorage.getItem('user');
-            console.log(this.a);
-            let img = ['images/venue-1.jpeg', 'images/venue-2.jpeg', 'images/venue-3.jpeg', "images/venue-4.jpeg", "images/venue-5.jpeg"];
-            this.projects = response.data;
-            for (let i = 0; i < this.projects.length; i++) {
-                let index = parseInt(Math.random() * img.length);
-                this.projects[i].cover = img[index];
-            }
-        });
     },
 
     methods: {
-        showModal() {
-            this.visible = true;
-        },
-        handleOk(e) {
-            console.log(e);
-            this.visible = false;
-        },
     },
 })
 
@@ -104,5 +72,32 @@ export default ({
 
 </script>
 
-<style lang="scss">
+<style scoped>
+/* For demo */
+.ant-carousel >>> .slick-slide {
+    text-align: center;
+    height: 480px;
+    line-height: 480px;
+    background: #364d79;
+    overflow: hidden;
+}
+
+.ant-carousel >>> .custom-slick-arrow {
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
+    color: #fff;
+    background-color: rgba(31, 45, 61, 0.41);
+    opacity: 0.3;
+}
+.ant-carousel >>> .custom-slick-arrow:before {
+    display: none;
+}
+.ant-carousel >>> .custom-slick-arrow:hover {
+    opacity: 0.5;
+}
+
+.ant-carousel >>> .slick-slide h3 {
+    color: #fff;
+}
 </style>

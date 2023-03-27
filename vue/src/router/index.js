@@ -18,7 +18,13 @@ let routes = [
 		path: '/home',
 		name: 'Home',
 		layout: "dashboard",
-		component: () => import(/* webpackChunkName: "dashboard" */ '../views/Home.vue'),
+		component: () => import('../views/Home.vue'),
+	},
+	{
+		path: '/venues',
+		name: 'Venues',
+		layout: "dashboard",
+		component: () => import('../views/Venues.vue'),
 	},
 	{
 		path: '/login',
@@ -47,11 +53,6 @@ let routes = [
 		name: 'time',
 		component: () => import('../views/TimePicker.vue'),
 	},
-	{
-		path: '/timepicker2',
-		name: 'time2',
-		component: () => import('../views/TimePicker2.vue'),
-	}
 ]
 
 // Adding layout property from each route to the meta

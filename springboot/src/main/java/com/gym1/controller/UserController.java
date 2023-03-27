@@ -2,6 +2,7 @@ package com.gym1.controller;
 
 import com.gym1.entity.User;
 import com.gym1.service.UserService;
+import com.gym1.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -17,27 +18,30 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
+    HttpServletRequest request;
+    @Autowired
     private UserService userService;
+    @Autowired
+    private VenueService venueService;
 
 
     @PostMapping("/login")
-    public int login(HttpServletRequest request, @RequestBody Map map){
+    public User login(@RequestBody Map map){
 
         String username = (String) map.get("username");
         String password = (String) map.get("password");
         User res = userService.loginService(username);
         if (res == null){
-            return 0;
+            return null;
         }else if(res.getPassword().equals(password)){
             HttpSession session = request.getSession();
             if(session.getAttribute("user") != null){
                 session.removeAttribute("user");
             }
-            session.setAttribute("user", res.getPassword());
-            System.out.println(session.getAttribute("user"));
-            return 1;
+            session.setAttribute("user", res);
+            return res;
         }else{
-            return -1;
+            return null;
         }
     }
 
@@ -61,12 +65,6 @@ public class UserController {
         }else{
             return 1;
         }
-    }
-
-    @GetMapping("/getSession/{id}")
-    public String getSession(@PathVariable Integer id){
-        System.out.println(id);
-        return "11111";
     }
 
 }

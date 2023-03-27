@@ -20,7 +20,6 @@
                 <DashboardHeader
                     :sidebarCollapsed="sidebarCollapsed"
                     :navbarFixed="navbarFixed"
-                    @toggleSettingsDrawer="toggleSettingsDrawer"
                     @toggleSidebar="toggleSidebar"
                 ></DashboardHeader>
                 <!-- / Layout Header's Conditionally Fixed Wrapper -->

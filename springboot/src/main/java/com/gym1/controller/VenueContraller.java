@@ -18,7 +18,6 @@ public class VenueContraller {
 
     @GetMapping("/getAll")
     public List<Venue> getAll(){
-        System.out.println(venueService.getAllVenue());
         return venueService.getAllVenue();
     }
 

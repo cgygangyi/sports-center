@@ -1,0 +1,64 @@
+<template>
+    <div>
+        <a-card :bordered="false" class="header-solid h-full mb-24" :bodyStyle="{paddingTop: '14px'}">
+            <a-row type="flex" :gutter="[24,24]" align="stretch">
+                <a-col :span="24" :md="12" :xl="6" v-for="(project, index) in projects" :key="index">
+                    <CardProject
+                        :id="project.id"
+                        :name="project.name"
+                        :address="project.address"
+                        :cover="project.cover"
+                        :price="project.price"
+                        class="mb-15"
+                    ></CardProject>
+                </a-col>
+            </a-row>
+        </a-card>
+    </div>
+</template>
+
+<script>
+import CardProject from "../components/Cards/CardProject";
+
+import {getAllVenues} from '../api/venue';
+
+export default ({
+    components: {
+        CardProject,
+    },
+    data() {
+        return {
+            a:'',
+            visible: false,
+            projects:[],
+        }
+    },
+
+    beforeCreate() {
+        getAllVenues().then((response) => {
+            let img = ['images/venue-1.jpeg', 'images/venue-2.jpeg', 'images/venue-3.jpeg', "images/venue-4.jpeg", "images/venue-5.jpeg"];
+            this.projects = response.data;
+            for (let i = 0; i < this.projects.length; i++) {
+                let index = parseInt(Math.random() * img.length);
+                this.projects[i].cover = img[index];
+            }
+        });
+    },
+
+    methods: {
+        showModal() {
+            this.visible = true;
+        },
+        handleOk(e) {
+            console.log(e);
+            this.visible = false;
+        },
+    },
+})
+
+
+
+</script>
+
+<style lang="scss">
+</style>

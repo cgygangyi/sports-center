@@ -66,14 +66,16 @@
 				e.preventDefault();
 				this.form.validateFields((err, values) => {
 					if ( !err ) {
-						console.log('Received values of form: ', values.username,values.password);
                         userLogin(values).then(res=>{
                             console.log(res.data)
-                            if(res.data==1){
+                            if(res.data==null){
+                                this.$message.error("wrong username or password")
+                            }else{
                                 this.$message.success("welcome back")
                                 this.$router.push({path:"/home"})
-                            }else{
-                                this.$message.error("wrong username or password")
+                                sessionStorage.setItem("user", JSON.stringify(res.data))
+                                //check
+                                console.log(JSON.parse(sessionStorage.getItem("user")))
                             }
                         })
 					}

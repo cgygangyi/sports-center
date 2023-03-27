@@ -6,39 +6,63 @@
                     <div id="kuang" :style="{width:kuangObj.width+'px',height:kuangObj.height+'px',top:kuangObj.top+'px',left:kuangObj.left+'px',bottom:kuangObj.bottom+'px',right:kuangObj.right+'px'}"></div>
                     <table class="calendar-table" style="width:800px">
                         <thead class="calendar-head"><tr>
-                            <th rowspan="6" class="week-td">Day/Time</th>
-                            <th colspan="12">09:00 - 22:00</th>
+                            <th rowspan="6" class="week-td"></th>
+                            <th colspan="4">Day</th>
                         <tr>
                             <td colspan="1" v-for="index in tableHeader">{{index}}</td>
                         </tr>
                         </thead>
                         <tbody id="tableBody">
                         <tr>
-                            <td>Monday</td>
+                            <td>09:00 - 10:00</td>
                             <td @mousedown.prevent="handleMouseDown(i,0)" @mouseup.prevent="handleMouseUp(i,0)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[0]"></td>
                         </tr>
                         <tr>
-                            <td>Tuesday</td>
+                            <td>10:00 - 11:00</td>
                             <td @mousedown.prevent="handleMouseDown(i,1)" @mouseup.prevent="handleMouseUp(i,1)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[1]"></td>
                         </tr>
                         <tr>
-                            <td>Wednesday</td>
+                            <td>11:00 - 12:00</td>
                             <td @mousedown.prevent="handleMouseDown(i,2)" @mouseup.prevent="handleMouseUp(i,2)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[2]"></td>
                         </tr>
                         <tr>
-                            <td>Thursday</td>
+                            <td>12:00 - 13:00</td>
                             <td @mousedown.prevent="handleMouseDown(i,3)" @mouseup.prevent="handleMouseUp(i,3)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[3]"></td>
                         </tr>
                         <tr>
-                            <td>Friday</td>
+                            <td>13:00 - 14:00</td>
                             <td @mousedown.prevent="handleMouseDown(i,4)" @mouseup.prevent="handleMouseUp(i,4)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[4]"></td>
                         </tr>
                         <tr>
-                            <td>Saturday</td>
+                            <td>14:00 - 15:00</td>
                             <td @mousedown.prevent="handleMouseDown(i,5)" @mouseup.prevent="handleMouseUp(i,5)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[5]"></td>
                         </tr>
                         <tr>
-                            <td>Sunday</td>
+                            <td>15:00 - 16:00</td>
+                            <td @mousedown.prevent="handleMouseDown(i,6)" @mouseup.prevent="handleMouseUp(i,6)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[6]"></td>
+                        </tr>
+                        <tr>
+                            <td>16:00 - 17:00</td>
+                            <td @mousedown.prevent="handleMouseDown(i,6)" @mouseup.prevent="handleMouseUp(i,6)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[6]"></td>
+                        </tr>
+                        <tr>
+                            <td>17:00 - 18:00</td>
+                            <td @mousedown.prevent="handleMouseDown(i,6)" @mouseup.prevent="handleMouseUp(i,6)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[6]"></td>
+                        </tr>
+                        <tr>
+                            <td>18:00 - 19:00</td>
+                            <td @mousedown.prevent="handleMouseDown(i,6)" @mouseup.prevent="handleMouseUp(i,6)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[6]"></td>
+                        </tr>
+                        <tr>
+                            <td>19:00 - 20:00</td>
+                            <td @mousedown.prevent="handleMouseDown(i,6)" @mouseup.prevent="handleMouseUp(i,6)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[6]"></td>
+                        </tr>
+                        <tr>
+                            <td>20:00 - 21:00</td>
+                            <td @mousedown.prevent="handleMouseDown(i,6)" @mouseup.prevent="handleMouseUp(i,6)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[6]"></td>
+                        </tr>
+                        <tr>
+                            <td>21:00 - 22:00</td>
                             <td @mousedown.prevent="handleMouseDown(i,6)" @mouseup.prevent="handleMouseUp(i,6)" class="calendar-atom-time" :class="item.class" v-for="(item,i) in rowUnit[6]"></td>
                         </tr>
 
@@ -48,14 +72,6 @@
                                     <span class="pull-left tip-text">click to pick a time </span> <a @click="clear" class="pull-right"> Clear</a>
                                 </div>
                             </td>
-                        </tr>
-                        <tr>
-                          <td colspan="49" class="timeContent">
-                            <div v-for="(item,index) in timeStr" v-show="item.length">
-                              <span>{{weekDate[index+1]}}: </span>
-                              <strong><span>{{item}}</span></strong>
-                            </div>
-                          </td>
                         </tr>
                         </tbody>
                     </table>
@@ -87,8 +103,7 @@ export default {
             return numDeleteIndex;
         };
         return {
-            tableHeader:['09:00-10:00','10:00-11:00','11:00-12:00','12:00-13:00','13:00-14:00','14:00-15:00','15:00-16:00','16:00-17:00','17:00-18:00','18:00-19:00','19:00-20:00','20:00-21:00','21:00-22:00'],
-            weekDate:{'1':'Monday','2':'Tuesday','3':'Wednesday','4':'Thursday','5':'Friday','6':'Saturday','7':'Sunday'},
+            tableHeader:['3.28','3.29','3.30','3.31'],
             rowUnit:[],
             timeContent:[{"arr":[]},{"arr":[]},{"arr":[]},{"arr":[]},{"arr":[]},{"arr":[]},{"arr":[]}],
             timeSection:[],
@@ -166,9 +181,9 @@ export default {
             var oDiv = document.getElementById("kuang");
         },
         init(){
-            for (let i = 0; i < 7; i++) {
+            for (let i = 0; i < 12; i++) {
                 let arr = []
-                for (let j = 0; j < 12; j++) {
+                for (let j = 0; j < 4; j++) {
                     arr.push({class:null,timeData:j});
                 }
                 this.rowUnit.push(arr);
@@ -295,7 +310,7 @@ export default {
             })
             //遍历赋值成'',不管用
             this.timeStr.length = 0
-            for (let i = 0; i < 7; i++) {
+            for (let i = 0; i < 12; i++) {
                 this.timeStr.push('')
             }
             //this.initState = true

@@ -21,6 +21,7 @@
                         @cancel="handleCancel"
                     >
                         <p>{{ ModalText }}</p>
+                        <TimePicker :data="ModalData"></TimePicker>
                     </a-modal>
                 </div>
 			</a-col>
@@ -30,7 +31,12 @@
 </template>
 
 <script>
+    import TimePicker from "@/components/Cards/TimePicker";
+    import { getVenueTime } from "@/api/venueState";
 	export default ({
+        components: {
+            TimePicker,
+        },
 		props: {
 			id: {
 				type: Number,
@@ -55,7 +61,8 @@
 		},
 		data() {
 			return {
-                ModalText: 'Content of the modal',
+                ModalText: 'Please click to select a time slot',
+                ModalData: [],
                 visible: false,
                 confirmLoading: false,
 			}
@@ -63,8 +70,14 @@
 
         methods: {
             showModal() {
-                this.visible = true;
-                this.ModalText = 'Content of the modal';
+                this.ModalText = 'Please click to select a time slot';
+                getVenueTime(this.id).then((response) => {
+                    this.ModalData = response.data;
+                    this.visible = true;
+                    console.log(this.ModalData);
+                }).catch((error) => {
+                    console.log(error);
+                });
             },
             handleOk(e) {
                 this.ModalText = 'Booking......';
@@ -72,7 +85,9 @@
                 setTimeout(() => {
                     this.visible = false;
                     this.confirmLoading = false;
+                    this.$message.success("Successfully booked!")
                 }, 1000);
+
             },
             handleCancel(e) {
                 console.log('Clicked cancel button');
