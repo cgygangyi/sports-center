@@ -12,9 +12,9 @@
             <div slot="nextArrow" slot-scope="props" class="custom-slick-arrow" style="right: 10px">
                 <a-icon type="right-circle" />
             </div>
-            <div><img src="images/carousel-1.jpeg" alt="" height="380px"></div>
-            <div><img src="images/carousel-2.jpeg" alt="" height="380px"></div>
-            <div><img src="images/carousel-3.jpeg" alt="" height="380px"></div>
+            <div><img src="images/carousel-1.jpeg" alt="" width="1400px"></div>
+            <div><img src="images/carousel-2.jpeg" alt="" height="1400px"></div>
+            <div><img src="images/carousel-3.jpeg" alt="" height="1400px"></div>
         </a-carousel>
         <a-row :gutter="24" style="margin-bottom: 20px; margin-top: 20px">
             <a-col :span="24" :lg="12" :xl="6" class="my-24" v-for="(stat, index) in stats" :key="index">
@@ -84,8 +84,8 @@ export default ({
 /* For demo */
 .ant-carousel >>> .slick-slide {
     text-align: center;
-    height: 380px;
-    line-height: 380px;
+    height: 580px;
+    line-height: 580px;
     background: #364d79;
     overflow: hidden;
 }

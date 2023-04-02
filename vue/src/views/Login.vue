@@ -74,11 +74,11 @@
                                 sessionStorage.setItem("user", JSON.stringify(res.data))
                                 this.$message.success("welcome back")
                                 // check admin
-                                if(res.data.username=="admin"){
-                                    console.log(res.data.username)
-                                    this.$router.push({path:"/admin/venues"})
+                                if(res.data.username==="admin"){
+                                    this.$router.push({path:"/admin/home"})
+                                } else {
+                                    this.$router.push({path:"/home"})
                                 }
-                                this.$router.push({path:"/home"})
                                 //check
                                 console.log(JSON.parse(sessionStorage.getItem("user")))
                             }

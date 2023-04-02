@@ -14,7 +14,7 @@
             <!-- / Main Sidebar -->
 
             <!-- Layout Content -->
-            <a-layout>
+            <a-layout  style="background-color: #EEEEEE">
 
                 <!-- Layout Header's Conditionally Fixed Wrapper -->
                 <DashboardHeader
@@ -25,7 +25,7 @@
                 <!-- / Layout Header's Conditionally Fixed Wrapper -->
 
                 <!-- Page Content -->
-                <a-layout-content>
+                <a-layout-content  style="background-color: #EEEEEE">
                     <router-view />
                 </a-layout-content>
                 <!-- / Page Content -->

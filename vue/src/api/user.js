@@ -37,3 +37,11 @@ export function editUserProfile(map) {
         data: map
     })
 }
+
+// get all users
+export function getAllUsers() {
+    return request({
+        url: '/user/getAll',
+        method: 'get',
+    })
+}

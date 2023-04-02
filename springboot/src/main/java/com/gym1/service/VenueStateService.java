@@ -37,6 +37,10 @@ public class VenueStateService {
         return venueStateMapper.queryVenueStateByIdDate(id, now, max);
 
     }
+    public List<VenueState> getAllVenueState(){
 
+        return venueStateMapper.queryAllVenueState();
+
+    }
 
 }

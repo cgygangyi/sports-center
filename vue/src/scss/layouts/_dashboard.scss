@@ -31,7 +31,7 @@
 		@media( min-width: $lg ){
 			margin: 20px 0 0 20px;
 			padding: 13px 20px;
-			height: calc(100vh - 20px);
+			height: 100vh;
 			background: transparent !important;
 		}
 
@@ -55,7 +55,7 @@
 		.ant-layout-sider-children {
 			width: 210px;
 			@media( min-width: $lg ){
-				width: auto;
+				width: 210px;
 			}
 		}
 
@@ -200,9 +200,7 @@
 			border-radius: 0px;
 
 			@media( min-width: $lg ){
-				margin: 20px 0 0 20px;
-				padding-top: 13px;
-				border-radius: 8px;
+				padding-top: 14px;
 			}
 			.ant-menu-item {
 				a {

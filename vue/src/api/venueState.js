@@ -9,3 +9,11 @@ export function getVenueTime(id) {
         method: 'get',
     })
 }
+
+
+export function getAllStates() {
+    return request({
+        url: '/venueState/getAll',
+        method: 'get',
+    })
+}

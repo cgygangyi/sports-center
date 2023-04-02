@@ -4,13 +4,12 @@ import com.gym1.entity.User;
 import com.gym1.service.UserService;
 import com.gym1.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
+
 
 @RestController
 @CrossOrigin
@@ -26,7 +25,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public User login(@RequestBody Map map){
+    public User login(HttpSession session, @RequestBody Map map){
 
         String username = (String) map.get("username");
         String password = (String) map.get("password");
@@ -34,11 +33,13 @@ public class UserController {
         if (res == null){
             return null;
         }else if(res.getPassword().equals(password)){
-            HttpSession session = request.getSession();
+//            HttpSession session = request.getSession();
+            System.out.println(session);
             if(session.getAttribute("user") != null){
                 session.removeAttribute("user");
             }
             session.setAttribute("user", res);
+            System.out.println(session.getAttribute("user"));
             return res;
         }else{
             return null;
@@ -46,8 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public int register(@RequestBody Map map){
-        System.out.println(map);
+    public int register(@RequestParam Map<String,String> map){
         return userService.registerService(map);
     }
 
@@ -66,6 +66,11 @@ public class UserController {
         }else{
             return 1;
         }
+    }
+
+    @GetMapping("/getAll")
+    public List<User> getAll(){
+        return userService.getAllUser();
     }
 
 }

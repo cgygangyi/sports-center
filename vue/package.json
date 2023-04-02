@@ -10,6 +10,7 @@
     "dev": "npm run serve"
   },
   "dependencies": {
+    "@antv/g2plot": "^2.4.28",
     "ant-design-vue": "1.7.6",
     "axios": "^1.3.4",
     "chart.js": "3.4.1",

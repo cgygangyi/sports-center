@@ -16,7 +16,6 @@
         <div class="brand"><img src="images/logo-ct-black.png" alt=""> <span>Stadium</span></div>
         <hr>
 
-        <!-- Sidebar Navigation Menu -->
         <a-menu theme="light" mode="inline">
             <a-menu-item>
                 <router-link to="/home">

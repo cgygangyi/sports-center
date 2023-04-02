@@ -1,7 +1,7 @@
 // _default.scss
-// 
+//
 // Template's default layout styles.
-// 
+//
 
 
 body {
@@ -15,7 +15,7 @@ body {
 	text-align: left;
 	position: relative;
 	overflow-x: hidden;
-				
+
 	@media( min-width: $lg ){
 		overflow: auto;
 	}
@@ -29,7 +29,7 @@ body {
 		padding: 20px;
 		height: auto;
 		line-height: 1.5;
-				
+
 		@media( min-width: $lg ){
 			flex-direction: row;
 			padding: 0 50px;
@@ -45,7 +45,7 @@ body {
 			width: 100%;
 			align-items: center;
 			margin-bottom: 20px;
-				
+
 			@media( min-width: $lg ){
 				margin-right: auto;
 				margin-left: 0;
@@ -56,7 +56,7 @@ body {
 
 			.btn-menu-trigger {
 				display: block;
-				
+
 				@media( min-width: $lg ){
 					display: none;
 				}
@@ -68,7 +68,7 @@ body {
 				color: $color-gray-12;
 				margin: 0;
 			}
-				
+
 			@media( min-width: $lg ){
 				h6 {
 					font-size: 14px;
@@ -82,7 +82,7 @@ body {
 			margin-right: auto;
 			margin-left: auto;
 			width: 100%;
-				
+
 			@media( min-width: $lg ){
 				margin-right: auto;
 				margin-left: auto;
@@ -112,18 +112,18 @@ body {
 
 			.menu-large {
 				display: none;
-					
+
 				@media( min-width: $lg ){
 					display: block;
 				}
 			}
-			
+
 			.ant-menu-horizontal {
 				border: none;
 				margin-top: 0px;
 				text-align: center;
 				background-color: transparent;
-					
+
 				@media( min-width: $md ){
 					margin-top: 0;
 				}
@@ -163,7 +163,7 @@ body {
 
 			.menu-small {
 				display: block;
-					
+
 				@media( min-width: $lg ){
 					display: none;
 				}
@@ -221,7 +221,7 @@ body {
 
 		}
 		.header-btn {
-				
+
 			@media( min-width: $lg ){
 				margin-left: auto;
 			}
@@ -229,7 +229,7 @@ body {
 			.ant-btn-round.ant-btn-sm {
 				font-size: 12px;
 				width: 100%;
-				
+
 				@media( min-width: $lg ){
 					width: auto;
 				}
@@ -245,18 +245,18 @@ body {
 		font-size: 14px;
 		background: transparent;
 		text-align: center;
-			
+
 		@media( min-width: $md ) {
 			padding: 24px 50px;
 		}
-			
+
 		.ant-menu-horizontal {
 			border: none;
 			line-height: 1.5;
 			margin: 0 0 30px;
 			background-color: transparent;
 			font-size: 16px;
-				
+
 			@media( min-width: $md ){
 			}
 			> .ant-menu-item,
@@ -299,7 +299,7 @@ body {
 			margin: 0;
 			font-size: 16px;
 			color: $color-muted;
-			
+
 			svg {
 				width: 16px;
 				height: 16px;

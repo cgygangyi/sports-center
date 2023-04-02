@@ -10,6 +10,7 @@
                 <CardVenueTable
                     :data="this.venueData"
                     :columns="venueColumns"
+                    title="Venues table"
                 ></CardVenueTable>
             </a-col>
         </a-row>

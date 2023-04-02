@@ -11,7 +11,7 @@
             <a-col :span="5">
                 {{ index+9-3*i+':00 - ' + (index+10-3*i)+':00' }}
             </a-col>
-            <a-col :span="4" :id="index" @click="isClick(index)" style="background-color: #52C41A">&nbsp;&nbsp;&nbsp;</a-col>
+            <a-col :span="4" :id="index" @click="isClick(index)">&nbsp;&nbsp;&nbsp;</a-col>
             <a-col :span="4" :id="index+1" @click="isClick(index+1)">&nbsp;&nbsp;&nbsp;</a-col>
             <a-col :span="4" :id="index+2" @click="isClick(index+2)">&nbsp;&nbsp;&nbsp;</a-col>
             <a-col :span="4" :id="index+3" @click="isClick(index+3)">&nbsp;&nbsp;&nbsp;</a-col>

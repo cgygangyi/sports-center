@@ -43,12 +43,6 @@ let routes = [
 		component: () => import('../views/Profile.vue'),
 	},
 	{
-		path: '/admin/venues',
-		name: 'admin',
-		layout: "admindashboard",
-		component: () => import('../views/AdminVenues.vue'),
-	},
-	{
 		path: '/timepicker',
 		name: 'time',
 		component: () => import('../views/TimePicker.vue'),
@@ -58,6 +52,30 @@ let routes = [
 		name: 'payment',
 		layout: "dashboard",
 		component: () => import('../views/Payment.vue'),
+	},
+	{
+		path: '/admin/home',
+		name: 'admin',
+		layout: "admindashboard",
+		component: () => import('../views/AdminHome.vue'),
+	},
+	{
+		path: '/admin/venues',
+		name: 'Venues management',
+		layout: "admindashboard",
+		component: () => import('../views/AdminVenues.vue'),
+	},
+	{
+		path: '/admin/users',
+		name: 'User management',
+		layout: "admindashboard",
+		component: () => import('../views/AdminUsers.vue'),
+	},
+	{
+		path: '/admin/states',
+		name: 'States management',
+		layout: "admindashboard",
+		component: () => import('../views/AdminStates.vue'),
 	}
 ]
 
