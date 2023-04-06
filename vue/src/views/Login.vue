@@ -52,6 +52,7 @@
 
 <script>
     import {userLogin} from "../api/user";
+    import { mapMutations } from 'vuex';
 	export default ({
 		data() {
 			return {
@@ -59,11 +60,15 @@
 			}
 		},
 		beforeCreate() {
+            console.log('clear token');
+            localStorage.removeItem('token');
 			this.form = this.$form.createForm(this, { name: 'normal_login' });
 		},
 		methods: {
+            ...mapMutations(['$_setStorage']),
 			handleSubmit(e) {
 				e.preventDefault();
+                let _this = this;
 				this.form.validateFields((err, values) => {
 					if ( !err ) {
                         userLogin(values).then(res=>{
@@ -71,16 +76,9 @@
                             if(res.data==null){
                                 this.$message.error("wrong username or password")
                             }else{
-                                sessionStorage.setItem("user", JSON.stringify(res.data))
+                                localStorage.setItem("token", res.data);
                                 this.$message.success("welcome back")
-                                // check admin
-                                if(res.data.username==="admin"){
-                                    this.$router.push({path:"/admin/home"})
-                                } else {
-                                    this.$router.push({path:"/home"})
-                                }
-                                //check
-                                console.log(JSON.parse(sessionStorage.getItem("user")))
+                                this.$router.push({path:"/home"})
                             }
                         })
 					}

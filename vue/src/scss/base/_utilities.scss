@@ -46,21 +46,6 @@ $colors: (
 
 
 
-@each $name, $value in $neutral-colors {
-	.bg-#{$name} {
-		background-color: $value !important;
-	}
-	.text-#{$name} {
-		color: $value !important;
-	}
-	.border-#{$name} {
-		border-color: $value !important;
-	}
-	.fill-#{$name} {
-		fill: $value !important;
-	}
-}
-// / Neutral Colors
 
 // Font
 .font-regular {

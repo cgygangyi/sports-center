@@ -3,6 +3,7 @@ package com.gym1.controller;
 import com.gym1.entity.User;
 import com.gym1.service.UserService;
 import com.gym1.service.VenueService;
+import com.gym1.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public User login(HttpSession session, @RequestBody Map map){
+    public String login(HttpSession session, @RequestBody Map map){
 
         String username = (String) map.get("username");
         String password = (String) map.get("password");
@@ -40,7 +41,8 @@ public class UserController {
             }
             session.setAttribute("user", res);
             System.out.println(session.getAttribute("user"));
-            return res;
+            TokenUtil tokenUtil = new TokenUtil();
+            return tokenUtil.getToken(username, password);
         }else{
             return null;
         }
@@ -59,13 +61,7 @@ public class UserController {
     }
 
     @PostMapping("/ifLogin")
-    public int register(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        if(session.getAttribute("user") == null){
-            return 0;
-        }else{
-            return 1;
-        }
+    public int register(){
     }
 
     @GetMapping("/getAll")

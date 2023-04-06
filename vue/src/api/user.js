@@ -45,3 +45,12 @@ export function getAllUsers() {
         method: 'get',
     })
 }
+
+
+// log out
+export function userLogout() {
+    return request({
+        url: '/user/logout',
+        method: 'get',
+    })
+}
