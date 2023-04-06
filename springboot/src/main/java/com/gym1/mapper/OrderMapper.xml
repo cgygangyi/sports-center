@@ -5,4 +5,12 @@
 
 <mapper namespace="com.gym1.mapper.OrderMapper">
 
+    <insert id="addOrder" parameterType="com.gym1.entity.Order">
+        insert into order(venueId, venueStateId, userId)
+        values (#{venueId}, #{venueStateId}, #{userId})
+    </insert>
+
+
+
+
 </mapper>

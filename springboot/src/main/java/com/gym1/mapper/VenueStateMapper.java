@@ -14,8 +14,10 @@ public interface VenueStateMapper {
     int deleteVenueState(VenueState venueState);
     int editVenueState(VenueState venueState);
 
+    List<VenueState> queryAllVenueState();
     List<VenueState> queryVenueStateByIdDate(int id, String now, String max);
-
+    int updateVenueStateFree(int id, int free);
+    int updateVenueStateOpen(int id, int open);
 
 
 }

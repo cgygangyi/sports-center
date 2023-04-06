@@ -12,4 +12,22 @@
           and begin between #{now} and #{max}
     </select>
 
+    <select id="queryAllVenueState" resultType="com.gym1.entity.VenueState">
+        select *
+        from venue_state
+    </select>
+
+    <update id="updateVenueStateFree">
+        UPDATE venue_state
+        SET free = #{free}
+        where id = #{id}
+    </update>
+
+    <update id="updateVenueStateOpen">
+        UPDATE venue_state
+        SET open = #{open}
+        where id = #{id}
+    </update>
+
+
 </mapper>
