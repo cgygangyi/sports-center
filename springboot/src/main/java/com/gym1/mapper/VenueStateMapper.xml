@@ -9,7 +9,7 @@
         select *
         from venue_state
         where venueId=#{id}
-          and begin between #{now} and #{max}
+          and begin_time between #{now} and #{max}
     </select>
 
     <select id="queryAllVenueState" resultType="com.gym1.entity.VenueState">

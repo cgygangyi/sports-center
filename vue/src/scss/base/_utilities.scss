@@ -1,7 +1,7 @@
 // _utilities.scss
-//
+// 
 // Template's utility classes and helpers.
-//
+// 
 
 // Base Colors
 $colors: (
@@ -17,10 +17,10 @@ $colors: (
 
 @each $name, $value in $colors {
 	.bg-#{$name} {
-		background-color: $value;
+		background-color: $value !important;
 	}
 	.text-#{$name} {
-		color: $value;
+		color: $value !important;
 	}
 	.border-#{$name} {
 		border-color: $value;
@@ -45,6 +45,61 @@ $colors: (
 // / Base Colors
 
 
+// Neutral Colors
+$neutral-colors: (
+	"gray-1": $color-gray-1,
+	"gray-2": $color-gray-2,
+	"gray-3": $color-gray-3,
+	"gray-4": $color-gray-4,
+	"gray-5": $color-gray-5,
+	"gray-6": $color-gray-6,
+	"gray-7": $color-gray-7,
+	"gray-8": $color-gray-8,
+	"gray-9": $color-gray-9,
+	"gray-10": $color-gray-10,
+	"gray-11": $color-gray-11,
+	"gray-12": $color-gray-12,
+	"muted": $color-muted,
+) ;
+
+@each $name, $value in $neutral-colors {
+	.bg-#{$name} {
+		background-color: $value !important;
+	}
+	.text-#{$name} {
+		color: $value !important;
+	}
+	.border-#{$name} {
+		border-color: $value !important;
+	}
+	.fill-#{$name} {
+		fill: $value !important;
+	}
+}
+// / Neutral Colors
+
+
+// Gradient Colors
+$theme-gradient-colors: (
+	"primary":    ($primary-gradient, $primary-gradient-state),
+	"secondary":  ($secondary-gradient, $secondary-gradient-state),
+	"success":    ($success-gradient, $success-gradient-state),
+	"info":       ($info-gradient, $info-gradient-state),
+	"warning":    ($warning-gradient, $warning-gradient-state),
+	"danger":     ($danger-gradient, $danger-gradient-state),
+	"light":      ($light-gradient, $light-gradient-state),
+	"dark":       ($dark-gradient, $dark-gradient-state)
+) !default;
+
+@mixin gradient-directional($start-color: $gray-700, $end-color: $gray-800, $deg: 45deg) {
+  	background-image: linear-gradient($deg, $start-color, $end-color);
+}
+@each $prop, $value in $theme-gradient-colors {
+	.bg-gradient-#{$prop} {
+		@include gradient-directional(nth($value, 1) 0%, nth($value, -1) 100%, $deg: 310deg);
+	}
+}
+// / Gradient Colors
 
 
 // Font
@@ -76,7 +131,6 @@ $colors: (
 	text-align: center;
 }
 // / Font
-
 
 
 // Margin & Padding
@@ -125,6 +179,14 @@ $colors: (
 	@extend .ml-auto;
 	@extend .mr-auto;
 }
+.mx-auto {
+	@extend .ml-auto;
+	@extend .mr-auto;
+}
+.my-auto {
+	@extend .mt-auto;
+	@extend .mb-auto;
+}
 .mb-24 {
 	margin-bottom: 24px;
 }
@@ -158,11 +220,29 @@ $colors: (
 }
 // / Margin & Padding
 
+
+// Display
+.d-inline {
+	display: inline-block;
+}
+.d-flex {
+	display: flex;
+}
+.d-none {
+	display: none;
+}
+// / Display
+
+
 // Height
 .h-full {
 	height: 100%;
 }
+.h-auto {
+	height: auto;
+}
 // / Height
+
 
 // Shadows
 $shadows: (
@@ -179,6 +259,12 @@ $shadows: (
 }
 // / Shadows
 
+
+// Other utility stylings
+.img-contain {
+	max-width: 100%;
+}
+// / Other utility stylings
 
 // RTL
 .layout-dashboard-rtl {
@@ -206,3 +292,5 @@ $shadows: (
 	}
 }
 // / RTL
+
+// / Template's utility classes and helpers.

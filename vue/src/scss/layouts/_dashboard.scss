@@ -1,3 +1,9 @@
+
+// Template's dashboard layout styles.
+//
+
+
+// Dashboard Layout
 .layout-dashboard {
 	background: transparent;
 	text-align: left;
@@ -6,14 +12,6 @@
 
 	@media( min-width: $lg ){
 		overflow: auto;
-	}
-
-	&:not(.layout-dashboard-rtl) .ant-layout-sider .brand img {
-		margin-right: 5px;
-	}
-
-	&.layout-dashboard-rtl .ant-layout-sider .brand img {
-		margin-left: 5px;
 	}
 
 	// Primary Sidebar
@@ -25,14 +23,22 @@
 		height: 100vh;
 		overflow: auto;
 		margin: 0;
-		padding: 33px 20px;
+		padding: 0px;
 		background: #ffffff !important;
+
+		>.ant-layout-sider-children {
+			padding: 33px 20px;
+		}
 
 		@media( min-width: $lg ){
 			margin: 20px 0 0 20px;
-			padding: 13px 20px;
-			height: 100vh;
+			height: calc(100vh - 20px);
 			background: transparent !important;
+			padding: 0px;
+
+			>.ant-layout-sider-children {
+				padding: 13px 20px;
+			}
 		}
 
 		&.ant-layout-sider-dark {
@@ -53,21 +59,24 @@
 		}
 
 		.ant-layout-sider-children {
-			width: 210px;
+			width: 250px;
 			@media( min-width: $lg ){
-				width: 210px;
+				width: auto;
 			}
 		}
 
 		.brand {
+			white-space: nowrap;
 			font-weight: $fw-semibold;
-			padding: $submenu-links-p;
+			padding: 0px;
+			padding-left: 16px;
 
 			span {
 				vertical-align: middle;
+				margin-left: 7px;
 			}
 			img {
-				height: 30px;
+				width: 32px;
 			}
 		}
 		&.ant-layout-sider-dark .brand span {
@@ -78,18 +87,17 @@
 			border: none;
 			height: 1px;
 			background-color: $color-gray-3;
+			background-image: linear-gradient( 90deg, transparent, rgba(0,0,0,.4), transparent ) ;
+			opacity: .25;
 		}
 
 		&.ant-layout-sider-white {
 			background-color: $color-gray-1 !important;
 			box-shadow: $shadow-1;
-			margin: 0;
-			padding-top: 33px;
 			border-radius: 0px;
 
 			@media( min-width: $lg ){
-				margin: 20px 0 64px 20px;
-				padding-top: 13px;
+				height: calc(100vh - 40px);
 				border-radius: 8px;
 			}
 		}
@@ -122,7 +130,7 @@
 			}
 
 			a {
-				padding: $submenu-links-p;
+				padding: 10px 16px;
 				color: $color-gray-12;
 				border-radius: 8px;
 			}
@@ -174,6 +182,118 @@
 				text-transform: uppercase;
 			}
 		}
+		.ant-menu-submenu {
+			.ant-menu-submenu-title {
+				padding: 0 !important;
+				height: auto;
+				line-height: normal;
+				padding: 10px 16px !important;
+				color: #141414;
+				border-radius: 8px;
+				background-color: transparent;
+				box-shadow: none;
+				transition: all 0.3s ease-in-out;
+				.icon {
+					transition: all 0.3s ease-in-out;
+				}
+				svg path {
+					transition: all 0.3s ease-in-out;
+				}
+				.label {
+					transition: all 0.3s ease-in-out;
+				}
+			}
+
+			&.ant-menu-submenu-open {
+				.ant-menu-submenu-title {
+					background-color: $color-gray-1;
+					box-shadow: $shadow-1;
+					.icon {
+						background-color: $color-primary;
+					}
+					svg path {
+						fill: $color-gray-1;
+					}
+					.label {
+						font-weight: $fw-semibold;
+					}
+				}
+			}
+			.ant-menu-item-group-title {
+				display: none;
+			}
+
+			.ant-menu-item-group-list {
+				padding-left: 16px;
+				margin-left: 24px;
+
+				.ant-menu-submenu-title {
+					background-color: transparent;
+					box-shadow: none;
+					transition: all 0.3s ease-in-out;
+					transition: none;
+					.icon {
+						transition: all 0.3s ease-in-out;
+					}
+					svg path {
+						transition: all 0.3s ease-in-out;
+					}
+					.label {
+						transition: all 0.3s ease-in-out;
+					}
+				}
+
+
+				a,
+				.ant-menu-submenu-title {
+					position: relative;
+					margin-left: 4px;
+
+					&::before {
+						content: "";
+						position: absolute;
+						left: -14px;
+						top: 53%;
+						transform: translateY(-50%);
+						height: 5px;
+						width: 5px;
+						border-radius: 1.5rem;
+						background: rgba(58,65,111,.5);
+					}
+
+					&.router-link-exact-active,
+					&.router-link-active {
+						background-color: transparent;
+						box-shadow: none;
+
+						.label {
+							font-weight: $fw-regular;
+						}
+					}
+
+					&.router-link-exact-active {
+						.label {
+							font-weight: $fw-semibold;
+						}
+						&::before {
+							height: 8px;
+							width: 8px;
+							background: #3a416f;
+							left: -15.5px;
+						}
+					}
+				}
+
+				.ant-menu-item-group-list {
+					padding-left: 0;
+					margin-left: 0;
+
+					a::before {
+						display: none;
+					}
+				}
+			}
+		}
 
 		&.ant-layout-sider-white {
 			.ant-menu-item {
@@ -200,7 +320,9 @@
 			border-radius: 0px;
 
 			@media( min-width: $lg ){
-				padding-top: 14px;
+				margin: 20px 0 0 20px;
+				padding-top: 13px;
+				border-radius: 8px;
 			}
 			.ant-menu-item {
 				a {
@@ -243,12 +365,9 @@
 			"black": $color-dark,
 		) ;
 		@each $name, $color in $sidebar-colors {
-			&.ant-layout-sider-#{$name} .ant-menu-item {
-				&.ant-menu-item-selected .router-link-active,
-				.router-link-active {
-					.icon {
-						background-color: $color;
-					}
+			&.ant-layout-sider-#{$name} .ant-menu-submenu {
+				&.ant-menu-submenu-open .icon {
+					background-color: $color;
 				}
 			}
 		}
@@ -320,8 +439,7 @@
 			p {
 				color: $color-gray-3;
 			}
-			button,
-			a {
+			button {
 				background-color: $color-gray-1;
 				color: $color-gray-12;
 			}
@@ -343,8 +461,7 @@
 				p {
 					color: $color-gray-3;
 				}
-				button,
-				a {
+				button {
 					background-color: $color-gray-1;
 					border-color: $color-gray-4;
 					color: $color-gray-12;
@@ -355,6 +472,137 @@
 	&.has-sidebar .ant-layout-sider.sider-primary .aside-footer {
 		display: block;
 	}
+	&.sidebar-minimized.has-sidebar .ant-layout-sider.sider-primary {
+		@media( min-width: $lg ){
+			transition: all 0.1s ease-in;
+
+			&+.ant-layout {
+				transition: all 0.1s ease-in;
+			}
+		}
+		.label,
+		.ant-menu-submenu-title .label,
+		.ant-menu-item a,
+		.ant-menu-submenu .ant-menu-submenu .ant-menu-submenu-title {
+			transition: margin 0.1s ease-in, padding 0.1s ease-in;
+		}
+		.ant-menu-submenu-arrow {
+			transition: all 0.1s ease-in;
+		}
+		.ant-menu-item a {
+			&::before {
+				transition: all 0.1s ease-in;
+			}
+		}
+		>.ant-layout-sider-children>ul.ant-menu>li.ant-menu-item>a {
+			.label {
+				transition: all 0.3s ease-in;
+			}
+		}
+		.ant-menu-submenu-title .icon+.label {
+			transition: all 0.3s ease-in;
+			display: inline-block;
+			width: auto;
+			opacity: 1;
+			letter-spacing: normal;
+		}
+		.brand {
+			img {
+				transition: all 0.1s ease-in;
+			}
+			span {
+				transition: all 0.1s ease-in;
+			}
+		}
+	}
+	&.sidebar-minimized.has-sidebar .ant-layout-sider.sider-primary:not(:hover) {
+		@media( min-width: $lg ){
+			min-width: 120px !important;
+			max-width: 120px !important;
+			width: 120px !important;
+			margin: 20px 0 0 20px;
+			padding: 0px;
+
+			>.ant-layout-sider-children {
+				width: 103px;
+				transition: none;
+				padding: 13px 20px;
+			}
+
+			.brand {
+				span {
+					display: none;
+					display: inline-block;
+					width: 0;
+					opacity: 0;
+					overflow: hidden;
+				}
+			}
+
+			.ant-menu-submenu-arrow {
+				opacity: 0;
+			}
+			.label {
+				letter-spacing: 18px;
+				max-width: 18px;
+				overflow: hidden;
+				display: inline-block;
+			}
+			.ant-menu-submenu-title .label {
+				display: none;
+			}
+			.ant-menu-submenu-title .icon+.label {
+				display: inline-block;
+				width: 0;
+				opacity: 0;
+				letter-spacing: normal;
+			}
+			.ant-menu-item a {
+				padding: 10px 0;
+				margin-left: -11px;
+			}
+			>.ant-layout-sider-children>ul.ant-menu>li.ant-menu-item>a {
+				padding: 10px 16px;
+				margin-left: 0;
+
+				.label {
+					transition: all 0.3s ease-in;
+					display: inline-block;
+					width: 0;
+					opacity: 0;
+					letter-spacing: -.3px;
+				}
+			}
+			.ant-menu-submenu .ant-menu-submenu .ant-menu-submenu-title {
+				padding-right: 0 !important;
+				padding-left: 0 !important;
+				margin-left: -11px;
+				letter-spacing: 18px;
+				max-width: 18px;
+				overflow: hidden;
+			}
+			.footer-box {
+				>*:not(.icon) {
+					display: none;
+				}
+				.icon {
+    				margin-bottom: 0;
+				}
+			}
+
+			.ant-menu-item a,
+			.ant-menu-submenu-title {
+				&::before {
+					opacity: 0;
+					left: -30px;
+				}
+			}
+
+			&+.ant-layout {
+				margin-left: 140px;
+			}
+		}
+	}
 	.sidebar-overlay {
 		position: absolute;
 		top: 0;
@@ -363,7 +611,7 @@
 		right: 0;
 		background-color: $color-gray-12;
 		opacity: .5;
-		z-index: 9;
+		z-index: 10;
 
 		@media( min-width: $lg ){
 			background-color: transparent;
@@ -401,21 +649,17 @@
 		background: transparent;
 		height: auto;
 		padding: 16px;
-		margin: 10px 4px;
+		margin: 20px;
 		line-height: inherit;
 		border-radius: 12px;
 		transition: .2s;
-
-		@media( min-width: $md ){
-			margin: 10px 20px;
-		}
-
+		position: relative;
+		z-index: 10;
 	}
 	&.navbar-fixed {
 		.ant-layout>div>.ant-affix .ant-layout-header {
 			background: $color-gray-1;
 			box-shadow: $shadow-1;
-			margin: 10px 20px;
 		}
 		&.has-sidebar .ant-layout>div>.ant-affix {
 			z-index: 1;
@@ -602,6 +846,15 @@
 			}
 		}
 	}
+	.sidebar-toggler-col {
+		display: none;
+		justify-content: center;
+		align-items: center;
+
+		@media( min-width: $lg ){
+			display: flex;
+		}
+	}
 	// / Page Header
 
 	// Page Footer
@@ -673,4 +926,7 @@
 			}
 		}
 	}
+	// / Page Footer
 }
+
+// / Template's dashboard layout styles.

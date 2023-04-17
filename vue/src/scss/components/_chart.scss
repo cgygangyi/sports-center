@@ -1,3 +1,8 @@
+// _chart.scss
+// 
+// Template's charts styles.
+// 
+
 .dashboard-bar-chart {
 	height: 100%;
 	canvas {
@@ -51,3 +56,11 @@
 		}
 	}
 }
+
+.crm-bar-line {
+	.ant-card-head-title {
+		padding-bottom: 0;
+	}
+}
+
+// / Template's charts styles.

@@ -36,6 +36,7 @@ export default ({
 
     beforeCreate() {
         getAllVenues().then((response) => {
+            console.log(response)
             let img = ['images/venue-1.jpeg', 'images/venue-2.jpeg', 'images/venue-3.jpeg', "images/venue-4.jpeg", "images/venue-5.jpeg"];
             this.projects = response.data;
             for (let i = 0; i < this.projects.length; i++) {
@@ -45,15 +46,6 @@ export default ({
         });
     },
 
-    methods: {
-        showModal() {
-            this.visible = true;
-        },
-        handleOk(e) {
-            console.log(e);
-            this.visible = false;
-        },
-    },
 })
 
 

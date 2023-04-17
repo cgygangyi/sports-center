@@ -7,6 +7,9 @@ export function getVenueTime(id) {
     return request({
         url: '/venueState/getTime/' + id,
         method: 'get',
+        headers: {
+            'token': localStorage.getItem('token')
+        }
     })
 }
 

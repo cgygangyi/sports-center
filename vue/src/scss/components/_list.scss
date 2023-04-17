@@ -1,3 +1,8 @@
+// _list.scss
+// 
+// Template's lists styles.
+// 
+
 .invoice-list,
 .transactions-list {
 	.ant-list-item {
@@ -46,9 +51,9 @@
 		margin-bottom: 0;
 	}
 	.amount {
-		font-size: 16px;
-		font-weight: $fw-bold;
-
+		font-size: 14px;
+		font-weight: $fw-semibold;
+		
 		span.text-warning {
 			font-size: 14px;
 			font-weight: $fw-semibold;
@@ -59,7 +64,8 @@
 	}
 }
 
-.conversations-list {
+.conversations-list,
+.categories-list {
 	.ant-list-item {
 		padding: 11px 0;
 	}
@@ -95,3 +101,43 @@
 		margin-right: 0;
 	}
 }
+
+.next-events-list {
+	.ant-avatar {
+		box-shadow: 0;
+	}
+}
+
+.list-settings-sessions {
+	.btn-more svg {
+		margin-left: 5px;
+		transition: transform 0.3s ease;
+	}
+
+	.btn-more:hover svg {
+		transform: translateX(5px);
+	}
+}
+
+.list-pricing {
+	text-align: left;
+	font-size: 16px;
+    padding: 0;
+	
+	li {
+		display: block;
+		padding: 10px;
+
+		.ant-avatar {
+			box-shadow: 0 .25rem .375rem -.0625rem hsla(0,0%,8%,.12),0 .125rem .25rem -.0625rem hsla(0,0%,8%,.07)!important;
+			margin-right: 16px;
+			vertical-align: -6px;
+
+			.ant-avatar-string {
+				font-size: 12px;
+			}
+		}
+	}
+}
+
+// / Template's lists styles.

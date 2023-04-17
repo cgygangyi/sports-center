@@ -72,8 +72,14 @@
             showModal() {
                 this.ModalText = 'Please click to select a time slot';
                 getVenueTime(this.id).then((response) => {
-                    this.ModalData = response.data;
-                    this.visible = true;
+                    console.log(response);
+                    if (response.data === '') {
+                        this.$message.warning("Please login first!")
+                    }
+                    else {
+                        this.ModalData = response.data;
+                        this.visible = true;
+                    }
                     console.log(this.ModalData);
                 }).catch((error) => {
                     console.log(error);

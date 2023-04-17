@@ -1,115 +1,150 @@
 <template>
 	<div>
-		<div class="sign-up-header" style="background-image: url('images/a.jpg')">
-			<div class="content">
-				<h1 class="mb-5">Sign Up</h1>
-			</div>
-		</div>
+        <div class="mx-auto mt-50" style="max-width: 800px;">
 
-		<!-- Sign Up Form -->
-		<a-card :bordered="false" class="card-signup header-solid h-full" :bodyStyle="{paddingTop: 0}">
-			<a-form
-				id="components-form-demo-normal-login"
-				:form="form"
-				class="login-form my-25"
-				@submit="handleSubmit"
-			>
-				<a-form-item class="mb-10">
-					<a-input
-						v-decorator="[
-						'username',
-						{ rules: [{ required: true, message: 'Please input your username!' },
-						            { max: 20, message: 'Max length of username is 20'},
-						            { min: 4, message: 'Min length of username is 4'}] },
-						]"
-						placeholder="Userame"
-					>
-					</a-input>
-				</a-form-item>
-				<a-form-item class="mb-10">
-					<a-input
-						v-decorator="[
-						'email',
-						{ rules: [{ required: true, message: 'Please input your email!' }] },
-						]"
-						placeholder="Email"
-					>
-					</a-input>
-				</a-form-item>
-				<a-form-item class="mb-5">
-					<a-input
-						v-decorator="[
-						'password',
-						{ rules: [{ required: true, message: 'Please input your Password!' }] },
-						]"
-						type="password"
-						placeholder="Password"
-					>
-					</a-input>
-				</a-form-item>
-                <a-form-item class="mb-5">
-                    <a-input
-                        v-decorator="[
-						'Confirm password',
-						{ rules: [{ required: true, message: 'Please input your Password!' }] },
-						]"
-                        type="password"
-                        placeholder="Confirm password"
+
+            <div class="mb-24">
+                <a-card :bordered="false" class="header-solid" :bodyStyle="{paddingTop: 0 }" :headStyle="{paddingBottom: '0' }">
+                    <template #title>
+                        <h5 class="mb-0">Sign up</h5>
+                    </template>
+                    <a-form
+                        :form="form"
+                        @submit="handleSubmit"
                     >
-                    </a-input>
-                </a-form-item>
-                <a-form-item class="mb-10">
-                    <a-input
-                        v-decorator="[
-                        'name',
-						{ rules: [{ required: true, message: 'Please input your name!' }] },
-						]"
-                        placeholder="Name"
-                    >
-                    </a-input>
-                </a-form-item>
-                <a-form-item class="mb-10">
-                    <a-input
-                        v-decorator="[
-                        'phoneNumber',
-						{ rules: [{ required: true, message: 'Please input your phoneNumber!' }] },
-						]"
-                        placeholder="phone number"
-                    >
-                    </a-input>
-                </a-form-item>
-                <a-form-item class="mb-10">
-                    <a-input
-                        v-decorator="['age']"
-                        type="number"
-                        placeholder="Age"
-                    >
-                    </a-input>
-                </a-form-item>
-                <a-form-item class="mb-10">
-                    <a-select
-                        v-decorator="['sex']"
-                        placeholder="Select a option and change input text above"
-                        @change="handleSelectChange"
-                    >
-                        <a-select-option value="Male">
-                            Male
-                        </a-select-option>
-                        <a-select-option value="Female">
-                            Female
-                        </a-select-option>
-                    </a-select>
-                </a-form-item>
-				<a-form-item>
-					<a-button type="primary" block html-type="submit" class="login-form-button">
-						SIGN UP
-					</a-button>
-				</a-form-item>
-			</a-form>
-			<p class="font-semibold text-muted text-center">Already have an account? <router-link to="/login" class="font-bold text-dark">Sign In</router-link></p>
-		</a-card>
-		<!-- / Sign Up Form -->
+                        <a-row :gutter="[24]">
+                            <a-col :span="24">
+                                <a-form-item class="mb-10" label="Username" :colon="false">
+                                    <a-input
+                                        v-decorator="[
+                                            'username',
+                                            { rules: [{ required: true, message: 'Please input your username!' },
+                                                        { max: 20, message: 'Max length of username is 20'},
+                                                        { min: 4, message: 'Min length of username is 4'}] },
+                                        ]"
+                                        placeholder="Username"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Email Address" :colon="false">
+                                    <a-input
+                                        v-decorator="[
+                                            'email',
+                                            { rules: [{ required: true, message: 'Please input your email!' }] },
+                                        ]"
+                                        placeholder="Email"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="6">
+                                <a-form-item class="mb-10" label="Email code" :colon="false">
+                                    <a-input
+                                        v-decorator="[
+                                            'code',
+                                        ]"
+                                        placeholder="Code"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="3">
+                                <a-form-item class="mb-10" label=" " :colon="false">
+                                    <a-button type="primary">Get code</a-button>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Password" :colon="false">
+                                    <a-input
+                                        v-decorator="[
+                                            'password',
+                                            { rules: [{ required: true, message: 'Please input your Password!' }] },
+                                        ]"
+                                        type="password"
+                                        placeholder="******"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Repeat Password" :colon="false">
+                                    <a-input
+                                        v-decorator="[
+                                            'Confirm password',
+                                            { rules: [{ required: true, message: 'Please input your Password!' }] },
+                                        ]"
+                                        type="password"
+                                        placeholder="******"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Name" :colon="false">
+                                    <a-input
+                                        v-decorator="[
+                                            'name',
+                                            { rules: [{ required: true, message: 'Please input your name!' }] },
+                                        ]"
+                                        placeholder="Name"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Phone Number" :colon="false">
+                                    <a-input
+                                        v-decorator="[
+                                            'phoneNumber',
+                                            { rules: [{ required: true, message: 'Please input your phone number!' }] },
+                                        ]"
+                                        placeholder="phone number"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Age" :colon="false">
+                                    <a-input
+                                        v-decorator="['age']"
+                                        type="number"
+                                        placeholder="Age"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Gender" :colon="false">
+                                    <a-select
+                                        v-decorator="['sex']"
+                                        @change="handleSelectChange"
+                                    >
+                                        <a-select-option value="Male">
+                                            Male
+                                        </a-select-option>
+                                        <a-select-option value="Female">
+                                            Female
+                                        </a-select-option>
+                                    </a-select>
+                                </a-form-item>
+                            </a-col>
+                        </a-row>
+                        <a-row :gutter="[24]">
+                            <a-col :span="12">E
+                            </a-col>
+                            <a-col :span="12" class="text-right">
+                                <a-button type="primary" html-type="submit" class="px-25">SIGN UP</a-button>
+                            </a-col>
+                        </a-row>
+                    </a-form>
+                </a-card>
+            </div>
+
+        </div>
 	</div>
+
 </template>
 
 <script>
@@ -142,6 +177,9 @@
 					}
 				});
 			},
+            moveStep( distance ) {
+                this.step += distance ;
+            }
 		},
 	})
 

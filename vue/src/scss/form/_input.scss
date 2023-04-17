@@ -1,10 +1,20 @@
 // _input.scss
-//
+// 
 // Template's input styles.
-//
+// 
 
 .ant-input {
 	border-radius: 6px;
+}
+
+.ant-form-item-label {
+	line-height: 28px;
+}
+
+.ant-form-item label {
+	font-size: 13px;
+	font-weight: $fw-semibold;
+	color: $color-gray-12;
 }
 
 .layout-dashboard-rtl {
@@ -24,3 +34,5 @@
 		left: auto;
 	}
 }
+
+// / Template's input styles.

@@ -1,21 +1,36 @@
+// _button.scss
+// 
+// Template's button styles.
+// 
+
 .ant-btn svg {
 	margin-right: 5px;
 }
+.mr-0.anticon svg,
+.m-0.anticon svg {
+	margin-right: 0;
+}
+
 .ant-btn.ant-btn-icon-only svg {
 	margin-right: 0;
 }
+
 .ant-btn > .anticon + span {
     margin-left: 0;
 }
+
 .ant-btn > span + .anticon {
     margin-left: 5px;
 }
+
 .ant-btn > svg {
     vertical-align: middle;
 }
+
 .ant-btn > svg + span {
     vertical-align: middle;
 }
+
 .ant-btn-icon-only.ant-btn-lg:not(.ant-btn-round),
 .ant-btn-icon-only.ant-btn:not(.ant-btn-round),
 .ant-btn-icon-only.ant-btn-sm:not(.ant-btn-round) {
@@ -25,6 +40,7 @@
 .ant-btn-circle, .ant-btn-circle-outline {
     border-radius: 50%;
 }
+
 .ant-btn.fab {
 	width: 50px;
 	height: 50px;
@@ -50,6 +66,27 @@
 
 	svg {
 		margin: 0;
+	}
+}
+
+@each $name, $value in $colors {
+	.ant-btn.bg-#{$name} {
+		background-color: $value;
+		color: #ffffff;
+
+		&:hover {
+			background-color: lighten($value, 5);
+			border-color: darken($value, 10);
+			color: #ffffff;
+		}
+	}
+}
+
+.ant-btn.bg-warning {
+	color: #333333;
+
+	&:hover {
+		color: #333333;
 	}
 }
 
@@ -110,3 +147,5 @@
 		}
 	}
 }
+
+// / Template's button styles.

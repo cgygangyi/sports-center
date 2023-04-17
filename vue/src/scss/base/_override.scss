@@ -43,6 +43,10 @@ a {
 .ant-alert-warning {
 	border: 1px solid $color-warning ;
 }
+.ant-alert-warning.ant-alert-banner {
+    border: 0;
+    border-radius: 0;
+}
 .ant-alert-warning .ant-alert-icon {
 	color: $color-warning ;
 }
@@ -194,6 +198,11 @@ a {
     padding-left: 0;
     border-radius: 50% !important;
 }
+.ant-btn-circle.ant-btn-sm, .ant-btn-circle-outline.ant-btn-sm {
+    min-width: 24px;
+    height: 24px;
+    line-height: 0;
+}
 .ant-btn-group-lg > span > .ant-btn {
 	height: $btn-height-lg ;
 	padding: $btn-padding-base ;
@@ -237,6 +246,9 @@ a.ant-btn {
 }
 a.ant-btn-lg {
 	line-height: 46px ;
+}
+a.ant-btn-sm {
+	line-height: 30px ;
 }
 .ant-fullcalendar-value:active {
 	background: $color-primary ;
@@ -849,8 +861,8 @@ textarea.ant-pagination-options-quick-jumper input {
 	color: $color-primary ;
 }
 .ant-steps-item-process .ant-steps-item-icon {
-	border-color: $color-primary ;
-	background: $color-primary ;
+	// border-color: $color-primary ;
+	// background: $color-primary ;
 }
 .ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon {
 	color: $color-primary ;
@@ -1131,3 +1143,5 @@ textarea.ant-time-picker-input {
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
 	background-color: transparent;
 }
+
+// / Overriding Ant Design's default variables, such as colors, shadows and... .

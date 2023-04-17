@@ -72,6 +72,9 @@ export default ({
     beforeCreate() {
     },
 
+    beforeMount() {
+    },
+
     methods: {
     },
 })

@@ -1,3 +1,8 @@
+// _checkbox.scss
+// 
+// Template's checkbox styles.
+// 
+
 .ant-checkbox-inner {
 	border-radius: 4px;
 
@@ -5,3 +10,29 @@
 		top: 45%;
 	}
 }
+
+.checkbox-group {
+	.checkbox-label {
+		cursor: pointer;
+		padding: 50px 0;
+		text-align: center;
+		border: 1px solid #d9d9d9;
+		font-size: .875rem;
+		border-radius: 8px;
+
+		&.active {
+			background-color: $color-primary;
+
+			.fill-dark {
+				fill: $color-white;
+			}
+		}
+	}
+	h6 {
+		font-weight: $fw-semibold;
+		text-align: center;
+		margin-top: 15px;
+	}
+}
+
+// / Template's checkbox styles.

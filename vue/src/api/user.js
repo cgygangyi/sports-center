@@ -7,7 +7,7 @@ export function userLogin(map) {
     return request({
         url: '/user/login',
         method: 'post',
-        data: map
+        data: map,
     })
 }
 
@@ -17,7 +17,10 @@ export function userRegister(map) {
     return request({
         url: '/user/register',
         method: 'post',
-        data: map
+        data: map,
+        headers: {
+            'token': localStorage.getItem('token')
+        }
     })
 }
 

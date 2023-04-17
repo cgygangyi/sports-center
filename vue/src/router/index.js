@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import request from "../utils/request";
+import {getAllVenues} from "@/api/venue";
 
 Vue.use(VueRouter)
 
@@ -12,13 +14,19 @@ let routes = [
 	{
 		path: '/',
 		name: 'Home',
-		redirect: '/login',
+		redirect: '/home',
 	},
 	{
 		path: '/home',
 		name: 'Home',
 		layout: "dashboard",
 		component: () => import('../views/Home.vue'),
+	},
+	{
+		path: '/logout',
+		name: 'Logout',
+		layout: "dashboard",
+		component: () => import('../views/Logout.vue'),
 	},
 	{
 		path: '/venues',
@@ -29,11 +37,13 @@ let routes = [
 	{
 		path: '/login',
 		name: 'login',
+		layout: "dashboard",
 		component: () => import('../views/Login.vue'),
 	},
 	{
 		path: '/register',
 		name: 'register',
+		layout: "dashboard",
 		component: () => import('../views/Register.vue'),
 	},
 	{
@@ -52,6 +62,12 @@ let routes = [
 		name: 'payment',
 		layout: "dashboard",
 		component: () => import('../views/Payment.vue'),
+	},
+	{
+		path: '/venueDetail',
+		name: 'venueDetail',
+		layout: "dashboard",
+		component: () => import('../views/VenueDetail.vue'),
 	},
 	{
 		path: '/admin/home',
@@ -115,8 +131,20 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-	next()
-
-})
+	let token = localStorage.getItem('token');
+	if (token === null || token === '') {
+		if (to.path === '/login' || to.path === '/register' || to.path === '/home' || to.path === '/venues' || to.path === '/equipments') {
+			next();
+		} else {
+			next('/home');
+		}
+	} else {
+		if (to.path === '/login' || to.path === '/register') {
+			next('/home');
+		} else {
+			next();
+		}
+	}
+});
 
 export default router

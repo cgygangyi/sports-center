@@ -3,11 +3,12 @@ package com.gym1.controller;
 import com.gym1.entity.User;
 import com.gym1.service.UserService;
 import com.gym1.service.VenueService;
-import com.gym1.util.TokenUtil;
+import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,30 +27,31 @@ public class UserController {
 
 
     @PostMapping("/login")
-    public String login(HttpSession session, @RequestBody Map map){
-
+    public Map<String, Object> login(HttpSession session, @RequestBody Map map){
         String username = (String) map.get("username");
         String password = (String) map.get("password");
         User res = userService.loginService(username);
+        Map<String, Object> reMap = new HashMap<>();
         if (res == null){
-            return null;
+            reMap.put("code", 4000);
+            reMap.put("message", "Username doesn't exist!");
+            return reMap;
         }else if(res.getPassword().equals(password)){
-//            HttpSession session = request.getSession();
-            System.out.println(session);
-            if(session.getAttribute("user") != null){
-                session.removeAttribute("user");
-            }
-            session.setAttribute("user", res);
-            System.out.println(session.getAttribute("user"));
-            TokenUtil tokenUtil = new TokenUtil();
-            return tokenUtil.getToken(username, password);
+            String token = JwtUtil.getJwtToken(username, password);
+            reMap.put("code", 4002);
+            reMap.put("message", "Login successfully!");
+            reMap.put("data", token);
+            return reMap;
         }else{
-            return null;
+            reMap.put("code", 4001);
+            reMap.put("message", "Password isn't correct!");
+            return reMap;
         }
     }
 
     @PostMapping("/register")
-    public int register(@RequestParam Map<String,String> map){
+    public int register(@RequestBody Map<String,String> map){
+        System.out.println(map);
         return userService.registerService(map);
     }
 
@@ -61,7 +63,13 @@ public class UserController {
     }
 
     @PostMapping("/ifLogin")
-    public int register(){
+    public int register(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(session.getAttribute("user") == null){
+            return 0;
+        }else{
+            return 1;
+        }
     }
 
     @GetMapping("/getAll")

@@ -30,6 +30,32 @@ $color-gray-12: #141414;
 $color-muted: $color-gray-7;
 // / Neutral Colors
 
+// Gradient Colors
+$primary-gradient:            #7928CA !default;
+$primary-gradient-state:      #FF0080 !default;
+
+$secondary-gradient:          #627594 !default;
+$secondary-gradient-state:    #A8B8D8 !default;
+
+$info-gradient:               #2152ff !default;
+$info-gradient-state:         #21d4fd !default;
+
+$success-gradient:            #17ad37 !default;
+$success-gradient-state:      #98ec2d !default;
+
+$danger-gradient:             #ea0606 !default;
+$danger-gradient-state:       #ff667c !default;
+
+$warning-gradient:            #f53939 !default;
+$warning-gradient-state:      #fbcf33 !default;
+
+$dark-gradient:               #141727 !default;
+$dark-gradient-state:         #3A416F !default;
+
+$light-gradient:              #CED4DA !default;
+$light-gradient-state:        #EBEFF4 !default;
+// / Gradient Colors
+
 // Font Weights
 $fw-regular: 400;
 $fw-semibold: 600;
@@ -76,7 +102,6 @@ $shadow-0: none;
 $shadow-1: 0px 20px 27px rgba(0, 0, 0, 0.05);
 $shadow-2: 0px 4px 6px rgba(0, 0, 0, 0.12);
 $shadow-3: 0px 5px 10px rgba(0, 0, 0, 0.12);
-
-$submenu-links-p: 10px 16px;
 // / Template Vars
 
+// / Template's variables for colors, font weight and... .

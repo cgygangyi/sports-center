@@ -38,10 +38,20 @@
                     <span class="label">Venues</span>
                 </router-link>
             </a-menu-item>
+            <a-menu-item>
+                <router-link to="/login">
+						<span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-boxes" viewBox="0 0 16 16">
+                                <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434L7.752.066ZM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567L4.25 7.504ZM7.5 9.933l-2.75 1.571v3.134l2.75-1.571V9.933Zm1 3.134 2.75 1.571v-3.134L8.5 9.933v3.134Zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567-2.742 1.567Zm2.242-2.433V3.504L8.5 5.076V8.21l2.75-1.572ZM7.5 8.21V5.076L4.75 3.504v3.134L7.5 8.21ZM5.258 2.643 8 4.21l2.742-1.567L8 1.076 5.258 2.643ZM15 9.933l-2.75 1.571v3.134L15 13.067V9.933ZM3.75 14.638v-3.134L1 9.933v3.134l2.75 1.571Z"/>
+                            </svg>
+                        </span>
+                    <span class="label">Equipments</span>
+                </router-link>
+            </a-menu-item>
             <a-menu-item class="menu-item-header">
                 Account Pages
             </a-menu-item>
-            <a-menu-item>
+            <a-menu-item v-if="login==1">
                 <router-link to="/profile">
 						<span class="icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
@@ -52,7 +62,7 @@
                     <span class="label">Profile</span>
                 </router-link>
             </a-menu-item>
-            <a-menu-item>
+            <a-menu-item v-if="login==1">
                 <router-link to="/payment">
 						<span class="icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
@@ -63,8 +73,8 @@
                     <span class="label">Payment</span>
                 </router-link>
             </a-menu-item>
-            <a-menu-item>
-                <router-link to="/login">
+            <a-menu-item v-if="login==1">
+                <router-link to="/logout">
 						<span class="icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
@@ -72,6 +82,28 @@
                             </svg>
 						</span>
                     <span class="label">Logout</span>
+                </router-link>
+            </a-menu-item>
+            <a-menu-item v-if="login==0">
+                <router-link to="/login">
+						<span class="icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                              <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            </svg>
+						</span>
+                    <span class="label">Login</span>
+                </router-link>
+            </a-menu-item>
+            <a-menu-item v-if="login==0">
+                <router-link to="/register">
+						<span class="icon">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                            </svg>
+						</span>
+                    <span class="label">Register</span>
                 </router-link>
             </a-menu-item>
         </a-menu>
@@ -103,23 +135,13 @@ export default ({
     },
     data() {
         return {
-            // sidebarCollapsedModel: this.sidebarCollapsed,
+            login: 0,
         }
     },
-
-    methods: {
-        showConfirm() {
-            this.$confirm({
-                title: 'Do you want to delete these items?',
-                content: 'When clicked the OK button, this dialog will be closed after 1 second',
-                onOk() {
-                    return new Promise((resolve, reject) => {
-                        setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-                    }).catch(() => console.log('Oops errors!'));
-                },
-                onCancel() {},
-            });
-        },
+    beforeMount() {
+        if (localStorage.getItem('token') != null && localStorage.getItem('token') != '') {
+            this.login = 1;
+        }
     },
 })
 </script>
