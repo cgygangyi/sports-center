@@ -104,7 +104,7 @@ DROP TABLE IF EXISTS `venue_state`;
 CREATE TABLE `venue_state` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `venueId` int(10) NOT NULL,
-  `begin` datetime DEFAULT NULL,
+  `begin_time` datetime DEFAULT NULL,
   `end` datetime DEFAULT NULL,
   `free` int(10) DEFAULT NULL,
   `open` int(10) DEFAULT NULL,

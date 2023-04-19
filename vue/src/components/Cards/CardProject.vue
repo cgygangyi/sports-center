@@ -14,7 +14,7 @@
                 <div>
                     <a-button size="small" @click="showModal">Book</a-button>
                     <a-modal
-                        title="Title"
+                        title="Booking"
                         :visible="visible"
                         :confirm-loading="confirmLoading"
                         @ok="handleOk"
