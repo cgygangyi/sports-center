@@ -1,22 +1,44 @@
 <template>
     <div>
-        <a-row :gutter="[8,8]">
-            <a-col :span="5"></a-col>
-            <a-col :span="4":id="100">1</a-col>
-            <a-col :span="4":id="110">2</a-col>
-            <a-col :span="4":id="120">3</a-col>
-            <a-col :span="4":id="130">4</a-col>
-        </a-row>
-        <a-row v-for="(index,i) in list" bordered title="Custom Size" :gutter="[8,8]">
-            <a-col :span="5">
-                {{ index+9-3*i+':00 - ' + (index+10-3*i)+':00' }}
-            </a-col>
-            <a-col :span="4" :id="index" @click="isClick(index)">&nbsp;&nbsp;&nbsp;</a-col>
-            <a-col :span="4" :id="index+1" @click="isClick(index+1)">&nbsp;&nbsp;&nbsp;</a-col>
-            <a-col :span="4" :id="index+2" @click="isClick(index+2)">&nbsp;&nbsp;&nbsp;</a-col>
-            <a-col :span="4" :id="index+3" @click="isClick(index+3)">&nbsp;&nbsp;&nbsp;</a-col>
-        </a-row>
+      <table class="calendar-table">
+        <thead>
+          <tr >
+              <th :colspan="4"></th>
+              <th :colspan="4":id="100">1</th>
+              <th :colspan="4":id="110">2</th>
+              <th :colspan="4":id="120">3</th>
+              <th :colspan="4":id="130">4</th>
+          </tr>
+        </thead>
+          <tr v-for="(index,i) in list">
+              <th :colspan="4">{{ index+9-3*i+':00 - ' + (index+10-3*i)+':00' }}</th>
+              <th :colspan="4":id="index" @click="isClick(index)">&nbsp;&nbsp;&nbsp;</th>
+              <th :colspan="4":id="index+1" @click="isClick(index+1)">&nbsp;&nbsp;&nbsp;</th>
+              <th :colspan="4":id="index+2" @click="isClick(index+2)">&nbsp;&nbsp;&nbsp;</th>
+              <th :colspan="4":id="index+3" @click="isClick(index+3)">&nbsp;&nbsp;&nbsp;</th>
+          </tr>
+      </table>
     </div>
+<!--    <div >-->
+
+<!--        <a-row :gutter="[8,8]" bordered title="Custom Size" >-->
+<!--            <a-col :span="5"></a-col>-->
+<!--            <a-col :span="4":id="100">1</a-col>-->
+<!--            <a-col :span="4":id="110">2</a-col>-->
+<!--            <a-col :span="4":id="120">3</a-col>-->
+<!--            <a-col :span="4":id="130">4</a-col>-->
+<!--        </a-row>-->
+<!--        <a-row v-for="(index,i) in list" bordered title="Custom Size" :gutter="[8,8]" >-->
+<!--            <a-col :span="5" class="left-right">-->
+<!--                {{ index+9-3*i+':00 - ' + (index+10-3*i)+':00' }}-->
+<!--            </a-col>-->
+<!--            <a-col :span="4" :id="index" @click="isClick(index)" class="left-right">&nbsp;&nbsp;&nbsp;</a-col>-->
+<!--            <a-col :span="4" :id="index+1" @click="isClick(index+1)" class="left-right">&nbsp;&nbsp;&nbsp;</a-col>-->
+<!--            <a-col :span="4" :id="index+2" @click="isClick(index+2)" class="left-right">&nbsp;&nbsp;&nbsp;</a-col>-->
+<!--            <a-col :span="4" :id="index+3" @click="isClick(index+3)" class="left-right">&nbsp;&nbsp;&nbsp;</a-col>-->
+<!--        </a-row>-->
+
+<!--    </div>-->
 
 </template>
 
@@ -50,19 +72,27 @@ export default {
         let change = document.getElementById(i);
         console.log(this.data[i].id);
         if (this.data[i].open === 0 || this.data[i].free === 0) {
-          change.style.backgroundColor = 'white';
+          change.style.backgroundColor = 'red';
         } else {
           console.log(change)
-          change.style.backgroundColor = 'red';
+          change.style.backgroundColor = 'white';
         }
       }
       for (var i = 0; i < 4; i++){
         var t= i*10;
         var dataString=this.data[t].begin;
-        dataString=dataString[6]+dataString[7]+dataString[8]+dataString[9];
+        if(dataString[5]==='0')
+          dataString=dataString[0]+dataString[1]+dataString[2]+dataString[3]+
+              dataString[4]+dataString[6]+dataString[7]+dataString[8]+dataString[9];
+        else
+          dataString=dataString[0]+dataString[1]+dataString[2]+dataString[3]+dataString[4]+
+              dataString[5]+dataString[6]+dataString[7]+dataString[8]+dataString[9];
+
+        dataString=dataString.replace('-','.')
         dataString=dataString.replace('-','.')
         let change = document.getElementById(t+100);
         change.innerHTML=dataString;
+
       }
       console.log(this.book_date)
       console.log(this.data)
@@ -89,6 +119,33 @@ export default {
 
 <style>
     a-col {
-        background-color: gray;
+      border-collapse: collapse;
+      border: 1px solid #dee4f5;
+      background-color: gray;
     }
+    .calendar-table {
+      border-collapse: collapse;
+    }
+    .calendar-table th {
+      vertical-align: inherit;
+      font-weight: bold;
+    }
+    .calendar-table tr {
+      height: 30px;
+      width: 20px;
+    }
+    .calendar-table tr, td, th {
+      user-select: none;
+      border: 1px solid #dee4f5;
+      text-align: center;
+      min-width: 30px;
+      line-height: 1.8em;
+      transition: background 0.2s ease;
+    }
+    /*.c-weektime-table tr:hover {*/
+    /*  height: 30px;*/
+    /*  width: 20px;*/
+    /*}*/
+
+
 </style>

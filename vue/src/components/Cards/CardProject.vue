@@ -61,7 +61,7 @@
 		},
 		data() {
 			return {
-                ModalText: 'Please click to select a time slot',
+                ModalText: 'Please click to select a time slot(just one for each choose)',
                 ModalData: [],
                 visible: false,
                 confirmLoading: false,
@@ -70,7 +70,7 @@
 
         methods: {
             showModal() {
-                this.ModalText = 'Please click to select a time slot';
+                this.ModalText = 'Please click to select a time slot(just one for each choose)';
                 getVenueTime(this.id).then((response) => {
                     console.log(response);
                     if (response.data === '') {
