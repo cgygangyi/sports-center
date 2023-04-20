@@ -1,15 +1,17 @@
 package com.gym1.entity;
 
-public class Venue {
+public class Venue extends VenueType{
 
     private int id;
-    private int type;
+    private int typeId;
     private String name;
     private String address;
     private double price;
 
+    public Venue(){}
+
     public Venue(int type, String name, String address, double price) {
-        this.type = type;
+        this.typeId = type;
         this.name = name;
         this.address = address;
         this.price = price;
@@ -18,11 +20,19 @@ public class Venue {
 
     public Venue(int id, int type, String name, String address, double price) {
         this.id = id;
-        this.type = type;
+        this.typeId = type;
         this.name = name;
         this.address = address;
         this.price = price;
+    }
 
+    public Venue(int id, String typeName, String introduction,
+                 String name, String address, double price) {
+        super(introduction, typeName);
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.price = price;
     }
 
     public int getId() {
@@ -33,12 +43,12 @@ public class Venue {
         this.id = id;
     }
 
-    public int getType() {
-        return type;
+    public int getTypeId() {
+        return typeId;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setTypeId(int type) {
+        this.typeId = type;
     }
 
     public String getName() {
@@ -64,41 +74,35 @@ public class Venue {
     public void setPrice(double price) {
         this.price = price;
     }
-
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Venue)) return false;
-
+        if (!super.equals(o)) return false;
         Venue venue = (Venue) o;
-
         if (getId() != venue.getId()) return false;
-        if (getType() != venue.getType()) return false;
+        if (getTypeId() != venue.getTypeId()) return false;
         if (Double.compare(venue.getPrice(), getPrice()) != 0) return false;
-        if (getName() != null ? !getName().equals(venue.getName()) : venue.getName() != null) return false;
-        return getAddress() != null ? getAddress().equals(venue.getAddress()) : venue.getAddress() == null;
+        if (!getName().equals(venue.getName())) return false;
+        return getAddress().equals(venue.getAddress());
     }
-
     @Override
     public int hashCode() {
-        int result;
+        int result = super.hashCode();
         long temp;
-        result = getId();
-        result = 31 * result + getType();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + (getAddress() != null ? getAddress().hashCode() : 0);
+        result = 31 * result + getId();
+        result = 31 * result + getTypeId();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getAddress().hashCode();
         temp = Double.doubleToLongBits(getPrice());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
-
     @Override
     public String toString() {
         return "Venue{" +
                 "id=" + id +
-                ", type=" + type +
+                ", typeId=" + typeId +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", price=" + price +

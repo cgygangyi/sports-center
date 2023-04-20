@@ -9,8 +9,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new JwtInterceptor())
-                .addPathPatterns("/venueState/**") // 拦截的请求 /service/**   表示拦截service下所有
-                .excludePathPatterns("/user/login") // 不拦截的请求  如登录接口
-                .excludePathPatterns("/venue/**"); // 不拦截的请求  如登录接口
+                .addPathPatterns("/venueState/**")
+                .excludePathPatterns("/user/login")
+                .excludePathPatterns("/venue/**");
     }
 }

@@ -17,35 +17,45 @@ public class JwtInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if(request.getMethod().toUpperCase().equals("OPTIONS")){
-            return true; // 通过所有OPTION请求
+            return true;
         } else {
-            String token = request.getHeader("token"); // 获取请求头中的token
+            String token = request.getHeader("token");
             Map<String, Object> map = new HashMap<>();
+            map.put("url", request.getRequestURL().toString().contains("venue"));
             try {
                 boolean verify = JwtUtil.checkToken(token);
                 if (verify) {
-                    return true; // 通过验证
+                    map.put("state", true);
+                    //convert map to jason
+                    String json = new ObjectMapper().writeValueAsString(map);
+                    response.setContentType("application/json;charset=UTF-8");
+                    response.getWriter().println(json);
+                    return true;
                 } else {
-                    return false; // 未通过验证
+                    map.put("state", false);
+                    String json = new ObjectMapper().writeValueAsString(map);
+                    response.setContentType("application/json;charset=UTF-8");
+                    response.getWriter().println(json);
+                    return false;
                 }
             } catch (SignatureException e) {
                 e.printStackTrace();
-                map.put("msg", "Invalid token!");
+                map.put("message", "Invalid token!");
             } catch (UnsupportedJwtException e) {
                 e.printStackTrace();
-                map.put("msg", "不支持的签名");
+                map.put("message", "The token format is not supported!");
             } catch (ExpiredJwtException e) {
                 e.printStackTrace();
-                map.put("msg", "token过期");
+                map.put("message", "The token is overdue!");
             } catch (MalformedJwtException e) { // IllegalArgumentException
                 e.printStackTrace();
-                map.put("msg", "不支持的签名格式");
+                map.put("message", "The token format is not supported!");
             } catch (Exception e) {
                 e.printStackTrace();
-                map.put("msg", "token无效");
+                map.put("message", "The token is invalid!");
             }
             map.put("state", false);
-            // 将map转为json
+
             String json = new ObjectMapper().writeValueAsString(map);
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().println(json);
