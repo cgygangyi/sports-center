@@ -9,7 +9,6 @@ import java.util.Date;
 public class Order extends Venue{
 
     private int id;
-    private int venueId;
     private int venueStateId;
     private int userId;
 
@@ -26,16 +25,23 @@ public class Order extends Venue{
     private Date orderTime;
 
 
-    public Order(int venueId, int venueStateId, int userId) {
-        this.venueId = venueId;
+    public Order( int venueStateId, int userId) {
         this.venueStateId = venueStateId;
         this.userId = userId;
     }
-    public Order(int id, int venueId, int venueStateId, int userId) {
+    public Order(int id, int venueStateId, int userId) {
         this.id = id;
-        this.venueId = venueId;
         this.venueStateId = venueStateId;
         this.userId = userId;
+    }
+
+    public Order(int id, Date orderTime, Date end, Date begin,
+                 String name, String address, double price) {
+        super(name, address, price);
+        this.id = id;
+        this.begin = begin;
+        this.end = end;
+        this.orderTime = orderTime;
     }
 
     public int getId() {
@@ -44,14 +50,6 @@ public class Order extends Venue{
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getVenueId() {
-        return venueId;
-    }
-
-    public void setVenueId(int venueId) {
-        this.venueId = venueId;
     }
 
     public int getVenueStateId() {
@@ -95,7 +93,6 @@ public class Order extends Venue{
         if (!super.equals(o)) return false;
         Order order = (Order) o;
         if (getId() != order.getId()) return false;
-        if (getVenueId() != order.getVenueId()) return false;
         if (getVenueStateId() != order.getVenueStateId()) return false;
         if (getUserId() != order.getUserId()) return false;
         if (getBegin() != null ? !getBegin().equals(order.getBegin()) : order.getBegin() != null) return false;
@@ -107,7 +104,6 @@ public class Order extends Venue{
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + getId();
-        result = 31 * result + getVenueId();
         result = 31 * result + getVenueStateId();
         result = 31 * result + getUserId();
         result = 31 * result + (getBegin() != null ? getBegin().hashCode() : 0);
@@ -115,12 +111,11 @@ public class Order extends Venue{
         result = 31 * result + (getOrderTime() != null ? getOrderTime().hashCode() : 0);
         return result;
     }
-    
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", venueId=" + venueId +
                 ", venueStateId=" + venueStateId +
                 ", userId=" + userId +
                 ", begin=" + begin +

@@ -18,6 +18,14 @@ public class Venue extends VenueType{
 
     }
 
+    public Venue(String name, String address, double price) {
+        super();
+        this.name = name;
+        this.address = address;
+        this.price = price;
+
+    }
+
     public Venue(int id, int type, String name, String address, double price) {
         this.id = id;
         this.typeId = type;

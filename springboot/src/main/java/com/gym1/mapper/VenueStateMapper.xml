@@ -17,6 +17,12 @@
         from venue_state
     </select>
 
+    <select id="queryVenueStateById" resultType="com.gym1.entity.VenueState">
+        select *
+        from venue_state
+        where id=#{id}
+    </select>
+
     <update id="updateVenueStateFree">
         UPDATE venue_state
         SET free = #{free}

@@ -10,6 +10,12 @@
         values (#{venueId}, #{venueStateId}, #{userId})
     </insert>
 
+    <select id="queryOrderByUserId" resultType="com.gym1.entity.Order">
+        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price
+        FROM `order` o LEFT JOIN venue_state s ON o.venueStateId = s.id and o.userId = 1
+        LEFT JOIN venue v
+        ON s.venueId = v.id
+    </select>
 
 
 

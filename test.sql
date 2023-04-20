@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2023-03-26 14:46:29
+Date: 2023-04-20 17:12:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,15 +21,16 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `venueId` int(10) NOT NULL,
+  `orderTime` datetime DEFAULT NULL,
   `venueStateId` int(10) NOT NULL,
   `userId` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
+INSERT INTO `order` VALUES ('1', '2023-03-28 10:00:00', '12', '1');
 
 -- ----------------------------
 -- Table structure for user
@@ -109,7 +110,7 @@ CREATE TABLE `venue_state` (
   `free` int(10) DEFAULT NULL,
   `open` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1961 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of venue_state

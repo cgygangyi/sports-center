@@ -15,7 +15,7 @@ public interface OrderMapper {
 
     int editOrder(Order order);
 
-    List<Order> queryUserOrder(User user);
+    List<Order> queryOrderByUserId(int id);
 
     List<Order> queryAllOrder();
 
