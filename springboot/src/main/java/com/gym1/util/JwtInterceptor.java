@@ -21,7 +21,6 @@ public class JwtInterceptor implements HandlerInterceptor {
         } else {
             String token = request.getHeader("token");
             Map<String, Object> map = new HashMap<>();
-            map.put("url", request.getRequestURL().toString().contains("venue"));
             try {
                 boolean verify = JwtUtil.checkToken(token);
                 if (verify) {
@@ -29,13 +28,13 @@ public class JwtInterceptor implements HandlerInterceptor {
                     //convert map to jason
                     String json = new ObjectMapper().writeValueAsString(map);
                     response.setContentType("application/json;charset=UTF-8");
-                    response.getWriter().println(json);
+                    response.getOutputStream().println(json);
                     return true;
                 } else {
                     map.put("state", false);
                     String json = new ObjectMapper().writeValueAsString(map);
                     response.setContentType("application/json;charset=UTF-8");
-                    response.getWriter().println(json);
+                    response.getOutputStream().println(json);
                     return false;
                 }
             } catch (SignatureException e) {
@@ -58,7 +57,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
             String json = new ObjectMapper().writeValueAsString(map);
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().println(json);
+            response.getOutputStream().println(json);
             return false;
         }
     }

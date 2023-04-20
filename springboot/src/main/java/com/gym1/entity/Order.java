@@ -25,9 +25,10 @@ public class Order extends Venue{
     private Date orderTime;
 
 
-    public Order( int venueStateId, int userId) {
+    public Order( int venueStateId, int userId, Date orderTime) {
         this.venueStateId = venueStateId;
         this.userId = userId;
+        this.orderTime = orderTime;
     }
     public Order(int id, int venueStateId, int userId) {
         this.id = id;
@@ -43,45 +44,40 @@ public class Order extends Venue{
         this.end = end;
         this.orderTime = orderTime;
     }
-
+    @Override
     public int getId() {
         return id;
     }
-
+    @Override
     public void setId(int id) {
         this.id = id;
     }
-
     public int getVenueStateId() {
         return venueStateId;
     }
-
     public void setVenueStateId(int venueStateId) {
         this.venueStateId = venueStateId;
     }
-
     public int getUserId() {
         return userId;
     }
-
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
     public Date getBegin() {
         return begin;
-    }
-    public Date getEnd() {
-        return end;
-    }
-    public Date getOrderTime() {
-        return orderTime;
     }
     public void setBegin(Date begin) {
         this.begin = begin;
     }
+    public Date getEnd() {
+        return end;
+    }
     public void setEnd(Date end) {
         this.end = end;
+    }
+    public Date getOrderTime() {
+        return orderTime;
     }
     public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;

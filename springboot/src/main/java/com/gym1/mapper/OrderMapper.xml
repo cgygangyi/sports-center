@@ -6,13 +6,13 @@
 <mapper namespace="com.gym1.mapper.OrderMapper">
 
     <insert id="addOrder" parameterType="com.gym1.entity.Order">
-        insert into order(venueId, venueStateId, userId)
-        values (#{venueId}, #{venueStateId}, #{userId})
+        insert into `order`(orderTime, venueStateId, userId)
+        values (#{orderTime}, #{venueStateId}, #{userId})
     </insert>
 
     <select id="queryOrderByUserId" resultType="com.gym1.entity.Order">
         select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price
-        FROM `order` o LEFT JOIN venue_state s ON o.venueStateId = s.id and o.userId = 1
+        FROM `order` o LEFT JOIN venue_state s ON o.venueStateId = s.id and o.userId = #{id}
         LEFT JOIN venue v
         ON s.venueId = v.id
     </select>

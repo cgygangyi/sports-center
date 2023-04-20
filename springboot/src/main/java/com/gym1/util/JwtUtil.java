@@ -15,7 +15,7 @@ public class JwtUtil {
     public static final String APP_SECRET = "ukc8BDbRigUDaY6pZFfWus2jZWLPHO";
 
 
-    public static String getJwtToken(String username, String password){
+    public static String getJwtToken(String id,String username, String password){
 
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
@@ -24,6 +24,7 @@ public class JwtUtil {
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))
                 // user information
+                .claim("id", id)
                 .claim("username", username)
                 .claim("password", password)
                 // sign method
@@ -54,7 +55,6 @@ public class JwtUtil {
         return true;
     }
 
-
     public static String getMemberIdByJwtToken(HttpServletRequest request) {
         String jwtToken = request.getHeader("token");
         if(StringUtils.isEmpty(jwtToken)) return "";
@@ -64,12 +64,21 @@ public class JwtUtil {
     }
 
 
-    public static String getMemberNickNameByJwtToken(HttpServletRequest request) {
+    public static String getMemberUsernameByJwtToken(HttpServletRequest request) {
+        String jwtToken = request.getHeader("token");
+        if(StringUtils.isEmpty(jwtToken)) return "";
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
+        Claims claims = claimsJws.getBody();
+        return (String)claims.get("username");
+    }
+
+
+    public static String getMemberPasswordByJwtToken(HttpServletRequest request) {
 
         String jwtToken = request.getHeader("token");
         if(StringUtils.isEmpty(jwtToken)) return "";
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
         Claims claims = claimsJws.getBody();
-        return (String)claims.get("nickname");
+        return (String)claims.get("password");
     }
 }

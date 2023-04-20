@@ -37,7 +37,8 @@ public class UserController {
             reMap.put("message", "Username doesn't exist!");
             return reMap;
         }else if(res.getPassword().equals(password)){
-            String token = JwtUtil.getJwtToken(username, password);
+            String id = res.getId() + "";
+            String token = JwtUtil.getJwtToken(id, username, password);
             reMap.put("code", 4002);
             reMap.put("message", "Login successfully!");
             reMap.put("data", token);

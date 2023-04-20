@@ -2,6 +2,7 @@ package com.gym1.controller;
 import com.gym1.entity.Order;
 import com.gym1.service.OrderService;
 import com.gym1.service.VenueTypeService;
+import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,8 @@ public class OrderController {
     @PostMapping("/makeOrder")
     public Map<String, Object> login(HttpServletRequest request, @RequestBody Map map){
         Map<String, Object> reMap = new HashMap<>();
-        boolean res = orderService.addOrder(map);
+        System.out.println(JwtUtil.getMemberIdByJwtToken(request));
+        boolean res = orderService.addOrder(map, JwtUtil.getMemberIdByJwtToken(request));
         if(!res){
             reMap.put("code", 3011);
             reMap.put("message", "Failure!");
