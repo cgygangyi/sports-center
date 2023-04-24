@@ -1,4 +1,4 @@
-<template>
+template>
 
 	<!-- Master Card -->
 	<a-card class="card-credit header-solid h-full" style="background-image: url('images/info-card-3.jpg')">
@@ -13,7 +13,7 @@
 			</svg>
 		</template>
 		<h5 class="card-number">4562 1122 4594 7852</h5>
-		
+
 		<div class="card-footer">
 			<div class="mr-30">
 				<p>Card Holder</p>

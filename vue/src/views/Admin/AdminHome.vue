@@ -75,17 +75,12 @@ import CardLineChart from '../../components/Cards/CardLineChart.vue' ;
 // Counter Widgets
 import WidgetCounter from '../../components/Widgets/WidgetCounter.vue' ;
 
-// "Projects" table component.
-import CardProjectTable from '../../components/Cards/CardProjectTable.vue' ;
-
 // Order History card component.
 import CardOrderHistory from '../../components/Cards/CardOrderHistory.vue' ;
 
 // Information card 1.
 import CardInfo from '../../components/Cards/CardInfo.vue' ;
 
-// Information card 2.
-import CardInfo2 from '../../components/Cards/CardInfo2.vue' ;
 
 // Counter Widgets stats
 const stats = [
@@ -220,10 +215,8 @@ export default ({
         CardBarChart,
         CardLineChart,
         WidgetCounter,
-        CardProjectTable,
         CardOrderHistory,
         CardInfo,
-        CardInfo2,
     },
     data() {
         return {

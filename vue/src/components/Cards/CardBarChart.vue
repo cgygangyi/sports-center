@@ -1,4 +1,4 @@
-<template>
+template>
 
 	<!-- Active Users Card -->
 	<a-card :bordered="false" class="dashboard-bar-chart">

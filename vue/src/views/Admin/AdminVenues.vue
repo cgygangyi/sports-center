@@ -7,11 +7,11 @@
     <div>
         <a-row :gutter="24" type="flex">
             <a-col :span="24" class="mb-24">
-                <CardVenueTable
+                <AdminTable
                     :data="this.venueData"
                     :columns="venueColumns"
                     title="Venues table"
-                ></CardVenueTable>
+                ></AdminTable>
             </a-col>
         </a-row>
     </div>
@@ -19,7 +19,7 @@
 
 <script>
 
-import CardVenueTable from '../../components/Cards/CardVenueTable.vue' ;
+import AdminTable from '../../components/Cards/AdminTable.vue' ;
 
 import {getAllVenues} from "@/api/venue";
 

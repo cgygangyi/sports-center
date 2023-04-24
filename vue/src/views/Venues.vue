@@ -3,14 +3,14 @@
         <a-card :bordered="false" class="header-solid h-full mb-24" :bodyStyle="{paddingTop: '14px'}">
             <a-row type="flex" :gutter="[24,24]" align="stretch">
                 <a-col :span="24" :md="12" :xl="6" v-for="(project, index) in projects" :key="index">
-                    <CardProject
+                    <VenueCard
                         :id="project.id"
                         :name="project.name"
                         :address="project.address"
                         :cover="project.cover"
                         :price="project.price"
                         class="mb-15"
-                    ></CardProject>
+                    ></VenueCard>
                 </a-col>
             </a-row>
         </a-card>
@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import CardProject from "../components/Cards/CardProject";
+import VenueCard from "../components/Cards/VenueCard";
 
 import {getAllVenues} from '../api/venue';
 
 export default ({
     components: {
-        CardProject,
+        VenueCard,
     },
     data() {
         return {

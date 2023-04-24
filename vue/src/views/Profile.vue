@@ -44,13 +44,11 @@
 
 <script>
 
-	import CardPlatformSettings from "../components/Cards/CardPlatformSettings"
 	import CardProfileInformation from "../components/Cards/CardProfileInformation"
     import CardBillingInfo from "../components/Cards/CardBillingInfo"
 
 	export default ({
 		components: {
-			CardPlatformSettings,
 			CardProfileInformation,
             CardBillingInfo
 		},

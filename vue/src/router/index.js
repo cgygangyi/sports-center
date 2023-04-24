@@ -70,6 +70,12 @@ let routes = [
 		component: () => import('../views/VenueDetail.vue'),
 	},
 	{
+		path: '/calendar',
+		name: 'calendar',
+		layout: "dashboard",
+		component: () => import('../views/Calendar.vue'),
+	},
+	{
 		path: '/admin/home',
 		name: 'admin',
 		layout: "admindashboard",
