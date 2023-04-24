@@ -6,8 +6,8 @@
 <mapper namespace="com.gym1.mapper.CommentMapper">
 
     <insert id="addComment" parameterType="com.gym1.entity.Comment">
-        insert into comment (userId, orderId, venueId, commentTime, message)
-        values (#{userId}, #{orderId}, #{venueId}, #{commentTime}, #{message})
+        insert into comment (userId, orderId, venueId, commentTime, info)
+        values (#{userId}, #{orderId}, #{venueId}, #{commentTime}, #{info})
     </insert>
 
 

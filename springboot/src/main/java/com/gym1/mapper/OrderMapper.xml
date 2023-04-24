@@ -18,7 +18,7 @@
         where o.userId = #{id}
     </select>
 
-    <select id="queryVenueIdByOrderId">
+    <select id="queryVenueIdByOrderId" resultType="int">
         select v.id
         from `order` o left join venue_state s on o.venueStateId = s.id
         left join venue v

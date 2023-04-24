@@ -21,8 +21,9 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/checkOrder/{id}")
-    public Map<String, Object> checkOrder(@PathVariable int id){
+    @GetMapping("/checkOrder")
+    public Map<String, Object> checkOrder(HttpServletRequest request){
+        int id = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
         List<Order> order = orderService.queryUserOrder(id);
         Map<String, Object> reMap = new HashMap<>();
         if (order.size() == 0){
@@ -38,7 +39,7 @@ public class OrderController {
     }
 
     @PostMapping("/makeOrder")
-    public Map<String, Object> login(HttpServletRequest request, @RequestBody Map map){
+    public Map<String, Object> makeOrder(HttpServletRequest request, @RequestBody Map map){
         Map<String, Object> reMap = new HashMap<>();
         boolean res = orderService.addOrder(map, JwtUtil.getMemberIdByJwtToken(request));
         if(!res){
