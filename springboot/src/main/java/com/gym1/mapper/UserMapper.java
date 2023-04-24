@@ -7,10 +7,12 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
+
     int addUser(User user);
     List<User> queryAllUser();
     User queryUserByUsername(String username);
     int editUser(String username);
+    User queryUserById(int id);
 
 
 }

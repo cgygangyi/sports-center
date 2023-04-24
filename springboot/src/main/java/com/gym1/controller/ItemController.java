@@ -26,7 +26,7 @@ public class ItemController {
                                        @RequestParam("price") double price){
         try {
             byte[] byteImage = image.getBytes();
-            System.out.println(byteImage);
+            System.out.println(image.getBytes());
             Map<String, Object> reMap = new HashMap<>();
             return reMap;
         } catch (IOException e) {

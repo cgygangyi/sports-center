@@ -21,6 +21,11 @@
         values (#{age},#{sex},#{username},#{password},#{name},#{phoneNumber},#{email})
     </insert>
 
+    <select id="queryUserById" resultType="com.gym1.entity.User">
+        select *
+        from user u
+        where u.id = #{id}
+    </select>
 
 </mapper>
 

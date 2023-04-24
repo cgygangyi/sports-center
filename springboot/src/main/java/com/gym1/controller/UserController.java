@@ -54,11 +54,15 @@ public class UserController {
         return userService.registerService(map);
     }
 
-    @PostMapping("/logOut")
-    public int logOut(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        session.removeAttribute("user");
-        return 1;
+    @GetMapping("/getUserInfo")
+    public Map<String, Object> getUserInfo(HttpServletRequest request){
+        int id = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        User user = userService.getUserInfo(id);
+        Map<String, Object> reMap = new HashMap<>();
+        reMap.put("code", 4004);
+        reMap.put("msg", "Success!");
+        reMap.put("data", user);
+        return reMap;
     }
 
 
