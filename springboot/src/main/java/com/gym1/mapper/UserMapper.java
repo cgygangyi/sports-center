@@ -11,6 +11,7 @@ public interface UserMapper {
     List<User> queryAllUser();
     User queryUserByUsername(String username);
     int editUser(String username);
+    User queryUserById(int id);
 
 
 }

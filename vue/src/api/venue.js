@@ -14,6 +14,17 @@ export function getAllVenues() {
     })
 }
 
+
+// get venue information by id
+export function getVenueById(id) {
+    return request({
+        url: '/venue/getVenueInfo/' + id,
+        method: 'get',
+    })
+}
+
+
+
 // add new venue
 export function addNewVenue(map) {
     return request({
@@ -22,3 +33,4 @@ export function addNewVenue(map) {
         data: map,
     })
 }
+

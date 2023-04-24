@@ -24,8 +24,7 @@ public class OrderService {
         return orderMapper.queryOrderByUserId(id);
     }
 
-    public boolean addOrder(Map<String, Object> map, String userId){
-        int id = Integer.parseInt(map.get("id").toString());
+    public boolean addOrder(int id, String userId){
         int uId = Integer.parseInt(userId);
         VenueState venueState = venueStateMapper.queryVenueStateById(id);
         if(venueState.getOpen() == 1 && venueState.getFree() == 1){

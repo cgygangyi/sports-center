@@ -19,27 +19,6 @@
           </tr>
       </table>
     </div>
-<!--    <div >-->
-
-<!--        <a-row :gutter="[8,8]" bordered title="Custom Size" >-->
-<!--            <a-col :span="5"></a-col>-->
-<!--            <a-col :span="4":id="100">1</a-col>-->
-<!--            <a-col :span="4":id="110">2</a-col>-->
-<!--            <a-col :span="4":id="120">3</a-col>-->
-<!--            <a-col :span="4":id="130">4</a-col>-->
-<!--        </a-row>-->
-<!--        <a-row v-for="(index,i) in list" bordered title="Custom Size" :gutter="[8,8]" >-->
-<!--            <a-col :span="5" class="left-right">-->
-<!--                {{ index+9-3*i+':00 - ' + (index+10-3*i)+':00' }}-->
-<!--            </a-col>-->
-<!--            <a-col :span="4" :id="index" @click="isClick(index)" class="left-right">&nbsp;&nbsp;&nbsp;</a-col>-->
-<!--            <a-col :span="4" :id="index+1" @click="isClick(index+1)" class="left-right">&nbsp;&nbsp;&nbsp;</a-col>-->
-<!--            <a-col :span="4" :id="index+2" @click="isClick(index+2)" class="left-right">&nbsp;&nbsp;&nbsp;</a-col>-->
-<!--            <a-col :span="4" :id="index+3" @click="isClick(index+3)" class="left-right">&nbsp;&nbsp;&nbsp;</a-col>-->
-<!--        </a-row>-->
-
-<!--    </div>-->
-
 </template>
 
 <script>
@@ -99,7 +78,6 @@ export default {
     },
     methods: {
         isClick(id) {
-            console.log(this.chosen)
             if (this.data[id].open !== 0 && this.data[id].free !== 0) {
                 if (this.chosen === -1) {
                     this.chosen = id;
@@ -110,6 +88,7 @@ export default {
                     let change = document.getElementById(id);
                     change.style.backgroundColor = 'white';
                 }
+                sessionStorage.setItem('chosen', this.data[id].id);
             }
         }
 
@@ -142,10 +121,6 @@ export default {
       line-height: 1.8em;
       transition: background 0.2s ease;
     }
-    /*.c-weektime-table tr:hover {*/
-    /*  height: 30px;*/
-    /*  width: 20px;*/
-    /*}*/
 
 
 </style>

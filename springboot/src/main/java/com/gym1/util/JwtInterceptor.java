@@ -25,10 +25,9 @@ public class JwtInterceptor implements HandlerInterceptor {
                 boolean verify = JwtUtil.checkToken(token);
                 if (verify) {
                     map.put("state", true);
-                    //convert map to jason
+                    //convert map to json
                     String json = new ObjectMapper().writeValueAsString(map);
                     response.setContentType("application/json;charset=UTF-8");
-                    response.getOutputStream().println(json);
                     return true;
                 } else {
                     map.put("state", false);

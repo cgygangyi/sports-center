@@ -24,11 +24,15 @@ export function userRegister(map) {
     })
 }
 
-// get user session
-export function getUserSession(id) {
+
+// get user profile
+export function getUserProfile() {
     return request({
-        url: '/user/getSession/' + id,
+        url: '/user/getUserInfo',
         method: 'get',
+        headers: {
+            'token': localStorage.getItem('token')
+        }
     })
 }
 

@@ -58,22 +58,16 @@ let routes = [
 		component: () => import('../views/TimePicker.vue'),
 	},
 	{
-		path: '/payment',
-		name: 'payment',
-		layout: "dashboard",
-		component: () => import('../views/Payment.vue'),
-	},
-	{
 		path: '/venueDetail',
 		name: 'venueDetail',
 		layout: "dashboard",
 		component: () => import('../views/VenueDetail.vue'),
 	},
 	{
-		path: '/calendar',
-		name: 'calendar',
+		path: '/Orders',
+		name: 'Orders',
 		layout: "dashboard",
-		component: () => import('../views/Calendar.vue'),
+		component: () => import('../views/Orders.vue'),
 	},
 	{
 		path: '/admin/home',

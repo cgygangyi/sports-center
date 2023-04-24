@@ -61,6 +61,10 @@ public class UserService {
         return userMapper.queryAllUser();
     }
 
+    public User getUserInfo(int id){
+        return userMapper.queryUserById(id);
+    }
+
 
 
 }

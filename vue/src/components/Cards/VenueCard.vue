@@ -12,17 +12,8 @@
 		<a-row type="flex" :gutter="6" class="card-footer" align="middle">
 			<a-col :span="12">
                 <div>
-                    <a-button size="small" @click="showModal">Book</a-button>
-                    <a-modal
-                        title="Booking"
-                        :visible="visible"
-                        :confirm-loading="confirmLoading"
-                        @ok="handleOk"
-                        @cancel="handleCancel"
-                    >
-                        <p>{{ ModalText }}</p>
-                        <TimePicker :data="ModalData"></TimePicker>
-                    </a-modal>
+                    <a-button size="small" @click="jump">Book</a-button>
+
                 </div>
 			</a-col>
 		</a-row>
@@ -31,12 +22,8 @@
 </template>
 
 <script>
-    import TimePicker from "@/components/Cards/TimePicker";
-    import { getVenueTime } from "@/api/venueState";
+
 	export default ({
-        components: {
-            TimePicker,
-        },
 		props: {
 			id: {
 				type: Number,
@@ -61,43 +48,18 @@
 		},
 		data() {
 			return {
-                ModalText: 'Please click to select a time slot(just one for each choose)',
-                ModalData: [],
-                visible: false,
-                confirmLoading: false,
+
 			}
 		},
 
         methods: {
-            showModal() {
-                this.ModalText = 'Please click to select a time slot(just one for each choose)';
-                getVenueTime(this.id).then((response) => {
-                    console.log(response);
-                    if (response.data === '') {
-                        this.$message.warning("Please login first!")
+            jump() {
+                this.$router.push({
+                    path: '/venueDetail',
+                    query: {
+                        id: this.id,
                     }
-                    else {
-                        this.ModalData = response.data;
-                        this.visible = true;
-                    }
-                    console.log(this.ModalData);
-                }).catch((error) => {
-                    console.log(error);
-                });
-            },
-            handleOk(e) {
-                this.ModalText = 'Booking......';
-                this.confirmLoading = true;
-                setTimeout(() => {
-                    this.visible = false;
-                    this.confirmLoading = false;
-                    this.$message.success("Successfully booked!")
-                }, 1000);
-
-            },
-            handleCancel(e) {
-                console.log('Clicked cancel button');
-                this.visible = false;
+                })
             },
         },
     })

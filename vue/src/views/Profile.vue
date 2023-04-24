@@ -35,7 +35,7 @@
             <a-col :span="24" :md="16" class="mb-24">
                 <a-card :bordered="false" class="header-solid h-full" :bodyStyle="{paddingTop: 0, paddingBottom: '16px' }">
                     <h6 class="font-semibold my-20">Appointment Information</h6>
-                    <a-row :gutter="[24, 24]" v-for="order in orders" :key="order">
+                    <a-row :gutter="[24, 24]" v-for="order in this.orders" :key="order">
                         <a-col :span="24">
                             <a-card :bordered="false" class="card-billing-info">
                                 <div class="col-info">
@@ -76,6 +76,7 @@
 
 <script>
     import {getUserOrders} from "../api/order";
+    import {getUserProfile} from "../api/user";
 	import CardProfileInformation from "../components/Cards/CardProfileInformation"
     import CardBillingInfo from "../components/Cards/CardBillingInfo"
 
@@ -116,9 +117,28 @@
             }
         },
         beforeMount() {
+            getUserProfile().then(res => {
+                console.log(res.data);
+                this.id = res.data.data.id;
+                this.username = res.data.data.username;
+                this.age = res.data.data.age;
+                this.email = res.data.data.email;
+                this.name = res.data.data.name;
+                this.phoneNumber = res.data.data.phoneNumber;
+                if (res.data.data.sex === 1) {
+                    this.sex = 'Male'
+                }
+                else {
+                    this.sex = 'Female'
+                }
+                // refresh
+                this.$forceUpdate();
+            })
             getUserOrders().then(res => {
+                console.log(res)
                 this.orders = res.data.data;
                 console.log(this.orders);
+                this.$forceUpdate();
             })
         },
         methods: {

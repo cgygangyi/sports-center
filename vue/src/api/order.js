@@ -13,3 +13,15 @@ export function getUserOrders() {
         }
     })
 }
+
+
+// book venue by id
+export function bookVenue(id) {
+    return request({
+        url: '/order/makeOrder/' + id,
+        method: 'post',
+        headers: {
+            'token': localStorage.getItem('token')
+        },
+    })
+}

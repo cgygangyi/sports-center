@@ -102,17 +102,6 @@
             <a-descriptions-item label="Gender">
                 {{ sex }}
             </a-descriptions-item>
-			<a-descriptions-item label="Social">
-				<a href="#" class="mx-5 px-5">
-					<a-icon type="twitter" style="color: #3EA1EC;" />
-				</a>
-				<a href="#" class="mx-5 px-5">
-					<a-icon type="facebook" style="color: #344E86" />
-				</a>
-				<a href="#" class="mx-5 px-5">
-					<a-icon type="instagram" style="color: #E1306C" />
-				</a>
-			</a-descriptions-item>
 		</a-descriptions>
 
         <hr class="my-25">

@@ -61,6 +61,16 @@ public class UserController {
         return 1;
     }
 
+    @GetMapping("/getUserInfo")
+    public Map<String, Object> getUserInfo(HttpServletRequest request){
+        int id = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        User user = userService.getUserInfo(id);
+        Map<String, Object> reMap = new HashMap<>();
+        reMap.put("code", 4004);
+        reMap.put("msg", "Success!");
+        reMap.put("data", user);
+        return reMap;
+    }
 
     @GetMapping("/getAll")
     public List<User> getAll(){
