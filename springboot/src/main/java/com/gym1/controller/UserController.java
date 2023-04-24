@@ -25,7 +25,6 @@ public class UserController {
     @Autowired
     private VenueService venueService;
 
-
     @PostMapping("/login")
     public Map<String, Object> login(HttpSession session, @RequestBody Map map){
         String username = (String) map.get("username");
@@ -62,15 +61,6 @@ public class UserController {
         return 1;
     }
 
-    @PostMapping("/ifLogin")
-    public int register(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        if(session.getAttribute("user") == null){
-            return 0;
-        }else{
-            return 1;
-        }
-    }
 
     @GetMapping("/getAll")
     public List<User> getAll(){

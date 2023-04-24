@@ -1,13 +1,12 @@
 package com.gym1.controller;
+
+
 import com.gym1.entity.Order;
 import com.gym1.service.OrderService;
-import com.gym1.service.VenueTypeService;
 import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +40,6 @@ public class OrderController {
     @PostMapping("/makeOrder")
     public Map<String, Object> login(HttpServletRequest request, @RequestBody Map map){
         Map<String, Object> reMap = new HashMap<>();
-        System.out.println(JwtUtil.getMemberIdByJwtToken(request));
         boolean res = orderService.addOrder(map, JwtUtil.getMemberIdByJwtToken(request));
         if(!res){
             reMap.put("code", 3011);

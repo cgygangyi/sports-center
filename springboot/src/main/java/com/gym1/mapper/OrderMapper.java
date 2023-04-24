@@ -20,5 +20,6 @@ public interface OrderMapper {
 
     List<Order> queryAllOrder();
 
+    int queryVenueIdByOrderId(int orderId);
 
 }

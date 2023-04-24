@@ -12,11 +12,19 @@
 
     <select id="queryOrderByUserId" resultType="com.gym1.entity.Order">
         select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price
-        FROM `order` o LEFT JOIN venue_state s ON o.venueStateId = s.id and o.userId = #{id}
-        LEFT JOIN venue v
-        ON s.venueId = v.id
+        from `order` o left join venue_state s on o.venueStateId = s.id
+        left join venue v
+        on s.venueId = v.id
+        where o.userId = #{id}
     </select>
 
+    <select id="queryVenueIdByOrderId">
+        select v.id
+        from `order` o left join venue_state s on o.venueStateId = s.id
+        left join venue v
+        on s.venueId = v.id
+        where o.id = #{orderId}
+    </select>
 
 
 </mapper>
