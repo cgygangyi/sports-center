@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import {addNewVenue} from "../../api/venue";
+
 export default {
     data: () => ({
         formItemLayout: {
@@ -68,6 +70,9 @@ export default {
             e.preventDefault();
             this.form.validateFields((err, values) => {
                 if (!err) {
+                    addNewVenue(values).then(res=>{
+                        console.log(res.data)
+                    })
                     console.log('Received values of form: ', values);
                 }
             });

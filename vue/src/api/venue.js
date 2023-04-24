@@ -13,3 +13,12 @@ export function getAllVenues() {
         }
     })
 }
+
+// add new venue
+export function addNewVenue(map) {
+    return request({
+        url: '/venue/add',
+        method: 'post',
+        data: map,
+    })
+}
