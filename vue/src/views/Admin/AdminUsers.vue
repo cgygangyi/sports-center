@@ -8,9 +8,9 @@
         <a-row :gutter="24" type="flex">
             <a-col :span="24" class="mb-24">
                 <CardVenueTable
-                    :data="this.venueData"
-                    :columns="venueColumns"
-                    title="Venues table"
+                    :data="this.userData"
+                    :columns="userColumns"
+                    title="Users Table"
                 ></CardVenueTable>
             </a-col>
         </a-row>
@@ -19,26 +19,38 @@
 
 <script>
 
-import CardVenueTable from '../components/Cards/CardVenueTable' ;
+import CardVenueTable from '../../components/Cards/CardVenueTable.vue' ;
 
-import {getAllVenues} from "@/api/venue";
+import {getAllUsers} from "@/api/user";
 
-const venueColumns = [
+const userColumns = [
     {
         title: 'ID',
         dataIndex: 'id',
+    },
+    {
+        title: 'Username',
+        dataIndex: 'username',
+    },
+    {
+        title: 'Email',
+        dataIndex: 'email',
     },
     {
         title: 'Name',
         dataIndex: 'name',
     },
     {
-        title: 'ADDRESS',
-        dataIndex: 'address',
+        title: 'Phone Number',
+        dataIndex: 'phoneNumber',
     },
     {
-        title: 'Price',
-        dataIndex: 'price',
+        title: 'Age',
+        dataIndex: 'age',
+    },
+    {
+        title: 'Sex',
+        dataIndex: 'sex',
     },
     {
         title: '',
@@ -53,16 +65,16 @@ export default ({
     },
     data() {
         return {
-            venueData: [],
+            userData: [],
 
-            venueColumns: venueColumns,
+            userColumns: userColumns,
         }
     },
 
     beforeCreate() {
-        getAllVenues().then((response) => {
-            this.venueData = response.data;
-            console.log(this.venueData)
+        getAllUsers().then((response) => {
+            this.userData = response.data;
+            console.log(this.userData)
         });
     },
 })

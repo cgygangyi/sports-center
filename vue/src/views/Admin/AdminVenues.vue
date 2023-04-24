@@ -8,9 +8,9 @@
         <a-row :gutter="24" type="flex">
             <a-col :span="24" class="mb-24">
                 <CardVenueTable
-                    :data="stateData"
-                    :columns="stateColumns"
-                    title="State table"
+                    :data="this.venueData"
+                    :columns="venueColumns"
+                    title="Venues table"
                 ></CardVenueTable>
             </a-col>
         </a-row>
@@ -19,34 +19,26 @@
 
 <script>
 
-import CardVenueTable from '../components/Cards/CardVenueTable' ;
+import CardVenueTable from '../../components/Cards/CardVenueTable.vue' ;
 
-import {getAllStates} from "@/api/venueState";
+import {getAllVenues} from "@/api/venue";
 
-const stateColumns = [
+const venueColumns = [
     {
         title: 'ID',
         dataIndex: 'id',
     },
     {
-        title: 'Venue Id',
-        dataIndex: 'venueId',
+        title: 'Name',
+        dataIndex: 'name',
     },
     {
-        title: 'Open',
-        dataIndex: 'open',
+        title: 'ADDRESS',
+        dataIndex: 'address',
     },
     {
-        title: 'Free',
-        dataIndex: 'free',
-    },
-    {
-        title: 'Begin',
-        dataIndex: 'begin',
-    },
-    {
-        title: 'End',
-        dataIndex: 'end',
+        title: 'Price',
+        dataIndex: 'price',
     },
     {
         title: '',
@@ -61,16 +53,16 @@ export default ({
     },
     data() {
         return {
-            stateData: [],
+            venueData: [],
 
-            stateColumns: stateColumns,
+            venueColumns: venueColumns,
         }
     },
 
     beforeCreate() {
-        getAllStates().then((response) => {
-            this.stateData = response.data;
-            console.log(this.stateData)
+        getAllVenues().then((response) => {
+            this.venueData = response.data;
+            console.log(this.venueData)
         });
     },
 })

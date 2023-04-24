@@ -1,5 +1,6 @@
 <template>
     <div>
+        <upload></upload>
         <a-carousel arrows>
             <div
                 slot="prevArrow"

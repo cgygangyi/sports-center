@@ -8,9 +8,9 @@
         <a-row :gutter="24" type="flex">
             <a-col :span="24" class="mb-24">
                 <CardVenueTable
-                    :data="this.userData"
-                    :columns="userColumns"
-                    title="Users Table"
+                    :data="stateData"
+                    :columns="stateColumns"
+                    title="State table"
                 ></CardVenueTable>
             </a-col>
         </a-row>
@@ -19,38 +19,34 @@
 
 <script>
 
-import CardVenueTable from '../components/Cards/CardVenueTable' ;
+import CardVenueTable from '../../components/Cards/CardVenueTable.vue' ;
 
-import {getAllUsers} from "@/api/user";
+import {getAllStates} from "@/api/venueState";
 
-const userColumns = [
+const stateColumns = [
     {
         title: 'ID',
         dataIndex: 'id',
     },
     {
-        title: 'Username',
-        dataIndex: 'username',
+        title: 'Venue Id',
+        dataIndex: 'venueId',
     },
     {
-        title: 'Email',
-        dataIndex: 'email',
+        title: 'Open',
+        dataIndex: 'open',
     },
     {
-        title: 'Name',
-        dataIndex: 'name',
+        title: 'Free',
+        dataIndex: 'free',
     },
     {
-        title: 'Phone Number',
-        dataIndex: 'phoneNumber',
+        title: 'Begin',
+        dataIndex: 'begin',
     },
     {
-        title: 'Age',
-        dataIndex: 'age',
-    },
-    {
-        title: 'Sex',
-        dataIndex: 'sex',
+        title: 'End',
+        dataIndex: 'end',
     },
     {
         title: '',
@@ -65,16 +61,16 @@ export default ({
     },
     data() {
         return {
-            userData: [],
+            stateData: [],
 
-            userColumns: userColumns,
+            stateColumns: stateColumns,
         }
     },
 
     beforeCreate() {
-        getAllUsers().then((response) => {
-            this.userData = response.data;
-            console.log(this.userData)
+        getAllStates().then((response) => {
+            this.stateData = response.data;
+            console.log(this.stateData)
         });
     },
 })

@@ -67,25 +67,25 @@ const data = [
 ];
 
 // Bar chart for "Active Users" card.
-import CardBarChart from '../components/Cards/CardBarChart' ;
+import CardBarChart from '../../components/Cards/CardBarChart.vue' ;
 
 // Line chart for "Sales Overview" card.
-import CardLineChart from '../components/Cards/CardLineChart' ;
+import CardLineChart from '../../components/Cards/CardLineChart.vue' ;
 
 // Counter Widgets
-import WidgetCounter from '../components/Widgets/WidgetCounter' ;
+import WidgetCounter from '../../components/Widgets/WidgetCounter.vue' ;
 
 // "Projects" table component.
-import CardProjectTable from '../components/Cards/CardProjectTable' ;
+import CardProjectTable from '../../components/Cards/CardProjectTable.vue' ;
 
 // Order History card component.
-import CardOrderHistory from '../components/Cards/CardOrderHistory' ;
+import CardOrderHistory from '../../components/Cards/CardOrderHistory.vue' ;
 
 // Information card 1.
-import CardInfo from '../components/Cards/CardInfo' ;
+import CardInfo from '../../components/Cards/CardInfo.vue' ;
 
 // Information card 2.
-import CardInfo2 from '../components/Cards/CardInfo2' ;
+import CardInfo2 from '../../components/Cards/CardInfo2.vue' ;
 
 // Counter Widgets stats
 const stats = [
