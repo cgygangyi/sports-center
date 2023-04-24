@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public int register(@RequestParam Map<String,String> map){
+    public int register(@RequestBody Map<String,String> map){
         return userService.registerService(map);
     }
 

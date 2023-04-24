@@ -38,10 +38,10 @@ public class OrderController {
         return reMap;
     }
 
-    @PostMapping("/makeOrder")
-    public Map<String, Object> makeOrder(HttpServletRequest request, @RequestBody Map map){
+    @PostMapping("/makeOrder/{orderId}")
+    public Map<String, Object> makeOrder(HttpServletRequest request, @PathVariable int orderId){
         Map<String, Object> reMap = new HashMap<>();
-        boolean res = orderService.addOrder(map, JwtUtil.getMemberIdByJwtToken(request));
+        boolean res = orderService.addOrder(orderId, JwtUtil.getMemberIdByJwtToken(request));
         if(!res){
             reMap.put("code", 3011);
             reMap.put("message", "Failure!");

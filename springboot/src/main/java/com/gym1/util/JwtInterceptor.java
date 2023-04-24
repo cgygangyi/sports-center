@@ -28,13 +28,13 @@ public class JwtInterceptor implements HandlerInterceptor {
                     //convert map to jason
                     String json = new ObjectMapper().writeValueAsString(map);
                     response.setContentType("application/json;charset=UTF-8");
-                    response.getOutputStream().println(json);
+                    //response.getOutputStream().println(json);
                     return true;
                 } else {
                     map.put("state", false);
                     String json = new ObjectMapper().writeValueAsString(map);
                     response.setContentType("application/json;charset=UTF-8");
-                    response.getOutputStream().println(json);
+                    //response.getOutputStream().println(json);
                     return false;
                 }
             } catch (SignatureException e) {
@@ -57,7 +57,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
             String json = new ObjectMapper().writeValueAsString(map);
             response.setContentType("application/json;charset=UTF-8");
-            response.getOutputStream().println(json);
+            //response.getOutputStream().println(json);
             return false;
         }
     }
