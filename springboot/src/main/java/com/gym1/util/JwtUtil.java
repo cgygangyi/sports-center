@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    public static final long EXPIRE = 1000 * 60 * 60;
+    public static final long EXPIRE = 10000 * 60 * 60;
     public static final String APP_SECRET = "ukc8BDbRigUDaY6pZFfWus2jZWLPHO";
 
 

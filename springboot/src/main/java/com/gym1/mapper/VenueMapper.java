@@ -13,7 +13,7 @@ public interface VenueMapper {
     int editVenue(Venue venue);
 
     List<Venue> queryAllVenue();
-    List<Venue> queryVenueByType(String type);
+    Venue queryVenueById(int venueId);
     List<Venue> queryVenueByName(String name);
     List<Venue> queryVenueByNameType(String type, String name);
 

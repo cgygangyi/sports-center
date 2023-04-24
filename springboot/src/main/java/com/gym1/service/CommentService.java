@@ -1,11 +1,13 @@
 package com.gym1.service;
 import com.gym1.entity.Comment;
+import com.gym1.entity.Venue;
 import com.gym1.mapper.CommentMapper;
 import com.gym1.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 
 
@@ -23,6 +25,10 @@ public class CommentService {
         Date date = new Date(System.currentTimeMillis());
         Comment comment = new Comment(userId, orderId, venueId, date, info);
         return commentMapper.addComment(comment);
+    }
+
+    public List<Comment> getVenueComment(int venueId){
+        return commentMapper.queryCommentByVenueId(venueId);
     }
 
 }

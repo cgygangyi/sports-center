@@ -24,6 +24,14 @@ public class Comment {
         this.commentTime = commentTime;
         this.info = info;
     }
+
+    public Comment(int userId, Date commentTime, String info, String username){
+        this.userId = userId;
+        this.commentTime = commentTime;
+        this.info = info;
+        this.username = username;
+    }
+
     public int getId() {
         return id;
     }

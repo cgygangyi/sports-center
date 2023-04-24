@@ -7,20 +7,20 @@ public class VenueType {
 
     private int id;
     private String introduction;
-    private String type;
+    private String typeName;
     private byte[] image;
 
     public VenueType(){
 
     }
 
-    public VenueType(String introduction, String type){
-        this.type = type;
+    public VenueType(String introduction, String typeName){
         this.introduction = introduction;
+        this.typeName = typeName;
     }
     public VenueType(int id, String introduction, String type){
         this.id = id;
-        this.type = type;
+        this.typeName = type;
         this.introduction = introduction;
     }
 
@@ -28,16 +28,16 @@ public class VenueType {
         return id;
     }
 
-    public String getType() {
-        return type;
+    public String getTypeName() {
+        return typeName;
     }
 
     public String getIntroduction() {
         return introduction;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypeName(String type) {
+        this.typeName = type;
     }
 
     public void setIntroduction(String introduction) {
@@ -58,14 +58,14 @@ public class VenueType {
         if (getId() != venueType.getId()) return false;
         if (getIntroduction() != null ? !getIntroduction().equals(venueType.getIntroduction()) : venueType.getIntroduction() != null)
             return false;
-        if (getType() != null ? !getType().equals(venueType.getType()) : venueType.getType() != null) return false;
+        if (getTypeName() != null ? !getTypeName().equals(venueType.getTypeName()) : venueType.getTypeName() != null) return false;
         return Arrays.equals(getImage(), venueType.getImage());
     }
     @Override
     public int hashCode() {
         int result = getId();
         result = 31 * result + (getIntroduction() != null ? getIntroduction().hashCode() : 0);
-        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
+        result = 31 * result + (getTypeName() != null ? getTypeName().hashCode() : 0);
         result = 31 * result + Arrays.hashCode(getImage());
         return result;
     }
@@ -74,7 +74,7 @@ public class VenueType {
         return "VenueType{" +
                 "id=" + id +
                 ", introduction='" + introduction + '\'' +
-                ", type='" + type + '\'' +
+                ", type='" + typeName + '\'' +
                 ", image=" + Arrays.toString(image) +
                 '}';
     }

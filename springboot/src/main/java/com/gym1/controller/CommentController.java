@@ -1,7 +1,9 @@
 package com.gym1.controller;
 
 
+import com.gym1.entity.Comment;
 import com.gym1.entity.Order;
+import com.gym1.entity.Venue;
 import com.gym1.service.CommentService;
 import com.gym1.service.OrderService;
 import com.gym1.util.JwtUtil;
@@ -41,6 +43,21 @@ public class CommentController {
         return reMap;
     }
 
+    @GetMapping("/getVenueComment/{venueId}")
+    public Map<String, Object> getVenueInfo(@PathVariable int venueId){
+        Map<String, Object> reMap = new HashMap<>();
+        List<Comment> res = commentService.getVenueComment(venueId);
+        if (res.size() != 0){
+            reMap.put("code", 2003);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 2004);
+            reMap.put("msg", "There are no comments!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
 
 
 }

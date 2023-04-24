@@ -11,6 +11,12 @@
         where t.id = v.type
     </select>
 
+    <select id="queryVenueById" resultType="com.gym1.entity.Venue">
+        select v.id, t.name typeName, t.introduction, v.name, v.address, v.price
+        from venue_type t, venue v
+        where t.id = v.type and v.id = #{venueId}
+    </select>
+
 
 
 

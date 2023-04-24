@@ -10,5 +10,13 @@
         values (#{userId}, #{orderId}, #{venueId}, #{commentTime}, #{info})
     </insert>
 
+    <select id="queryCommentByVenueId" resultType="com.gym1.entity.Comment">
+        select c.id, c.commentTime, c.info, u.username
+        from comment c
+        left join user u
+        on c.userId = u.id
+        where c.venueId = #{venueId}
+    </select>
+
 
 </mapper>

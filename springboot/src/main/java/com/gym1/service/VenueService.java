@@ -17,6 +17,10 @@ public class VenueService {
         return venueMapper.queryAllVenue();
     }
 
+    public Venue getVenueInfo(int venueId){
+        return venueMapper.queryVenueById(venueId);
+    }
+
 
 
 

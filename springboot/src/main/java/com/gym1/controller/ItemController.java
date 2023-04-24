@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,15 +19,19 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
-    @PostMapping("/addItem/")
-    public Map<String, Object> addItem(@RequestBody Map map){
-
-        String name = map.get("name").toString();
-        String info = map.get("info").toString();
-        double price = Double.parseDouble(map.get("price").toString());
-        System.out.println(map.get("image"));
-        Map<String, Object> reMap = new HashMap<>();
-        return reMap;
+    @PostMapping("/addItem")
+    public Map<String, Object> addItem(@RequestParam("image") MultipartFile image,
+                                       @RequestParam("name") String name,
+                                       @RequestParam("info") String info,
+                                       @RequestParam("price") double price){
+        try {
+            byte[] byteImage = image.getBytes();
+            System.out.println(byteImage);
+            Map<String, Object> reMap = new HashMap<>();
+            return reMap;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
