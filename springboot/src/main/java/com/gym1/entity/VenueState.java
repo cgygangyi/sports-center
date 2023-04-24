@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class VenueState {
+public class VenueState{
 
     private int id;
     private int venueId;

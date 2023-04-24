@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2023-03-26 14:46:29
+Date: 2023-04-24 16:35:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,15 +21,38 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `venueId` int(10) NOT NULL,
+  `orderTime` datetime DEFAULT NULL,
   `venueStateId` int(10) NOT NULL,
   `userId` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
+INSERT INTO `order` VALUES ('1', '2023-03-28 10:00:00', '12', '1');
+INSERT INTO `order` VALUES ('2', '2023-04-20 19:26:10', '13', '1');
+INSERT INTO `order` VALUES ('3', '2023-04-20 19:27:17', '14', '1');
+INSERT INTO `order` VALUES ('4', '2023-04-20 19:27:57', '380', '2');
+INSERT INTO `order` VALUES ('5', '2023-04-20 19:38:17', '18', '1');
+
+
+
+-- ----------------------------
+-- Table structure for order
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `commentTime` datetime DEFAULT NULL,
+  `info` varchar(4096) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `userId` int(10) DEFAULT NULL,
+  `orderId` int(10) DEFAULT NULL,
+  `venueId` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
 
 -- ----------------------------
 -- Table structure for user
@@ -104,34 +127,34 @@ DROP TABLE IF EXISTS `venue_state`;
 CREATE TABLE `venue_state` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `venueId` int(10) NOT NULL,
-  `begin_time` datetime DEFAULT NULL,
+  `begin` datetime DEFAULT NULL,
   `end` datetime DEFAULT NULL,
   `free` int(10) DEFAULT NULL,
   `open` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1961 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of venue_state
 -- ----------------------------
 INSERT INTO `venue_state` VALUES ('1', '1', '2023-03-27 09:00:00', '2023-03-27 10:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('2', '1', '2023-03-27 10:00:00', '2023-03-27 11:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('3', '1', '2023-03-27 11:00:00', '2023-03-27 12:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('4', '1', '2023-03-27 12:00:00', '2023-03-27 13:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('5', '1', '2023-03-27 13:00:00', '2023-03-27 14:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('6', '1', '2023-03-27 14:00:00', '2023-03-27 15:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('7', '1', '2023-03-27 15:00:00', '2023-03-27 16:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('8', '1', '2023-03-27 16:00:00', '2023-03-27 17:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('9', '1', '2023-03-27 17:00:00', '2023-03-27 18:00:00', '1', '1');
+INSERT INTO `venue_state` VALUES ('2', '1', '2023-03-27 10:00:00', '2023-03-27 11:00:00', '0', '1');
+INSERT INTO `venue_state` VALUES ('3', '1', '2023-03-27 11:00:00', '2023-03-27 12:00:00', '0', '1');
+INSERT INTO `venue_state` VALUES ('4', '1', '2023-03-27 12:00:00', '2023-03-27 13:00:00', '0', '1');
+INSERT INTO `venue_state` VALUES ('5', '1', '2023-03-27 13:00:00', '2023-03-27 14:00:00', '0', '1');
+INSERT INTO `venue_state` VALUES ('6', '1', '2023-03-27 14:00:00', '2023-03-27 15:00:00', '0', '1');
+INSERT INTO `venue_state` VALUES ('7', '1', '2023-03-27 15:00:00', '2023-03-27 16:00:00', '0', '1');
+INSERT INTO `venue_state` VALUES ('8', '1', '2023-03-27 16:00:00', '2023-03-27 17:00:00', '0', '1');
+INSERT INTO `venue_state` VALUES ('9', '1', '2023-03-27 17:00:00', '2023-03-27 18:00:00', '0', '1');
 INSERT INTO `venue_state` VALUES ('10', '1', '2023-03-27 18:00:00', '2023-03-27 19:00:00', '1', '1');
 INSERT INTO `venue_state` VALUES ('11', '1', '2023-03-28 09:00:00', '2023-03-28 10:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('12', '1', '2023-03-28 10:00:00', '2023-03-28 11:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('13', '1', '2023-03-28 11:00:00', '2023-03-28 12:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('14', '1', '2023-03-28 12:00:00', '2023-03-28 13:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('15', '1', '2023-03-28 13:00:00', '2023-03-28 14:00:00', '1', '1');
+INSERT INTO `venue_state` VALUES ('12', '1', '2023-03-28 10:00:00', '2023-03-28 11:00:00', '0', '1');
+INSERT INTO `venue_state` VALUES ('13', '1', '2023-03-28 11:00:00', '2023-03-28 12:00:00', '0', '1');
+INSERT INTO `venue_state` VALUES ('14', '1', '2023-03-28 12:00:00', '2023-03-28 13:00:00', '0', '1');
+INSERT INTO `venue_state` VALUES ('15', '1', '2023-03-28 13:00:00', '2023-03-28 14:00:00', '0', '1');
 INSERT INTO `venue_state` VALUES ('16', '1', '2023-03-28 14:00:00', '2023-03-28 15:00:00', '1', '1');
 INSERT INTO `venue_state` VALUES ('17', '1', '2023-03-28 15:00:00', '2023-03-28 16:00:00', '1', '1');
-INSERT INTO `venue_state` VALUES ('18', '1', '2023-03-28 16:00:00', '2023-03-28 17:00:00', '1', '1');
+INSERT INTO `venue_state` VALUES ('18', '1', '2023-03-28 16:00:00', '2023-03-28 17:00:00', '0', '1');
 INSERT INTO `venue_state` VALUES ('19', '1', '2023-03-28 17:00:00', '2023-03-28 18:00:00', '1', '1');
 INSERT INTO `venue_state` VALUES ('20', '1', '2023-03-28 18:00:00', '2023-03-28 19:00:00', '1', '1');
 INSERT INTO `venue_state` VALUES ('21', '1', '2023-03-29 09:00:00', '2023-03-29 10:00:00', '1', '1');
@@ -2083,14 +2106,15 @@ CREATE TABLE `venue_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `introduction` varchar(4096) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` blob,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of venue_type
 -- ----------------------------
-INSERT INTO `venue_type` VALUES ('1', 'Table tennis venue', 'The standard table tennis court shall not be less than 14 meters long, 7 meters wide and 4.76 meters high.\nThe training ground should not be less than 12 meters long, 6 meters wide and 4.76 meters high.\nMultiple table tennis tables can be arranged in groups in the recreation venue. When arranged in groups, the distance between the short sides of the table tennis table is greater than or equal to 5 meters, the distance between the long sides of the table is greater than or equal to 2 meters, and the height of the court is greater than or equal to 2.24 meters.');
-INSERT INTO `venue_type` VALUES ('2', 'Basketball venue', 'The basketball court is a solid rectangular surface, and the appropriate authority of FIBA shall have the power to approve existing courts within the following range of dimensions: a reduction of 4 meters in length and 2 meters in width, provided that the changes are proportional to each other.\nCeiling or minimum barrier height at least 7 meters.\nCourt lighting should be uniform and sufficient luminosity.\nThe placement of lighting equipment shall not interfere with the vision of the team members.\nAll new courts shall be of the dimensions required by FIBA for major official competitions: 28 metres long, 15 metres wide and free of obstructions (measured from the inside of the boundary).');
-INSERT INTO `venue_type` VALUES ('3', 'Volleyball venue', 'The volleyball court is a rectangle with a length of 18 meters and a width of 9 meters.\nThere should be a barrier zone of at least 3 meters wide around.\nAt least 7 meters of barrier-free space from the ground.\nThe barrier-free area outside the sideline of the FIVB World competition venue should be at least 5 meters, outside the end line should be at least 8 meters, and the barrier-free space above the competition venue should be at least 12.5 meters.\nPVC Sport Floor -WanAo Brand PVC Sport Floor -WanAo Brand all boundaries are 5 cm wide, its color is different from the ground and other projects of the site painting line.\nThe long side of the rectangular playing field is the side line and the short side is the end line.\nThe linewidths of the sideline and the end lines are included in the area of the playing field.\nThe center line, under the net, is the connection between the midpoints of the two sides, dividing the playing field into two equal fields.\nEach field draws an offensive line 3 meters from the center line (including its width).\nBetween the center line and the offensive line is the downfield zone.');
-INSERT INTO `venue_type` VALUES ('4', 'Badminton venue', 'Badminton court length 13.40 meters, doubles width 6.10 meters, singles width 5.18 meters, doubles court diagonal length =14.723 meters, singles court diagonal length =14.366 meters.\nThe ideal badminton court is made of flexible wood spliced together (as long as the pieces are not spliced vertically).\nChemical synthetic materials have been used as movable plastic courts for international matches.\nAt all levels of grass-roots competition, when the above conditions cannot be met, the competition can also be held on the ground of cement or triad.\nWhether a wooden or synthetic surface is used, it must ensure that the players do not feel too slippery or sticky during competition, and that there is a certain amount of elasticity.');
-INSERT INTO `venue_type` VALUES ('5', 'Tennis venue', 'A standard tennis court covers an area of not less than 670 square meters (36.60 meters long × 18.30 meters wide), which is also a standard tennis court around the net or indoor building wall surface net size.\nIn this area, the standard size of the effective doubles court is: 23.77 meters (length) ×10.97 meters (width), the standard size of the effective singles court is: 23.77 meters (length) ×8.23 meters (width), after each end line should leave room for not less than 6.40 meters, in each side line should leave room for not less than 3.66 meters.\nInstall net posts in the court, the center of the two columns is measured, the column spacing is 12.80 meters, the top of the net post is 1.07 meters from the ground.\nThe mainstream tennis court surface is elastic acrylic court, no obstacles.\nTennis courts also have plastic, clay, artificial grass and wood floors.');
+INSERT INTO `venue_type` VALUES ('1', 'Table tennis venue', 'The standard table tennis court shall not be less than 14 meters long, 7 meters wide and 4.76 meters high.\nThe training ground should not be less than 12 meters long, 6 meters wide and 4.76 meters high.\nMultiple table tennis tables can be arranged in groups in the recreation venue. When arranged in groups, the distance between the short sides of the table tennis table is greater than or equal to 5 meters, the distance between the long sides of the table is greater than or equal to 2 meters, and the height of the court is greater than or equal to 2.24 meters.', 0x1A);
+INSERT INTO `venue_type` VALUES ('2', 'Basketball venue', 'The basketball court is a solid rectangular surface, and the appropriate authority of FIBA shall have the power to approve existing courts within the following range of dimensions: a reduction of 4 meters in length and 2 meters in width, provided that the changes are proportional to each other.\nCeiling or minimum barrier height at least 7 meters.\nCourt lighting should be uniform and sufficient luminosity.\nThe placement of lighting equipment shall not interfere with the vision of the team members.\nAll new courts shall be of the dimensions required by FIBA for major official competitions: 28 metres long, 15 metres wide and free of obstructions (measured from the inside of the boundary).', null);
+INSERT INTO `venue_type` VALUES ('3', 'Volleyball venue', 'The volleyball court is a rectangle with a length of 18 meters and a width of 9 meters.\nThere should be a barrier zone of at least 3 meters wide around.\nAt least 7 meters of barrier-free space from the ground.\nThe barrier-free area outside the sideline of the FIVB World competition venue should be at least 5 meters, outside the end line should be at least 8 meters, and the barrier-free space above the competition venue should be at least 12.5 meters.\nPVC Sport Floor -WanAo Brand PVC Sport Floor -WanAo Brand all boundaries are 5 cm wide, its color is different from the ground and other projects of the site painting line.\nThe long side of the rectangular playing field is the side line and the short side is the end line.\nThe linewidths of the sideline and the end lines are included in the area of the playing field.\nThe center line, under the net, is the connection between the midpoints of the two sides, dividing the playing field into two equal fields.\nEach field draws an offensive line 3 meters from the center line (including its width).\nBetween the center line and the offensive line is the downfield zone.', null);
+INSERT INTO `venue_type` VALUES ('4', 'Badminton venue', 'Badminton court length 13.40 meters, doubles width 6.10 meters, singles width 5.18 meters, doubles court diagonal length =14.723 meters, singles court diagonal length =14.366 meters.\nThe ideal badminton court is made of flexible wood spliced together (as long as the pieces are not spliced vertically).\nChemical synthetic materials have been used as movable plastic courts for international matches.\nAt all levels of grass-roots competition, when the above conditions cannot be met, the competition can also be held on the ground of cement or triad.\nWhether a wooden or synthetic surface is used, it must ensure that the players do not feel too slippery or sticky during competition, and that there is a certain amount of elasticity.', null);
+INSERT INTO `venue_type` VALUES ('5', 'Tennis venue', 'A standard tennis court covers an area of not less than 670 square meters (36.60 meters long × 18.30 meters wide), which is also a standard tennis court around the net or indoor building wall surface net size.\nIn this area, the standard size of the effective doubles court is: 23.77 meters (length) ×10.97 meters (width), the standard size of the effective singles court is: 23.77 meters (length) ×8.23 meters (width), after each end line should leave room for not less than 6.40 meters, in each side line should leave room for not less than 3.66 meters.\nInstall net posts in the court, the center of the two columns is measured, the column spacing is 12.80 meters, the top of the net post is 1.07 meters from the ground.\nThe mainstream tennis court surface is elastic acrylic court, no obstacles.\nTennis courts also have plastic, clay, artificial grass and wood floors.', null);

@@ -25,7 +25,6 @@ public class UserController {
     @Autowired
     private VenueService venueService;
 
-
     @PostMapping("/login")
     public Map<String, Object> login(HttpSession session, @RequestBody Map map){
         String username = (String) map.get("username");
@@ -37,7 +36,8 @@ public class UserController {
             reMap.put("message", "Username doesn't exist!");
             return reMap;
         }else if(res.getPassword().equals(password)){
-            String token = JwtUtil.getJwtToken(username, password);
+            String id = res.getId() + "";
+            String token = JwtUtil.getJwtToken(id, username, password);
             reMap.put("code", 4002);
             reMap.put("message", "Login successfully!");
             reMap.put("data", token);
@@ -51,7 +51,6 @@ public class UserController {
 
     @PostMapping("/register")
     public int register(@RequestBody Map<String,String> map){
-        System.out.println(map);
         return userService.registerService(map);
     }
 
@@ -62,15 +61,6 @@ public class UserController {
         return 1;
     }
 
-    @PostMapping("/ifLogin")
-    public int register(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        if(session.getAttribute("user") == null){
-            return 0;
-        }else{
-            return 1;
-        }
-    }
 
     @GetMapping("/getAll")
     public List<User> getAll(){

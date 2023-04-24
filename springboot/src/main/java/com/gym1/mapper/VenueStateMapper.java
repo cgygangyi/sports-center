@@ -16,6 +16,7 @@ public interface VenueStateMapper {
 
     List<VenueState> queryAllVenueState();
     List<VenueState> queryVenueStateByIdDate(int id, String now, String max);
+    VenueState queryVenueStateById(int id);
     int updateVenueStateFree(int id, int free);
     int updateVenueStateOpen(int id, int open);
 

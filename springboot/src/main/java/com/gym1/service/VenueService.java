@@ -14,9 +14,11 @@ public class VenueService {
     private VenueMapper venueMapper;
 
     public List<Venue> getAllVenue(){
-
         return venueMapper.queryAllVenue();
+    }
 
+    public Venue getVenueInfo(int venueId){
+        return venueMapper.queryVenueById(venueId);
     }
 
 

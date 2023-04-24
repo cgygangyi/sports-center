@@ -6,11 +6,25 @@
 <mapper namespace="com.gym1.mapper.OrderMapper">
 
     <insert id="addOrder" parameterType="com.gym1.entity.Order">
-        insert into order(venueId, venueStateId, userId)
-        values (#{venueId}, #{venueStateId}, #{userId})
+        insert into `order`(orderTime, venueStateId, userId)
+        values (#{orderTime}, #{venueStateId}, #{userId})
     </insert>
 
+    <select id="queryOrderByUserId" resultType="com.gym1.entity.Order">
+        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price
+        from `order` o left join venue_state s on o.venueStateId = s.id
+        left join venue v
+        on s.venueId = v.id
+        where o.userId = #{id}
+    </select>
 
+    <select id="queryVenueIdByOrderId" resultType="int">
+        select v.id
+        from `order` o left join venue_state s on o.venueStateId = s.id
+        left join venue v
+        on s.venueId = v.id
+        where o.id = #{orderId}
+    </select>
 
 
 </mapper>

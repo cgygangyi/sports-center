@@ -9,11 +9,12 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new JwtInterceptor())
-                .addPathPatterns("/venueState/**") // Intercepted requests
-                .addPathPatterns("/order/**") // Intercepted requests
-                .addPathPatterns("/user/**") // Intercepted requests
-                .excludePathPatterns("/user/login") // Requests not to be intercepted
-                .excludePathPatterns("/user/register") // Requests not to be intercepted
-                .excludePathPatterns("/venue/**"); // Requests not to be intercepted
+                .addPathPatterns("/venueState/**")
+                .addPathPatterns("/order/**")
+                .excludePathPatterns("/user/login")
+                .excludePathPatterns("/venue/**")
+                .excludePathPatterns("/item/**")
+                .excludePathPatterns("/comment/**");
+
     }
 }

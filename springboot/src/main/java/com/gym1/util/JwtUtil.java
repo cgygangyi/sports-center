@@ -11,34 +11,28 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    public static final long EXPIRE = 1000 * 60 * 60; // token过期时间  1小时
-    public static final String APP_SECRET = "ukc8BDbRigUDaY6pZFfWus2jZWLPHO"; // 加密的密钥
+    public static final long EXPIRE = 10000 * 60 * 60;
+    public static final String APP_SECRET = "ukc8BDbRigUDaY6pZFfWus2jZWLPHO";
 
-    // 生成token字符串
-    public static String getJwtToken(String id, String nickname){
 
-        String JwtToken = Jwts.builder()
-                // 头信息
+    public static String getJwtToken(String id,String username, String password){
+
+        return Jwts.builder()
                 .setHeaderParam("typ", "JWT")
-                .setHeaderParam("alg", "HS256") // 加密方式
-                // 设置过期时间
-                .setSubject("xxx") // 项目名
+                .setHeaderParam("alg", "HS256")
+                .setSubject("sportsCenter")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))
-
-                // 设置用户信息 可以加多个
+                // user information
                 .claim("id", id)
-                .claim("nickname", nickname)
-                // 签名方式
+                .claim("username", username)
+                .claim("password", password)
+                // sign method
                 .signWith(SignatureAlgorithm.HS256, APP_SECRET)
                 .compact();
-        return JwtToken;
     }
 
-    // 判断token的合法性、有效期等进行判断，直接对token进行判断
-    // 注意这里的异常直接交给拦截器中去处理
     public static boolean checkToken(String jwtToken) {
-        System.out.println(jwtToken);
         if(StringUtils.isEmpty(jwtToken)) return false;
         try {
             Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
@@ -48,11 +42,10 @@ public class JwtUtil {
         return true;
     }
 
-    // 判断token是否存在与有效，从请求头中获取token
+
     public static boolean checkToken(HttpServletRequest request) {
         try {
             String jwtToken = request.getHeader("token");
-            System.out.println(jwtToken);
             if(StringUtils.isEmpty(jwtToken)) return false;
             Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
         } catch (Exception e) {
@@ -62,7 +55,6 @@ public class JwtUtil {
         return true;
     }
 
-    // 根据token获取用户信息
     public static String getMemberIdByJwtToken(HttpServletRequest request) {
         String jwtToken = request.getHeader("token");
         if(StringUtils.isEmpty(jwtToken)) return "";
@@ -71,12 +63,22 @@ public class JwtUtil {
         return (String)claims.get("id");
     }
 
-    // 根据token获取用户信息 从请求头中获取token
-    public static String getMemberNickNameByJwtToken(HttpServletRequest request) {
+
+    public static String getMemberUsernameByJwtToken(HttpServletRequest request) {
         String jwtToken = request.getHeader("token");
         if(StringUtils.isEmpty(jwtToken)) return "";
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
-        Claims claims = claimsJws.getBody(); // 得到用户数据的主体
-        return (String)claims.get("nickname");
+        Claims claims = claimsJws.getBody();
+        return (String)claims.get("username");
+    }
+
+
+    public static String getMemberPasswordByJwtToken(HttpServletRequest request) {
+
+        String jwtToken = request.getHeader("token");
+        if(StringUtils.isEmpty(jwtToken)) return "";
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(APP_SECRET).parseClaimsJws(jwtToken);
+        Claims claims = claimsJws.getBody();
+        return (String)claims.get("password");
     }
 }

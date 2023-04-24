@@ -25,7 +25,6 @@
 
                     <h6 class="mb-0 mt-20 font-semibold">Price</h6>
                     <h5 class="font-semibold">$1,419</h5>
-                    <a-tag class=" font-bold" color="green">IN STOCK</a-tag>
 
                     <h6 class="mt-20 font-semibold"><small>Description:</small></h6>
 
@@ -38,7 +37,7 @@
 
                     <a-row :gutter="[24]">
                         <a-col :span="8">
-                            <a-button type="primary" block>ADD TO CART</a-button>
+                            <a-button type="primary" block>BOOK</a-button>
                         </a-col>
                     </a-row>
 
@@ -47,31 +46,30 @@
             </a-row>
             <a-row type="flex" :gutter="[24]" class="mt-50">
                 <a-col :span="24">
-                    <h6>Reviews</h6>
-                    <a-table :columns="columns" :data-source="data" :pagination="false">
-
-                        <template slot="product" slot-scope="product">
-                            <h6 class="m-0">
-                                <a-avatar :size="48" shape="square" :src="product.img" class="mr-10"></a-avatar>
-                                {{ product.name }}
-                            </h6>
-                        </template>
-
-                        <template slot="review" slot-scope="review">
-                            <div class="rating">
-                                <a-icon type="star" v-for="n in review" :key="n" theme="filled" />
-                                <a-icon type="star" v-for="n in (5 - review)" :key="6 - n" />
-                            </div>
-                        </template>
-
-                        <template slot="availability" slot-scope="availability">
-                            <a-progress :percent="availability.value ? availability.value : availability" :show-info="false" :status="availability.status ? availability.status : 'normal'" />
-                        </template>
-
-                    </a-table>
+                    <a-list
+                        class="comment-list"
+                        :header="`${comments.length} replies`"
+                        item-layout="horizontal"
+                        :data-source="comments"
+                    >
+                        <a-list-item slot="renderItem" slot-scope="item, index">
+                            <a-comment :author="item.author" :avatar="item.avatar">
+                                <template slot="actions">
+                                    <span v-for="action in item.actions">{{ action }}</span>
+                                </template>
+                                <p slot="content">
+                                    {{ item.content }}
+                                </p>
+                                <a-tooltip slot="datetime" :title="item.datetime.format('YYYY-MM-DD HH:mm:ss')">
+                                    <span>{{ item.datetime.fromNow() }}</span>
+                                </a-tooltip>
+                            </a-comment>
+                        </a-list-item>
+                    </a-list>
 
                 </a-col>
             </a-row>
+
 
         </a-card>
 
@@ -79,96 +77,29 @@
 </template>
 
 <script>
-
+import moment from 'moment';
 export default ({
     data() {
         return {
-
-            // Add To Cart form object
-            form: this.$form.createForm(this, { name: 'editProduct' }),
-
-            // Table columns
-            columns: [
+            comments: [
                 {
-                    title: 'PRODUCT',
-                    dataIndex: 'product',
-                    scopedSlots: { customRender: 'product' },
+                    actions: ['Reply to'],
+                    author: 'Han Solo',
+                    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                    content:
+                        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+                    datetime: moment().subtract(1, 'days'),
                 },
                 {
-                    title: 'PRICE',
-                    dataIndex: 'price',
-                    width: 100,
-                },
-                {
-                    title: 'REVIEW',
-                    dataIndex: 'review',
-                    scopedSlots: { customRender: 'review' },
-                },
-                {
-                    title: 'AVAILABILITY',
-                    scopedSlots: { customRender: 'availability' },
-                    dataIndex: 'availability',
-                },
-                {
-                    title: 'ID',
-                    dataIndex: 'id',
-                    width: 100,
+                    actions: ['Reply to'],
+                    author: 'Han Solo',
+                    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                    content:
+                        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+                    datetime: moment().subtract(2, 'days'),
                 },
             ],
-
-            // Table rows
-            data: [
-                {
-                    key: '1',
-                    product: {
-                        name: 'Christopher Knight Home',
-                        img: 'https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/black-chair.jpg',
-                    },
-                    price: '$89.53',
-                    review: 4,
-                    availability: 80,
-                    id: '230019',
-                },
-                {
-                    key: '2',
-                    product: {
-                        name: 'Bar Height Swivel Barstool',
-                        img: 'https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-pink.jpg',
-                    },
-                    price: '$99.99',
-                    review: 5,
-                    availability: 90,
-                    id: '87120',
-                },
-                {
-                    key: '3',
-                    product: {
-                        name: 'Signature Design by Ashley',
-                        img: 'https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-steel.jpg',
-                    },
-                    price: '$129.00',
-                    review: 4,
-                    availability: {
-                        value: 60,
-                        status: 'exception',
-                    },
-                    id: '412301',
-                },
-                {
-                    key: '4',
-                    product: {
-                        name: 'Modern Square',
-                        img: 'https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-wood.jpg',
-                    },
-                    price: '$59.99',
-                    review: 4,
-                    availability: {
-                        value: 40,
-                        status: 'exception',
-                    },
-                    id: '001992',
-                },
-            ],
+            moment,
 
         }
     },
