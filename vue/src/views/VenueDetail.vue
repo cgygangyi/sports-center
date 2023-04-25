@@ -126,6 +126,10 @@ export default ({
 
     methods: {
         showModal() {
+            if (localStorage.getItem("token") === null || localStorage.getItem("token") === '') {
+                this.$message.warning("Please login first!")
+                return
+            }
             this.ModalText = 'Please click to select a time slot(just one for each choose)';
             getVenueTime(this.$route.query.id).then((response) => {
                 console.log(response);

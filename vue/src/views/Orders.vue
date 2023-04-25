@@ -34,6 +34,36 @@
                                             {{ order.address }}
                                         </a-descriptions-item>
                                     </a-descriptions>
+                                        <a-collapse v-model="activeKey">
+                                            <a-collapse-panel key="1" header="Comment">
+                                                <a-list
+                                                    v-if="comments.length"
+                                                    :data-source="comments"
+                                                    :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`"
+                                                    item-layout="horizontal"
+                                                >
+                                                    <a-list-item slot="renderItem" slot-scope="item, index">
+                                                        <a-comment
+                                                            :content="item.content"
+                                                            :datetime="item.datetime"
+                                                        />
+                                                    </a-list-item>
+                                                </a-list>
+                                                <a-comment>
+                                                    <div slot="content">
+                                                        <a-form-item>
+                                                            <a-textarea :rows="3" :value="value" @change="handleChange" />
+                                                        </a-form-item>
+                                                        <a-form-item>
+                                                            <a-button html-type="submit" :loading="submitting" type="white" @click="handleSubmit(order.id)">
+                                                                Add Comment
+                                                            </a-button>
+                                                        </a-form-item>
+                                                    </div>
+                                                </a-comment>
+                                            </a-collapse-panel>
+                                        </a-collapse>
+
                                 </div>
                                 <div class="col-action">
                                     <a-button type="link" size="small">
@@ -64,55 +94,32 @@
 </template>
 
 <script>
+import moment from 'moment';
 import '@fullcalendar/core/vdom' // solves problem with Vite
 import FullCalendar from '@fullcalendar/vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import CardNextEvents from "../components/Cards/CardNextEvents"
-import {getUserProfile} from "@/api/user";
 import {getUserOrders} from "@/api/order";
+import { makeComment } from "@/api/comment";
 
 // Next event's list.
 const eventsData = [
     {
         id: "1",
-        title: "Cyber Week",
-        code: "27 March 2021, at 12:30 PM",
-        iconClass: "text-danger",
+        title: "No.2 Table tennis venue",
+        code: "27 April 2023, at 13:00",
+        iconClass: "text-primary",
         icon: "calendar",
         iconBgColor: "rgba(234,6,6,.03)",
     },
     {
         id: "2",
-        title: "Meeting with Marry",
-        code: "24 March 2021, at 10:00 PM",
+        title: "No.1 Table tennis venue",
+        code: "27 April 2023, at 13:00",
         iconClass: "text-primary",
-        icon: "bell",
+        icon: "calendar",
         iconBgColor: "rgba(121,40,202,.03)",
-    },
-    {
-        id: "3",
-        title: "Book Deposit Hall",
-        code: "25 March 2021, at 9:30 AM",
-        iconClass: "text-success",
-        icon: "book",
-        iconBgColor: "rgba(23,173,55,.03)",
-    },
-    {
-        id: "4",
-        title: "Shipment Deal UK",
-        code: "25 March 2021, at 2:00 PM",
-        iconClass: "text-warning",
-        icon: "car",
-        iconBgColor: "rgba(245,57,57,.03)",
-    },
-    {
-        id: "5",
-        title: "Verify Dashboard Color Palette",
-        code: "26 March 2021, at 9:00 AM",
-        iconClass: "text-primary",
-        icon: "windows",
-        iconBgColor: "rgba(33,82,255,.03)",
     },
 ] ;
 
@@ -139,6 +146,11 @@ export default {
     },
     data() {
         return {
+            comments: [],
+            submitting: false,
+            value: '',
+            moment,
+            activeKey: ['1'],
             orders: [],
 
             // Next event's list.
@@ -215,6 +227,11 @@ export default {
 
         }
     },
+    watch: {
+        activeKey(key) {
+            console.log(key);
+        },
+    },
     beforeMount() {
         getUserOrders().then(res => {
             console.log(res)
@@ -223,6 +240,29 @@ export default {
             this.$forceUpdate();
         })
     },
+    methods: {
+        handleSubmit(id) {
+            if (!this.value) {
+                return;
+            }
+            this.submitting = true;
+
+            setTimeout(() => {
+                this.submitting = false;
+                this.comments = [
+                    {
+                        content: this.value,
+                        datetime: moment().fromNow(),
+                    },
+                    ...this.comments,
+                ];
+                this.value = '';
+            }, 1000);
+        },
+        handleChange(e) {
+            this.value = e.target.value;
+        },
+    }
 }
 
 </script>

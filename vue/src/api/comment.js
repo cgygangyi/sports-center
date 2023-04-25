@@ -9,3 +9,16 @@ export function getVenueCommentById(id) {
         method: 'get',
     })
 }
+
+
+// make comment
+export function makeComment(id, map) {
+    return request({
+        url: '/comment/makeComment/' + id,
+        method: 'post',
+        data: map,
+        headers: {
+            'token': localStorage.getItem('token')
+        }
+    })
+}

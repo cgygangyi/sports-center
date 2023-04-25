@@ -1,76 +1,209 @@
 <template>
 	<div>
+        <a-row type="flex" :gutter="[24,24]">
 
-		<!-- User Profile Card -->
-		<a-card :bordered="false" class="card-profile-head mt-24" :bodyStyle="{paddingTop: '34px'}">
-			<template #title>
-				<a-row type="flex" align="middle">
-					<a-col :span="24" :md="12" class="col-info">
-						<a-avatar :size="74" shape="square" src="images/face-1.jpg" />
-						<div class="avatar-info">
-							<h4 class="font-semibold m-0">{{username}}</h4>
-						</div>
-					</a-col>
-					<a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
-                        <a-button size="small" @click="geta()">Edit </a-button>
-					</a-col>
-				</a-row>
-			</template>
-		</a-card>
+            <a-col :span="24" :lg="6">
 
-		<a-row type="flex" :gutter="24">
-			<a-col :span="24" :md="8" class="mb-24">
-				<CardProfileInformation
-                :id="id"
-                :username="username"
-                :age="age"
-                :email="email"
-                :name="name"
-                :password="password"
-                :phoneNumber="phoneNumber"
-                :sex="sex"
-                ></CardProfileInformation>
-			</a-col>
-
-            <a-col :span="24" :md="16" class="mb-24">
-                <a-card :bordered="false" class="header-solid h-full" :bodyStyle="{paddingTop: 0, paddingBottom: '16px' }">
-                    <h6 class="font-semibold my-20">Appointment Information</h6>
-                    <a-row :gutter="[24, 24]" v-for="order in this.orders" :key="order">
-                        <a-col :span="24">
-                            <a-card :bordered="false" class="card-billing-info">
-                                <div class="col-info">
-                                    <a-descriptions :column="1">
-                                        <a-descriptions-item label="ID">
-                                            {{ order.id }}
-                                        </a-descriptions-item>
-                                        <a-descriptions-item label="Begin Time">
-                                            {{ order.begin }}
-                                        </a-descriptions-item>
-                                        <a-descriptions-item label="End Time">
-                                            {{ order.end }}
-                                        </a-descriptions-item>
-                                        <a-descriptions-item label="Venue Name">
-                                            {{ order.name }}
-                                        </a-descriptions-item>
-                                        <a-descriptions-item label="Address">
-                                            {{ order.address }}
-                                        </a-descriptions-item>
-                                    </a-descriptions>
+                <!-- Page Anchors -->
+                <a-affix :offset-top=" navbarFixed ? 100 : 10 ">
+                    <a-card :bordered="false" class="header-solid mb-24">
+                        <a-anchor :targetOffset=" navbarFixed ? 100 : 10 " :affix="false">
+                            <a-anchor-link href="#profile">
+                                <div slot="title" class="ant-list-item-meta">
+                                    <a-icon type="appstore" theme="filled" class="text-gray-6 text-lg" />
+                                    <h4 class="ant-list-item-meta-title">
+                                        <span class="font-regular">Profile</span>
+                                    </h4>
                                 </div>
-                                <div class="col-action">
-                                    <a-button type="link" size="small">
-                                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path class="fill-danger" fill-rule="evenodd" clip-rule="evenodd" d="M9 2C8.62123 2 8.27497 2.214 8.10557 2.55279L7.38197 4H4C3.44772 4 3 4.44772 3 5C3 5.55228 3.44772 6 4 6L4 16C4 17.1046 4.89543 18 6 18H14C15.1046 18 16 17.1046 16 16V6C16.5523 6 17 5.55228 17 5C17 4.44772 16.5523 4 16 4H12.618L11.8944 2.55279C11.725 2.214 11.3788 2 11 2H9ZM7 8C7 7.44772 7.44772 7 8 7C8.55228 7 9 7.44772 9 8V14C9 14.5523 8.55228 15 8 15C7.44772 15 7 14.5523 7 14V8ZM12 7C11.4477 7 11 7.44772 11 8V14C11 14.5523 11.4477 15 12 15C12.5523 15 13 14.5523 13 14V8C13 7.44772 12.5523 7 12 7Z" fill="#111827"/>
-                                        </svg>
-                                        <span class="text-danger">CANCEL</span>
-                                    </a-button>
+                            </a-anchor-link>
+                            <a-anchor-link href="#basic-info">
+                                <div slot="title" class="ant-list-item-meta">
+                                    <a-icon type="snippets" theme="filled" class="text-gray-6 text-lg" />
+                                    <h4 class="ant-list-item-meta-title">
+                                        <span class="font-regular">Basic Info</span>
+                                    </h4>
                                 </div>
-                            </a-card>
-                        </a-col>
-                    </a-row>
-                </a-card>
+                            </a-anchor-link>
+                            <a-anchor-link href="#change-password">
+                                <div slot="title" class="ant-list-item-meta">
+                                    <a-icon type="unlock" theme="filled" class="text-gray-6 text-lg" />
+                                    <h4 class="ant-list-item-meta-title">
+                                        <span class="font-regular">Change Password</span>
+                                    </h4>
+                                </div>
+                            </a-anchor-link>
+                            <a-anchor-link href="#2fa">
+                                <div slot="title" class="ant-list-item-meta">
+                                    <a-icon type="safety-certificate" theme="filled" class="text-gray-6 text-lg" />
+                                    <h4 class="ant-list-item-meta-title">
+                                        <span class="font-regular">2FA</span>
+                                    </h4>
+                                </div>
+                            </a-anchor-link>
+                            <a-anchor-link href="#delete-account">
+                                <div slot="title" class="ant-list-item-meta">
+                                    <a-icon type="delete" theme="filled" class="text-gray-6 text-lg" />
+                                    <h4 class="ant-list-item-meta-title">
+                                        <span class="font-regular">Delete Account</span>
+                                    </h4>
+                                </div>
+                            </a-anchor-link>
+                        </a-anchor>
+                    </a-card>
+                </a-affix>
+                <!-- / Page Anchors -->
+
             </a-col>
-		</a-row>
+            <a-col :span="24" :lg="18">
+                <a-card :bordered="false" id="profile" class="card-profile-head" :bodyStyle="{padding: 0,}">
+                    <template #title>
+                        <a-row type="flex" align="middle">
+                            <a-col :span="24" :md="12" class="col-info">
+                                <a-avatar :size="74" shape="square" src="images/face-1.jpg" />
+                                <div class="avatar-info">
+                                    <h4 class="font-semibold m-0">{{username}}</h4>
+                                </div>
+                            </a-col>
+                            <a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
+                                <a-button size="small" @click="geta()">Edit </a-button>
+                            </a-col>
+                        </a-row>
+                    </template>
+                </a-card>
+
+                <!-- Basic Info card -->
+                <a-card :bordered="false" id="basic-info" class="header-solid mb-24">
+                    <template #title>
+                        <h5 class="mb-0 font-semibold">Basic Info</h5>
+                    </template>
+                    <a-col :span="24" :md="24" class="mb-24">
+                        <CardProfileInformation
+                            :id="id"
+                            :username="username"
+                            :age="age"
+                            :email="email"
+                            :name="name"
+                            :password="password"
+                            :phoneNumber="phoneNumber"
+                            :sex="sex"
+                        ></CardProfileInformation>
+                    </a-col>
+                </a-card>
+                <!-- / Basic Info card -->
+
+                <!-- Change Password card -->
+                <a-card :bordered="false" id="change-password" class="header-solid mb-24">
+                    <template #title>
+                        <h5 class="mb-0 font-semibold">Change Password</h5>
+                    </template>
+                    <a-form
+                        :hideRequiredMark="true"
+                    >
+                        <a-row :gutter="[24]">
+                            <a-col :span="24">
+                                <a-form-item class="mb-10" label="Current password" :colon="false">
+                                    <a-input-password placeholder="Current password" />
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="24">
+                                <a-form-item class="mb-10" label="New password" :colon="false">
+                                    <a-input-password placeholder="New password" />
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="24">
+                                <a-form-item class="mb-10" label="Confirm new password" :colon="false">
+                                    <a-input-password placeholder="Confirm new password" />
+                                </a-form-item>
+                            </a-col>
+                        </a-row>
+                        <h5 class="font-semibold mt-20">Password requirements</h5>
+                        <p>Please follow this guide for a strong password:</p>
+                        <ul class="pl-15 text-muted">
+                            <li>One special characters</li>
+                            <li>Min 6 characters</li>
+                            <li>One number (2 are recommended)</li>
+                            <li>Change it often</li>
+                        </ul>
+                        <a-row :gutter="[24]">
+                            <a-col :span="24" :lg="12">
+                            </a-col>
+                            <a-col :span="24" :lg="12" class="text-right">
+                                <a-button type="primary" class="px-25">UPDATE PASSWORD</a-button>
+                            </a-col>
+                        </a-row>
+                    </a-form>
+                </a-card>
+                <!-- / Change Password card -->
+
+
+                <!-- Two-factor authentication card -->
+                <a-card :bordered="false" id="2fa" class="header-solid mb-24">
+                    <template #title>
+                        <h5 class="mb-0 font-semibold">Two-factor authentication</h5>
+                    </template>
+                    <a-tag slot="extra" color="success" class="ant-tag-success px-10 py-5 font-bold">ENABLED</a-tag>
+                    <a-form
+                        :hideRequiredMark="true"
+                    >
+                        <a-row type="flex" align="middle">
+                            <a-col>
+                                <h6 class="font-regular mb-0">Email</h6>
+                            </a-col>
+                            <a-col class="ml-auto">
+                                <span class="mr-15">841359795@qq.com</span>
+                                <a-button size="small" class="font-bold px-25">EDIT</a-button>
+                            </a-col>
+                        </a-row>
+                        <hr class="gradient-line">
+                        <a-row type="flex" align="middle">
+                            <a-col>
+                                <h6 class="font-regular mb-0">Phone number</h6>
+                            </a-col>
+                            <a-col class="ml-auto">
+                                <span class="mr-15">No Phone Number</span>
+                                <a-button size="small" class="font-bold px-25">ADD</a-button>
+                            </a-col>
+                        </a-row>
+                        <hr class="gradient-line">
+                    </a-form>
+                </a-card>
+                <!-- / Two-factor authentication card -->
+
+                <!-- Delete Account card -->
+                <a-card :bordered="false" id="delete-account" class="header-solid mb-24">
+                    <template #title>
+                        <h5 class="font-semibold">Delete Account</h5>
+                        <p class="font-regular">Once you delete your account, there is no going back. Please be certain.</p>
+                    </template>
+                    <a-form
+                        id="components-form-demo-normal-login"
+                        class="login-form list-settings-sessions"
+                        :hideRequiredMark="true"
+                    >
+                        <a-row type="flex" align="middle">
+                            <a-col style="min-width: 40px;" class="text-center">
+                                <a-switch></a-switch>
+                            </a-col>
+                            <a-col class="pl-15">
+                                <p class="mb-0 font-semibold">Confirm</p>
+                                <small class="text-dark">I want to delete my account.</small>
+                            </a-col>
+                            <a-col :span="24" :md="12" class="ml-auto" style="display: flex; align-items: center; justify-content: flex-end">
+                                <a-button>
+                                    DEACTIVATE
+                                </a-button>
+                                <a-button type="danger" class="ml-10">
+                                    DELETE ACCOUNT
+                                </a-button>
+                            </a-col>
+                        </a-row>
+                    </a-form>
+                </a-card>
+                <!-- / Delete Account card -->
+
+            </a-col>
+
+        </a-row>
 	</div>
 </template>
 
@@ -132,12 +265,6 @@
                     this.sex = 'Female'
                 }
                 // refresh
-                this.$forceUpdate();
-            })
-            getUserOrders().then(res => {
-                console.log(res)
-                this.orders = res.data.data;
-                console.log(this.orders);
                 this.$forceUpdate();
             })
         },

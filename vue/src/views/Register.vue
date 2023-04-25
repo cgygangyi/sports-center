@@ -132,7 +132,7 @@
                             </a-col>
                         </a-row>
                         <a-row :gutter="[24]">
-                            <a-col :span="12">E
+                            <a-col :span="12">
                             </a-col>
                             <a-col :span="12" class="text-right">
                                 <a-button type="primary" html-type="submit" class="px-25">SIGN UP</a-button>
