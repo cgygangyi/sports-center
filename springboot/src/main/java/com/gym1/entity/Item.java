@@ -11,9 +11,17 @@ public class Item {
     private String itemName;
     private double price;
     private String info;
-    private byte[] image;
+    private String image;
 
-    public Item(String itemName, double price, String info, byte[] image){
+    public Item(int id, String itemName, String info, double price, String image){
+        this.id = id;
+        this.itemName = itemName;
+        this.price = price;
+        this.info = info;
+        this.image = image;
+    }
+
+    public Item(String itemName, double price, String info, String image){
         this.itemName = itemName;
         this.price = price;
         this.info = info;
@@ -25,10 +33,10 @@ public class Item {
     public void setId(int id) {
         this.id = id;
     }
-    public String getName() {
+    public String getItemName() {
         return itemName;
     }
-    public void setName(String itemName) {
+    public void setItemName(String itemName) {
         this.itemName = itemName;
     }
     public double getPrice() {
@@ -43,10 +51,10 @@ public class Item {
     public void setInfo(String info) {
         this.info = info;
     }
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
     @Override
@@ -56,30 +64,31 @@ public class Item {
         Item item = (Item) o;
         if (getId() != item.getId()) return false;
         if (Double.compare(item.getPrice(), getPrice()) != 0) return false;
-        if (getName() != null ? !getName().equals(item.getName()) : item.getName() != null) return false;
+        if (getItemName() != null ? !getItemName().equals(item.getItemName()) : item.getItemName() != null)
+            return false;
         if (getInfo() != null ? !getInfo().equals(item.getInfo()) : item.getInfo() != null) return false;
-        return Arrays.equals(getImage(), item.getImage());
+        return getImage() != null ? getImage().equals(item.getImage()) : item.getImage() == null;
     }
     @Override
     public int hashCode() {
         int result;
         long temp;
         result = getId();
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + (getItemName() != null ? getItemName().hashCode() : 0);
         temp = Double.doubleToLongBits(getPrice());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (getInfo() != null ? getInfo().hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(getImage());
+        result = 31 * result + (getImage() != null ? getImage().hashCode() : 0);
         return result;
     }
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
-                ", name='" + itemName + '\'' +
+                ", itemName='" + itemName + '\'' +
                 ", price=" + price +
                 ", info='" + info + '\'' +
-                ", image=" + Arrays.toString(image) +
+                ", image='" + image + '\'' +
                 '}';
     }
 }
