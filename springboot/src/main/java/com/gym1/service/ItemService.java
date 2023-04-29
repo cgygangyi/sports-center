@@ -33,4 +33,8 @@ public class ItemService {
         return res;
     }
 
+    public void deleteItem(String name){
+        itemMapper.deleteItemByName(name);
+    }
+
 }

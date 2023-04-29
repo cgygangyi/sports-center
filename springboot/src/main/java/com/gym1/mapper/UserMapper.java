@@ -9,9 +9,13 @@ import java.util.List;
 public interface UserMapper {
 
     int addUser(User user);
+
     List<User> queryAllUser();
+
     User queryUserByUsername(String username);
-    int editUser(String username);
+
+    int editUser(User user);
+
     User queryUserById(int id);
 
 

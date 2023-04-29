@@ -21,5 +21,10 @@
         from item i
     </select>
 
+    <delete id="deleteItemByName">
+        delete from item
+        where itemName = #{name}
+    </delete>
+
 
 </mapper>

@@ -5,6 +5,7 @@ import com.gym1.service.VenueStateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -20,6 +21,7 @@ public class VenueStateController {
     public List<VenueState> getTime(@PathVariable int id){
         return venueStateService.getPotentialState(id);
     }
+
     @GetMapping("/getAll")
     public List<VenueState> getAll(){
         return venueStateService.getAllVenueState();

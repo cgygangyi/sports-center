@@ -13,6 +13,10 @@ public class User {
     private String name;
     private String email;
 
+    public User(int id){
+        this.id = id;
+    }
+
 
     public User(String username, String password, String phoneNumber, String name, String email) {
         this.username = username;
@@ -21,6 +25,14 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
+
+    public User(int id, String password, String phoneNumber, String name) {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
     public User(int age, int sex, String username, String password,
                 String phoneNumber, String name, String email) {
         this.username = username;

@@ -65,10 +65,33 @@ public class UserController {
         return reMap;
     }
 
-
     @GetMapping("/getAll")
     public List<User> getAll(){
         return userService.getAllUser();
+    }
+
+    @PostMapping("/updateInfo")
+    public Map<String, Object> updateInfo(HttpServletRequest request, @RequestBody Map map){
+        Map<String, Object> reMap = new HashMap<>();
+        int id = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        Map<String, User> temp = userService.updateUserInfo(id, map);
+        User user = temp.get("user");
+        String token = JwtUtil.getJwtToken(user.getId()+"", user.getUsername(), user.getPassword());
+        int res = temp.get("res").getId();
+        if (res == -1 ){
+            reMap.put("code", 4005);
+            reMap.put("msg", "Error!");
+            reMap.put("data", res);
+        }else if (res == 0){
+            reMap.put("code", 4006);
+            reMap.put("msg", "Failure!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 4007);
+            reMap.put("msg", "Success!");
+            reMap.put("data", token);
+        }
+        return reMap;
     }
 
 }
