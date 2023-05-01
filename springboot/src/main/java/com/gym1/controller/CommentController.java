@@ -2,10 +2,7 @@ package com.gym1.controller;
 
 
 import com.gym1.entity.Comment;
-import com.gym1.entity.Order;
-import com.gym1.entity.Venue;
 import com.gym1.service.CommentService;
-import com.gym1.service.OrderService;
 import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,17 +28,22 @@ public class CommentController {
         int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
         String info = map.get("comment").toString();
         int res = commentService.makeComment(uId, orderId, info);
-        if (res == 1){
+        if (res == -1){
             reMap.put("code", 2001);
-            reMap.put("msg", "Success!");
+            reMap.put("msg", "Error!");
             reMap.put("data", res);
-        }else{
+        }else if (res == 0){
             reMap.put("code", 2002);
             reMap.put("msg", "Failure!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 2003);
+            reMap.put("msg", "Success!");
             reMap.put("data", res);
         }
         return reMap;
     }
+
 
     @GetMapping("/getVenueComment/{venueId}")
     public Map<String, Object> getVenueInfo(@PathVariable int venueId){

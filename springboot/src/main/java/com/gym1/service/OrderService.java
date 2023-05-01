@@ -24,17 +24,32 @@ public class OrderService {
         return orderMapper.queryOrderByUserId(id);
     }
 
-    public boolean addOrder(int id, String userId){
+    public int addOrder(int id, String userId){
         int uId = Integer.parseInt(userId);
         VenueState venueState = venueStateMapper.queryVenueStateById(id);
-        if(venueState.getOpen() == 1 && venueState.getFree() == 1){
-            int a = venueStateMapper.updateVenueStateFree(id, 0);
-            Date date = new Date(System.currentTimeMillis());
-            Order order = new Order(id, uId, date);
-            int b = orderMapper.addOrder(order);
-            return true;
+        if (venueState.getOpen() == 1 && venueState.getFree() == 1){
+            int a = 0;
+            int b = 0;
+            try{
+                a = venueStateMapper.updateVenueStateFree(id, 0);
+                if (a==0){
+                    return -1;
+                }else{
+                    try{
+                        Date date = new Date(System.currentTimeMillis());
+                        Order order = new Order(id, uId, date);
+                        b = orderMapper.addOrder(order);
+                        return b;
+                    }catch (Exception e1){
+                        venueStateMapper.updateVenueStateFree(id, 1);
+                        return -1;
+                    }
+                }
+            }catch (Exception e){
+                return -1;
+            }
         }else{
-            return false;
+            return -2;
         }
     }
 

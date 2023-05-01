@@ -34,6 +34,7 @@ public class ItemController {
         BASE64Encoder encoder = new BASE64Encoder();
         String baseStr= encoder.encode(image.getBytes());
         baseStr = baseStr.replaceAll("\r\n", "");
+        System.out.println(baseStr);
         boolean res = itemService.addItem(name, info, price, baseStr);
         if (res){
             reMap.put("code", 1001);

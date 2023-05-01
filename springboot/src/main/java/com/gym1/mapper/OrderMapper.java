@@ -22,4 +22,7 @@ public interface OrderMapper {
 
     int queryVenueIdByOrderId(int orderId);
 
+    int editCommentState(int orderId, int state);
+
+
 }

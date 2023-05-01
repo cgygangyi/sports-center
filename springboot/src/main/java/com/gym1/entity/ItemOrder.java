@@ -32,6 +32,19 @@ public class ItemOrder {
         this.phoneNum = phoneNum;
         this.orderTime = orderTime;
     }
+
+    public ItemOrder( int userId, int itemId, int number, double price,
+                     String username, String name, String phoneNum, Date orderTime) {
+        this.userId = userId;
+        this.itemId = itemId;
+        this.number = number;
+        this.price = price;
+        this.username = username;
+        this.name = name;
+        this.phoneNum = phoneNum;
+        this.orderTime = orderTime;
+    }
+
     public int getId() {
         return id;
     }

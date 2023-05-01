@@ -1,11 +1,16 @@
 package com.gym1.controller;
 
+import com.gym1.entity.User;
 import com.gym1.entity.VenueState;
 import com.gym1.service.VenueStateService;
+import com.gym1.util.DefaultProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 
 
@@ -26,6 +31,13 @@ public class VenueStateController {
     public List<VenueState> getAll(){
         return venueStateService.getAllVenueState();
     }
+
+    @GetMapping("/getAllTime")
+    public void getAllTime(){
+
+
+    }
+
 
 
 }

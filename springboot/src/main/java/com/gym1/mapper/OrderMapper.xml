@@ -6,8 +6,8 @@
 <mapper namespace="com.gym1.mapper.OrderMapper">
 
     <insert id="addOrder" parameterType="com.gym1.entity.Order">
-        insert into `order`(orderTime, venueStateId, userId)
-        values (#{orderTime}, #{venueStateId}, #{userId})
+        insert into `order`(orderTime, venueStateId, userId, comment)
+        values (#{orderTime}, #{venueStateId}, #{userId}, #{comment})
     </insert>
 
     <select id="queryOrderByUserId" resultType="com.gym1.entity.Order">
@@ -26,5 +26,10 @@
         where o.id = #{orderId}
     </select>
 
+    <update id="editCommentState">
+        UPDATE `order`
+        SET comment = #{state}
+        where id = #{orderId}
+    </update>
 
 </mapper>

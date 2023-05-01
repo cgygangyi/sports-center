@@ -24,8 +24,26 @@ public class CommentService {
         int venueId = orderMapper.queryVenueIdByOrderId(orderId);
         Date date = new Date(System.currentTimeMillis());
         Comment comment = new Comment(userId, orderId, venueId, date, info);
-        return commentMapper.addComment(comment);
+        int res = 0;
+        try{
+            res = orderMapper.editCommentState(orderId, 1);
+            if (res == 0){
+                return res;
+            }else{
+                try{
+                    res = commentMapper.addComment(comment);
+                    return res;
+                }catch (Exception e1){
+                    orderMapper.editCommentState(orderId, 0);
+                    return -1;
+                }
+            }
+        }catch (Exception e){
+            res = -1;
+            return res;
+        }
     }
+
 
     public List<Comment> getVenueComment(int venueId){
         return commentMapper.queryCommentByVenueId(venueId);

@@ -11,13 +11,21 @@ import java.util.List;
 public interface VenueStateMapper {
 
     int addVenueState(VenueState venueState);
+
     int deleteVenueState(VenueState venueState);
+
     int editVenueState(VenueState venueState);
 
     List<VenueState> queryAllVenueState();
+
     List<VenueState> queryVenueStateByIdDate(int id, String now, String max);
+
+    List<VenueState> queryVenueStateByIdDate2(int id, String now, String max);
+
     VenueState queryVenueStateById(int id);
+
     int updateVenueStateFree(int id, int free);
+
     int updateVenueStateOpen(int id, int open);
 
 

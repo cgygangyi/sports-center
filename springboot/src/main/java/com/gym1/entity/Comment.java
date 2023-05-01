@@ -16,6 +16,7 @@ public class Comment {
     private Date commentTime;
     private String username;
     private String info;
+    private String image;
 
     public Comment(int userId, int orderId, int venueId, Date commentTime, String info){
         this.userId = userId;
@@ -25,11 +26,12 @@ public class Comment {
         this.info = info;
     }
 
-    public Comment(int userId, Date commentTime, String info, String username){
+    public Comment(int id, int userId, Date commentTime, String info, String username, String image){
         this.userId = userId;
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
+        this.image = image;
     }
 
     public int getId() {
@@ -74,6 +76,12 @@ public class Comment {
     public void setInfo(String info) {
         this.info = info;
     }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,7 +95,8 @@ public class Comment {
             return false;
         if (getUsername() != null ? !getUsername().equals(comment.getUsername()) : comment.getUsername() != null)
             return false;
-        return getInfo() != null ? getInfo().equals(comment.getInfo()) : comment.getInfo() == null;
+        if (getInfo() != null ? !getInfo().equals(comment.getInfo()) : comment.getInfo() != null) return false;
+        return getImage() != null ? getImage().equals(comment.getImage()) : comment.getImage() == null;
     }
     @Override
     public int hashCode() {
@@ -98,6 +107,7 @@ public class Comment {
         result = 31 * result + (getCommentTime() != null ? getCommentTime().hashCode() : 0);
         result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
         result = 31 * result + (getInfo() != null ? getInfo().hashCode() : 0);
+        result = 31 * result + (getImage() != null ? getImage().hashCode() : 0);
         return result;
     }
     @Override
@@ -110,6 +120,7 @@ public class Comment {
                 ", commentTime=" + commentTime +
                 ", username='" + username + '\'' +
                 ", info='" + info + '\'' +
+                ", image='" + image + '\'' +
                 '}';
     }
 }
