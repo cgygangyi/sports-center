@@ -1,3 +1,4 @@
+
 <template>
     <div>
         <div class="sign-up-header" style="background-image: url('images/a.jpg')">
@@ -51,45 +52,44 @@
 </template>
 
 <script>
-    import {userLogin} from "../api/user";
-	export default ({
-		data() {
-			return {
-				rememberMe: false,
-			}
-		},
-		beforeCreate() {
-            console.log('clear token');
-            localStorage.removeItem('token');
-			this.form = this.$form.createForm(this, { name: 'normal_login' });
-		},
-		methods: {
-			handleSubmit(e) {
-				e.preventDefault();
-                let _this = this;
-				this.form.validateFields((err, values) => {
-					if ( !err ) {
-                        userLogin(values).then(res=>{
-                            console.log(res.data)
-                            if(res.data.code==4002){
-                                localStorage.setItem("token", res.data.data);
-                                this.$message.success(res.data.message);
-                                window.location.reload();
-                                this.$router.push({path:"/home"});
-                            }else{
-                                this.$message.error(res.data.message);
-                            }
-                        })
-					}
-				});
-			},
-		},
-	})
+import {userLogin} from '../api/user'
+export default ({
+    data () {
+        return {
+            rememberMe: false
+        }
+    },
+    beforeCreate () {
+        console.log('clear token')
+        localStorage.removeItem('token')
+        this.form = this.$form.createForm(this, { name: 'normal_login' })
+    },
+    methods: {
+        handleSubmit (e) {
+            e.preventDefault()
+            this.form.validateFields((err, values) => {
+                if (!err) {
+                    userLogin(values).then(res => {
+                        console.log(res.data)
+                        if (res.data.code === 4002) {
+                            localStorage.setItem('token', res.data.data)
+                            this.$message.success(res.data.message)
+                            window.location.reload()
+                            this.$router.push({path: '/home'})
+                        } else {
+                            this.$message.error(res.data.message)
+                        }
+                    })
+                }
+            })
+        }
+    }
+})
 
 </script>
 
-<style lang="scss">
+<style>
 	body {
-		background-color: #ffffff;
+        background-color: #ffffff;
 	}
 </style>

@@ -18,7 +18,7 @@
 				chart: null,
 			} ;
 		},
-		mounted () { 
+		mounted () {
     		let ctx = this.$refs.chart.getContext("2d");
 
 			this.chart = new Chart(ctx, {
@@ -95,5 +95,5 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 </style>

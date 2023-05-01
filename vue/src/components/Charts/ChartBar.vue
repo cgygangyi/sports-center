@@ -18,7 +18,7 @@
 				chart: null,
 			} ;
 		},
-		mounted () { 
+		mounted () {
     		let ctx = this.$refs.chart.getContext("2d");
 			this.chart = new Chart(ctx, {
 				type: "bar",
@@ -94,7 +94,7 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 	canvas {
 		background-image: linear-gradient(to right, #00369E, #005CFD, #A18DFF ) ;
 	}

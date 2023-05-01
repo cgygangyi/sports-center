@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils';
-import ProjectCard from '@/components/ProjectCard.vue';
+import VenueCard from '@/components/Cards/VenueCard.vue';
 
-describe('ProjectCard.vue', () => {
+describe('VenueCard.vue', () => {
     let wrapper;
     const propsData = {
         id: 1,
@@ -12,7 +12,7 @@ describe('ProjectCard.vue', () => {
     };
 
     beforeEach(() => {
-        wrapper = shallowMount(ProjectCard, { propsData });
+        wrapper = shallowMount(VenueCard, { propsData });
     });
 
     it('renders the correct id', () => {
@@ -32,7 +32,7 @@ describe('ProjectCard.vue', () => {
     });
 
     it('calls "jump" method when "Book" button is clicked', async () => {
-        const jumpSpy = jest.spyOn(wrapper.vm, 'jump');
+        const jumpSpy = jest.spyOn(wrapper.vm, 'push');
         await wrapper.find('a-button').trigger('click');
         expect(jumpSpy).toHaveBeenCalled();
     });

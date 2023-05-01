@@ -1,7 +1,7 @@
 // _card.scss
-// 
+//
 // Template's cards styles.
-// 
+//
 
 .ant-card-body {
     padding: 16px;
@@ -76,7 +76,7 @@
 		flex-grow: 1;
 		flex-shrink: 0;
 		margin-top: 20px;
-				
+
 		@media( min-width: $xl ){
 			width: auto;
 			flex-shrink: 1;
@@ -93,7 +93,7 @@
 		box-shadow: $shadow-2;
 		position: relative;
 		overflow: hidden;
-				
+
 		@media( min-width: $xl ){
 			width: 220px;
 			height: 220px;
@@ -150,7 +150,6 @@
 }
 
 .card-credit {
-	background-image: url('/images/info-card-3.jpg');
 	background-position: center;
 	background-size: cover;
 	border: none;
@@ -194,7 +193,7 @@
 		align-items: center;
 		justify-content: space-between;
 	}
-	
+
 	h6 {
 		font-weight: $fw-semibold;
 		margin-bottom: 0;
@@ -318,7 +317,7 @@
 	border-radius: 12px;
 	margin-top: -190px;
 	margin-bottom: 20px;
-			
+
 	@media( min-width: $md ) {
 		margin-bottom: 120px;
 	}
@@ -332,7 +331,7 @@
 			height: 60px;
 			width: 70px;
 			box-shadow: none;
-			
+
 			@media( min-width: $md ) {
 				width: 100px;
 			}
@@ -440,7 +439,7 @@
 		border: none;
 		padding: 2px 11px;
 	}
-			
+
 	@media( min-width: $md ) {
 		margin-bottom: 70px;
 	}
@@ -454,7 +453,7 @@
 			height: 60px;
 			width: 70px;
 			box-shadow: none;
-			
+
 			@media( min-width: $md ) {
 				width: 100px;
 			}

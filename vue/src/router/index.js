@@ -53,11 +53,6 @@ let routes = [
 		component: () => import('../views/Profile.vue'),
 	},
 	{
-		path: '/timepicker',
-		name: 'time',
-		component: () => import('../views/TimePicker.vue'),
-	},
-	{
 		path: '/venueDetail',
 		name: 'venueDetail',
 		layout: "dashboard",

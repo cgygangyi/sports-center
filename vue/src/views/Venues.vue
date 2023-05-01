@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import VenueCard from "../components/Cards/VenueCard";
+import VenueCard from '../components/Cards/VenueCard'
 
-import {getAllVenues} from '../api/venue';
+import {getAllVenues} from '../api/venue'
 
 export default ({
     components: {
@@ -61,5 +61,5 @@ export default ({
 
 </script>
 
-<style lang="scss">
+<style>
 </style>
