@@ -43,6 +43,15 @@ export default ({
                 let index = parseInt(Math.random() * img.length);
                 this.projects[i].cover = img[index];
             }
+            for (let i = 0; i < 5; i++) {
+                this.projects[i].cover = img[2];
+            }
+            for (let i = 5; i < 9; i++) {
+                this.projects[i].cover = img[0];
+            }
+            for (let i = 9; i < 16; i++) {
+                this.projects[i].cover = img[3];
+            }
         });
     },
 

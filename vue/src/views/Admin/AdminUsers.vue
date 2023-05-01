@@ -61,7 +61,7 @@ const userColumns = [
 
 export default ({
     components: {
-        CardVenueTable,
+        AdminTable,
     },
     data() {
         return {

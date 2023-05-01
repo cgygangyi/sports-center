@@ -49,7 +49,7 @@ const venueColumns = [
 
 export default ({
     components: {
-        CardVenueTable,
+        AdminTable,
     },
     data() {
         return {

@@ -41,7 +41,6 @@ public class OrderController {
     @PostMapping("/makeOrder/{orderId}")
     public Map<String, Object> makeOrder(HttpServletRequest request, @PathVariable int orderId){
         Map<String, Object> reMap = new HashMap<>();
-        System.out.println(orderId);
         boolean res = orderService.addOrder(orderId, JwtUtil.getMemberIdByJwtToken(request));
         if(!res){
             reMap.put("code", 3011);

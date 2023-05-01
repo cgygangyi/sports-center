@@ -70,6 +70,12 @@ let routes = [
 		component: () => import('../views/Orders.vue'),
 	},
 	{
+		path: '/equipments',
+		name: 'Equipments',
+		layout: "dashboard",
+		component: () => import('../views/Equipments.vue'),
+	},
+	{
 		path: '/admin/home',
 		name: 'admin',
 		layout: "admindashboard",
@@ -140,7 +146,8 @@ router.beforeEach((to, from, next) => {
 	let token = localStorage.getItem('token');
 	if (token === null || token === '') {
 		if (to.path === '/login' || to.path === '/register' || to.path === '/home' || to.path === '/venues' ||
-			to.path === '/equipments' || to.path === '/venueDetail') {
+			to.path === '/equipments' || to.path === '/venueDetail' || to.path === '/admin/home' ||
+			to.path === '/admin/venues' || to.path === '/admin/users' || to.path === '/admin/states') {
 			next();
 		} else {
 			next('/home');

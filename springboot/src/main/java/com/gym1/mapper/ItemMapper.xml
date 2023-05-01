@@ -6,9 +6,20 @@
 <mapper namespace="com.gym1.mapper.ItemMapper">
 
     <insert id="addItem" parameterType="com.gym1.entity.Item">
-        insert into comment (itemName, price, venueId, commentTime, message)
-        values (#{userId}, #{orderId}, #{venueId}, #{commentTime}, #{message})
+        insert into item (info, itemName, price, image)
+        values (#{info}, #{itemName}, #{price}, #{image})
     </insert>
+
+    <select id="queryItemByName" resultType="com.gym1.entity.Item">
+        select i.id, i.itemName, i.info, i.price, i.image
+        from item i
+        where i.itemName = #{itemName}
+    </select>
+
+    <select id="queryAllItem" resultType="com.gym1.entity.Item">
+        select i.id, i.itemName, i.info, i.price, i.image
+        from item i
+    </select>
 
 
 </mapper>

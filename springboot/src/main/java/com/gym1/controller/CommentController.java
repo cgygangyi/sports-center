@@ -27,7 +27,6 @@ public class CommentController {
     @PostMapping("/makeComment/{orderId}")
     public Map<String, Object> makeComment(HttpServletRequest request,@PathVariable int orderId,
                                            @RequestBody Map map){
-        System.out.println(map.get("comment"));
         Map<String, Object> reMap = new HashMap<>();
         int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
         String info = map.get("comment").toString();

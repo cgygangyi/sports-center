@@ -25,15 +25,16 @@ public class JwtInterceptor implements HandlerInterceptor {
                 boolean verify = JwtUtil.checkToken(token);
                 if (verify) {
                     map.put("state", true);
-                    //convert map to json
+                    //convert map to jason
                     String json = new ObjectMapper().writeValueAsString(map);
                     response.setContentType("application/json;charset=UTF-8");
+                    //response.getOutputStream().println(json);
                     return true;
                 } else {
                     map.put("state", false);
                     String json = new ObjectMapper().writeValueAsString(map);
                     response.setContentType("application/json;charset=UTF-8");
-                    response.getOutputStream().println(json);
+                    //response.getOutputStream().println(json);
                     return false;
                 }
             } catch (SignatureException e) {
@@ -56,7 +57,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
             String json = new ObjectMapper().writeValueAsString(map);
             response.setContentType("application/json;charset=UTF-8");
-            response.getOutputStream().println(json);
+            //response.getOutputStream().println(json);
             return false;
         }
     }

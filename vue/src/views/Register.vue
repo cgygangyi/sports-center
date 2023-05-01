@@ -52,7 +52,7 @@
                             </a-col>
                             <a-col :span="3">
                                 <a-form-item class="mb-10" label=" " :colon="false">
-                                    <a-button type="primary">Get code</a-button>
+                                    <a-button type="primary" class="change" @click="send">Get code</a-button>
                                 </a-form-item>
                             </a-col>
                             <a-col :span="12">
@@ -160,6 +160,14 @@
 			this.form = this.$form.createForm(this, { name: 'normal_login' });
 		},
 		methods: {
+            send(){
+                setTimeout(() => {
+                    this.$message.success("Successfully sent!")
+                    // change the element with 'change' class
+                    document.getElementsByClassName("change")[0].innerHTML = "Resend";
+
+                }, 1000);
+            },
 			handleSubmit(e) {
 				e.preventDefault();
 				this.form.validateFields((err, values) => {

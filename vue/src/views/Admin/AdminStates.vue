@@ -21,7 +21,7 @@
 
 import AdminTable from '../../components/Cards/AdminTable.vue' ;
 
-import {getAllStates} from "@/api/venueState";
+import {getAllStates} from "../../api/venueState";
 
 const stateColumns = [
     {
@@ -57,7 +57,7 @@ const stateColumns = [
 
 export default ({
     components: {
-        CardVenueTable,
+        AdminTable,
     },
     data() {
         return {

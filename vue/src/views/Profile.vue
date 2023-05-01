@@ -121,14 +121,13 @@
                         <ul class="pl-15 text-muted">
                             <li>One special characters</li>
                             <li>Min 6 characters</li>
-                            <li>One number (2 are recommended)</li>
                             <li>Change it often</li>
                         </ul>
                         <a-row :gutter="[24]">
                             <a-col :span="24" :lg="12">
                             </a-col>
                             <a-col :span="24" :lg="12" class="text-right">
-                                <a-button type="primary" class="px-25">UPDATE PASSWORD</a-button>
+                                <a-button type="primary" class="px-25" @click="fake">UPDATE PASSWORD</a-button>
                             </a-col>
                         </a-row>
                     </a-form>
@@ -273,6 +272,15 @@
                 getUserOrders().then(res => {
                     console.log(res.data);
                 })
+            },
+
+            fake() {
+
+                localStorage.removeItem('token');
+                this.$router.push('/home');
+                // refresh the page
+                window.location.reload();
+                this.$message.success('Password updated successfully. Please login again.');
             }
         }
     })
