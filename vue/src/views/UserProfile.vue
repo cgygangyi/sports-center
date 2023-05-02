@@ -223,24 +223,9 @@ export default ({
             email: '',
             name: '',
             password: 0,
-            phoneNumber: this.user.phoneNumber,
+            phoneNumber: '',
             sex: '',
             orders: []
-        }
-    },
-    beforeCreate() {
-        const user = JSON.parse(sessionStorage.getItem('user'))
-        this.id = user.id
-        this.username = user.username
-        this.age = user.age
-        this.email = user.email
-        this.name = user.name
-        this.password = user.password
-        this.phoneNumber = user.phoneNumber
-        if (user.sex === 1) {
-            this.sex = 'Male'
-        } else {
-            this.sex = 'Female'
         }
     },
     beforeMount() {

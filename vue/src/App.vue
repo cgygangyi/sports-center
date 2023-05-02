@@ -14,6 +14,14 @@ export default ({
         layout() {
             return 'layout-' + (this.$route.meta.layout || 'default').toLowerCase()
         }
+    },
+    methods: {
+        reload () {
+            this.isRouterAlive = false
+            this.$nextTick(function () {
+                this.isRouterAlive = true
+            })
+        }
     }
 })
 

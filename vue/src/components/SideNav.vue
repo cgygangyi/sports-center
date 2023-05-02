@@ -116,6 +116,7 @@
 
 <script>
 export default ({
+    inject: ['reload'],
     props: {
         // Sidebar collapsed status.
         sidebarCollapsed: {

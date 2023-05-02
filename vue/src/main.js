@@ -17,6 +17,9 @@ Vue.component('layout-dashboard', DashboardLayout)
 Vue.component('layout-admindashboard', AdminDashboardLayout)
 
 new Vue({
+    el: '#app',
+    components: { App },
+    template: '<App/>',
     router,
     render: h => h(App)
 }).$mount('#app')
