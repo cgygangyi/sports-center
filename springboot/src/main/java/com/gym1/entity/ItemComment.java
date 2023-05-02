@@ -18,6 +18,13 @@ public class ItemComment {
     private String username;
     private String info;
 
+    public ItemComment( Date commentTime, String info, int userId, int orderId, int itemId) {
+        this.userId = userId;
+        this.orderId = orderId;
+        this.itemId = itemId;
+        this.commentTime = commentTime;
+        this.info = info;
+    }
 
     public ItemComment(int id, int userId, int orderId, int itemId, Date commentTime,
                        String username, String info) {

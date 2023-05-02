@@ -25,8 +25,19 @@ public class ItemOrderController {
                                          @RequestBody Map map){
         Map<String, Object> reMap = new HashMap<>();
         int res = itemOrderService.makeOrder(itemId, JwtUtil.getMemberIdByJwtToken(request), map);
-
-
+        if (res == -1){
+            reMap.put("code", 1001);
+            reMap.put("msg", "Error!");
+            reMap.put("data", res);
+        }else if (res == 0){
+            reMap.put("code", 1001);
+            reMap.put("msg", "Failure!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 1001);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }
         return reMap;
     }
 

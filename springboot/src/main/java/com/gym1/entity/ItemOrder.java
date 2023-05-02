@@ -19,6 +19,7 @@ public class ItemOrder {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date orderTime;
+    private int comment;
 
     public ItemOrder(int id, int userId, int itemId, int number, double price,
                      String username, String name, String phoneNum, Date orderTime) {
@@ -99,6 +100,12 @@ public class ItemOrder {
     public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;
     }
+    public int getComment() {
+        return comment;
+    }
+    public void setComment(int comment) {
+        this.comment = comment;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,6 +116,7 @@ public class ItemOrder {
         if (getItemId() != itemOrder.getItemId()) return false;
         if (getNumber() != itemOrder.getNumber()) return false;
         if (Double.compare(itemOrder.getPrice(), getPrice()) != 0) return false;
+        if (getComment() != itemOrder.getComment()) return false;
         if (getUsername() != null ? !getUsername().equals(itemOrder.getUsername()) : itemOrder.getUsername() != null)
             return false;
         if (getName() != null ? !getName().equals(itemOrder.getName()) : itemOrder.getName() != null) return false;
@@ -130,6 +138,7 @@ public class ItemOrder {
         result = 31 * result + (getName() != null ? getName().hashCode() : 0);
         result = 31 * result + (getPhoneNum() != null ? getPhoneNum().hashCode() : 0);
         result = 31 * result + (getOrderTime() != null ? getOrderTime().hashCode() : 0);
+        result = 31 * result + getComment();
         return result;
     }
     @Override
@@ -144,6 +153,7 @@ public class ItemOrder {
                 ", name='" + name + '\'' +
                 ", phoneNum='" + phoneNum + '\'' +
                 ", orderTime=" + orderTime +
+                ", comment=" + comment +
                 '}';
     }
 }

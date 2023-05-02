@@ -6,9 +6,20 @@
 <mapper namespace="com.gym1.mapper.ItemOrderMapper">
 
     <insert id="addItemOrder" parameterType="com.gym1.entity.ItemOrder">
-        insert into item_order (userId, itemId, venueId, commentTime, info)
-        values (#{userId}, #{orderId}, #{venueId}, #{commentTime}, #{info})
+        insert into item_order (orderTime, itemId, number, price, userId, comment)
+        values (#{orderTime}, #{itemId}, #{number}, #{price}, #{userId}, #{comment})
     </insert>
 
+    <select id="queryItemIdByOrderId" resultType="int">
+        select o.itemId
+        from item_order o
+        where o.id = #{id}
+    </select>
+
+    <update id="editItemOrderCommentState">
+        UPDATE item_order
+        SET comment = #{state}
+        where id = #{orderId}
+    </update>
 
 </mapper>

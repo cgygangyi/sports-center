@@ -27,13 +27,17 @@ public class ItemCommentController {
         int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
         String info = map.get("comment").toString();
         int res = itemCommentService.makeItemComment(uId, itemOrderId, info);
-        if (res == 1){
+        if (res == -1){
             reMap.put("code", 2001);
-            reMap.put("msg", "Success!");
+            reMap.put("msg", "Error!");
             reMap.put("data", res);
-        }else{
+        }else if (res == 0){
             reMap.put("code", 2002);
             reMap.put("msg", "Failure!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 2003);
+            reMap.put("msg", "Success!");
             reMap.put("data", res);
         }
         return reMap;

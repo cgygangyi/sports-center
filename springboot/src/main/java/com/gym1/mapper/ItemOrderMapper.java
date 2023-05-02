@@ -9,4 +9,8 @@ public interface ItemOrderMapper {
 
     int addItemOrder(ItemOrder itemOrder);
 
+    int queryItemIdByOrderId(int id);
+
+    int editItemOrderCommentState(int orderId, int state);
+
 }
