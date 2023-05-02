@@ -37,11 +37,11 @@ public class ItemController {
         System.out.println(baseStr);
         boolean res = itemService.addItem(name, info, price, baseStr);
         if (res){
-            reMap.put("code", 1001);
+            reMap.put("code", 3001);
             reMap.put("msg", "Success!");
             reMap.put("data", res);
         }else{
-            reMap.put("code", 1002);
+            reMap.put("code", 3002);
             reMap.put("msg", "This item has existed!");
             reMap.put("data", res);
         }
@@ -51,7 +51,7 @@ public class ItemController {
     @GetMapping("/getAllItem")
     public Map<String, Object> getAllItem(){
         Map<String, Object> reMap = new HashMap<>();
-        reMap.put("code", 1003);
+        reMap.put("code", 3003);
         reMap.put("msg", "Success!");
         reMap.put("data", itemService.getAllItem());
         return reMap;

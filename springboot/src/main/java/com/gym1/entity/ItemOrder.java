@@ -20,6 +20,22 @@ public class ItemOrder {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date orderTime;
     private int comment;
+    private String image;
+    private String itemName;
+
+
+    public ItemOrder(int id, Date orderTime, int number, double price, String phoneNumber,
+                     String name, String itemName, String image) {
+        this.id = id;
+        this.orderTime = orderTime;
+        this.number = number;
+        this.price = price;
+        this.phoneNum = phoneNumber;
+        this.name = name;
+        this.itemName = itemName;
+        this.image = "data:image/png;base64,"+image;
+
+    }
 
     public ItemOrder(int id, int userId, int itemId, int number, double price,
                      String username, String name, String phoneNum, Date orderTime) {
@@ -46,6 +62,12 @@ public class ItemOrder {
         this.orderTime = orderTime;
     }
 
+    public String getItemName() {
+        return itemName;
+    }
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
     public int getId() {
         return id;
     }
@@ -106,6 +128,12 @@ public class ItemOrder {
     public void setComment(int comment) {
         this.comment = comment;
     }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -122,7 +150,10 @@ public class ItemOrder {
         if (getName() != null ? !getName().equals(itemOrder.getName()) : itemOrder.getName() != null) return false;
         if (getPhoneNum() != null ? !getPhoneNum().equals(itemOrder.getPhoneNum()) : itemOrder.getPhoneNum() != null)
             return false;
-        return getOrderTime() != null ? getOrderTime().equals(itemOrder.getOrderTime()) : itemOrder.getOrderTime() == null;
+        if (getOrderTime() != null ? !getOrderTime().equals(itemOrder.getOrderTime()) : itemOrder.getOrderTime() != null)
+            return false;
+        if (getImage() != null ? !getImage().equals(itemOrder.getImage()) : itemOrder.getImage() != null) return false;
+        return getItemName() != null ? getItemName().equals(itemOrder.getItemName()) : itemOrder.getItemName() == null;
     }
     @Override
     public int hashCode() {
@@ -139,6 +170,8 @@ public class ItemOrder {
         result = 31 * result + (getPhoneNum() != null ? getPhoneNum().hashCode() : 0);
         result = 31 * result + (getOrderTime() != null ? getOrderTime().hashCode() : 0);
         result = 31 * result + getComment();
+        result = 31 * result + (getImage() != null ? getImage().hashCode() : 0);
+        result = 31 * result + (getItemName() != null ? getItemName().hashCode() : 0);
         return result;
     }
     @Override
@@ -154,6 +187,8 @@ public class ItemOrder {
                 ", phoneNum='" + phoneNum + '\'' +
                 ", orderTime=" + orderTime +
                 ", comment=" + comment +
+                ", image='" + image + '\'' +
+                ", itemName='" + itemName + '\'' +
                 '}';
     }
 }

@@ -1,14 +1,14 @@
 package com.gym1.service;
+
+
 import com.gym1.entity.Order;
 import com.gym1.entity.VenueState;
 import com.gym1.mapper.OrderMapper;
 import com.gym1.mapper.VenueStateMapper;
-import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 
 @Service
@@ -19,10 +19,6 @@ public class OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
-
-    public List<Order> queryUserOrder(int id){
-        return orderMapper.queryOrderByUserId(id);
-    }
 
     public int addOrder(int id, String userId){
         int uId = Integer.parseInt(userId);
@@ -53,7 +49,39 @@ public class OrderService {
         }
     }
 
+    public List<Order> queryUserOrder(int id){
+        return orderMapper.queryOrderByUserId(id);
+    }
 
+    public List<Order> queryUserUncommentOrder(int id){
+        return orderMapper.queryOrderByUserIdComment(id);
+    }
 
+    public int deleteOrder(int id){
+        int venueStateId = orderMapper.queryVenueStateIdByOrderId(id);
+        int a = 0;
+        int res = 0;
+        try{
+            a = venueStateMapper.updateVenueStateFree(venueStateId, 1);
+            if (a == 0){
+                return 0;
+            }else{
+                try{
+                    res = orderMapper.deleteOrder(id);
+                    if (res == 0){
+                        venueStateMapper.updateVenueStateFree(venueStateId, 0);
+                        return 0;
+                    }else{
+                        return res;
+                    }
+                }catch (Exception e){
+                    venueStateMapper.updateVenueStateFree(venueStateId, 0);
+                    return -1;
+                }
+            }
+        }catch (Exception e){
+            return -1;
+        }
+    }
 
 }

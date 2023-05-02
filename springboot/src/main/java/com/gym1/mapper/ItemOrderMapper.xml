@@ -22,4 +22,25 @@
         where id = #{orderId}
     </update>
 
+    <select id="queryItemOrderByUserId" resultType="com.gym1.entity.ItemOrder">
+        select o.id, o.orderTime, o.number, o.price, u.phoneNumber, u.name, i.itemName, i.image
+        from item_order o left join user u on u.id = o.userId
+        left join item i
+        on i.id = o.itemId
+        where o.userId = #{id}
+    </select>
+
+    <select id="queryItemOrderByUserIdComment" resultType="com.gym1.entity.ItemOrder">
+        select o.id, o.orderTime, o.number, o.price, u.phoneNumber, u.name, i.itemName, i.image
+        from item_order o left join user u on u.id = o.userId
+        left join item i
+        on i.id = o.itemId
+        where o.userId = #{id} and o.comment = 0
+    </select>
+
+    <delete id="deleteItemOrder">
+        delete from item_order
+        where id = #{id}
+    </delete>
+
 </mapper>

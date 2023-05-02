@@ -1,4 +1,6 @@
 package com.gym1.service;
+
+
 import com.gym1.entity.Item;
 import com.gym1.entity.ItemOrder;
 import com.gym1.entity.User;
@@ -7,10 +9,9 @@ import com.gym1.mapper.ItemOrderMapper;
 import com.gym1.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
-
 
 
 @Service
@@ -24,6 +25,7 @@ public class ItemOrderService {
 
     @Autowired
     UserMapper userMapper;
+
 
     public int makeOrder(int itemId, String userId, Map map){
         int uId = Integer.parseInt(userId);
@@ -47,7 +49,22 @@ public class ItemOrderService {
         return res;
     }
 
+    public List<ItemOrder> getUserAllOrder(int id){
+        return itemOrderMapper.queryItemOrderByUserId(id);
+    }
 
+    public List<ItemOrder> getUserUncommentOrder(int id){
+        return itemOrderMapper.queryItemOrderByUserIdComment(id);
+    }
 
+    public int deleteOrder(int id){
+        int res = 0;
+        try{
+            res = itemOrderMapper.deleteItemOrder(id);
+            return res;
+        }catch (Exception e){
+            return -1;
+        }
+    }
 
 }

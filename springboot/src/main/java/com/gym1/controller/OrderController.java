@@ -21,38 +21,79 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/checkOrder")
-    public Map<String, Object> checkOrder(HttpServletRequest request){
-        int id = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
-        List<Order> order = orderService.queryUserOrder(id);
-        Map<String, Object> reMap = new HashMap<>();
-        if (order.size() == 0){
-            reMap.put("code", 3001);
-            reMap.put("message", "You didn't make any order!");
-            reMap.put("data", order);
-        }else{
-            reMap.put("code", 3002);
-            reMap.put("message", "Success!");
-            reMap.put("data", order);
-        }
-        return reMap;
-    }
 
     @PostMapping("/makeOrder/{venueStateId}")
     public Map<String, Object> makeOrder(HttpServletRequest request, @PathVariable int venueStateId){
         Map<String, Object> reMap = new HashMap<>();
         int res = orderService.addOrder(venueStateId, JwtUtil.getMemberIdByJwtToken(request));
         if(res == -2){
-            reMap.put("code", 3011);
+            reMap.put("code", 5001);
             reMap.put("message", "Failure!");
             reMap.put("data", res);
         }else if(res == -1){
-            reMap.put("code", 3012);
+            reMap.put("code", 5002);
             reMap.put("message", "Error!");
             reMap.put("data", res);
         }else{
-            reMap.put("code", 3013);
+            reMap.put("code", 5003);
             reMap.put("message", "Success!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @GetMapping("/getAllOrder")
+    public Map<String, Object> getAllOrder(HttpServletRequest request){
+        Map<String, Object> reMap = new HashMap<>();
+        int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        List<Order> res = orderService.queryUserOrder(uId);
+        if (res.size() != 0){
+            reMap.put("code", 5004);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 5005);
+            reMap.put("msg", "There are no orders!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @GetMapping("/getAllUncommentOrder")
+    public Map<String, Object> getAllUncommentOrder(HttpServletRequest request){
+        Map<String, Object> reMap = new HashMap<>();
+        int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        List<Order> res = orderService.queryUserUncommentOrder(uId);
+        if (res.size() != 0){
+            reMap.put("code", 5006);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 5007);
+            reMap.put("msg", "There are no orders!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @PostMapping("/deleteOrder/{id}")
+    public Map<String, Object> deleteOrder(@PathVariable int id){
+        Map<String, Object> reMap = new HashMap<>();
+        int res = orderService.deleteOrder(id);
+        if (res == -1){
+            reMap.put("code", 5008);
+            reMap.put("msg", "Error!");
+            reMap.put("data", res);
+        }else if (res == 0){
+            reMap.put("code", 5009);
+            reMap.put("msg", "Failure!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 5010);
+            reMap.put("msg", "Success!");
             reMap.put("data", res);
         }
         return reMap;

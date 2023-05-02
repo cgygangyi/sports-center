@@ -18,6 +18,7 @@ public class VenueStateService {
     @Autowired
     private VenueStateMapper venueStateMapper;
 
+
     public List<VenueState> getPotentialState(int id){
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());

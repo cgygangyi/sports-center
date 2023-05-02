@@ -32,4 +32,23 @@
         where id = #{orderId}
     </update>
 
+    <select id="queryOrderByUserIdComment" resultType="com.gym1.entity.Order">
+        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price
+        from `order` o left join venue_state s on o.venueStateId = s.id
+        left join venue v
+        on s.venueId = v.id
+        where o.userId = #{id} and o.comment = 0
+    </select>
+
+    <delete id="deleteOrder">
+        delete from `order`
+        where id = #{id}
+    </delete>
+
+    <select id="queryVenueStateIdByOrderId" resultType="int">
+        select o.venueStateId
+        from `order` o
+        where o.id = #{id}
+    </select>
+
 </mapper>
