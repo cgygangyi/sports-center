@@ -16,33 +16,33 @@
 
 <script>
 
-	export default ({
-		props: {
-			value: {
-				type: Number,
-				default: 0,
-			},
-			prefix: {
-				type: String,
-				default: "+$",
-			},
-			icon: {
-				type: String,
-				default: "",
-			},
-			title: {
-				type: String,
-				default: "",
-			},
-			content: {
-				type: String,
-				default: "",
-			},
-		},
-		data() {
-			return {
-			}
-		},
-	})
+export default ({
+    props: {
+        value: {
+            type: Number,
+            default: 0
+        },
+        prefix: {
+            type: String,
+            default: '+$'
+        },
+        icon: {
+            type: String,
+            default: ''
+        },
+        title: {
+            type: String,
+            default: ''
+        },
+        content: {
+            type: String,
+            default: ''
+        }
+    },
+    data() {
+        return {
+        }
+    }
+})
 
 </script>

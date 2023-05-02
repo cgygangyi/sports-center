@@ -51,7 +51,7 @@
                         :form="form"
                         class="login-form my-25"
                         @submit="handleSubmit"
-                        initialValues=name= Edit to change venue information
+                        initialValues='name= Edit to change venue information'
                     >
                         <a-form-item class="mb-10">
                             <a-input
@@ -98,21 +98,19 @@
 
 <script>
 
-import {editUserProfile} from "@/api/user";
-
 export default ({
     props: {
         data: {
             type: Array,
-            default: () => [],
+            default: () => []
         },
         columns: {
             type: Array,
-            default: () => [],
+            default: () => []
         },
         title: {
             type: String,
-            default: '',
+            default: ''
         }
     },
     data() {
@@ -121,28 +119,29 @@ export default ({
             authorsHeaderBtns: 'all',
             ModalText: 'Content of the modal',
             visible: false,
-            confirmLoading: false,
+            confirmLoading: false
         }
     },
 
     methods: {
         showModal() {
-            this.visible = true;
+            this.visible = true
         },
         handleOk() {
-            this.ModalText = 'The modal will be closed after two seconds';
-            this.confirmLoading = true;
+            this.ModalText = 'The modal will be closed after two seconds'
+            this.confirmLoading = true
             setTimeout(() => {
-                this.visible = false;
-                this.confirmLoading = false;
-                this.data[0].name = "test"
-            }, 500);
+                this.visible = false
+                this.confirmLoading = false
+                // eslint-disable-next-line vue/no-mutating-props
+                this.data[0].name = 'test'
+            }, 500)
         },
         handleCancel(e) {
-            console.log('Clicked cancel button');
-            this.visible = false;
-        },
-    },
+            console.log('Clicked cancel button')
+            this.visible = false
+        }
+    }
 })
 
 </script>

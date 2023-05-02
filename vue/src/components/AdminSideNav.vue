@@ -107,18 +107,18 @@ export default ({
         // Sidebar collapsed status.
         sidebarCollapsed: {
             type: Boolean,
-            default: false,
+            default: false
         },
         // Main sidebar color.
         sidebarColor: {
             type: String,
-            default: "primary",
+            default: 'primary'
         },
         // Main sidebar theme : light, white, dark.
         sidebarTheme: {
             type: String,
-            default: "light",
-        },
+            default: 'light'
+        }
     },
     data() {
         return {
@@ -127,6 +127,6 @@ export default ({
     },
 
     methods: {
-    },
+    }
 })
 </script>

@@ -5,7 +5,7 @@
 		<template #title>
 			<h6 class="font-semibold m-0">Invoices</h6>
 		</template>
-		<template slot="extra" class="mb-0">
+		<template slot="extra">
 			<a-button type="primary">
 				VIEW ALL
 			</a-button>
@@ -37,17 +37,17 @@
 
 <script>
 
-	export default ({
-		props: {
-			data: {
-				type: Array,
-				default: () => [],
-			},
-		},
-		data() {
-			return {
-			}
-		},
-	})
+export default ({
+    props: {
+        data: {
+            type: Array,
+            default: () => []
+        }
+    },
+    data() {
+        return {
+        }
+    }
+})
 
 </script>

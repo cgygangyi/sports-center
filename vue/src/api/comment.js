@@ -1,15 +1,13 @@
 // apis for comments
 
-import request from "../utils/request";
-
+import request from '../utils/request'
 
 export function getVenueCommentById(id) {
     return request({
         url: '/comment/getVenueComment/' + id,
-        method: 'get',
+        method: 'get'
     })
 }
-
 
 // make comment
 export function makeComment(id, map) {
@@ -18,7 +16,7 @@ export function makeComment(id, map) {
         method: 'post',
         data: map,
         headers: {
-            'token': localStorage.getItem('token')
+            token: localStorage.getItem('token')
         }
     })
 }

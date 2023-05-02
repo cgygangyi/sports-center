@@ -29,25 +29,25 @@
 
 <script>
 
-	export default ({
-        props: {
-            name: {
-                type: String,
-                default: '',
-            },
-            type: {
-                type: String,
-                default: '',
-            },
-            info: {
-                type: String,
-                default: '',
-            },
+export default ({
+    props: {
+        name: {
+            type: String,
+            default: ''
         },
-		data() {
-			return {
-			}
-		},
-	})
+        type: {
+            type: String,
+            default: ''
+        },
+        info: {
+            type: String,
+            default: ''
+        }
+    },
+    data() {
+        return {
+        }
+    }
+})
 
 </script>

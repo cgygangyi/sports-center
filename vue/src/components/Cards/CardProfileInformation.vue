@@ -22,7 +22,7 @@
                 :form="form"
                 class="login-form my-25"
                 @submit="handleSubmit"
-                initialValues=name= Edit to change your profile
+                initialValues='name= Edit to change your profile'
             >
                 <a-form-item class="mb-10">
                     <a-input
@@ -104,7 +104,6 @@
 
         <hr class="my-25">
 
-
         <p class="text-dark">
             Perhaps they will understand Maupassant's words that life may not be as good as you think, but it will not be as bad as you think. "People are more fragile and strong than you can imagine. Sometimes, a fragile sentence can bring tears to your face, and sometimes you find yourself biting your teeth and walking a long way.".
         </p>
@@ -115,77 +114,78 @@
 
 <script>
 
-	import {editUserProfile} from "@/api/user";
+import { editUserProfile } from '@/api/user'
 
-    export default ({
-        props: {
-            id: {
-                type: Number,
-                default: 0
-            },
-            username: {
-                type: String,
-                default: ''
-            },
-            email: {
-                type: String,
-                default: ''
-            },
-            password: {
-                type: String,
-                default: ''
-            },
-            name: {
-                type: String,
-                default: ''
-            },
-            age: {
-                type: Number,
-                default: 0
-            },
-            phoneNumber: {
-                type: String,
-                default: ''
-            },
-            sex: {
-                type: String,
-                default: ''
-            },
+export default ({
+    props: {
+        id: {
+            type: Number,
+            default: 0
         },
-		data() {
-			return {
-                ModalText: 'Content of the modal',
-                visible: false,
-                confirmLoading: false,
-			}
-		},
-        beforeCreate() {
-            this.form = this.$form.createForm(this, { name: 'profile' });
-            this.form.setFieldsValue({email: this.email});
+        username: {
+            type: String,
+            default: ''
         },
-        methods: {
-            showModal() {
-                this.visible = true;
-            },
-            handleOk() {
-                this.ModalText = 'The modal will be closed after two seconds';
-                this.confirmLoading = true;
-                let values = this.form.getFieldsValue();
-                editUserProfile(values).then(res => {
-                    console.log(res);
-                });
-                setTimeout(() => {
-                    this.visible = false;
-                    this.confirmLoading = false;
-                    this.age = 20;
-                }, 500);
-            },
-            handleCancel(e) {
-                console.log('Clicked cancel button');
-                this.visible = false;
-            },
+        email: {
+            type: String,
+            default: ''
         },
+        password: {
+            type: String,
+            default: ''
+        },
+        name: {
+            type: String,
+            default: ''
+        },
+        age: {
+            type: Number,
+            default: 0
+        },
+        phoneNumber: {
+            type: String,
+            default: ''
+        },
+        sex: {
+            type: String,
+            default: ''
+        }
+    },
+    data() {
+        return {
+            ModalText: 'Content of the modal',
+            visible: false,
+            confirmLoading: false
+        }
+    },
+    beforeCreate() {
+        this.form = this.$form.createForm(this, { name: 'profile' })
+        this.form.setFieldsValue({ email: this.email })
+    },
+    methods: {
+        showModal() {
+            this.visible = true
+        },
+        handleOk() {
+            this.ModalText = 'The modal will be closed after two seconds'
+            this.confirmLoading = true
+            const values = this.form.getFieldsValue()
+            editUserProfile(values).then(res => {
+                console.log(res)
+            })
+            setTimeout(() => {
+                this.visible = false
+                this.confirmLoading = false
+                // eslint-disable-next-line vue/no-mutating-props
+                this.age = 20
+            }, 500)
+        },
+        handleCancel(e) {
+            console.log('Clicked cancel button')
+            this.visible = false
+        }
+    }
 
-	})
+})
 
 </script>

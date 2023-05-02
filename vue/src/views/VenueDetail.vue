@@ -59,7 +59,7 @@
                         item-layout="horizontal"
                         :data-source="comments"
                     >
-                        <a-list-item slot="renderItem" slot-scope="item, index">
+                        <a-list-item slot="renderItem" slot-scope="item">
                             <a-comment :author="item.username">
                                 <p slot="content">
                                     {{ item.info }}
@@ -74,30 +74,28 @@
                 </a-col>
             </a-row>
 
-
         </a-card>
 
     </div>
 </template>
 
 <script>
-import moment from 'moment';
-import {getVenueById} from "@/api/venue";
-import TimePicker from "@/components/Cards/TimePicker";
-import { getVenueTime } from "@/api/venueState";
-import { bookVenue } from "@/api/order";
-import {mapHash} from "@fullcalendar/core";
-import {getVenueCommentById} from "@/api/comment";
+import moment from 'moment'
+import { getVenueById } from '@/api/venue'
+import TimePicker from '@/components/Cards/TimePicker'
+import { getVenueTime } from '@/api/venueState'
+import { bookVenue } from '@/api/order'
+import { getVenueCommentById } from '@/api/comment'
 
 export default ({
     components: {
-        TimePicker,
+        TimePicker
     },
     query: {
         id: {
             type: String,
-            required: true,
-        },
+            required: true
+        }
     },
     data() {
         return {
@@ -108,14 +106,14 @@ export default ({
             visible: false,
             confirmLoading: false,
             comments: [],
-            moment,
+            moment
 
         }
     },
     beforeMount() {
         getVenueById(this.$route.query.id).then(res => {
             this.venueData = res.data.data
-            this.description = this.venueData.introduction.split("\n");
+            this.description = this.venueData.introduction.split('\n')
             console.log(this.venueData)
         })
         getVenueCommentById(this.$route.query.id).then(res => {
@@ -126,51 +124,47 @@ export default ({
 
     methods: {
         showModal() {
-            if (localStorage.getItem("token") === null || localStorage.getItem("token") === '') {
-                this.$message.warning("Please login first!")
+            if (localStorage.getItem('token') === null || localStorage.getItem('token') === '') {
+                this.$message.warning('Please login first!')
                 return
             }
-            this.ModalText = 'Please click to select a time slot(just one for each choose)';
+            this.ModalText = 'Please click to select a time slot(just one for each choose)'
             getVenueTime(this.$route.query.id).then((response) => {
-                console.log(response);
+                console.log(response)
                 if (response.data === '') {
-                    this.$message.warning("Please login first!")
+                    this.$message.warning('Please login first!')
+                } else {
+                    this.ModalData = response.data
+                    this.visible = true
                 }
-                else {
-                    this.ModalData = response.data;
-                    this.visible = true;
-                }
-                console.log(this.ModalData);
+                console.log(this.ModalData)
             }).catch((error) => {
-                console.log(error);
-            });
+                console.log(error)
+            })
         },
         handleOk(e) {
-            let id = sessionStorage.getItem("chosen");
+            const id = sessionStorage.getItem('chosen')
             bookVenue(id).then((response) => {
-                console.log(response);
+                console.log(response)
                 if (response.data === '') {
-                    this.$message.warning("Please login first!")
-                }
-                else {
-                    this.ModalText = 'Booking......';
-                    this.confirmLoading = true;
+                    this.$message.warning('Please login first!')
+                } else {
+                    this.ModalText = 'Booking......'
+                    this.confirmLoading = true
                     setTimeout(() => {
-                        this.visible = false;
-                        this.confirmLoading = false;
-                        this.$message.success("Successfully booked!")
-                    }, 1000);
+                        this.visible = false
+                        this.confirmLoading = false
+                        this.$message.success('Successfully booked!')
+                    }, 1000)
                 }
             }).catch((error) => {
-                console.log(error);
-            });
-
-
+                console.log(error)
+            })
         },
         handleCancel(e) {
-            console.log('Clicked cancel button');
-            this.visible = false;
-        },
+            console.log('Clicked cancel button')
+            this.visible = false
+        }
     }
 })
 

@@ -39,14 +39,14 @@
 
 <script>
 
-	export default ({
-		data() {
-			return {
+export default ({
+    data() {
+        return {
 
-				// Whether or not the timeline in "Orders History" card is reversed.
-				timelineReverse: false,
-			}
-		},
-	})
+            // Whether or not the timeline in "Orders History" card is reversed.
+            timelineReverse: false
+        }
+    }
+})
 
 </script>

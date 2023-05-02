@@ -23,44 +23,44 @@
 
 <script>
 
-	export default ({
-		props: {
-			id: {
-				type: Number,
-				required: true,
-			},
-			name: {
-				type: String,
-				default: "",
-			},
-			address: {
-				type: String,
-				default: "",
-			},
-			cover: {
-				type: String,
-				default: "",
-			},
-            price: {
-                type: Number,
-                default: 0,
-            },
-		},
-		data() {
-			return {
-
-			}
-		},
-
-        methods: {
-            jump() {
-                this.$router.push({
-                    path: '/venueDetail',
-                    query: {
-                        id: this.id,
-                    }
-                })
-            },
+export default ({
+    props: {
+        id: {
+            type: Number,
+            required: true
         },
-    })
+        name: {
+            type: String,
+            default: ''
+        },
+        address: {
+            type: String,
+            default: ''
+        },
+        cover: {
+            type: String,
+            default: ''
+        },
+        price: {
+            type: Number,
+            default: 0
+        }
+    },
+    data() {
+        return {
+
+        }
+    },
+
+    methods: {
+        jump() {
+            this.$router.push({
+                path: '/venueDetail',
+                query: {
+                    id: this.id
+                }
+            })
+        }
+    }
+})
 </script>

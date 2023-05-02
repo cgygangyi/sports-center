@@ -39,25 +39,26 @@
 
 <script>
 
-	export default ({
-        props: {
-            data: {
-                type: Object,
-                default: () => []
-            }
-        },
-		data() {
-			return {
-			}
-		},
-        methods: {
-            disappear() {
-                console.log(data);
-                document.getElementById("disappear").style.display = "none";
-                this.$message.success('Delete successfully');
-            }
+export default ({
+    props: {
+        data: {
+            type: Object,
+            // eslint-disable-next-line vue/require-valid-default-prop
+            default: () => []
         }
-	})
-
+    },
+    data() {
+        return {
+        }
+    },
+    methods: {
+        disappear() {
+            // eslint-disable-next-line no-undef
+            console.log(data)
+            document.getElementById('disappear').style.display = 'none'
+            this.$message.success('Delete successfully')
+        }
+    }
+})
 
 </script>

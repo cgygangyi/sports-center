@@ -1,16 +1,15 @@
 // apis for user
 
-import request from "../utils/request";
+import request from '../utils/request'
 
 // login function
 export function userLogin(map) {
     return request({
         url: '/user/login',
         method: 'post',
-        data: map,
+        data: map
     })
 }
-
 
 // register function
 export function userRegister(map) {
@@ -19,11 +18,10 @@ export function userRegister(map) {
         method: 'post',
         data: map,
         headers: {
-            'token': localStorage.getItem('token')
+            token: localStorage.getItem('token')
         }
     })
 }
-
 
 // get user profile
 export function getUserProfile() {
@@ -31,7 +29,7 @@ export function getUserProfile() {
         url: '/user/getUserInfo',
         method: 'get',
         headers: {
-            'token': localStorage.getItem('token')
+            token: localStorage.getItem('token')
         }
     })
 }
@@ -49,15 +47,14 @@ export function editUserProfile(map) {
 export function getAllUsers() {
     return request({
         url: '/user/getAll',
-        method: 'get',
+        method: 'get'
     })
 }
-
 
 // log out
 export function userLogout() {
     return request({
         url: '/user/logout',
-        method: 'get',
+        method: 'get'
     })
 }

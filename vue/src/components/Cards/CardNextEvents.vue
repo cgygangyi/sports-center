@@ -34,18 +34,18 @@
 
 <script>
 
-	export default ({
-		props: {
-			data: {
-				type: Array,
-				default: () => [],
-			},
-		},
-		data() {
-			return {
-			}
-		},
-	})
+export default ({
+    props: {
+        data: {
+            type: Array,
+            default: () => []
+        }
+    },
+    data() {
+        return {
+        }
+    }
+})
 
 </script>
 

@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <div class="sign-up-header" style="background-image: url('images/a.jpg')">
@@ -52,7 +51,7 @@
 </template>
 
 <script>
-import {userLogin} from '../api/user'
+import { userLogin } from '../api/user'
 export default ({
     data () {
         return {
@@ -75,7 +74,7 @@ export default ({
                             localStorage.setItem('token', res.data.data)
                             this.$message.success(res.data.message)
                             window.location.reload()
-                            this.$router.push({path: '/home'})
+                            this.$router.push({ path: '/home' })
                         } else {
                             this.$message.error(res.data.message)
                         }

@@ -120,28 +120,28 @@ export default ({
         // Sidebar collapsed status.
         sidebarCollapsed: {
             type: Boolean,
-            default: false,
+            default: false
         },
         // Main sidebar color.
         sidebarColor: {
             type: String,
-            default: "primary",
+            default: 'primary'
         },
         // Main sidebar theme : light, white, dark.
         sidebarTheme: {
             type: String,
-            default: "light",
-        },
+            default: 'light'
+        }
     },
     data() {
         return {
-            login: 0,
+            login: 0
         }
     },
     beforeMount() {
-        if (localStorage.getItem('token') != null && localStorage.getItem('token') != '') {
-            this.login = 1;
+        if (localStorage.getItem('token') != null && localStorage.getItem('token') !== '') {
+            this.login = 1
         }
-    },
+    }
 })
 </script>

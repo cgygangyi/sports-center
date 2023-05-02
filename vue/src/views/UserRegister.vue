@@ -2,7 +2,6 @@
 	<div>
         <div class="mx-auto mt-50" style="max-width: 800px;">
 
-
             <div class="mb-24">
                 <a-card :bordered="false" class="header-solid" :bodyStyle="{paddingTop: 0 }" :headStyle="{paddingBottom: '0' }">
                     <template #title>
@@ -149,47 +148,46 @@
 
 <script>
 
-	import {userRegister} from "@/api/user";
+import { userRegister } from '@/api/user'
 
-    export default ({
-		data() {
-			return {
-			}
-		},
-		beforeCreate() {
-			this.form = this.$form.createForm(this, { name: 'normal_login' });
-		},
-		methods: {
-            send(){
-                setTimeout(() => {
-                    this.$message.success("Successfully sent!")
-                    // change the element with 'change' class
-                    document.getElementsByClassName("change")[0].innerHTML = "Resend";
-
-                }, 1000);
-            },
-			handleSubmit(e) {
-				e.preventDefault();
-				this.form.validateFields((err, values) => {
-					if ( !err ) {
-                        userRegister(values).then(res => {
-                            console.log(res);
-                            if(res.data==-1){
-                                this.$message.error("username already exists")
-                            }else{
-                                this.$message.success("sign up successfully")
-                                this.$router.push({path:"/login"})
-                            }
-                        })
-						console.log('Received values of form: ', values) ;
-					}
-				});
-			},
-            moveStep( distance ) {
-                this.step += distance ;
-            }
-		},
-	})
+export default ({
+    data() {
+        return {
+        }
+    },
+    beforeCreate() {
+        this.form = this.$form.createForm(this, { name: 'normal_login' })
+    },
+    methods: {
+        send() {
+            setTimeout(() => {
+                this.$message.success('Successfully sent!')
+                // change the element with 'change' class
+                document.getElementsByClassName('change')[0].innerHTML = 'Resend'
+            }, 1000)
+        },
+        handleSubmit(e) {
+            e.preventDefault()
+            this.form.validateFields((err, values) => {
+                if (!err) {
+                    userRegister(values).then(res => {
+                        console.log(res)
+                        if (res.data === -1) {
+                            this.$message.error('username already exists')
+                        } else {
+                            this.$message.success('sign up successfully')
+                            this.$router.push({ path: '/login' })
+                        }
+                    })
+                    console.log('Received values of form: ', values)
+                }
+            })
+        },
+        moveStep(distance) {
+            this.step += distance
+        }
+    }
+})
 
 </script>
 

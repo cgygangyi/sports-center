@@ -27,30 +27,30 @@
 
 <script>
 
-	// Bar chart for "Active Users" card.
-	import ChartBar from '../Charts/ChartBar' ;
+// Bar chart for "Active Users" card.
+import ChartBar from '../Charts/ChartBar'
 
-	export default ({
-		components: {
-			ChartBar,
-		},
-		data() {
-			return {
-				// Data for bar chart.
-				barChartData: {
-					labels: ["01", "02", "03", "04", "05", "06"],
-					datasets: [{
-						label: "Sales",
-						backgroundColor: '#fff',
-						borderWidth: 0,
-						borderSkipped: false,
-						borderRadius: 6,
-						data: [85, 60, 50, 62, 90, 50],
-						maxBarThickness: 20,
-					}, ],
-				},
-			}
-		},
-	})
+export default ({
+    components: {
+        ChartBar
+    },
+    data() {
+        return {
+            // Data for bar chart.
+            barChartData: {
+                labels: ['01', '02', '03', '04', '05', '06'],
+                datasets: [{
+                    label: 'Sales',
+                    backgroundColor: '#fff',
+                    borderWidth: 0,
+                    borderSkipped: false,
+                    borderRadius: 6,
+                    data: [85, 60, 50, 62, 90, 50],
+                    maxBarThickness: 20
+                }]
+            }
+        }
+    }
+})
 
 </script>

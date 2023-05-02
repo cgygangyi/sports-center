@@ -26,14 +26,14 @@ export default ({
         // Header fixed status.
         navbarFixed: {
             type: Boolean,
-            default: false,
+            default: false
         },
 
         // Sidebar collapsed status.
         sidebarCollapsed: {
             type: Boolean,
-            default: false,
-        },
+            default: false
+        }
     },
     data() {
         return {
@@ -44,32 +44,32 @@ export default ({
             searchLoading: false,
 
             // The wrapper element to attach dropdowns to.
-            wrapper: document.body,
+            wrapper: document.body
         }
     },
     methods: {
-        resizeEventHandler(){
-            this.top = this.top ? 0 : -0.01 ;
+        resizeEventHandler() {
+            this.top = this.top ? 0 : -0.01
             // To refresh the header if the window size changes.
             // Reason for the negative value is that it doesn't activate the affix unless
             // scroller is anywhere but the top of the page.
         },
-        onSearch(value){
+        onSearch(value) {
         }
     },
-    mounted: function(){
+    mounted: function() {
         // Set the wrapper to the proper element, layout wrapper.
-        this.wrapper = document.getElementById('layout-dashboard') ;
+        this.wrapper = document.getElementById('layout-dashboard')
     },
     created() {
         // Registering window resize event listener to fix affix elements size
         // error while resizing.
-        window.addEventListener("resize", this.resizeEventHandler);
+        window.addEventListener('resize', this.resizeEventHandler)
     },
     destroyed() {
         // Removing window resize event listener.
-        window.removeEventListener("resize", this.resizeEventHandler);
-    },
+        window.removeEventListener('resize', this.resizeEventHandler)
+    }
 })
 
 </script>

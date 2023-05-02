@@ -18,64 +18,60 @@
 
 <script>
 
-	// Bar chart for "Active Users" card.
-	import ChartLine from '../Charts/ChartLine' ;
+// Bar chart for "Active Users" card.
+import ChartLine from '../Charts/ChartLine'
 
-	export default ({
-		components: {
-			ChartLine,
-		},
-		data() {
-			return {
-				lineChartData: {
-					labels: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"],
-					datasets: [{
-						label: "Mobile apps",
-						tension: 0.4,
-						borderWidth: 0,
-						pointRadius: 0,
-						borderColor: "#1890FF",
-						borderWidth: 3,
-						data: [22, 50, 25, 40, 20, 50],
-						maxBarThickness: 6
+export default ({
+    components: {
+        ChartLine
+    },
+    data() {
+        return {
+            lineChartData: {
+                labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'],
+                datasets: [{
+                    label: 'Mobile apps',
+                    tension: 0.4,
+                    pointRadius: 0,
+                    borderColor: '#1890FF',
+                    borderWidth: 3,
+                    data: [22, 50, 25, 40, 20, 50],
+                    maxBarThickness: 6
 
-					},
-					{
-						label: "Websites",
-						tension: 0.4,
-						borderWidth: 0,
-						pointRadius: 0,
-						borderColor: "#B37FEB",
-						borderWidth: 3,
-						data: [63, 12, 13, 76, 37, 37],
-						maxBarThickness: 6
+                },
+                {
+                    label: 'Websites',
+                    tension: 0.4,
+                    pointRadius: 0,
+                    borderColor: '#B37FEB',
+                    borderWidth: 3,
+                    data: [63, 12, 13, 76, 37, 37],
+                    maxBarThickness: 6
 
-					},
-                    {
-                        label: "Websites",
-                        tension: 0.4,
-                        borderWidth: 0,
-                        pointRadius: 0,
-                        borderColor: "green",
-                        borderWidth: 3,
-                        data: [14, 29, 29, 34, 23, 40],
-                        maxBarThickness: 6
+                },
+                {
+                    label: 'Websites',
+                    tension: 0.4,
+                    pointRadius: 0,
+                    borderColor: 'green',
+                    borderWidth: 3,
+                    data: [14, 29, 29, 34, 23, 40],
+                    maxBarThickness: 6
 
-                    },
-                    {
-                        label: "Websites",
-                        tension: 0.4,
-                        borderWidth: 0,
-                        pointRadius: 0,
-                        borderColor: "red",
-                        borderWidth: 3,
-                        data: [21, 43, 13, 34, 23, 43],
-                        maxBarThickness: 6
+                },
+                {
+                    label: 'Websites',
+                    tension: 0.4,
+                    pointRadius: 0,
+                    borderColor: 'red',
+                    borderWidth: 3,
+                    data: [21, 43, 13, 34, 23, 43],
+                    maxBarThickness: 6
 
-                    }],
-				},
-			}
-		},
-	})
+                }]
+            }
+        }
+    }
+})
 
 </script>

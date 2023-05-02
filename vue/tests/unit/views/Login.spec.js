@@ -1,7 +1,7 @@
-import { shallowMount } from '@vue/test-utils';
-import Login from '@/views/Login.vue';
-import { setImmediate } from 'timers';
-import { userLogin } from '@/api/user';
+import { shallowMount } from '@vue/test-utils'
+import Login from '@/views/UserLogin.vue'
+import { setImmediate } from 'timers'
+import { userLogin } from '@/api/user'
 
 jest.mock('@/api/user', () => ({
     userLogin: jest.fn().mockResolvedValue({
@@ -11,53 +11,53 @@ jest.mock('@/api/user', () => ({
             message: 'Success'
         }
     })
-}));
-const flushPromises = () => new Promise(setImmediate);
-describe('Login.vue', () => {
-    let wrapper;
+}))
+const flushPromises = () => new Promise(setImmediate)
+describe('UserLogin.vue', () => {
+    let wrapper
 
     beforeEach(() => {
-        wrapper = shallowMount(Login);
-    });
+        wrapper = shallowMount(Login)
+    })
 
     afterEach(() => {
-        wrapper.destroy();
-    });
+        wrapper.destroy()
+    })
 
     it('renders the form', () => {
-        expect(wrapper.find('a-form-stub').exists()).toBe(true);
-    });
+        expect(wrapper.find('a-form-stub').exists()).toBe(true)
+    })
 
     it('calls handleSubmit when form is submitted', async () => {
-        const handleSubmit = jest.spyOn(wrapper.vm, 'handleSubmit');
-        wrapper.find('a-form-stub').trigger('submit');
-        await flushPromises();
-        expect(handleSubmit).toHaveBeenCalled();
-    });
+        const handleSubmit = jest.spyOn(wrapper.vm, 'handleSubmit')
+        wrapper.find('a-form-stub').trigger('submit')
+        await flushPromises()
+        expect(handleSubmit).toHaveBeenCalled()
+    })
 
     it('displays an error message when username is not entered', async () => {
-        wrapper.find('a-input-stub[placeholder="Userame"]').setValue('');
-        wrapper.find('a-form-stub').trigger('submit');
-        await flushPromises();
+        wrapper.find('a-input-stub[placeholder="Userame"]').setValue('')
+        wrapper.find('a-form-stub').trigger('submit')
+        await flushPromises()
 
-        expect(wrapper.text()).toContain('Please input your username!');
-    });
+        expect(wrapper.text()).toContain('Please input your username!')
+    })
 
     it('displays an error message when password is not entered', async () => {
-        wrapper.find('a-input-stub[placeholder="Password"]').setValue('');
-        wrapper.find('a-form-stub').trigger('submit');
-        await flushPromises();
+        wrapper.find('a-input-stub[placeholder="Password"]').setValue('')
+        wrapper.find('a-form-stub').trigger('submit')
+        await flushPromises()
 
-        expect(wrapper.text()).toContain('Please input your Password!');
-    });
+        expect(wrapper.text()).toContain('Please input your Password!')
+    })
 
     it('does not display error messages when username and password are entered', async () => {
-        wrapper.find('a-input-stub[placeholder="Userame"]').setValue('testuser');
-        wrapper.find('a-input-stub[placeholder="Password"]').setValue('testpassword');
-        wrapper.find('a-form-stub').trigger('submit');
-        await flushPromises();
+        wrapper.find('a-input-stub[placeholder="Userame"]').setValue('testuser')
+        wrapper.find('a-input-stub[placeholder="Password"]').setValue('testpassword')
+        wrapper.find('a-form-stub').trigger('submit')
+        await flushPromises()
 
-        expect(wrapper.text()).not.toContain('Please input your username!');
-        expect(wrapper.text()).not.toContain('Please input your Password!');
-    });
-});
+        expect(wrapper.text()).not.toContain('Please input your username!')
+        expect(wrapper.text()).not.toContain('Please input your Password!')
+    })
+})

@@ -17,46 +17,44 @@
 </template>
 
 <script>
-import ItemCard from "../components/Cards/ItemCard";
+import ItemCard from '../components/Cards/ItemCard'
 
-import { getAllItems } from '../api/item';
+import { getAllItems } from '../api/item'
 
 export default ({
     components: {
-        ItemCard,
+        ItemCard
     },
     data() {
         return {
-            a:'',
+            a: '',
             visible: false,
-            projects:[],
+            projects: []
         }
     },
 
     beforeCreate() {
         getAllItems().then((response) => {
             console.log(response.data)
-            let img = ['images/venue-1.jpeg', 'images/venue-2.jpeg', 'images/venue-3.jpeg', "images/venue-4.jpeg", "images/venue-5.jpeg"];
-            this.projects = response.data.data;
+            const img = ['images/venue-1.jpeg', 'images/venue-2.jpeg', 'images/venue-3.jpeg', 'images/venue-4.jpeg', 'images/venue-5.jpeg']
+            this.projects = response.data.data
             for (let i = 0; i < this.projects.length; i++) {
-                let index = parseInt(Math.random() * img.length);
-                this.projects[i].cover = img[index];
+                const index = parseInt(Math.random() * img.length)
+                this.projects[i].cover = img[index]
             }
             for (let i = 0; i < 5; i++) {
-                this.projects[i].cover = img[2];
+                this.projects[i].cover = img[2]
             }
             for (let i = 5; i < 9; i++) {
-                this.projects[i].cover = img[0];
+                this.projects[i].cover = img[0]
             }
             for (let i = 9; i < 16; i++) {
-                this.projects[i].cover = img[3];
+                this.projects[i].cover = img[3]
             }
-        });
-    },
+        })
+    }
 
 })
-
-
 
 </script>
 

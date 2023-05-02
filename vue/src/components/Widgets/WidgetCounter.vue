@@ -18,37 +18,37 @@
 
 <script>
 
-	export default ({
-		props: {
-			title: {
-				type: String,
-				default: "",
-			},
-			value: {
-				type: Number,
-				default: 0,
-			},
-			prefix: {
-				type: String,
-				default: "",
-			},
-			suffix: {
-				type: String,
-				default: "",
-			},
-			icon: {
-				type: String,
-				default: "",
-			},
-			status: {
-				type: String,
-				default: "success",
-			},
-		},
-		data() {
-			return {
-			}
-		},
-	})
+export default ({
+    props: {
+        title: {
+            type: String,
+            default: ''
+        },
+        value: {
+            type: Number,
+            default: 0
+        },
+        prefix: {
+            type: String,
+            default: ''
+        },
+        suffix: {
+            type: String,
+            default: ''
+        },
+        icon: {
+            type: String,
+            default: ''
+        },
+        status: {
+            type: String,
+            default: 'success'
+        }
+    },
+    data() {
+        return {
+        }
+    }
+})
 
 </script>

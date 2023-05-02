@@ -134,7 +134,6 @@
                 </a-card>
                 <!-- / Change Password card -->
 
-
                 <!-- Two-factor authentication card -->
                 <a-card :bordered="false" id="2fa" class="header-solid mb-24">
                     <template #title>
@@ -207,83 +206,77 @@
 </template>
 
 <script>
-    import {getUserOrders} from "../api/order";
-    import {getUserProfile} from "../api/user";
-	import CardProfileInformation from "../components/Cards/CardProfileInformation"
-    import CardBillingInfo from "../components/Cards/CardBillingInfo"
+import { getUserOrders } from '../api/order'
+import { getUserProfile } from '../api/user'
+import CardProfileInformation from '../components/Cards/CardProfileInformation'
 
-	export default ({
-		components: {
-			CardProfileInformation,
-            CardBillingInfo
-		},
-		data() {
-			return {
-				profileHeaderBtns: 'overview',
-                id: 1,
-                username: '',
-                age: 0,
-                email: '',
-                name: '',
-                password: 0,
-                phoneNumber: this.user.phoneNumber,
-                sex: '',
-                orders: [],
-			}
-		},
-        beforeCreate() {
-
-            let user = JSON.parse(sessionStorage.getItem("user"));
-            this.id = user.id;
-            this.username = user.username;
-            this.age = user.age;
-            this.email = user.email;
-            this.name = user.name;
-            this.password = user.password;
-            this.phoneNumber = user.phoneNumber;
-            if (user.sex === 1) {
+export default ({
+    components: {
+        CardProfileInformation
+    },
+    data() {
+        return {
+            profileHeaderBtns: 'overview',
+            id: 1,
+            username: '',
+            age: 0,
+            email: '',
+            name: '',
+            password: 0,
+            phoneNumber: this.user.phoneNumber,
+            sex: '',
+            orders: []
+        }
+    },
+    beforeCreate() {
+        const user = JSON.parse(sessionStorage.getItem('user'))
+        this.id = user.id
+        this.username = user.username
+        this.age = user.age
+        this.email = user.email
+        this.name = user.name
+        this.password = user.password
+        this.phoneNumber = user.phoneNumber
+        if (user.sex === 1) {
+            this.sex = 'Male'
+        } else {
+            this.sex = 'Female'
+        }
+    },
+    beforeMount() {
+        getUserProfile().then(res => {
+            console.log(res.data)
+            this.id = res.data.data.id
+            this.username = res.data.data.username
+            this.age = res.data.data.age
+            this.email = res.data.data.email
+            this.name = res.data.data.name
+            this.phoneNumber = res.data.data.phoneNumber
+            if (res.data.data.sex === 1) {
                 this.sex = 'Male'
-            }
-            else {
+            } else {
                 this.sex = 'Female'
             }
-        },
-        beforeMount() {
-            getUserProfile().then(res => {
-                console.log(res.data);
-                this.id = res.data.data.id;
-                this.username = res.data.data.username;
-                this.age = res.data.data.age;
-                this.email = res.data.data.email;
-                this.name = res.data.data.name;
-                this.phoneNumber = res.data.data.phoneNumber;
-                if (res.data.data.sex === 1) {
-                    this.sex = 'Male'
-                }
-                else {
-                    this.sex = 'Female'
-                }
-                // refresh
-                this.$forceUpdate();
+            // refresh
+            this.$forceUpdate()
+        })
+    },
+    methods: {
+        geta() {
+            getUserOrders().then(res => {
+                console.log(res.data)
             })
         },
-        methods: {
-            geta() {
-                getUserOrders().then(res => {
-                    console.log(res.data);
-                })
-            },
 
-            fake() {
-
-                localStorage.removeItem('token');
-                this.$router.push('/home');
-                // refresh the page
-                window.location.reload();
-                this.$message.success('Password updated successfully. Please login again.');
-            }
+        fake() {
+            localStorage.removeItem('token')
+            this.$router.push('/home')
+            // refresh the page
+            window.location.reload()
+            this.$message.success('Password updated successfully. Please login again.')
         }
-    })
+    }
+})
 
 </script>
 

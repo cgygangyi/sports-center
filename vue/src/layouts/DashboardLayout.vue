@@ -34,7 +34,6 @@
                 <DashboardFooter></DashboardFooter>
                 <!-- / Layout Footer -->
 
-
                 <!-- Sidebar Overlay -->
                 <div class="sidebar-overlay" @click="sidebarCollapsed = true" v-show="! sidebarCollapsed"></div>
                 <!-- / Sidebar Overlay -->
@@ -49,46 +48,46 @@
 </template>
 
 <script>
-import DashboardSidebar from '../components/SideNav';
-import DashboardHeader from '../components/Header';
-import DashboardFooter from '../components/Footer';
+import DashboardSidebar from '../components/SideNav'
+import DashboardHeader from '../components/HeaderC.vue'
+import DashboardFooter from '../components/FooterC.vue'
 export default ({
     components: {
         DashboardSidebar,
         DashboardHeader,
-        DashboardFooter,
+        DashboardFooter
     },
     data() {
         return {
             // Sidebar collapsed status.
             sidebarCollapsed: false,
             // Main sidebar color.
-            sidebarColor: "primary",
+            sidebarColor: 'primary',
             // Main sidebar theme : light, white, dark.
-            sidebarTheme: "light",
+            sidebarTheme: 'light',
             // Header fixed status.
-            navbarFixed: false,
+            navbarFixed: false
         }
     },
     methods: {
-        toggleSidebar( value ) {
-            this.sidebarCollapsed = value ;
+        toggleSidebar(value) {
+            this.sidebarCollapsed = value
         },
-        toggleNavbarPosition( value ) {
-            this.navbarFixed = value ;
+        toggleNavbarPosition(value) {
+            this.navbarFixed = value
         },
-        updateSidebarTheme( value ) {
-            this.sidebarTheme = value ;
+        updateSidebarTheme(value) {
+            this.sidebarTheme = value
         },
-        updateSidebarColor( value ) {
-            this.sidebarColor = value ;
-        },
+        updateSidebarColor(value) {
+            this.sidebarColor = value
+        }
     },
     computed: {
         // Sets layout's element's class based on route's meta data.
         layoutClass() {
-            return this.$route.meta.layoutClass ;
+            return this.$route.meta.layoutClass
         }
-    },
+    }
 })
 </script>

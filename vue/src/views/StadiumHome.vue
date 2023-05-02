@@ -4,13 +4,12 @@
         <a-carousel arrows>
             <div
                 slot="prevArrow"
-                slot-scope="props"
                 class="custom-slick-arrow"
                 style="left: 10px;zIndex: 1"
             >
                 <a-icon type="left-circle" />
             </div>
-            <div slot="nextArrow" slot-scope="props" class="custom-slick-arrow" style="right: 10px">
+            <div slot="nextArrow" class="custom-slick-arrow" style="right: 10px">
                 <a-icon type="right-circle" />
             </div>
             <div><img src="images/carousel-1.jpeg" alt="" width="1400px"></div>
@@ -40,13 +39,13 @@
 </template>
 
 <script>
-import WidgetCounter from '../components/Widgets/WidgetCounter' ;
-import CardOrderHistory from '../components/Cards/CardOrderHistory' ;
+import WidgetCounter from '../components/Widgets/WidgetCounter'
+import CardOrderHistory from '../components/Cards/CardOrderHistory'
 
 // Counter Widgets stats
 const stats = [
     {
-        title: "Real-time attendance",
+        title: 'Real-time attendance',
         value: 4,
         icon: `
 						<svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,19 +53,18 @@ const stats = [
 							<path d="M17 6C17 7.65685 15.6569 9 14 9C12.3431 9 11 7.65685 11 6C11 4.34315 12.3431 3 14 3C15.6569 3 17 4.34315 17 6Z" fill="#111827"/>
 							<path d="M12.9291 17C12.9758 16.6734 13 16.3395 13 16C13 14.3648 12.4393 12.8606 11.4998 11.6691C12.2352 11.2435 13.0892 11 14 11C16.7614 11 19 13.2386 19 16V17H12.9291Z" fill="#111827"/>
 							<path d="M6 11C8.76142 11 11 13.2386 11 16V17H1V16C1 13.2386 3.23858 11 6 11Z" fill="#111827"/>
-						</svg>`,
-    },
-] ;
-
+						</svg>`
+    }
+]
 
 export default ({
     components: {
         WidgetCounter,
-        CardOrderHistory,
+        CardOrderHistory
     },
     data() {
         return {
-            stats,
+            stats
         }
     },
 
@@ -77,10 +75,8 @@ export default ({
     },
 
     methods: {
-    },
+    }
 })
-
-
 
 </script>
 

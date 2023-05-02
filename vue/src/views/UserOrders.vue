@@ -42,7 +42,8 @@
                                                     :header="`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`"
                                                     item-layout="horizontal"
                                                 >
-                                                    <a-list-item slot="renderItem" slot-scope="item, index">
+                                                    {/* eslint-disable-next-line vue/no-unused-vars */}
+                                                    <a-list-item slot="renderItem" slot-scope="item">
                                                         <a-comment
                                                             :content="item.content"
                                                             :datetime="item.datetime"
@@ -94,47 +95,45 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from 'moment'
 import '@fullcalendar/core/vdom' // solves problem with Vite
 import FullCalendar from '@fullcalendar/vue'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import CardNextEvents from "../components/Cards/CardNextEvents"
-import {getUserOrders} from "@/api/order";
-import { makeComment } from "@/api/comment";
+import CardNextEvents from '../components/Cards/CardNextEvents'
+import { getUserOrders } from '@/api/order'
 
 // Next event's list.
 const eventsData = [
     {
-        id: "1",
-        title: "No.1 Basketball venue",
-        code: "29 April 2023, at 13:00",
-        iconClass: "text-primary",
-        icon: "calendar",
-        iconBgColor: "rgba(234,6,6,.03)",
-    },
-] ;
+        id: '1',
+        title: 'No.1 Basketball venue',
+        code: '29 April 2023, at 13:00',
+        iconClass: 'text-primary',
+        icon: 'calendar',
+        iconBgColor: 'rgba(234,6,6,.03)'
+    }
+]
 
 // Chart data.
 const chartData = {
-    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     datasets: [{
-        label: "Visitors",
+        label: 'Visitors',
         tension: 0.5,
-        borderWidth: 0,
         pointRadius: 0,
-        borderColor: "#fff",
+        borderColor: '#fff',
         borderWidth: 2,
         data: [50, 45, 60, 60, 80, 65, 90, 80, 100],
         maxBarThickness: 6,
         fill: true
-    }],
-} ;
+    }]
+}
 
 export default {
     components: {
         FullCalendar,
-        CardNextEvents,
+        CardNextEvents
     },
     data() {
         return {
@@ -153,10 +152,9 @@ export default {
 
             // Calendar options.
             calendarOptions: {
-                plugins: [ dayGridPlugin, interactionPlugin ],
-                initialView: 'dayGridMonth',
+                plugins: [dayGridPlugin, interactionPlugin],
                 contentHeight: 'auto',
-                initialView: "dayGridMonth",
+                initialView: 'dayGridMonth',
                 headerToolbar: {
                     start: 'title', // will normally be on the left. if RTL, will be on the right
                     center: '',
@@ -169,39 +167,39 @@ export default {
                 views: {
                     month: {
                         titleFormat: {
-                            month: "long",
-                            year: "numeric"
+                            month: 'long',
+                            year: 'numeric'
                         }
                     },
                     agendaWeek: {
                         titleFormat: {
-                            month: "long",
-                            year: "numeric",
-                            day: "numeric"
+                            month: 'long',
+                            year: 'numeric',
+                            day: 'numeric'
                         }
                     },
                     agendaDay: {
                         titleFormat: {
-                            month: "short",
-                            year: "numeric",
-                            day: "numeric"
+                            month: 'short',
+                            year: 'numeric',
+                            day: 'numeric'
                         }
                     }
-                },
+                }
             }
 
         }
     },
     watch: {
         activeKey(key) {
-            console.log(key);
-        },
+            console.log(key)
+        }
     },
     beforeMount() {
         getUserOrders().then(res => {
             console.log(res)
-            this.orders = res.data.data;
-            console.log(this.orders);
+            this.orders = res.data.data
+            console.log(this.orders)
             // add elements to this.calendarOptions.events
             for (let i = 0; i < this.orders.length; i++) {
                 this.calendarOptions.events.push({
@@ -211,31 +209,31 @@ export default {
                     className: 'bg-warning text-dark'
                 })
             }
-            this.$forceUpdate();
+            this.$forceUpdate()
         })
     },
     methods: {
         handleSubmit(id) {
             if (!this.value) {
-                return;
+                return
             }
-            this.submitting = true;
+            this.submitting = true
 
             setTimeout(() => {
-                this.submitting = false;
+                this.submitting = false
                 this.comments = [
                     {
                         content: this.value,
-                        datetime: moment().fromNow(),
+                        datetime: moment().fromNow()
                     },
-                    ...this.comments,
-                ];
-                this.value = '';
-            }, 1000);
+                    ...this.comments
+                ]
+                this.value = ''
+            }, 1000)
         },
         handleChange(e) {
-            this.value = e.target.value;
-        },
+            this.value = e.target.value
+        }
     }
 }
 

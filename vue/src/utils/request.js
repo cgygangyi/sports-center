@@ -8,14 +8,12 @@ const request = axios.create({
 axios.interceptors.request.use(
     config => {
         if (localStorage.getItem('token')) {
-            config.headers.token = localStorage.getItem('token');
+            config.headers.token = localStorage.getItem('token')
         }
-        return config;
+        return config
     },
     error => {
-        return Promise.reject(error);
-    });
-
-
+        return Promise.reject(error)
+    })
 
 export default request

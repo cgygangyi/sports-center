@@ -74,7 +74,6 @@
                 </a-col>
             </a-row>
 
-
         </a-card>
 
     </div>
@@ -88,8 +87,8 @@ export default ({
     query: {
         id: {
             type: String,
-            required: true,
-        },
+            required: true
+        }
     },
     data() {
         return {
@@ -99,62 +98,58 @@ export default ({
             ModalData: [],
             visible: false,
             confirmLoading: false,
-            comments: [],
+            comments: []
 
         }
     },
     beforeMount() {
-        this.getItemData();
-        this.getComments();
+        this.getItemData()
+        this.getComments()
     },
 
     methods: {
         showModal() {
-            if (localStorage.getItem("token") === null || localStorage.getItem("token") === '') {
-                this.$message.warning("Please login first!")
+            if (localStorage.getItem('token') === null || localStorage.getItem('token') === '') {
+                this.$message.warning('Please login first!')
                 return
             }
-            this.ModalText = 'Please click to select a time slot(just one for each choose)';
+            this.ModalText = 'Please click to select a time slot(just one for each choose)'
             getVenueTime(this.$route.query.id).then((response) => {
-                console.log(response);
+                console.log(response)
                 if (response.data === '') {
-                    this.$message.warning("Please login first!")
+                    this.$message.warning('Please login first!')
+                } else {
+                    this.ModalData = response.data
+                    this.visible = true
                 }
-                else {
-                    this.ModalData = response.data;
-                    this.visible = true;
-                }
-                console.log(this.ModalData);
+                console.log(this.ModalData)
             }).catch((error) => {
-                console.log(error);
-            });
+                console.log(error)
+            })
         },
         handleOk(e) {
-            let id = sessionStorage.getItem("chosen");
+            const id = sessionStorage.getItem('chosen')
             bookVenue(id).then((response) => {
-                console.log(response);
+                console.log(response)
                 if (response.data === '') {
-                    this.$message.warning("Please login first!")
-                }
-                else {
-                    this.ModalText = 'Booking......';
-                    this.confirmLoading = true;
+                    this.$message.warning('Please login first!')
+                } else {
+                    this.ModalText = 'Booking......'
+                    this.confirmLoading = true
                     setTimeout(() => {
-                        this.visible = false;
-                        this.confirmLoading = false;
-                        this.$message.success("Successfully booked!")
-                    }, 1000);
+                        this.visible = false
+                        this.confirmLoading = false
+                        this.$message.success('Successfully booked!')
+                    }, 1000)
                 }
             }).catch((error) => {
-                console.log(error);
-            });
-
-
+                console.log(error)
+            })
         },
         handleCancel(e) {
-            console.log('Clicked cancel button');
-            this.visible = false;
-        },
+            console.log('Clicked cancel button')
+            this.visible = false
+        }
     }
 })
 

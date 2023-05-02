@@ -24,20 +24,20 @@ export default ({
     props: {
         id: {
             type: Number,
-            required: true,
+            required: true
         },
         name: {
             type: String,
-            default: "",
+            default: ''
         },
         price: {
             type: Number,
-            default: 0,
+            default: 0
         },
         cover: {
             type: String,
-            default: "",
-        },
+            default: ''
+        }
     },
     data() {
         return {
@@ -54,6 +54,6 @@ export default ({
         //         }
         //     })
         // },
-    },
+    }
 })
 </script>

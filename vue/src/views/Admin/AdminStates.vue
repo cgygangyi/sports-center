@@ -1,8 +1,3 @@
-<!--
-	This is the tables page, it uses the dashboard layout in:
-	"./layouts/Dashboard.vue" .
- -->
-
 <template>
     <div>
         <a-row :gutter="24" type="flex">
@@ -19,60 +14,60 @@
 
 <script>
 
-import AdminTable from '../../components/Cards/AdminTable.vue' ;
+import AdminTable from '../../components/Cards/AdminTable.vue'
 
-import {getAllStates} from "../../api/venueState";
+import { getAllStates } from '../../api/venueState'
 
 const stateColumns = [
     {
         title: 'ID',
-        dataIndex: 'id',
+        dataIndex: 'id'
     },
     {
         title: 'Venue Id',
-        dataIndex: 'venueId',
+        dataIndex: 'venueId'
     },
     {
         title: 'Open',
-        dataIndex: 'open',
+        dataIndex: 'open'
     },
     {
         title: 'Free',
-        dataIndex: 'free',
+        dataIndex: 'free'
     },
     {
         title: 'Begin',
-        dataIndex: 'begin',
+        dataIndex: 'begin'
     },
     {
         title: 'End',
-        dataIndex: 'end',
+        dataIndex: 'end'
     },
     {
         title: '',
         scopedSlots: { customRender: 'editBtn' },
-        width: 50,
-    },
-];
+        width: 50
+    }
+]
 
 export default ({
     components: {
-        AdminTable,
+        AdminTable
     },
     data() {
         return {
             stateData: [],
 
-            stateColumns: stateColumns,
+            stateColumns: stateColumns
         }
     },
 
     beforeCreate() {
         getAllStates().then((response) => {
-            this.stateData = response.data;
+            this.stateData = response.data
             console.log(this.stateData)
-        });
-    },
+        })
+    }
 })
 
 </script>

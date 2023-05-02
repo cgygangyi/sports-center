@@ -1,8 +1,3 @@
-<!--
-	This is the tables page, it uses the dashboard layout in:
-	"./layouts/Dashboard.vue" .
- -->
-
 <template>
     <div>
         <a-row :gutter="24" type="flex">
@@ -19,64 +14,64 @@
 
 <script>
 
-import AdminTable from '../../components/Cards/AdminTable.vue' ;
+import AdminTable from '../../components/Cards/AdminTable.vue'
 
-import {getAllUsers} from "@/api/user";
+import { getAllUsers } from '@/api/user'
 
 const userColumns = [
     {
         title: 'ID',
-        dataIndex: 'id',
+        dataIndex: 'id'
     },
     {
         title: 'Username',
-        dataIndex: 'username',
+        dataIndex: 'username'
     },
     {
         title: 'Email',
-        dataIndex: 'email',
+        dataIndex: 'email'
     },
     {
         title: 'Name',
-        dataIndex: 'name',
+        dataIndex: 'name'
     },
     {
         title: 'Phone Number',
-        dataIndex: 'phoneNumber',
+        dataIndex: 'phoneNumber'
     },
     {
         title: 'Age',
-        dataIndex: 'age',
+        dataIndex: 'age'
     },
     {
         title: 'Sex',
-        dataIndex: 'sex',
+        dataIndex: 'sex'
     },
     {
         title: '',
         scopedSlots: { customRender: 'editBtn' },
-        width: 50,
-    },
-];
+        width: 50
+    }
+]
 
 export default ({
     components: {
-        AdminTable,
+        AdminTable
     },
     data() {
         return {
             userData: [],
 
-            userColumns: userColumns,
+            userColumns: userColumns
         }
     },
 
     beforeCreate() {
         getAllUsers().then((response) => {
-            this.userData = response.data;
+            this.userData = response.data
             console.log(this.userData)
-        });
-    },
+        })
+    }
 })
 
 </script>

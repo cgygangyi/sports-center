@@ -53,39 +53,39 @@
 </template>
 
 <script>
-import {addNewVenue} from "../../api/venue";
+import { addNewVenue } from '../../api/venue'
 
 export default {
     data: () => ({
         formItemLayout: {
             labelCol: { span: 6 },
-            wrapperCol: { span: 14 },
-        },
+            wrapperCol: { span: 14 }
+        }
     }),
     beforeCreate() {
-        this.form = this.$form.createForm(this, { name: 'validate_other' });
+        this.form = this.$form.createForm(this, { name: 'validate_other' })
     },
     methods: {
         handleSubmit(e) {
-            e.preventDefault();
+            e.preventDefault()
             this.form.validateFields((err, values) => {
                 if (!err) {
-                    addNewVenue(values).then(res=>{
+                    addNewVenue(values).then(res => {
                         console.log(res.data)
                     })
-                    console.log('Received values of form: ', values);
+                    console.log('Received values of form: ', values)
                 }
-            });
+            })
         },
         normFile(e) {
-            console.log('Upload event:', e);
+            console.log('Upload event:', e)
             if (Array.isArray(e)) {
-                return e;
+                return e
             }
-            return e && e.fileList;
-        },
-    },
-};
+            return e && e.fileList
+        }
+    }
+}
 </script>
 <style>
 #components-form-demo-validate-other .dropbox {

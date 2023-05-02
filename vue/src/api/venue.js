@@ -1,6 +1,6 @@
 // apis for venues
 
-import request from "../utils/request";
+import request from '../utils/request'
 
 // get all venues
 export function getAllVenues() {
@@ -9,28 +9,24 @@ export function getAllVenues() {
         method: 'get',
         // header is the token in local storage
         headers: {
-            'token': localStorage.getItem('token')
+            token: localStorage.getItem('token')
         }
     })
 }
-
 
 // get venue information by id
 export function getVenueById(id) {
     return request({
         url: '/venue/getVenueInfo/' + id,
-        method: 'get',
+        method: 'get'
     })
 }
-
-
 
 // add new venue
 export function addNewVenue(map) {
     return request({
         url: '/venue/add',
         method: 'post',
-        data: map,
+        data: map
     })
 }
-
