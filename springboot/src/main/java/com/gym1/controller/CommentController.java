@@ -29,15 +29,15 @@ public class CommentController {
         String info = map.get("comment").toString();
         int res = commentService.makeComment(uId, orderId, info);
         if (res == -1){
-            reMap.put("code", 2001);
+            reMap.put("code", 1001);
             reMap.put("msg", "Error!");
             reMap.put("data", res);
         }else if (res == 0){
-            reMap.put("code", 2002);
+            reMap.put("code", 1002);
             reMap.put("msg", "Failure!");
             reMap.put("data", res);
         }else{
-            reMap.put("code", 2003);
+            reMap.put("code", 1003);
             reMap.put("msg", "Success!");
             reMap.put("data", res);
         }
@@ -46,15 +46,16 @@ public class CommentController {
 
 
     @GetMapping("/getVenueComment/{venueId}")
-    public Map<String, Object> getVenueInfo(@PathVariable int venueId){
+    public Map<String, Object> getVenueComment(HttpServletRequest request, @PathVariable int venueId){
         Map<String, Object> reMap = new HashMap<>();
-        List<Comment> res = commentService.getVenueComment(venueId);
+        int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        List<Comment> res = commentService.getVenueComment(venueId, uId);
         if (res.size() != 0){
-            reMap.put("code", 2003);
+            reMap.put("code", 1004);
             reMap.put("msg", "Success!");
             reMap.put("data", res);
         }else{
-            reMap.put("code", 2004);
+            reMap.put("code", 1005);
             reMap.put("msg", "There are no comments!");
             reMap.put("data", res);
         }
@@ -62,4 +63,43 @@ public class CommentController {
     }
 
 
+    @GetMapping("/getUserComment")
+    public Map<String, Object> getUserComment(HttpServletRequest request){
+        Map<String, Object> reMap = new HashMap<>();
+        int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        List<Comment> res = commentService.getUserComment(uId);
+        if (res.size() != 0){
+            reMap.put("code", 1006);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 1007);
+            reMap.put("msg", "There are no comments!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @PostMapping("/deleteComment/{commentId}")
+    public Map<String, Object> deleteComment(@PathVariable int commentId){
+        Map<String, Object> reMap = new HashMap<>();
+        int res = commentService.deleteComment(commentId);
+        if (res == -1){
+            reMap.put("code", 1008);
+            reMap.put("msg", "Error!");
+            reMap.put("data", res);
+        }else if (res == 0){
+            reMap.put("code", 1009);
+            reMap.put("msg", "Failure!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 1010);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
 }
+

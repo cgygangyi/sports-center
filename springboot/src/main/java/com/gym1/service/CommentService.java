@@ -1,11 +1,11 @@
 package com.gym1.service;
+
+
 import com.gym1.entity.Comment;
-import com.gym1.entity.Venue;
 import com.gym1.mapper.CommentMapper;
 import com.gym1.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 
@@ -44,9 +44,30 @@ public class CommentService {
         }
     }
 
+    public List<Comment> getVenueComment(int venueId, int id){
+        List<Comment> comments = commentMapper.queryCommentByVenueId(venueId);
+        for (Comment comment : comments) {
+            if (comment.getUserId() != id) {
+                comment.setUserId(0);
+            } else {
+                comment.setUserId(1);
+            }
+        }
+        return comments;
+    }
 
-    public List<Comment> getVenueComment(int venueId){
-        return commentMapper.queryCommentByVenueId(venueId);
+    public List<Comment> getUserComment(int userId){
+        return commentMapper.queryCommentByUserId(userId);
+    }
+
+    public int deleteComment(int id){
+        int res = 0;
+        try{
+            res = commentMapper.deleteCommentById(id);
+            return res;
+        }catch (Exception e){
+            return -1;
+        }
     }
 
 }

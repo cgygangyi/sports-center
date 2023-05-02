@@ -10,5 +10,25 @@
         values (#{commentTime}, #{info}, #{userId}, #{orderId}, #{itemId})
     </insert>
 
+    <select id="queryItemCommentByItemId" resultType="com.gym1.entity.ItemComment">
+        select c.id, c.commentTime, c.info, u.username, u.image, c.userId
+        from item_comment c
+        left join user u
+        on c.userId = u.id
+        where c.itemId = #{id}
+    </select>
+
+    <select id="queryItemCommentByUserId" resultType="com.gym1.entity.ItemComment">
+        select c.id, c.commentTime, c.info, u.username, u.image, i.itemName, i.image venueImage
+        from item_comment c left join user u on c.userId = u.id
+        left join item i
+        on i.id = c.itemId
+        where c.userId = #{id}
+    </select>
+
+    <delete id="deleteItemCommentById">
+        delete from item_comment
+        where id = #{id}
+    </delete>
 
 </mapper>

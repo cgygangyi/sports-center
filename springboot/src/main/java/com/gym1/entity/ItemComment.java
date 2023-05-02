@@ -1,9 +1,10 @@
 package com.gym1.entity;
+
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.gym1.util.DefaultProfile;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
-
 
 
 public class ItemComment {
@@ -17,6 +18,9 @@ public class ItemComment {
     private Date commentTime;
     private String username;
     private String info;
+    private String image;
+    private String itemImage;
+    private String itemName;
 
     public ItemComment( Date commentTime, String info, int userId, int orderId, int itemId) {
         this.userId = userId;
@@ -26,16 +30,33 @@ public class ItemComment {
         this.info = info;
     }
 
-    public ItemComment(int id, int userId, int orderId, int itemId, Date commentTime,
-                       String username, String info) {
+    public ItemComment(int id, Date commentTime, String info, String username,
+                   String image, int userId){
         this.id = id;
-        this.userId = userId;
-        this.orderId = orderId;
-        this.itemId = itemId;
         this.commentTime = commentTime;
-        this.username = username;
         this.info = info;
+        this.username = username;
+        this.image = image;
+        if (image == null){
+            this.image = DefaultProfile.getDefaultProfile();
+        }
+        this.userId = userId;
     }
+
+    public ItemComment(int id, Date commentTime, String info, String username,
+                   String image, String name, String venueImage){
+        this.id = id;
+        this.commentTime = commentTime;
+        this.info = info;
+        this.username = username;
+        this.image = image;
+        if (image == null){
+            this.image = DefaultProfile.getDefaultProfile();
+        }
+        this.itemName = name;
+        this.itemImage = "data:image/png;base64,"+venueImage;
+    }
+
     public int getId() {
         return id;
     }
@@ -78,6 +99,24 @@ public class ItemComment {
     public void setInfo(String info) {
         this.info = info;
     }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
+    public String getItemImage() {
+        return itemImage;
+    }
+    public void setItemImage(String itemImage) {
+        this.itemImage = itemImage;
+    }
+    public String getItemName() {
+        return itemName;
+    }
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,7 +130,11 @@ public class ItemComment {
             return false;
         if (getUsername() != null ? !getUsername().equals(that.getUsername()) : that.getUsername() != null)
             return false;
-        return getInfo() != null ? getInfo().equals(that.getInfo()) : that.getInfo() == null;
+        if (getInfo() != null ? !getInfo().equals(that.getInfo()) : that.getInfo() != null) return false;
+        if (getImage() != null ? !getImage().equals(that.getImage()) : that.getImage() != null) return false;
+        if (getItemImage() != null ? !getItemImage().equals(that.getItemImage()) : that.getItemImage() != null)
+            return false;
+        return getItemName() != null ? getItemName().equals(that.getItemName()) : that.getItemName() == null;
     }
     @Override
     public int hashCode() {
@@ -102,6 +145,9 @@ public class ItemComment {
         result = 31 * result + (getCommentTime() != null ? getCommentTime().hashCode() : 0);
         result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
         result = 31 * result + (getInfo() != null ? getInfo().hashCode() : 0);
+        result = 31 * result + (getImage() != null ? getImage().hashCode() : 0);
+        result = 31 * result + (getItemImage() != null ? getItemImage().hashCode() : 0);
+        result = 31 * result + (getItemName() != null ? getItemName().hashCode() : 0);
         return result;
     }
     @Override
@@ -114,6 +160,9 @@ public class ItemComment {
                 ", commentTime=" + commentTime +
                 ", username='" + username + '\'' +
                 ", info='" + info + '\'' +
+                ", image='" + image + '\'' +
+                ", itemImage='" + itemImage + '\'' +
+                ", itemName='" + itemName + '\'' +
                 '}';
     }
 }
