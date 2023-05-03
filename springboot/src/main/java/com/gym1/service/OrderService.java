@@ -50,11 +50,29 @@ public class OrderService {
     }
 
     public List<Order> queryUserOrder(int id){
-        return orderMapper.queryOrderByUserId(id);
+        List<Order> orders = orderMapper.queryOrderByUserId(id);
+        Date date = new Date(System.currentTimeMillis());
+        for (Order order : orders){
+            if (date.compareTo(order.getBegin()) != -1){
+                order.setUserId(0);
+            }else{
+                order.setUserId(1);
+            }
+        }
+        return orders;
     }
 
     public List<Order> queryUserUncommentOrder(int id){
-        return orderMapper.queryOrderByUserIdComment(id);
+        List<Order> orders = orderMapper.queryOrderByUserIdComment(id);
+        Date date = new Date(System.currentTimeMillis());
+        for (Order order : orders){
+            if (date.compareTo(order.getBegin()) != -1){
+                order.setUserId(0);
+            }else{
+                order.setUserId(1);
+            }
+        }
+        return orders;
     }
 
     public int deleteOrder(int id){

@@ -48,6 +48,15 @@ public class Order extends Venue{
         this.orderTime = orderTime;
         this.comment = comment;
     }
+
+    public Order(int id, Date orderTime, Date end, Date begin,
+                 String name, String address, double price) {
+        super(name, address, price);
+        this.id = id;
+        this.begin = begin;
+        this.end = end;
+        this.orderTime = orderTime;
+    }
     @Override
     public int getId() {
         return id;
