@@ -2,6 +2,7 @@ package com.gym1.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.gym1.util.DefaultProfile;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
@@ -16,6 +17,18 @@ public class Speak {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date time;
+
+    public Speak(int id, Date time, String info, String username, String image, int userId){
+        this.id = id;
+        this.time = time;
+        this.userId = userId;
+        this.info = info;
+        this.username = username;
+        this.image = image;
+        if (image == null){
+            this.image = DefaultProfile.getDefaultProfile();
+        }
+    }
 
     public Speak(Date time, int userId, String info){
         this.time = time;

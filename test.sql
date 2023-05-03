@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2023-05-01 15:05:37
+Date: 2023-05-04 00:13:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,22 +27,12 @@ CREATE TABLE `comment` (
   `orderId` int(10) DEFAULT NULL,
   `venueId` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-DROP TABLE IF EXISTS `speak`;
-CREATE TABLE `speak` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `speakTime` datetime DEFAULT NULL,
-  `info` varchar(4096) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
-INSERT INTO `comment` VALUES ('6', '2023-04-24 16:39:26', '11111111111111111111111', '1', '1', '1');
-INSERT INTO `comment` VALUES ('7', '2023-04-24 16:42:20', '11111111111111111111111', '1', '1', '1');
+INSERT INTO `comment` VALUES ('9', '2023-05-02 01:13:25', 'asdahfjshgfjahsjkfghauehkjhsadfuhe', '1', '7', '1');
 
 -- ----------------------------
 -- Table structure for item
@@ -55,7 +45,7 @@ CREATE TABLE `item` (
   `price` double DEFAULT NULL,
   `image` longblob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of item
@@ -80,11 +70,13 @@ CREATE TABLE `item_comment` (
   `itemOrderId` int(10) DEFAULT NULL,
   `itemId` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of item_comment
 -- ----------------------------
+INSERT INTO `item_comment` VALUES ('1', '2023-05-02 18:51:13', 'afasfdasdadsada', '1', '7', '10');
+INSERT INTO `item_comment` VALUES ('2', '2023-05-02 23:15:55', 'afdasd', '2', '7', '10');
 
 -- ----------------------------
 -- Table structure for item_order
@@ -97,12 +89,14 @@ CREATE TABLE `item_order` (
   `number` int(10) NOT NULL,
   `price` double DEFAULT NULL,
   `userId` int(10) DEFAULT NULL,
+  `comment` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of item_order
 -- ----------------------------
+INSERT INTO `item_order` VALUES ('7', '2023-05-02 10:33:41', '10', '10', '126', '1', '1');
 
 -- ----------------------------
 -- Table structure for order
@@ -113,17 +107,33 @@ CREATE TABLE `order` (
   `orderTime` datetime DEFAULT NULL,
   `venueStateId` int(10) NOT NULL,
   `userId` int(10) DEFAULT NULL,
+  `comment` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of order
 -- ----------------------------
-INSERT INTO `order` VALUES ('1', '2023-03-28 10:00:00', '12', '1');
-INSERT INTO `order` VALUES ('2', '2023-04-20 19:26:10', '13', '1');
-INSERT INTO `order` VALUES ('3', '2023-04-20 19:27:17', '14', '1');
-INSERT INTO `order` VALUES ('4', '2023-04-20 19:27:57', '380', '2');
-INSERT INTO `order` VALUES ('5', '2023-04-20 19:38:17', '18', '1');
+INSERT INTO `order` VALUES ('7', '2023-05-01 23:13:42', '1', '1', '1');
+
+-- ----------------------------
+-- Table structure for speak
+-- ----------------------------
+DROP TABLE IF EXISTS `speak`;
+CREATE TABLE `speak` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `time` datetime DEFAULT NULL,
+  `info` varchar(4096) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `userId` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of speak
+-- ----------------------------
+INSERT INTO `speak` VALUES ('1', '2023-05-04 17:00:00', 'Table tennis venue', '1');
+INSERT INTO `speak` VALUES ('2', '2023-05-04 00:12:00', 'Table tennis venue', '1');
+INSERT INTO `speak` VALUES ('3', '2023-05-03 23:57:07', 'asdadadasdasda', '1');
 
 -- ----------------------------
 -- Table structure for user
@@ -139,13 +149,14 @@ CREATE TABLE `user` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `image` longblob,
+  `admin` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '18', '1', '2020110044', '123456', '13145265858', 'Zhang San', 'zhangsan@163.com', null);
+INSERT INTO `user` VALUES ('1', '18', '1', '2020110044', '123456', '13145265858', 'Zhang San', 'zhangsan@163.com', null, '1');
 
 -- ----------------------------
 -- Table structure for venue
@@ -157,40 +168,28 @@ CREATE TABLE `venue` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `price` double DEFAULT NULL,
+  `image` longblob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of venue
 -- ----------------------------
-INSERT INTO `venue` VALUES ('1', '1', 'No.1 Table tennis venue', 'Room 1012', '12.5');
-INSERT INTO `venue` VALUES ('2', '1', 'No.2 Table tennis venue', 'Room 1232', '12.5');
-INSERT INTO `venue` VALUES ('3', '1', 'No.3 Table tennis venue', 'Room 1452', '12.5');
-INSERT INTO `venue` VALUES ('4', '1', 'No.4 Table tennis venue', 'Room 14552', '12.5');
-INSERT INTO `venue` VALUES ('5', '1', 'No.5 Table tennis venue', 'Room 1242', '12.5');
-INSERT INTO `venue` VALUES ('6', '2', 'No.1 Basketball venue', 'Room 121152', '12.5');
-INSERT INTO `venue` VALUES ('7', '2', 'No.2 Basketball venue', 'Room 12524', '12.5');
-INSERT INTO `venue` VALUES ('8', '2', 'No.3 Basketball venue', 'Room 12582', '12.5');
-INSERT INTO `venue` VALUES ('9', '2', 'No.4 Basketball venue', 'Room 127742', '12.5');
-INSERT INTO `venue` VALUES ('10', '3', 'No.1 Volleyball venue', 'Room 1255', '12.5');
-INSERT INTO `venue` VALUES ('11', '3', 'No.2 Volleyball venue', 'Room 12', '12.5');
-INSERT INTO `venue` VALUES ('12', '3', 'No.3 Volleyball venue', 'Room 152', '12.5');
-INSERT INTO `venue` VALUES ('13', '3', 'No.4 Volleyball venue', 'Room 155552', '12.5');
-INSERT INTO `venue` VALUES ('14', '3', 'No.5 Volleyball venue', 'Room 12452', '12.5');
-INSERT INTO `venue` VALUES ('15', '3', 'No.6 Volleyball venue', 'Room 12545', '12.5');
-INSERT INTO `venue` VALUES ('16', '3', 'No.7 Volleyball venue', 'Room 1272', '12.5');
-INSERT INTO `venue` VALUES ('17', '4', 'No.1 Badminton venue', 'Room 125200', '12.5');
-INSERT INTO `venue` VALUES ('18', '4', 'No.2 Badminton venue', 'Room 12452', '12.5');
-INSERT INTO `venue` VALUES ('19', '4', 'No.3 Badminton venue', 'Room 12589', '12.5');
-INSERT INTO `venue` VALUES ('20', '5', 'No.1 Tennis venue', 'Room 1220', '12.5');
-INSERT INTO `venue` VALUES ('21', '5', 'No.2 Tennis venue', 'Room 16552', '12.5');
-INSERT INTO `venue` VALUES ('22', '5', 'No.3 Tennis venue', 'Room 12552', '12.5');
-INSERT INTO `venue` VALUES ('23', '5', 'No.4 Tennis venue', 'Room 125202', '12.5');
-INSERT INTO `venue` VALUES ('24', '5', 'No.5 Tennis venue', 'Room 1', '12.5');
-INSERT INTO `venue` VALUES ('25', '5', 'No.6 Tennis venue', 'Room 12515', '12.5');
-INSERT INTO `venue` VALUES ('26', '5', 'No.7 Tennis venue', 'Room 125221', '12.5');
-INSERT INTO `venue` VALUES ('27', '5', 'No.8 Tennis venue', 'Room 1252005', '12.5');
-INSERT INTO `venue` VALUES ('28', '5', 'No.9 Tennis venue', 'Room 125147', '12.5');
+INSERT INTO `venue` VALUES ('1', '1', 'No.1 Table tennis venue', 'Room 1012', '12.5', null);
+INSERT INTO `venue` VALUES ('2', '1', 'No.2 Table tennis venue', 'Room 1232', '12.5', null);
+INSERT INTO `venue` VALUES ('3', '1', 'No.3 Table tennis venue', 'Room 1452', '12.5', null);
+INSERT INTO `venue` VALUES ('6', '2', 'No.1 Basketball venue', 'Room 121152', '12.5', null);
+INSERT INTO `venue` VALUES ('7', '2', 'No.2 Basketball venue', 'Room 12524', '12.5', null);
+INSERT INTO `venue` VALUES ('8', '2', 'No.3 Basketball venue', 'Room 12582', '12.5', null);
+INSERT INTO `venue` VALUES ('10', '3', 'No.1 Volleyball venue', 'Room 1255', '12.5', null);
+INSERT INTO `venue` VALUES ('11', '3', 'No.2 Volleyball venue', 'Room 12', '12.5', null);
+INSERT INTO `venue` VALUES ('12', '3', 'No.3 Volleyball venue', 'Room 152', '12.5', null);
+INSERT INTO `venue` VALUES ('17', '4', 'No.1 Badminton venue', 'Room 125200', '12.5', null);
+INSERT INTO `venue` VALUES ('18', '4', 'No.2 Badminton venue', 'Room 12452', '12.5', null);
+INSERT INTO `venue` VALUES ('19', '4', 'No.3 Badminton venue', 'Room 12589', '12.5', null);
+INSERT INTO `venue` VALUES ('20', '5', 'No.1 Tennis venue', 'Room 1220', '12.5', null);
+INSERT INTO `venue` VALUES ('21', '5', 'No.2 Tennis venue', 'Room 16552', '12.5', null);
+INSERT INTO `venue` VALUES ('22', '5', 'No.3 Tennis venue', 'Room 12552', '12.5', null);
 
 -- ----------------------------
 -- Table structure for venue_state
@@ -209,6 +208,7 @@ CREATE TABLE `venue_state` (
 -- ----------------------------
 -- Records of venue_state
 -- ----------------------------
+INSERT INTO `venue_state` VALUES ('1', '1', '2023-05-04 17:00:00', '2023-05-04 18:00:00', '1', '1');
 INSERT INTO `venue_state` VALUES ('2001', '1', '2023-05-01 13:00:00', '2023-05-01 14:00:00', '1', '1');
 INSERT INTO `venue_state` VALUES ('2005', '1', '2023-05-01 15:00:00', '2023-05-01 16:00:00', '1', '1');
 
