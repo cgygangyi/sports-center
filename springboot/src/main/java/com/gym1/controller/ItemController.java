@@ -57,5 +57,14 @@ public class ItemController {
         return reMap;
     }
 
+    @GetMapping("/getItemInfo/{itemId}")
+    public Map<String, Object> getItemInfo(@PathVariable int itemId){
+        Map<String, Object> reMap = new HashMap<>();
+        reMap.put("code", 3004);
+        reMap.put("msg", "Success!");
+        reMap.put("data", itemService.getItemInfo(itemId));
+        return reMap;
+    }
+
 
 }

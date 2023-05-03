@@ -37,4 +37,8 @@ public class ItemService {
         itemMapper.deleteItemByName(name);
     }
 
+    public Item getItemInfo(int id){
+        return itemMapper.queryItemById(id).get(0);
+    }
+
 }

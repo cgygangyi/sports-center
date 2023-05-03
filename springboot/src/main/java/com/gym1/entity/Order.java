@@ -1,9 +1,9 @@
 package com.gym1.entity;
+
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
-
 
 
 public class Order extends Venue{
@@ -11,20 +11,16 @@ public class Order extends Venue{
     private int id;
     private int venueStateId;
     private int userId;
-
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date begin;
-
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date end;
-
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date orderTime;
     private int comment;
-
 
     public Order( int venueStateId, int userId, Date orderTime) {
         this.venueStateId = venueStateId;
@@ -57,6 +53,7 @@ public class Order extends Venue{
         this.end = end;
         this.orderTime = orderTime;
     }
+
     @Override
     public int getId() {
         return id;
@@ -101,6 +98,7 @@ public class Order extends Venue{
     public void setComment(int comment) {
         this.comment = comment;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -115,6 +113,7 @@ public class Order extends Venue{
         if (getEnd() != null ? !getEnd().equals(order.getEnd()) : order.getEnd() != null) return false;
         return getOrderTime() != null ? getOrderTime().equals(order.getOrderTime()) : order.getOrderTime() == null;
     }
+
     @Override
     public int hashCode() {
         int result = super.hashCode();
@@ -127,6 +126,7 @@ public class Order extends Venue{
         result = 31 * result + getComment();
         return result;
     }
+
     @Override
     public String toString() {
         return "Order{" +

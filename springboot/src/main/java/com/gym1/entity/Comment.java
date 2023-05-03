@@ -36,7 +36,7 @@ public class Comment {
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
-        this.image = image;
+        this.image = "data:image/png;base64,"+image;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }
@@ -48,7 +48,7 @@ public class Comment {
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
-        this.image = image;
+        this.image = "data:image/png;base64,"+image;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }
@@ -61,7 +61,7 @@ public class Comment {
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
-        this.image = image;
+        this.image = "data:image/png;base64,"+image;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }
@@ -129,6 +129,7 @@ public class Comment {
     public void setVenueName(String venueName) {
         this.venueName = venueName;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -148,6 +149,7 @@ public class Comment {
             return false;
         return getVenueName() != null ? getVenueName().equals(comment.getVenueName()) : comment.getVenueName() == null;
     }
+
     @Override
     public int hashCode() {
         int result = getId();
@@ -162,6 +164,7 @@ public class Comment {
         result = 31 * result + (getVenueName() != null ? getVenueName().hashCode() : 0);
         return result;
     }
+
     @Override
     public String toString() {
         return "Comment{" +

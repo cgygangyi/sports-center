@@ -1,9 +1,9 @@
 package com.gym1.entity;
+
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
-
 
 
 public class ItemOrder {
@@ -22,7 +22,6 @@ public class ItemOrder {
     private int comment;
     private String image;
     private String itemName;
-
 
     public ItemOrder(int id, Date orderTime, int number, double price, String phoneNumber,
                      String name, String itemName, String image) {
@@ -134,6 +133,7 @@ public class ItemOrder {
     public void setImage(String image) {
         this.image = image;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -155,6 +155,7 @@ public class ItemOrder {
         if (getImage() != null ? !getImage().equals(itemOrder.getImage()) : itemOrder.getImage() != null) return false;
         return getItemName() != null ? getItemName().equals(itemOrder.getItemName()) : itemOrder.getItemName() == null;
     }
+
     @Override
     public int hashCode() {
         int result;
@@ -174,6 +175,7 @@ public class ItemOrder {
         result = 31 * result + (getItemName() != null ? getItemName().hashCode() : 0);
         return result;
     }
+
     @Override
     public String toString() {
         return "ItemOrder{" +

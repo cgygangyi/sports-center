@@ -36,7 +36,7 @@ public class ItemComment {
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
-        this.image = image;
+        this.image = "data:image/png;base64,"+image;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }
@@ -49,7 +49,7 @@ public class ItemComment {
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
-        this.image = image;
+        this.image = "data:image/png;base64,"+image;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }
@@ -117,6 +117,7 @@ public class ItemComment {
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -136,6 +137,7 @@ public class ItemComment {
             return false;
         return getItemName() != null ? getItemName().equals(that.getItemName()) : that.getItemName() == null;
     }
+
     @Override
     public int hashCode() {
         int result = getId();
@@ -150,6 +152,7 @@ public class ItemComment {
         result = 31 * result + (getItemName() != null ? getItemName().hashCode() : 0);
         return result;
     }
+
     @Override
     public String toString() {
         return "ItemComment{" +
