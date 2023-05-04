@@ -33,6 +33,7 @@ public class VenueStateService {
         List<VenueState> query = venueStateMapper.queryVenueStateByIdDate(id, now, max);
         List<VenueState> query1 = venueStateMapper.queryVenueStateByIdDate2(id, now, max);
         List<VenueState> res = new ArrayList<VenueState>();
+        Calendar calendar1 = Calendar.getInstance();
 
         int num = 0;
         Date begin;
@@ -47,8 +48,9 @@ public class VenueStateService {
                 end = new Date(date.getYear(), date.getMonth(), date.getDay(), j+1, 0, 0);
                 if (query1.contains(new VenueState(id, begin, end))){
                     res.add(num, query.get(query1.indexOf(new VenueState(id, begin, end))));
-                    valid = new Date(date.getYear(), date.getMonth(), date.getDay(),
-                            date.getHours()+1, date.getMinutes(), date.getMinutes());
+                    calendar1 = Calendar.getInstance();
+                    calendar1.add(Calendar.HOUR, 1);
+                    valid = calendar1.getTime();
                     if (valid.compareTo(res.get(num).getBegin()) != -1){
                         res.get(num).setOpen(0);
                     }
@@ -63,9 +65,7 @@ public class VenueStateService {
 
 
     public List<VenueState> getAllVenueState(){
-
         return venueStateMapper.queryAllVenueState();
-
     }
 
 }

@@ -51,16 +51,14 @@ public class VenueController {
 
 
     @PostMapping("/addVenue")
-    public Map<String, Object> addVenue(@RequestParam("image") MultipartFile image,
-                                       @RequestParam("type") String type,
-                                       @RequestParam("name") String name,
-                                       @RequestParam("address") String address,
-                                       @RequestParam("price") double price) throws IOException {
+    public Map<String, Object> addVenue(@RequestBody Map<String,String> map) throws IOException {
         Map<String, Object> reMap = new HashMap<>();
-        BASE64Encoder encoder = new BASE64Encoder();
-        String baseStr= encoder.encode(image.getBytes());
-        baseStr = baseStr.replaceAll("\r\n", "");
-        int res = venueService.addVenue("data:image/png;base64,"+baseStr, type, name, address, price);
+        String image = map.get("upload");
+        String type = map.get("type");
+        String name = map.get("name");
+        String address = map.get("address");
+        double price = Double.parseDouble(map.get("price"));
+        int res = venueService.addVenue("data:image/png;base64,"+image, type, name, address, price);
         if (res == -2){
             reMap.put("code", 8004);
             reMap.put("msg", "The item has existed!");
@@ -83,17 +81,14 @@ public class VenueController {
 
 
     @PostMapping("/editVenue/{venueId}")
-    public Map<String, Object> editItem(@RequestParam("image") MultipartFile image,
-                                        @RequestParam("type") String type,
-                                        @RequestParam("name") String name,
-                                        @RequestParam("address") String address,
-                                        @RequestParam("price") double price,
-                                        @PathVariable int venueId) throws IOException{
+    public Map<String, Object> editItem(@RequestBody Map<String,String> map, @PathVariable int venueId) throws IOException{
+        String image = map.get("upload");
+        String type = map.get("type");
+        String name = map.get("name");
+        String address = map.get("address");
+        double price = Double.parseDouble(map.get("price"));
+        int res = venueService.editVenue("data:image/png;base64,"+image, type, name, address, price, venueId);
         Map<String, Object> reMap = new HashMap<>();
-        BASE64Encoder encoder = new BASE64Encoder();
-        String baseStr= encoder.encode(image.getBytes());
-        baseStr = baseStr.replaceAll("\r\n", "");
-        int res = venueService.editVenue("data:image/png;base64,"+baseStr, type, name, address, price, venueId);
         if (res == -1){
             reMap.put("code", 8008);
             reMap.put("msg", "Error!");

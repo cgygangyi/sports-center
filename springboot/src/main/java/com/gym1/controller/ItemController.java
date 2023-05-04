@@ -23,15 +23,13 @@ public class ItemController {
 
 
     @PostMapping("/addItem")
-    public Map<String, Object> addItem(@RequestParam("image") MultipartFile image,
-                                       @RequestParam("name") String name,
-                                       @RequestParam("info") String info,
-                                       @RequestParam("price") double price) throws IOException{
+    public Map<String, Object> addItem(@RequestBody Map<String,String> map) throws IOException{
         Map<String, Object> reMap = new HashMap<>();
-        BASE64Encoder encoder = new BASE64Encoder();
-        String baseStr= encoder.encode(image.getBytes());
-        baseStr = baseStr.replaceAll("\r\n", "");
-        int res = itemService.addItem(name, info, price, "data:image/png;base64,"+baseStr);
+        String image = map.get("upload");
+        String name = map.get("name");
+        String info = map.get("info");
+        double price = Double.parseDouble(map.get("price"));
+        int res = itemService.addItem(name, info, price, "data:image/png;base64,"+image);
         if (res == -2){
             reMap.put("code", 3001);
             reMap.put("msg", "The item has existed!");
@@ -82,16 +80,14 @@ public class ItemController {
 
 
     @PostMapping("/editItem/{itemId}")
-    public Map<String, Object> editItem(@RequestParam("image") MultipartFile image,
-                                       @RequestParam("name") String name,
-                                       @RequestParam("info") String info,
-                                       @RequestParam("price") double price,
+    public Map<String, Object> editItem(@RequestBody Map<String,String> map,
                                         @PathVariable int itemId) throws IOException{
+        String image = map.get("upload");
+        String name = map.get("name");
+        String info = map.get("info");
+        double price = Double.parseDouble(map.get("price"));
+        int res = itemService.editItem(name, info, price, "data:image/png;base64,"+image, itemId);
         Map<String, Object> reMap = new HashMap<>();
-        BASE64Encoder encoder = new BASE64Encoder();
-        String baseStr= encoder.encode(image.getBytes());
-        baseStr = baseStr.replaceAll("\r\n", "");
-        int res = itemService.editItem(name, info, price, "data:image/png;base64,"+baseStr, itemId);
         if (res == -1){
             reMap.put("code", 3008);
             reMap.put("msg", "Error!");
