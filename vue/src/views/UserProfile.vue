@@ -64,9 +64,6 @@
                                     <h4 class="font-semibold m-0">{{username}}</h4>
                                 </div>
                             </a-col>
-                            <a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
-                                <a-button size="small" @click="geta()">Edit </a-button>
-                            </a-col>
                         </a-row>
                     </template>
                 </a-card>
@@ -94,40 +91,94 @@
                 <!-- Change Password card -->
                 <a-card :bordered="false" id="change-password" class="header-solid mb-24">
                     <template #title>
-                        <h5 class="mb-0 font-semibold">Change Password</h5>
+                        <h5 class="mb-0 font-semibold">Update profile</h5>
                     </template>
                     <a-form
-                        :hideRequiredMark="true"
+                        :form="form"
+                        @submit="handleSubmit"
                     >
                         <a-row :gutter="[24]">
-                            <a-col :span="24">
-                                <a-form-item class="mb-10" label="Current password" :colon="false">
-                                    <a-input-password placeholder="Current password" />
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Password" :colon="false">
+                                    <a-input-password
+                                        v-decorator="[
+                                            'password',
+                                            { rules: [{ required: true, message: 'Please input your Password!' }] },
+                                        ]"
+                                        type="password"
+                                        placeholder="******"
+                                    >
+                                    </a-input-password>
                                 </a-form-item>
                             </a-col>
-                            <a-col :span="24">
-                                <a-form-item class="mb-10" label="New password" :colon="false">
-                                    <a-input-password placeholder="New password" />
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Repeat Password" :colon="false">
+                                    <a-input-password
+                                        v-decorator="[
+                                            'Confirm password',
+                                            { rules: [{ required: true, message: 'Please input your Password!' }] },
+                                        ]"
+                                        type="password"
+                                        placeholder="******"
+                                    >
+                                    </a-input-password>
                                 </a-form-item>
                             </a-col>
-                            <a-col :span="24">
-                                <a-form-item class="mb-10" label="Confirm new password" :colon="false">
-                                    <a-input-password placeholder="Confirm new password" />
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Name" :colon="false">
+                                    <a-input
+                                        v-decorator="[
+                                            'name',
+                                            { rules: [{ required: true, message: 'Please input your name!' }] },
+                                        ]"
+                                        placeholder="Name"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Phone Number" :colon="false">
+                                    <a-input
+                                        v-decorator="[
+                                            'phoneNumber',
+                                            { rules: [{ required: true, message: 'Please input your phone number!' }] },
+                                        ]"
+                                        placeholder="phone number"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Age" :colon="false">
+                                    <a-input
+                                        v-decorator="['age']"
+                                        type="number"
+                                        placeholder="Age"
+                                    >
+                                    </a-input>
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Gender" :colon="false">
+                                    <a-select
+                                        v-decorator="['sex']"
+                                        @change="handleSelectChange"
+                                    >
+                                        <a-select-option value="Male">
+                                            Male
+                                        </a-select-option>
+                                        <a-select-option value="Female">
+                                            Female
+                                        </a-select-option>
+                                    </a-select>
                                 </a-form-item>
                             </a-col>
                         </a-row>
-                        <h5 class="font-semibold mt-20">Password requirements</h5>
-                        <p>Please follow this guide for a strong password:</p>
-                        <ul class="pl-15 text-muted">
-                            <li>One special characters</li>
-                            <li>Min 6 characters</li>
-                            <li>Change it often</li>
-                        </ul>
                         <a-row :gutter="[24]">
-                            <a-col :span="24" :lg="12">
+                            <a-col :span="12">
                             </a-col>
-                            <a-col :span="24" :lg="12" class="text-right">
-                                <a-button type="primary" class="px-25" @click="fake">UPDATE PASSWORD</a-button>
+                            <a-col :span="12" class="text-right">
+                                <a-button type="primary" html-type="submit" class="px-25">SUBMIT</a-button>
                             </a-col>
                         </a-row>
                     </a-form>
@@ -206,8 +257,7 @@
 </template>
 
 <script>
-import { getUserOrders } from '../api/order'
-import { getUserProfile } from '../api/user'
+import { getUserProfile, updateUserProfile } from '../api/user'
 import CardProfileInformation from '../components/Cards/CardProfileInformation'
 
 export default ({
@@ -216,6 +266,7 @@ export default ({
     },
     data() {
         return {
+            form: this.$form.createForm(this),
             profileHeaderBtns: 'overview',
             id: 1,
             username: '',
@@ -247,12 +298,18 @@ export default ({
         })
     },
     methods: {
-        geta() {
-            getUserOrders().then(res => {
-                console.log(res.data)
+        handleSubmit(e) {
+            e.preventDefault()
+            this.form.validateFields((err, values) => {
+                if (!err) {
+                    console.log('Received values of form: ', values)
+                    updateUserProfile(values).then(res => {
+                        console.log(res.data)
+                        this.$message.success('Profile updated successfully.')
+                    })
+                }
             })
         },
-
         fake() {
             localStorage.removeItem('token')
             this.$router.push('/home')

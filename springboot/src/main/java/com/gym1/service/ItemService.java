@@ -26,11 +26,7 @@ public class ItemService {
     }
 
     public List<Item> getAllItem(){
-        List<Item> res = itemMapper.queryAllItem();
-        for (Item re : res) {
-            re.setImage("data:image/png;base64," + re.getImage());
-        }
-        return res;
+        return itemMapper.queryAllItem();
     }
 
     public void deleteItem(String name){
@@ -38,9 +34,7 @@ public class ItemService {
     }
 
     public Item getItemInfo(int id){
-        Item res = itemMapper.queryItemById(id).get(0);
-        res.setImage("data:image/png;base64," + res.getImage());
-        return res;
+        return itemMapper.queryItemById(id).get(0);
     }
 
 }

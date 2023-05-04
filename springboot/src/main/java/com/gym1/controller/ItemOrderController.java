@@ -45,6 +45,7 @@ public class ItemOrderController {
 
     @GetMapping("/getAllOrder")
     public Map<String, Object> getAllOrder(HttpServletRequest request){
+        System.out.println("getAllOrder");
         Map<String, Object> reMap = new HashMap<>();
         int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
         List<ItemOrder> res = itemOrderService.getUserAllOrder(uId);

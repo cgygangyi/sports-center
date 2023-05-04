@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2023-05-03 11:51:46
+Date: 2023-05-04 00:13:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -122,14 +122,18 @@ INSERT INTO `order` VALUES ('7', '2023-05-01 23:13:42', '1', '1', '1');
 DROP TABLE IF EXISTS `speak`;
 CREATE TABLE `speak` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `speakTime` datetime DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
   `info` varchar(4096) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `userId` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of speak
 -- ----------------------------
+INSERT INTO `speak` VALUES ('1', '2023-05-04 17:00:00', 'Table tennis venue', '1');
+INSERT INTO `speak` VALUES ('2', '2023-05-04 00:12:00', 'Table tennis venue', '1');
+INSERT INTO `speak` VALUES ('3', '2023-05-03 23:57:07', 'asdadadasdasda', '1');
 
 -- ----------------------------
 -- Table structure for user

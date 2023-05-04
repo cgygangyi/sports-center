@@ -1,12 +1,12 @@
 package com.gym1.service;
+
+
 import com.gym1.entity.Speak;
 import com.gym1.mapper.SpeakMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
-
 
 
 @Service
@@ -27,8 +27,17 @@ public class SpeakService {
         }
     }
 
-    public List<Speak> getAllSpeak(){
-        return speakMapper.queryAllSpeak();
+    public List<Speak> getAllSpeak(int id){
+        List<Speak> speaks = speakMapper.queryAllSpeak();
+        for (Speak speak : speaks){
+            System.out.println(speak.getUserId());
+            if (speak.getUserId() == id){
+                speak.setUserId(1);
+            }else{
+                speak.setUserId(0);
+            }
+        }
+        return speaks;
     }
 
 }

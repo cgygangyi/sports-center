@@ -18,7 +18,7 @@ public class Item {
         this.itemName = itemName;
         this.price = price;
         this.info = info;
-        this.image = image;
+        this.image = "data:image/png;base64,"+image;
     }
 
     public Item(String itemName, double price, String info, String image){

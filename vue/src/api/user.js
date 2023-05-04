@@ -58,3 +58,15 @@ export function userLogout() {
         method: 'get'
     })
 }
+
+// update user profile
+export function updateUserProfile(map) {
+    return request({
+        url: '/user/updateInfo',
+        method: 'post',
+        data: map,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}

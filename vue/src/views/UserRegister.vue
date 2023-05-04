@@ -182,9 +182,6 @@ export default ({
                     console.log('Received values of form: ', values)
                 }
             })
-        },
-        moveStep(distance) {
-            this.step += distance
         }
     }
 })

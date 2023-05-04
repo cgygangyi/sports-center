@@ -82,7 +82,7 @@
                     </a-col>
                 </a-row>
             </a-tab-pane>
-            <a-tab-pane key="2" tab="Orders">
+            <a-tab-pane key="2" tab="Items">
                 <a-col :span="24" :md="16" class="mb-24">
                     <a-card :bordered="false" class="header-solid h-full" :bodyStyle="{paddingTop: 0, paddingBottom: '16px' }">
                         <h6 class="font-semibold my-20">Purchase Information</h6>
