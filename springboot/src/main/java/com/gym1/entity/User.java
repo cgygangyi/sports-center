@@ -61,7 +61,7 @@ public class User {
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }else{
-            this.image = "data:image/png;base64," + image;
+            this.image = image;
         }
     }
 
@@ -114,7 +114,7 @@ public class User {
         this.email = email;
     }
     public String getImage() {
-        return image;
+        return "data:image/png;base64," + image;
     }
     public void setImage(String image) {
         this.image = image;

@@ -9,6 +9,10 @@ import org.apache.ibatis.annotations.Mapper;
 public interface VenueTypeMapper {
 
     int addVenueType(VenueType venueType);
+
     int deleteVenueType(VenueType venueType);
+
     int editVenueType(VenueType venueType);
+
+    int queryVenueTypeIdByVenueTypeName(String name);
 }

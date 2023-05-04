@@ -9,14 +9,16 @@ import java.util.List;
 @Mapper
 public interface ItemMapper {
 
-    void addItem(Item item);
+    int addItem(Item item);
 
     List<Item> queryItemByName(String name);
 
     List<Item> queryAllItem();
 
-    void deleteItemByName(String name);
+    int updateItemValidById(int id);
 
     List<Item> queryItemById(int id);
+
+    int updateItemById(String name, String info, double price, String image, int itemId);
 
 }

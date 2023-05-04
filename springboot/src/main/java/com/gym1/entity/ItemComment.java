@@ -36,7 +36,7 @@ public class ItemComment {
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
-        this.image = "data:image/png;base64,"+image;
+        this.image = image;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }
@@ -49,12 +49,12 @@ public class ItemComment {
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
-        this.image = "data:image/png;base64,"+image;
+        this.image = image;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }
         this.itemName = name;
-        this.itemImage = "data:image/png;base64,"+venueImage;
+        this.itemImage = venueImage;
     }
 
     public int getId() {
@@ -100,13 +100,13 @@ public class ItemComment {
         this.info = info;
     }
     public String getImage() {
-        return image;
+        return "data:image/png;base64,"+image;
     }
     public void setImage(String image) {
         this.image = image;
     }
     public String getItemImage() {
-        return itemImage;
+        return "data:image/png;base64,"+itemImage;
     }
     public void setItemImage(String itemImage) {
         this.itemImage = itemImage;
