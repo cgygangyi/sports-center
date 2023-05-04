@@ -50,7 +50,7 @@ public class VenueStateService {
                     valid = new Date(date.getYear(), date.getMonth(), date.getDay(),
                             date.getHours()+1, date.getMinutes(), date.getMinutes());
                     if (valid.compareTo(res.get(num).getBegin()) != -1){
-                        res.get(num).setOpen(0);
+                        res.get(num).setOpen(1);
                     }
                 }else{
                     res.add(num, new VenueState(id, begin, end, 0, 0));
