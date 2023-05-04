@@ -113,12 +113,12 @@
 </template>
 
 <script>
-import moment from 'moment'
+
 import { getVenueById } from '@/api/venue'
 import AdminTimePicker from '@/components/Cards/AdminTimePicker.vue'
 import { getVenueTime } from '@/api/venueState'
 import { bookVenue } from '@/api/order'
-import {getVenueCommentById} from "@/api/venueComment";
+import getVenueCommentById from '@/api/venueComment'
 
 export default ({
     components: {

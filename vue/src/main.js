@@ -7,9 +7,7 @@ import AdminDashboardLayout from './layouts/AdminDashboard.vue'
 import router from './router'
 
 import './scss/app.scss'
-import Chat from 'vue-beautiful-chat'
 
-Vue.use(Chat)
 Vue.use(Antd)
 
 Vue.config.productionTip = false
