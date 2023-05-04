@@ -100,13 +100,13 @@ public class ItemComment {
         this.info = info;
     }
     public String getImage() {
-        return "data:image/png;base64,"+image;
+        return image;
     }
     public void setImage(String image) {
         this.image = image;
     }
     public String getItemImage() {
-        return "data:image/png;base64,"+itemImage;
+        return itemImage;
     }
     public void setItemImage(String itemImage) {
         this.itemImage = itemImage;

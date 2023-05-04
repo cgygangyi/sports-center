@@ -87,7 +87,7 @@ public class Venue extends VenueType{
         this.price = price;
     }
     public String getImage() {
-        return "data:image/png;base64,"+image;
+        return image;
     }
     public void setImage(String image) {
         this.image = image;

@@ -49,6 +49,7 @@ public class CommentController {
     public Map<String, Object> getVenueComment(HttpServletRequest request, @PathVariable int venueId){
         Map<String, Object> reMap = new HashMap<>();
         int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+
         List<Comment> res = commentService.getVenueComment(venueId, uId);
         if (res.size() != 0){
             reMap.put("code", 1004);
