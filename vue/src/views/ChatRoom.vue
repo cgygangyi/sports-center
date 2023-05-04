@@ -45,10 +45,15 @@ export default {
         }
     },
     beforeMount() {
-        getAllChatMessages().then((response) => {
-            console.log(response)
-            this.messages = response.data.data
-        })
+        if (localStorage.getItem('token') === null) {
+            this.$router.replace('/empty')
+            this.$message.error('Please login first')
+        } else {
+            getAllChatMessages().then((response) => {
+                console.log(response)
+                this.messages = response.data.data
+            })
+        }
     },
     mounted() {
         window.scrollTo(0, 1000)

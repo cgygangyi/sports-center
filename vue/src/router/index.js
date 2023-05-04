@@ -162,7 +162,8 @@ router.beforeEach((to, from, next) => {
     if (token === null || token === '') {
         if (to.path === '/login' || to.path === '/register' || to.path === '/home' || to.path === '/venues' ||
 			to.path === '/equipments' || to.path === '/venueDetail' || to.path === '/admin/home' ||
-			to.path === '/admin/venues' || to.path === '/admin/users' || to.path === '/admin/states') {
+			to.path === '/admin/venues' || to.path === '/admin/users' || to.path === '/admin/states' ||
+            to.path === '/chat') {
             next()
         } else {
             next('/home')
