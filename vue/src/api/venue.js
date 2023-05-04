@@ -23,10 +23,10 @@ export function getVenueById(id) {
 }
 
 // add new venue
-export function addNewVenue(map) {
+export function addNewVenue(form) {
     return request({
-        url: '/venue/add',
+        url: '/venue/addVenue',
         method: 'post',
-        data: map
+        data: form
     })
 }

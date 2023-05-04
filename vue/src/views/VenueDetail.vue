@@ -8,7 +8,7 @@
 
             <a-row type="flex" :gutter="[24]">
                 <a-col :span="24" :lg="12" :xl="10" class="col-gallery">
-                    <img class="gallery-img shadow-3 img-contain" src="images/venue-3.jpeg" alt="chair">
+                    <img class="gallery-img shadow-3 img-contain" :src="this.venueData.image" height="100%">
                 </a-col>
 
                 <a-col :span="24" :lg="12" :xl="{ span: 12, offset: 2 }" class="col-info">

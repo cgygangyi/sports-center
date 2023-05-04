@@ -121,6 +121,12 @@ let routes = [
         name: 'empty',
         layout: 'admindashboard',
         component: () => import('../views/ReLoad.vue')
+    },
+    {
+        path: '/test',
+        name: 'test',
+        layout: 'admindashboard',
+        component: () => import('../views/1Test.vue')
     }
 ]
 

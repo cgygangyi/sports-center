@@ -51,16 +51,16 @@ public class VenueController {
 
 
     @PostMapping("/addVenue")
-    public Map<String, Object> addVenue(@RequestParam("image") MultipartFile image,
-                                       @RequestParam("type") String type,
-                                       @RequestParam("name") String name,
-                                       @RequestParam("address") String address,
-                                       @RequestParam("price") double price) throws IOException {
-        Map<String, Object> reMap = new HashMap<>();
-        BASE64Encoder encoder = new BASE64Encoder();
-        String baseStr= encoder.encode(image.getBytes());
-        baseStr = baseStr.replaceAll("\r\n", "");
-        int res = venueService.addVenue("data:image/png;base64,"+baseStr, type, name, address, price);
+        public Map<String, Object> addVenue(@RequestBody Map<String,String> map) throws IOException {
+            // change string to image
+            System.out.println(map);
+            String image = map.get("upload");
+            String type = map.get("type");
+            String name = map.get("name");
+            String address = map.get("address");
+            double price = Double.parseDouble(map.get("price"));
+            Map<String, Object> reMap = new HashMap<>();
+            int res = venueService.addVenue("data:image/png;base64,"+image, type, name, address, price);
         if (res == -2){
             reMap.put("code", 8004);
             reMap.put("msg", "The item has existed!");
