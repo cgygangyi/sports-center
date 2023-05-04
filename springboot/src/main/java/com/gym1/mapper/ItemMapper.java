@@ -10,7 +10,13 @@ import java.util.List;
 public interface ItemMapper {
 
     void addItem(Item item);
+
     List<Item> queryItemByName(String name);
+
     List<Item> queryAllItem();
+
+    void deleteItemByName(String name);
+
+    List<Item> queryItemById(int id);
 
 }

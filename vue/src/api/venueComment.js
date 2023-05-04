@@ -5,12 +5,15 @@ import request from '../utils/request'
 export function getVenueCommentById(id) {
     return request({
         url: '/comment/getVenueComment/' + id,
-        method: 'get'
+        method: 'get',
+        headers: {
+            token: localStorage.getItem('token')
+        }
     })
 }
 
 // make comment
-export function makeComment(id, map) {
+export function makeVenueComment(id, map) {
     return request({
         url: '/comment/makeComment/' + id,
         method: 'post',

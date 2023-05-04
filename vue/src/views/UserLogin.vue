@@ -72,8 +72,7 @@ export default ({
                         console.log(res.data)
                         if (res.data.code === 4002) {
                             localStorage.setItem('token', res.data.data)
-                            this.reload()
-                            this.$router.push({ path: '/home' })
+                            this.$router.replace({ path: '/empty' })
                             this.$message.success(res.data.message)
                         } else {
                             this.$message.error(res.data.message)

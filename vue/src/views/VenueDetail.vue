@@ -3,7 +3,7 @@
 
         <a-card :bordered="false" class="card-product header-solid mb-24">
             <template #title>
-                <h6>Product Details</h6>
+                <h6>Venue Details</h6>
             </template>
 
             <a-row type="flex" :gutter="[24]">
@@ -85,7 +85,7 @@ import { getVenueById } from '@/api/venue'
 import TimePicker from '@/components/Cards/TimePicker'
 import { getVenueTime } from '@/api/venueState'
 import { bookVenue } from '@/api/order'
-import { getVenueCommentById } from '@/api/comment'
+import { getVenueCommentById } from '@/api/venueComment'
 
 export default ({
     components: {
@@ -144,6 +144,10 @@ export default ({
         },
         handleOk(e) {
             const id = sessionStorage.getItem('chosen')
+            if (id === null || id === '') {
+                this.$message.warning('Please choose a time slot!')
+                return
+            }
             bookVenue(id).then((response) => {
                 console.log(response)
                 if (response.data === '') {

@@ -37,6 +37,14 @@ public class VenueState{
         this.open = open;
     }
 
+    public VenueState(int venueId, Date begin, Date end, int free, int open){
+        this.venueId = venueId;
+        this.begin = begin;
+        this.end = end;
+        this.free = free;
+        this.open = open;
+    }
+
     public int getId() {
         return id;
     }
@@ -103,6 +111,7 @@ public class VenueState{
         result = 31 * result + getOpen();
         return result;
     }
+
     @Override
     public String toString() {
         return "VenueState{" +

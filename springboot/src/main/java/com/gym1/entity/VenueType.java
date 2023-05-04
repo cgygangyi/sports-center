@@ -8,7 +8,6 @@ public class VenueType {
     private int id;
     private String introduction;
     private String typeName;
-    private byte[] image;
 
     public VenueType(){
 
@@ -43,13 +42,6 @@ public class VenueType {
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
-
-    public byte[] getImage() {
-        return image;
-    }
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,15 +50,13 @@ public class VenueType {
         if (getId() != venueType.getId()) return false;
         if (getIntroduction() != null ? !getIntroduction().equals(venueType.getIntroduction()) : venueType.getIntroduction() != null)
             return false;
-        if (getTypeName() != null ? !getTypeName().equals(venueType.getTypeName()) : venueType.getTypeName() != null) return false;
-        return Arrays.equals(getImage(), venueType.getImage());
+        return getTypeName() != null ? getTypeName().equals(venueType.getTypeName()) : venueType.getTypeName() == null;
     }
     @Override
     public int hashCode() {
         int result = getId();
         result = 31 * result + (getIntroduction() != null ? getIntroduction().hashCode() : 0);
         result = 31 * result + (getTypeName() != null ? getTypeName().hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(getImage());
         return result;
     }
     @Override
@@ -74,8 +64,7 @@ public class VenueType {
         return "VenueType{" +
                 "id=" + id +
                 ", introduction='" + introduction + '\'' +
-                ", type='" + typeName + '\'' +
-                ", image=" + Arrays.toString(image) +
+                ", typeName='" + typeName + '\'' +
                 '}';
     }
 }

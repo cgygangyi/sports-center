@@ -1,14 +1,14 @@
 package com.gym1.service;
+
+
 import com.gym1.entity.Order;
 import com.gym1.entity.VenueState;
 import com.gym1.mapper.OrderMapper;
 import com.gym1.mapper.VenueStateMapper;
-import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 
 @Service
@@ -20,25 +20,86 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
-    public List<Order> queryUserOrder(int id){
-        return orderMapper.queryOrderByUserId(id);
-    }
-
-    public boolean addOrder(int id, String userId){
+    public int addOrder(int id, String userId){
         int uId = Integer.parseInt(userId);
         VenueState venueState = venueStateMapper.queryVenueStateById(id);
-        if(venueState.getOpen() == 1 && venueState.getFree() == 1){
-            int a = venueStateMapper.updateVenueStateFree(id, 0);
-            Date date = new Date(System.currentTimeMillis());
-            Order order = new Order(id, uId, date);
-            int b = orderMapper.addOrder(order);
-            return true;
+        if (venueState.getOpen() == 1 && venueState.getFree() == 1){
+            int a = 0;
+            int b = 0;
+            try{
+                a = venueStateMapper.updateVenueStateFree(id, 0);
+                if (a==0){
+                    return -1;
+                }else{
+                    try{
+                        Date date = new Date(System.currentTimeMillis());
+                        Order order = new Order(id, uId, date);
+                        b = orderMapper.addOrder(order);
+                        return b;
+                    }catch (Exception e1){
+                        venueStateMapper.updateVenueStateFree(id, 1);
+                        return -1;
+                    }
+                }
+            }catch (Exception e){
+                return -1;
+            }
         }else{
-            return false;
+            return -2;
         }
     }
 
+    public List<Order> queryUserOrder(int id){
+        List<Order> orders = orderMapper.queryOrderByUserId(id);
+        Date date = new Date(System.currentTimeMillis());
+        for (Order order : orders){
+            if (date.compareTo(order.getBegin()) != -1){
+                order.setUserId(0);
+            }else{
+                order.setUserId(1);
+            }
+        }
+        return orders;
+    }
 
+    public List<Order> queryUserUncommentOrder(int id){
+        List<Order> orders = orderMapper.queryOrderByUserIdComment(id);
+        Date date = new Date(System.currentTimeMillis());
+        for (Order order : orders){
+            if (date.compareTo(order.getBegin()) != -1){
+                order.setUserId(0);
+            }else{
+                order.setUserId(1);
+            }
+        }
+        return orders;
+    }
 
+    public int deleteOrder(int id){
+        int venueStateId = orderMapper.queryVenueStateIdByOrderId(id);
+        int a = 0;
+        int res = 0;
+        try{
+            a = venueStateMapper.updateVenueStateFree(venueStateId, 1);
+            if (a == 0){
+                return 0;
+            }else{
+                try{
+                    res = orderMapper.deleteOrder(id);
+                    if (res == 0){
+                        venueStateMapper.updateVenueStateFree(venueStateId, 0);
+                        return 0;
+                    }else{
+                        return res;
+                    }
+                }catch (Exception e){
+                    venueStateMapper.updateVenueStateFree(venueStateId, 0);
+                    return -1;
+                }
+            }
+        }catch (Exception e){
+            return -1;
+        }
+    }
 
 }

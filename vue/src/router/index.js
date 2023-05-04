@@ -69,6 +69,12 @@ let routes = [
         component: () => import('../views/ItemsDisplay.vue')
     },
     {
+        path: '/itemDetail',
+        name: 'Item detail',
+        layout: 'dashboard',
+        component: () => import('../views/ItemDetail.vue')
+    },
+    {
         path: '/admin/home',
         name: 'admin',
         layout: 'admindashboard',
@@ -97,6 +103,12 @@ let routes = [
         name: 'add venue',
         layout: 'admindashboard',
         component: () => import('../views/Admin/AdminAddVenue.vue')
+    },
+    {
+        path: '/empty',
+        name: 'empty',
+        layout: 'admindashboard',
+        component: () => import('../views/ReLoad.vue')
     }
 ]
 

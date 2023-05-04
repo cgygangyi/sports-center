@@ -47,7 +47,9 @@ export default {
         for (let i = 0; i < 40; i++) {
             const change = document.getElementById(i)
             console.log(this.data[i].id)
-            if (this.data[i].open === 0 || this.data[i].free === 0) {
+            if (this.data[i].open === 0) {
+                change.style.backgroundColor = 'grey'
+            } else if (this.data[i].free === 0) {
                 change.style.backgroundColor = 'red'
             } else {
                 console.log(change)

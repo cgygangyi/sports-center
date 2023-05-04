@@ -1,7 +1,9 @@
 package com.gym1.entity;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.gym1.util.DefaultProfile;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 
@@ -16,6 +18,9 @@ public class Comment {
     private Date commentTime;
     private String username;
     private String info;
+    private String image;
+    private String venueImage;
+    private String venueName;
 
     public Comment(int userId, int orderId, int venueId, Date commentTime, String info){
         this.userId = userId;
@@ -25,11 +30,43 @@ public class Comment {
         this.info = info;
     }
 
-    public Comment(int userId, Date commentTime, String info, String username){
+    public Comment(int id, int userId, Date commentTime, String info, String username, String image){
+        this.id = id;
         this.userId = userId;
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
+        this.image = "data:image/png;base64,"+image;
+        if (image == null){
+            this.image = DefaultProfile.getDefaultProfile();
+        }
+    }
+
+    public Comment(int id, Date commentTime, String info, String username,
+                   String image, int userId){
+        this.id = id;
+        this.commentTime = commentTime;
+        this.info = info;
+        this.username = username;
+        this.image = "data:image/png;base64,"+image;
+        if (image == null){
+            this.image = DefaultProfile.getDefaultProfile();
+        }
+        this.userId = userId;
+    }
+
+    public Comment(int id, Date commentTime, String info, String username,
+                   String image, String name, String venueImage){
+        this.id = id;
+        this.commentTime = commentTime;
+        this.info = info;
+        this.username = username;
+        this.image = "data:image/png;base64,"+image;
+        if (image == null){
+            this.image = DefaultProfile.getDefaultProfile();
+        }
+        this.venueName = name;
+        this.venueImage = "data:image/png;base64,"+venueImage;
     }
 
     public int getId() {
@@ -74,6 +111,25 @@ public class Comment {
     public void setInfo(String info) {
         this.info = info;
     }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
+    public String getVenueImage() {
+        return venueImage;
+    }
+    public void setVenueImage(String venueImage) {
+        this.venueImage = venueImage;
+    }
+    public String getVenueName() {
+        return venueName;
+    }
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,8 +143,13 @@ public class Comment {
             return false;
         if (getUsername() != null ? !getUsername().equals(comment.getUsername()) : comment.getUsername() != null)
             return false;
-        return getInfo() != null ? getInfo().equals(comment.getInfo()) : comment.getInfo() == null;
+        if (getInfo() != null ? !getInfo().equals(comment.getInfo()) : comment.getInfo() != null) return false;
+        if (getImage() != null ? !getImage().equals(comment.getImage()) : comment.getImage() != null) return false;
+        if (getVenueImage() != null ? !getVenueImage().equals(comment.getVenueImage()) : comment.getVenueImage() != null)
+            return false;
+        return getVenueName() != null ? getVenueName().equals(comment.getVenueName()) : comment.getVenueName() == null;
     }
+
     @Override
     public int hashCode() {
         int result = getId();
@@ -98,8 +159,12 @@ public class Comment {
         result = 31 * result + (getCommentTime() != null ? getCommentTime().hashCode() : 0);
         result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
         result = 31 * result + (getInfo() != null ? getInfo().hashCode() : 0);
+        result = 31 * result + (getImage() != null ? getImage().hashCode() : 0);
+        result = 31 * result + (getVenueImage() != null ? getVenueImage().hashCode() : 0);
+        result = 31 * result + (getVenueName() != null ? getVenueName().hashCode() : 0);
         return result;
     }
+
     @Override
     public String toString() {
         return "Comment{" +
@@ -110,6 +175,9 @@ public class Comment {
                 ", commentTime=" + commentTime +
                 ", username='" + username + '\'' +
                 ", info='" + info + '\'' +
+                ", image='" + image + '\'' +
+                ", venueImage='" + venueImage + '\'' +
+                ", venueName='" + venueName + '\'' +
                 '}';
     }
 }

@@ -21,5 +21,15 @@
         from item i
     </select>
 
+    <delete id="deleteItemByName">
+        delete from item
+        where itemName = #{name}
+    </delete>
+
+    <select id="queryItemById" resultType="com.gym1.entity.Item">
+        select i.id, i.itemName, i.info, i.price, i.image
+        from item i
+        where i.id = #{id}
+    </select>
 
 </mapper>

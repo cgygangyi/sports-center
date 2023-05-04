@@ -10,7 +10,17 @@
         from venue_state
         where venueId=#{id}
           and begin between #{now} and #{max}
+        order by begin
     </select>
+
+    <select id="queryVenueStateByIdDate2" resultType="com.gym1.entity.VenueState">
+        select s.venueId, s.begin, s.end
+        from venue_state s
+        where venueId=#{id}
+          and begin between #{now} and #{max}
+        order by begin
+    </select>
+
 
     <select id="queryAllVenueState" resultType="com.gym1.entity.VenueState">
         select *
@@ -24,14 +34,14 @@
     </select>
 
     <update id="updateVenueStateFree">
-        UPDATE venue_state
-        SET free = #{free}
+        update venue_state
+        set free = #{free}
         where id = #{id}
     </update>
 
     <update id="updateVenueStateOpen">
-        UPDATE venue_state
-        SET open = #{open}
+        update venue_state
+        set open = #{open}
         where id = #{id}
     </update>
 

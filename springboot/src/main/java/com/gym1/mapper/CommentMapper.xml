@@ -11,12 +11,24 @@
     </insert>
 
     <select id="queryCommentByVenueId" resultType="com.gym1.entity.Comment">
-        select c.id, c.commentTime, c.info, u.username
+        select c.id, c.commentTime, c.info, u.username, u.image, c.userId
         from comment c
         left join user u
         on c.userId = u.id
         where c.venueId = #{venueId}
     </select>
 
+    <select id="queryCommentByUserId" resultType="com.gym1.entity.Comment">
+        select c.id, c.commentTime, c.info, u.username, u.image, v.name, v.image venueImage
+        from comment c left join user u on c.userId = u.id
+        left join venue v
+        on v.id = c.venueId
+        where c.userId = #{userId}
+    </select>
+
+    <delete id="deleteCommentById">
+        delete from comment
+        where id = #{id}
+    </delete>
 
 </mapper>

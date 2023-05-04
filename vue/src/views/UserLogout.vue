@@ -5,9 +5,10 @@
 <script>
 export default {
     beforeCreate() {
+        this.$router.replace({ path: '/empty' })
         localStorage.removeItem('token')
-        window.location.reload()
-        this.$router.push({ name: 'Home' })
+        this.$router.replace({ path: '/empty' })
+        this.$message.success('Logout successfully')
     }
 }
 

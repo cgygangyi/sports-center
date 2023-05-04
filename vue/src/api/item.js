@@ -14,19 +14,10 @@ export function getAllItems() {
     })
 }
 
-// get venue information by id
-export function getVenueById(id) {
+// get item info by id
+export function getItemInfo(id) {
     return request({
-        url: '/venue/getVenueInfo/' + id,
+        url: '/item/getItemInfo/' + id,
         method: 'get'
-    })
-}
-
-// add new venue
-export function addNewVenue(map) {
-    return request({
-        url: '/venue/add',
-        method: 'post',
-        data: map
     })
 }

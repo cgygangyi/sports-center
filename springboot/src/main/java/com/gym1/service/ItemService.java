@@ -33,4 +33,14 @@ public class ItemService {
         return res;
     }
 
+    public void deleteItem(String name){
+        itemMapper.deleteItemByName(name);
+    }
+
+    public Item getItemInfo(int id){
+        Item res = itemMapper.queryItemById(id).get(0);
+        res.setImage("data:image/png;base64," + res.getImage());
+        return res;
+    }
+
 }

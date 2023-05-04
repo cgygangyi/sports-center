@@ -46,14 +46,14 @@ export default ({
     },
 
     methods: {
-        // jump() {
-        //     this.$router.push({
-        //         path: '/itemDetail',
-        //         query: {
-        //             id: this.id,
-        //         }
-        //     })
-        // },
+        jump() {
+            this.$router.push({
+                path: '/itemDetail',
+                query: {
+                    id: this.id
+                }
+            })
+        }
     }
 })
 </script>

@@ -1,9 +1,9 @@
 package com.gym1.entity;
+
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
-
 
 
 public class Order extends Venue{
@@ -11,29 +11,38 @@ public class Order extends Venue{
     private int id;
     private int venueStateId;
     private int userId;
-
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date begin;
-
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date end;
-
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date orderTime;
-
+    private int comment;
 
     public Order( int venueStateId, int userId, Date orderTime) {
         this.venueStateId = venueStateId;
         this.userId = userId;
         this.orderTime = orderTime;
+        this.comment = 0;
     }
+
     public Order(int id, int venueStateId, int userId) {
         this.id = id;
         this.venueStateId = venueStateId;
         this.userId = userId;
+    }
+
+    public Order(int id, Date orderTime, Date end, Date begin,
+                 String name, String address, double price, int comment) {
+        super(name, address, price);
+        this.id = id;
+        this.begin = begin;
+        this.end = end;
+        this.orderTime = orderTime;
+        this.comment = comment;
     }
 
     public Order(int id, Date orderTime, Date end, Date begin,
@@ -44,6 +53,7 @@ public class Order extends Venue{
         this.end = end;
         this.orderTime = orderTime;
     }
+
     @Override
     public int getId() {
         return id;
@@ -82,6 +92,13 @@ public class Order extends Venue{
     public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;
     }
+    public int getComment() {
+        return comment;
+    }
+    public void setComment(int comment) {
+        this.comment = comment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -91,6 +108,7 @@ public class Order extends Venue{
         if (getId() != order.getId()) return false;
         if (getVenueStateId() != order.getVenueStateId()) return false;
         if (getUserId() != order.getUserId()) return false;
+        if (getComment() != order.getComment()) return false;
         if (getBegin() != null ? !getBegin().equals(order.getBegin()) : order.getBegin() != null) return false;
         if (getEnd() != null ? !getEnd().equals(order.getEnd()) : order.getEnd() != null) return false;
         return getOrderTime() != null ? getOrderTime().equals(order.getOrderTime()) : order.getOrderTime() == null;
@@ -105,6 +123,7 @@ public class Order extends Venue{
         result = 31 * result + (getBegin() != null ? getBegin().hashCode() : 0);
         result = 31 * result + (getEnd() != null ? getEnd().hashCode() : 0);
         result = 31 * result + (getOrderTime() != null ? getOrderTime().hashCode() : 0);
+        result = 31 * result + getComment();
         return result;
     }
 
@@ -117,6 +136,7 @@ public class Order extends Venue{
                 ", begin=" + begin +
                 ", end=" + end +
                 ", orderTime=" + orderTime +
+                ", comment=" + comment +
                 '}';
     }
 }
