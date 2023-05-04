@@ -60,7 +60,7 @@ public class VenueController {
         BASE64Encoder encoder = new BASE64Encoder();
         String baseStr= encoder.encode(image.getBytes());
         baseStr = baseStr.replaceAll("\r\n", "");
-        int res = venueService.addVenue(baseStr, type, name, address, price);
+        int res = venueService.addVenue("data:image/png;base64,"+baseStr, type, name, address, price);
         if (res == -2){
             reMap.put("code", 8004);
             reMap.put("msg", "The item has existed!");
@@ -93,7 +93,7 @@ public class VenueController {
         BASE64Encoder encoder = new BASE64Encoder();
         String baseStr= encoder.encode(image.getBytes());
         baseStr = baseStr.replaceAll("\r\n", "");
-        int res = venueService.editVenue(baseStr, type, name, address, price, venueId);
+        int res = venueService.editVenue("data:image/png;base64,"+baseStr, type, name, address, price, venueId);
         if (res == -1){
             reMap.put("code", 8008);
             reMap.put("msg", "Error!");

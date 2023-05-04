@@ -112,13 +112,13 @@ public class Comment {
         this.info = info;
     }
     public String getImage() {
-        return "data:image/png;base64,"+image;
+        return image;
     }
     public void setImage(String image) {
         this.image = image;
     }
     public String getVenueImage() {
-        return "data:image/png;base64,"+venueImage;
+        return venueImage;
     }
     public void setVenueImage(String venueImage) {
         this.venueImage = venueImage;

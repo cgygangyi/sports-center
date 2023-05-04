@@ -12,12 +12,34 @@ export function getVenueCommentById(id) {
     })
 }
 
+// get current user's venue comments
+export function getUserVenueComment() {
+    return request({
+        url: '/comment/getUserComment',
+        method: 'get',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
 // make comment
 export function makeVenueComment(id, map) {
     return request({
         url: '/comment/makeComment/' + id,
         method: 'post',
         data: map,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// delete venue comment by id
+export function deleteVenueComment(id) {
+    return request({
+        url: '/comment/deleteComment/' + id,
+        method: 'post',
         headers: {
             token: localStorage.getItem('token')
         }

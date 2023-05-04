@@ -31,7 +31,7 @@ public class ItemController {
         BASE64Encoder encoder = new BASE64Encoder();
         String baseStr= encoder.encode(image.getBytes());
         baseStr = baseStr.replaceAll("\r\n", "");
-        int res = itemService.addItem(name, info, price, baseStr);
+        int res = itemService.addItem(name, info, price, "data:image/png;base64,"+baseStr);
         if (res == -2){
             reMap.put("code", 3001);
             reMap.put("msg", "The item has existed!");
@@ -91,7 +91,7 @@ public class ItemController {
         BASE64Encoder encoder = new BASE64Encoder();
         String baseStr= encoder.encode(image.getBytes());
         baseStr = baseStr.replaceAll("\r\n", "");
-        int res = itemService.editItem(name, info, price, baseStr, itemId);
+        int res = itemService.editItem(name, info, price, "data:image/png;base64,"+baseStr, itemId);
         if (res == -1){
             reMap.put("code", 3008);
             reMap.put("msg", "Error!");

@@ -29,11 +29,7 @@
             </a-col>
         </a-row>
         <a-col :span="24" :lg="24" class="mb-24">
-
-            <!-- Orders History Timeline Card -->
             <CardOrderHistory></CardOrderHistory>
-            <!-- / Orders History Timeline Card -->
-
         </a-col>
     </div>
 </template>

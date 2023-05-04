@@ -28,6 +28,7 @@ public class UserController {
 
     @PostMapping("/login")
     public Map<String, Object> login(HttpSession session, @RequestBody Map map){
+        System.out.println(map);
         String username = (String) map.get("username");
         String password = (String) map.get("password");
         User res = userService.loginService(username);

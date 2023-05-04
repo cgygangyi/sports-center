@@ -75,6 +75,18 @@ let routes = [
         component: () => import('../views/ItemDetail.vue')
     },
     {
+        path: '/comments',
+        name: 'Comments',
+        layout: 'dashboard',
+        component: () => import('../views/UserComments.vue')
+    },
+    {
+        path: '/chat',
+        name: 'Chat',
+        layout: 'dashboard',
+        component: () => import('../views/ChatRoom.vue')
+    },
+    {
         path: '/admin/home',
         name: 'admin',
         layout: 'admindashboard',
