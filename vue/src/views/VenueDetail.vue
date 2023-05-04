@@ -60,7 +60,7 @@
                         :data-source="comments"
                     >
                         <a-list-item slot="renderItem" slot-scope="item">
-                            <a-comment :author="item.username">
+                            <a-comment :author="item.username" :avatar="item.image">
                                 <p slot="content">
                                     {{ item.info }}
                                 </p>

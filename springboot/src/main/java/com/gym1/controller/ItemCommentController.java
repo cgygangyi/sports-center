@@ -47,6 +47,7 @@ public class ItemCommentController {
 
     @GetMapping("/getItemComment/{itemId}")
     public Map<String, Object> getItemComment(HttpServletRequest request, @PathVariable int itemId){
+        System.out.println("----------------");
         Map<String, Object> reMap = new HashMap<>();
         int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
         List<ItemComment> res = itemCommentService.getItemComment(itemId, uId);

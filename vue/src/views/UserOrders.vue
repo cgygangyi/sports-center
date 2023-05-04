@@ -112,9 +112,6 @@
                                             <a-descriptions-item label="Price">
                                                 {{ order.price }}
                                             </a-descriptions-item>
-                                            <a-descriptions-item label="Order time">
-                                                {{ order.orderTime }}
-                                            </a-descriptions-item>
                                         </a-descriptions>
                                     </div>
                                     <div class="col-action" v-if="order.userid=1">

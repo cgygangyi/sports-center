@@ -1,10 +1,11 @@
-// apis for venues' comments
+// api for items' comments
 
 import request from '../utils/request'
 
-export function getVenueCommentById(id) {
+// get item's comments by id
+export function getItemCommentById(id) {
     return request({
-        url: '/comment/getVenueComment/' + id,
+        url: '/itemComment/getItemComment/' + id,
         method: 'get',
         headers: {
             token: localStorage.getItem('token')
@@ -12,10 +13,10 @@ export function getVenueCommentById(id) {
     })
 }
 
-// make comment
-export function makeVenueComment(id, map) {
+// make item comment
+export function makeItemComment(id, map) {
     return request({
-        url: '/comment/makeComment/' + id,
+        url: '/itemComment/makeItemComment/' + id,
         method: 'post',
         data: map,
         headers: {

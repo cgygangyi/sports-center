@@ -36,7 +36,7 @@ public class Comment {
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
-        this.image = "data:image/png;base64,"+image;
+        this.image = image;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }
@@ -48,7 +48,7 @@ public class Comment {
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
-        this.image = "data:image/png;base64,"+image;
+        this.image = image;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }
@@ -61,12 +61,12 @@ public class Comment {
         this.commentTime = commentTime;
         this.info = info;
         this.username = username;
-        this.image = "data:image/png;base64,"+image;
+        this.image = image;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }
         this.venueName = name;
-        this.venueImage = "data:image/png;base64,"+venueImage;
+        this.venueImage = venueImage;
     }
 
     public int getId() {
@@ -112,13 +112,13 @@ public class Comment {
         this.info = info;
     }
     public String getImage() {
-        return image;
+        return "data:image/png;base64,"+image;
     }
     public void setImage(String image) {
         this.image = image;
     }
     public String getVenueImage() {
-        return venueImage;
+        return "data:image/png;base64,"+venueImage;
     }
     public void setVenueImage(String venueImage) {
         this.venueImage = venueImage;

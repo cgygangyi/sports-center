@@ -49,7 +49,7 @@
                         :data-source="comments"
                     >
                         <a-list-item slot="renderItem" slot-scope="item">
-                            <a-comment :author="item.username">
+                            <a-comment :author="item.username" :avatar="item.image">
                                 <p slot="content">
                                     {{ item.info }}
                                 </p>
@@ -71,6 +71,7 @@
 <script>
 import moment from 'moment'
 import { getItemInfo } from '@/api/item'
+import { getItemCommentById } from '@/api/itemComment'
 
 export default ({
     query: {
@@ -93,10 +94,13 @@ export default ({
         }
     },
     beforeMount() {
-        console.log(this.$route.query.id)
         getItemInfo(this.$route.query.id).then(res => {
             this.itemData = res.data.data
             console.log(this.itemData)
+        })
+        getItemCommentById(this.$route.query.id).then(res => {
+            this.comments = res.data.data
+            console.log(this.comments)
         })
     },
 

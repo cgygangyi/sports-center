@@ -1,8 +1,4 @@
 package com.gym1.entity;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Arrays;
-
 
 
 public class Item {
@@ -18,7 +14,7 @@ public class Item {
         this.itemName = itemName;
         this.price = price;
         this.info = info;
-        this.image = "data:image/png;base64,"+image;
+        this.image = image;
     }
 
     public Item(String itemName, double price, String info, String image){
@@ -27,6 +23,7 @@ public class Item {
         this.info = info;
         this.image = image;
     }
+
     public int getId() {
         return id;
     }
@@ -52,11 +49,12 @@ public class Item {
         this.info = info;
     }
     public String getImage() {
-        return image;
+        return "data:image/png;base64,"+image;
     }
     public void setImage(String image) {
         this.image = image;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,6 +67,7 @@ public class Item {
         if (getInfo() != null ? !getInfo().equals(item.getInfo()) : item.getInfo() != null) return false;
         return getImage() != null ? getImage().equals(item.getImage()) : item.getImage() == null;
     }
+
     @Override
     public int hashCode() {
         int result;
@@ -81,6 +80,7 @@ public class Item {
         result = 31 * result + (getImage() != null ? getImage().hashCode() : 0);
         return result;
     }
+
     @Override
     public String toString() {
         return "Item{" +
@@ -91,4 +91,5 @@ public class Item {
                 ", image='" + image + '\'' +
                 '}';
     }
+
 }

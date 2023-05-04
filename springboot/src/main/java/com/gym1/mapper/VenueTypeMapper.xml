@@ -5,4 +5,10 @@
 
 <mapper namespace="com.gym1.mapper.VenueTypeMapper">
 
+    <select id="queryVenueTypeIdByVenueTypeName" resultType="int">
+        select t.id
+        from venue_type t
+        where t.name = #{name}
+    </select>
+
 </mapper>
