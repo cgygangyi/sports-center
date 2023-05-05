@@ -11,7 +11,11 @@
                         :data-source="venueComments"
                     >
                         <a-list-item slot="renderItem" slot-scope="item">
-                            <p>{{ item.venueName }}</p>
+                            <a-col>
+                                <img :src="item.venueImage" alt="">
+                                <p>{{ item.venueName }}</p>
+                            </a-col>
+
                             <a-comment :author="item.username" :avatar="item.image">
                                 <p slot="content">
                                     {{ item.info }}
@@ -37,8 +41,10 @@
                         :data-source="itemComments"
                     >
                         <a-list-item slot="renderItem" slot-scope="item">
-                            <img :src="item.itemImage" alt="">
-                            <p>{{ item.itemName }}</p>
+                            <a-col>
+                                <img :src="item.itemImage" alt="">
+                                <p>{{ item.itemName }}</p>
+                            </a-col>
                             <a-comment :author="item.username" :avatar="item.image">
                                 <p slot="content">
                                     {{ item.info }}

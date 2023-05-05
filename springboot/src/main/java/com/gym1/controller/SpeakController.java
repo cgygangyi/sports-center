@@ -45,7 +45,6 @@ public class SpeakController {
 
     @GetMapping("/getAllSpeak")
     public Map<String, Object> sendSpeak(HttpServletRequest request){
-        System.out.println("getAllSpeak");
         Map<String, Object> reMap = new HashMap<>();
         int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
         List<Speak> res = speakService.getAllSpeak(uId);

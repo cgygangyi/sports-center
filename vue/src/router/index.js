@@ -87,6 +87,12 @@ let routes = [
         component: () => import('../views/ChatRoom.vue')
     },
     {
+        path: '/avatar',
+        name: 'Avatar',
+        layout: 'dashboard',
+        component: () => import('../views/UserAvatar.vue')
+    },
+    {
         path: '/admin/home',
         name: 'admin',
         layout: 'admindashboard',
@@ -103,6 +109,12 @@ let routes = [
         name: 'User management',
         layout: 'admindashboard',
         component: () => import('../views/Admin/AdminUsers.vue')
+    },
+    {
+        path: '/admin/user',
+        name: 'User management',
+        layout: 'admindashboard',
+        component: () => import('../views/Admin/AdminUser.vue')
     },
     {
         path: '/admin/states',
@@ -169,7 +181,7 @@ router.beforeEach((to, from, next) => {
         if (to.path === '/login' || to.path === '/register' || to.path === '/home' || to.path === '/venues' ||
 			to.path === '/equipments' || to.path === '/venueDetail' || to.path === '/admin/home' ||
 			to.path === '/admin/venues' || to.path === '/admin/users' || to.path === '/admin/states' ||
-            to.path === '/chat') {
+            to.path === '/chat' || to.path === '/itemDetail') {
             next()
         } else {
             next('/home')

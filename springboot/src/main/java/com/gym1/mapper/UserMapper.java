@@ -18,5 +18,6 @@ public interface UserMapper {
 
     User queryUserById(int id);
 
+    int updateUserImage(int id, String image);
 
 }

@@ -70,3 +70,15 @@ export function updateUserProfile(map) {
         }
     })
 }
+
+// update user avatar
+export function updateUserAvatar(map) {
+    return request({
+        url: '/user/updateProfile',
+        method: 'post',
+        data: map,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}

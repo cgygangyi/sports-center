@@ -5,7 +5,7 @@
 <script>
 export default {
     created() {
-        this.$router.replace({ path: '/admin/home' })
+        this.$router.replace({ path: '/home' })
     }
 }
 </script>

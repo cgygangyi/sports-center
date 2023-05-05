@@ -15,7 +15,9 @@
         <hr>
 
         <!-- Sidebar Navigation Menu -->
-        <a-menu theme="light" mode="inline">
+        <a-menu theme="light" mode="inline"
+                :open-keys="openKeys"
+                @openChange="onOpenChange">
             <a-menu-item>
                 <router-link to="/admin/home">
 						<span class="icon">
@@ -27,28 +29,51 @@
                     <span class="label">Home</span>
                 </router-link>
             </a-menu-item>
-            <a-menu-item>
-                <router-link to="/admin/venues">
+            <a-sub-menu key="Venues" style="padding: 0;">
+					<span slot="title">
 						<span class="icon">
-							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M4 4C2.89543 4 2 4.89543 2 6V7H18V6C18 4.89543 17.1046 4 16 4H4Z" fill="#111827"/>
-								<path fill-rule="evenodd" clip-rule="evenodd" d="M18 9H2V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V9ZM4 13C4 12.4477 4.44772 12 5 12H6C6.55228 12 7 12.4477 7 13C7 13.5523 6.55228 14 6 14H5C4.44772 14 4 13.5523 4 13ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H10C10.5523 14 11 13.5523 11 13C11 12.4477 10.5523 12 10 12H9Z" fill="#111827"/>
-							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+                            </svg>
 						</span>
-                    <span class="label">Venues</span>
-                </router-link>
-            </a-menu-item>
-            <a-menu-item>
-                <router-link to="/admin/users">
+						<span class="label">Venues</span>
+					</span>
+                <a-menu-item-group>
+                    <a-menu-item>
+                        <router-link to="/admin/venues">
+                            <span class="label">All venues</span>
+                        </router-link>
+                    </a-menu-item>
+                    <a-menu-item>
+                        <router-link to="/admin/addVenue">
+                            <span class="label">Add venue</span>
+                        </router-link>
+                    </a-menu-item>
+                </a-menu-item-group>
+            </a-sub-menu>
+            <a-sub-menu key="Users" style="padding: 0;">
+					<span slot="title">
 						<span class="icon">
-							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M4 4C2.89543 4 2 4.89543 2 6V7H18V6C18 4.89543 17.1046 4 16 4H4Z" fill="#111827"/>
-								<path fill-rule="evenodd" clip-rule="evenodd" d="M18 9H2V14C2 15.1046 2.89543 16 4 16H16C17.1046 16 18 15.1046 18 14V9ZM4 13C4 12.4477 4.44772 12 5 12H6C6.55228 12 7 12.4477 7 13C7 13.5523 6.55228 14 6 14H5C4.44772 14 4 13.5523 4 13ZM9 12C8.44772 12 8 12.4477 8 13C8 13.5523 8.44772 14 9 14H10C10.5523 14 11 13.5523 11 13C11 12.4477 10.5523 12 10 12H9Z" fill="#111827"/>
-							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-square" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z"/>
+                            </svg>
 						</span>
-                    <span class="label">Users</span>
-                </router-link>
-            </a-menu-item>
+						<span class="label">Users</span>
+					</span>
+                <a-menu-item-group>
+                    <a-menu-item>
+                        <router-link to="/admin/users">
+                            <span class="label">All users</span>
+                        </router-link>
+                    </a-menu-item>
+                    <a-menu-item>
+                        <router-link to="/admin/user">
+                            <span class="label">Add user</span>
+                        </router-link>
+                    </a-menu-item>
+                </a-menu-item-group>
+            </a-sub-menu>
             <a-menu-item>
                 <router-link to="/admin/states">
 						<span class="icon">
@@ -122,11 +147,21 @@ export default ({
     },
     data() {
         return {
-            // sidebarCollapsedModel: this.sidebarCollapsed,
+            rootSubmenuKeys: ['home', 'Venues', 'Users'],
+            openKeys: this.$route.meta.sidebarMap
         }
     },
 
     methods: {
+        onOpenChange(openKeys) {
+            const latestOpenKey = openKeys.find(key => this.openKeys.indexOf(key) === -1)
+
+            if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+                this.openKeys = openKeys
+            } else {
+                this.openKeys = latestOpenKey ? [latestOpenKey] : []
+            }
+        }
     }
 })
 </script>
