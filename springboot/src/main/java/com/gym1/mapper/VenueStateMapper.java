@@ -1,9 +1,8 @@
 package com.gym1.mapper;
 
+
 import com.gym1.entity.VenueState;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.Date;
 import java.util.List;
 
 
@@ -27,6 +26,10 @@ public interface VenueStateMapper {
     int updateVenueStateFree(int id, int free);
 
     int updateVenueStateOpen(int id, int open);
+
+    List<VenueState> queryVenueStateByDate(String begin, String end);
+
+    List<VenueState> queryVenueStateByDate2(String begin, String end);
 
 
 }

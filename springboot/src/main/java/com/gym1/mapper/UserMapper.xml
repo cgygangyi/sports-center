@@ -6,13 +6,13 @@
 <mapper namespace="com.gym1.mapper.UserMapper">
     
     <select id="queryUserByUsername" parameterType="String" resultType="com.gym1.entity.User">
-        select *
-        from user
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image
+        from user u
         where username=#{username}
     </select>
 
     <select id="queryAllUser" resultType="com.gym1.entity.User">
-        select *
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image
         from user
     </select>
 

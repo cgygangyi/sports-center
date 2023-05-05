@@ -5,8 +5,6 @@ import com.gym1.entity.Venue;
 import com.gym1.service.VenueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import sun.misc.BASE64Encoder;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
