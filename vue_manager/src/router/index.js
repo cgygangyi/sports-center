@@ -17,7 +17,7 @@ let routes = [
     },
     {
         path: '/admin/home',
-        name: 'admin',
+        name: 'admin home',
         layout: 'admindashboard',
         component: () => import('../views/AdminHome.vue')
     },

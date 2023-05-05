@@ -265,7 +265,6 @@ export default ({
         getUserProfile().then(res => {
             console.log(res.data)
             this.userData = res.data.data
-            this.userData.image = this.userData.image.slice(22)
             this.$forceUpdate()
         })
     },

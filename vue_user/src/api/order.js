@@ -72,6 +72,17 @@ export function deleteOrder(id) {
     })
 }
 
+// delete item order by id
+export function deleteItemOrder(id) {
+    return request({
+        url: '/itemOrder/deleteOrder/' + id,
+        method: 'post',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
 // make item order
 export function makeItemOrder(id, data) {
     return request({
