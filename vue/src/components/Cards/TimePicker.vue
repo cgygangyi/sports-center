@@ -361,12 +361,14 @@ export default {
         return {
             list: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
             chosen: [], // 改成数组形式
-            book_date: ['', '1', '1', '1']
+            book_date: ['', '1', '1', '1'],
+            open: []
         }
     },
     mounted() {
         for (let i = 0; i < 40; i++) {
             const change = document.getElementById(i)
+            open[i] = this.data[i].open
             if (this.data[i].open === 0) {
                 change.classList.add('gray-cell')
             } else if (this.data[i].free === 0) {
@@ -415,28 +417,26 @@ export default {
         isClick(id) {
             if (!(this.data[id].open === 1 && this.data[id].free === 0)) {
                 console.log(id)
-                console.log(this.data[id].open, this.data[id].free)
-                if (this.data[id].open === 0) { // 如果该单元格未被预定，切换颜色并更新 booked 属性
-                    this.data[id].open = 1
-                    this.data[id].free = 1
+                if (open[id] === 0) { // 如果该单元格未被预定，切换颜色并更新 booked 属性
+                    open[id] = 1
                     const change = document.getElementById(id)
                     change.style.backgroundColor = 'white'
                     // change.classList.remove('gray-cell')
                     // change.classList.add('white-cell')
-                } else if(this.data[id].open === 1){ // 如果该单元格已被预定，切换颜色并更新 booked 属性
-                    this.data[id].open = 0
+                } else if (open[id] === 1) { // 如果该单元格已被预定，切换颜色并更新 booked 属性
+                    open[id] = 0
                     const change = document.getElementById(id)
                     // change.classList.remove('white-cell')
                     // change.classList.add('gray-cell')
                     change.style.backgroundColor = 'gray'
                 }
-                console.log(this.data[id].open, this.data[id].free)
                 const index = this.chosen.indexOf(id)
                 if (index > -1) { // 如果该单元格已经在 chosen 数组中，从 chosen 数组中移除
                     this.chosen.splice(index, 1)
                 } else { // 如果该单元格不在 chosen 数组中，将其添加到 chosen 数组中
                     this.chosen.push(id)
                 }
+                console.log(this.chosen)
                 sessionStorage.setItem('chosen', JSON.stringify(this.chosen)) // 存储所有选中的单元格 ID
             }
         }
