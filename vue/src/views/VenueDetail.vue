@@ -41,6 +41,7 @@
                                 :confirm-loading="confirmLoading"
                                 @ok="handleOk"
                                 @cancel="handleCancel"
+                                width="1000px"
                             >
                                 <p>{{ ModalText }}</p>
                                 <TimePicker :data="ModalData"></TimePicker>
