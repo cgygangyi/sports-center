@@ -14,6 +14,10 @@ public interface UserMapper {
 
     User queryUserByUsername(String username);
 
+    User queryUserByUsername2(String username);
+
+    User queryUserByUsername3(String username);
+
     int editUser(User user);
 
     User queryUserById(int id);

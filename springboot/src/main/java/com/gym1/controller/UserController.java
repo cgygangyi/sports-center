@@ -135,4 +135,54 @@ public class UserController {
         return userService.getAllUser();
     }
 
+
+    @PostMapping("/admin/login")
+    public Map<String, Object> adminLogin(@RequestBody Map map){
+        String username = (String) map.get("username");
+        String password = (String) map.get("password");
+        User res = userService.adminLoginService(username);
+        Map<String, Object> reMap = new HashMap<>();
+        if (res == null){
+            reMap.put("code", 7015);
+            reMap.put("message", "Username doesn't exist!");
+            return reMap;
+        }else if(res.getPassword().equals(password)){
+            String id = res.getId() + "";
+            String token = JwtUtil.getJwtToken(id, username, password);
+            reMap.put("code", 7016);
+            reMap.put("message", "Login successfully!");
+            reMap.put("data", token);
+            return reMap;
+        }else{
+            reMap.put("code", 7017);
+            reMap.put("message", "Password isn't correct!");
+            return reMap;
+        }
+    }
+
+
+    @PostMapping("/root/login")
+    public Map<String, Object> rootLogin(@RequestBody Map map) {
+        String username = (String) map.get("username");
+        String password = (String) map.get("password");
+        User res = userService.rootLoginService(username);
+        Map<String, Object> reMap = new HashMap<>();
+        if (res == null) {
+            reMap.put("code", 7018);
+            reMap.put("message", "Username doesn't exist!");
+            return reMap;
+        } else if (res.getPassword().equals(password)) {
+            String id = res.getId() + "";
+            String token = JwtUtil.getJwtToken(id, username, password);
+            reMap.put("code", 7019);
+            reMap.put("message", "Login successfully!");
+            reMap.put("data", token);
+            return reMap;
+        } else {
+            reMap.put("code", 7020);
+            reMap.put("message", "Password isn't correct!");
+            return reMap;
+        }
+    }
+
 }

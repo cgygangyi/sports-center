@@ -109,6 +109,13 @@ public class UserService {
         }
     }
 
+    public User adminLoginService(String username){
+        return userMapper.queryUserByUsername2(username);
+    }
+
+    public User rootLoginService(String username){
+        return userMapper.queryUserByUsername3(username);
+    }
 
 
 }
