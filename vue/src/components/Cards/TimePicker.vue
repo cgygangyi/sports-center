@@ -1,3 +1,4 @@
+<!--基础版，用户使用，一次只能选一个，最后在session里存一个数-->
 <!--<template>-->
 <!--    <div>-->
 <!--      <table class="calendar-table">-->
@@ -123,6 +124,8 @@
 <!--    }-->
 
 <!--</style>-->
+
+<!--用户进阶版，一次只能选多个，最后在session里存一个数组-->
 <!--<template>-->
 <!--    <div>-->
 <!--        <table class="calendar-table">-->
@@ -295,6 +298,7 @@
 <!--}-->
 <!--</style>-->
 <!-- Authors Table Card -->
+<!--管理员版本，点击在灰色和红色切换，最后在session里存数组-->
 <template>
     <div>
         <table class="calendar-table">
