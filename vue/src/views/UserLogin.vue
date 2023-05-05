@@ -70,7 +70,7 @@ export default ({
                 if (!err) {
                     userLogin(values).then(res => {
                         console.log(res.data)
-                        if (res.data.code === 4002) {
+                        if (res.data.code === 7002) {
                             localStorage.setItem('token', res.data.data)
                             this.$router.replace({ path: '/empty' })
                             this.$message.success(res.data.message)

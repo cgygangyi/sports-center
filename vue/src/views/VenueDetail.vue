@@ -65,9 +65,7 @@
                                 <p slot="content">
                                     {{ item.info }}
                                 </p>
-                                <a-tooltip slot="datetime">
-                                    <span>{{ item.commentTime }}</span>
-                                </a-tooltip>
+                                <span>{{ item.commentTime }}</span>
                             </a-comment>
                         </a-list-item>
                     </a-list>

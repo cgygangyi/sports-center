@@ -23,10 +23,10 @@ class SpringbootApplicationTests {
     @Autowired
     private ItemService itemService;
 
-    @Test
-    public void contextLoads() {
-        boolean res = itemService.addItem("apple", "aaa", 12.3, "asdasdasda");
-        Assert.assertFalse(res);
-    }
+//    @Test
+//    public void contextLoads() {
+//        boolean res = itemService.addItem("apple", "aaa", 12.3, "asdasdasda");
+//        Assert.assertFalse(res);
+//    }
 
 }

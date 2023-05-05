@@ -11,6 +11,7 @@
         left join venue_type t
         on v.type = t.id
         where v.valid = 1
+        order by v.id
     </select>
 
     <select id="queryVenueById" resultType="com.gym1.entity.Venue">

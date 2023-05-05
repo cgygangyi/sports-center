@@ -2,7 +2,6 @@ package com.gym1.entity;
 
 import com.gym1.util.DefaultProfile;
 
-import java.util.Objects;
 
 
 public class User {
@@ -48,7 +47,7 @@ public class User {
     }
 
     public User(int id, int age, int sex, String username, String password,
-                String phoneNumber, String name, String email, String image, int admin) {
+                String phoneNumber, String name, String email, String image) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -57,7 +56,6 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.age = age;
-        this.admin = admin;
         if (image == null){
             this.image = DefaultProfile.getDefaultProfile();
         }else{

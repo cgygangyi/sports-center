@@ -59,36 +59,34 @@
                     <template #title>
                         <a-row type="flex" align="middle">
                             <a-col :span="24" :md="12" class="col-info">
-                                <a-avatar :size="74" shape="square" src="images/face-1.jpg" />
+                                <a-avatar :size="74" shape="square" :src="userData.image" />
                                 <div class="avatar-info">
-                                    <h4 class="font-semibold m-0">{{username}}</h4>
+                                    <h4 class="font-semibold m-0">{{userData.username}}</h4>
                                 </div>
                             </a-col>
+                            <a-button type="primary" @click="jump">
+                                change avatar
+                            </a-button>
                         </a-row>
                     </template>
                 </a-card>
-
-                <!-- Basic Info card -->
                 <a-card :bordered="false" id="basic-info" class="header-solid mb-24">
                     <template #title>
                         <h5 class="mb-0 font-semibold">Basic Info</h5>
                     </template>
                     <a-col :span="24" :md="24" class="mb-24">
                         <CardProfileInformation
-                            :id="id"
-                            :username="username"
-                            :age="age"
-                            :email="email"
-                            :name="name"
-                            :password="password"
-                            :phoneNumber="phoneNumber"
-                            :sex="sex"
+                            :id="userData.id"
+                            :username="userData.username"
+                            :age="userData.age"
+                            :email="userData.email"
+                            :name="userData.name"
+                            :password="userData.password"
+                            :phoneNumber="userData.phoneNumber"
+                            :sex="userData.sex"
                         ></CardProfileInformation>
                     </a-col>
                 </a-card>
-                <!-- / Basic Info card -->
-
-                <!-- Change Password card -->
                 <a-card :bordered="false" id="change-password" class="header-solid mb-24">
                     <template #title>
                         <h5 class="mb-0 font-semibold">Update profile</h5>
@@ -183,9 +181,6 @@
                         </a-row>
                     </a-form>
                 </a-card>
-                <!-- / Change Password card -->
-
-                <!-- Two-factor authentication card -->
                 <a-card :bordered="false" id="2fa" class="header-solid mb-24">
                     <template #title>
                         <h5 class="mb-0 font-semibold">Two-factor authentication</h5>
@@ -216,9 +211,6 @@
                         <hr class="gradient-line">
                     </a-form>
                 </a-card>
-                <!-- / Two-factor authentication card -->
-
-                <!-- Delete Account card -->
                 <a-card :bordered="false" id="delete-account" class="header-solid mb-24">
                     <template #title>
                         <h5 class="font-semibold">Delete Account</h5>
@@ -248,8 +240,6 @@
                         </a-row>
                     </a-form>
                 </a-card>
-                <!-- / Delete Account card -->
-
             </a-col>
 
         </a-row>
@@ -268,36 +258,31 @@ export default ({
         return {
             form: this.$form.createForm(this),
             profileHeaderBtns: 'overview',
-            id: 1,
-            username: '',
-            age: 0,
-            email: '',
-            name: '',
-            password: 0,
-            phoneNumber: '',
-            sex: '',
-            orders: []
+            userData: []
         }
     },
     beforeMount() {
         getUserProfile().then(res => {
             console.log(res.data)
-            this.id = res.data.data.id
-            this.username = res.data.data.username
-            this.age = res.data.data.age
-            this.email = res.data.data.email
-            this.name = res.data.data.name
-            this.phoneNumber = res.data.data.phoneNumber
-            if (res.data.data.sex === 1) {
-                this.sex = 'Male'
-            } else {
-                this.sex = 'Female'
-            }
-            // refresh
+            this.userData = res.data.data
+            this.userData.image = this.userData.image.slice(22)
             this.$forceUpdate()
         })
     },
     methods: {
+        jump() {
+            this.$router.push('/avatar')
+        },
+        handleChange(info) {
+            if (info.file.status !== 'uploading') {
+                console.log(info.file, info.fileList)
+            }
+            if (info.file.status === 'done') {
+                this.$message.success(`${info.file.name} file uploaded successfully`)
+            } else if (info.file.status === 'error') {
+                this.$message.error(`${info.file.name} file upload failed.`)
+            }
+        },
         handleSubmit(e) {
             e.preventDefault()
             this.form.validateFields((err, values) => {
@@ -305,17 +290,16 @@ export default ({
                     console.log('Received values of form: ', values)
                     updateUserProfile(values).then(res => {
                         console.log(res.data)
+                        getUserProfile().then(res => {
+                            console.log(res.data)
+                            this.userData = res.data.data
+                            this.$forceUpdate()
+                        })
+                        this.form.resetFields()
                         this.$message.success('Profile updated successfully.')
                     })
                 }
             })
-        },
-        fake() {
-            localStorage.removeItem('token')
-            this.$router.push('/home')
-            // refresh the page
-            window.location.reload()
-            this.$message.success('Password updated successfully. Please login again.')
         }
     }
 })

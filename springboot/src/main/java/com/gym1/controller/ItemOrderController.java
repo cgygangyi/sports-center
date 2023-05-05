@@ -25,6 +25,7 @@ public class ItemOrderController {
     public Map<String, Object> makeOrder(HttpServletRequest request, @PathVariable int itemId,
                                          @RequestBody Map map){
         Map<String, Object> reMap = new HashMap<>();
+        System.out.println(map);
         int res = itemOrderService.makeOrder(itemId, JwtUtil.getMemberIdByJwtToken(request), map);
         if (res == -1){
             reMap.put("code", 4001);

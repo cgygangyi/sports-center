@@ -3,13 +3,12 @@ package com.gym1.service;
 
 import com.gym1.entity.User;
 import com.gym1.mapper.UserMapper;
-import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 @Service
 public class UserService {
@@ -17,42 +16,75 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public int registerService(Map<String, String> map){
-//        get parameters
-        String username = map.get("username");
+
+    public int registerService(Map map){
+        String username = map.get("username").toString();
+        String password = map.get("password").toString();
+        String phoneNumber = map.get("phoneNumber").toString();
+        String name = map.get("name").toString();
+        String email = map.get("email").toString();
+        User user = new User(username, password, phoneNumber, name, email);
+        String sex = map.get("sex").toString();
+        String age = map.get("age").toString();
+        if (age != null){
+            user.setAge(Integer.parseInt(age));
+        }else{
+            user.setAge(-1);
+        }
+        if (sex.equals("None")){
+            user.setSex(-1);
+        }else if (sex.equals("Female")){
+            user.setSex(0);
+        } else if (sex.equals("Male")) {
+            user.setSex(1);
+        }else{
+            user.setSex(-1);
+        }
+        if(userMapper.queryUserByUsername(username) != null){
+            return -2;
+        }else{
+            int res = 0;
+            try{
+                res = userMapper.addUser(user);
+                return res;
+            }catch (Exception e){
+                return -1;
+            }
+        }
+    }
+
+
+    public Map<String, User> updateUserInfo(int id, Map<String, String> map){
         String password = map.get("password");
         String phoneNumber = map.get("phoneNumber");
         String name = map.get("name");
-        String email = map.get("email");
-        User user = new User(username, password, phoneNumber, name, email);
+        User user = new User(id, password, phoneNumber, name);
         String sex = map.get("sex");
         String age = map.get("age");
-//        judge if the potential parameters are entered
-        if(age != null || !sex.equals("None")){
-            if(age == null){
-                int temp = 1;
-                if(sex.equals("Female")){
-                    temp = 0;
-                }
-                user.setSex(temp);
-                user.setAge(-1);
-            } else if (sex.equals("None")) {
-                user.setAge(Integer.parseInt(age));
-            }else{
-                int temp = 1;
-                if(sex.equals("Female")){
-                    temp = 0;
-                }
-                user.setSex(temp);
-                user.setAge(Integer.parseInt(age));
-            }
-        }
-//        judge if the username is existed
-        if(userMapper.queryUserByUsername(username) != null){
-            return -1;
+        if (age != null){
+            user.setAge(Integer.parseInt(age));
         }else{
-            return userMapper.addUser(user);
+            user.setAge(-1);
         }
+        if (sex.equals("None")){
+            user.setSex(-1);
+        }else if (sex.equals("Female")){
+            user.setSex(0);
+        } else if (sex.equals("Male")) {
+            user.setSex(1);
+        }else{
+            user.setSex(-1);
+        }
+        int res = 0;
+        try{
+            res = userMapper.editUser(user);
+        }catch (Exception e){
+            res = -1;
+        }
+        Map<String, User> reMap = new HashMap<>();
+        reMap.put("user", user);
+        reMap.put("res", new User(res));
+        return reMap;
     }
 
     public User loginService(String username){
@@ -67,44 +99,16 @@ public class UserService {
         return userMapper.queryUserById(id);
     }
 
-    public Map<String, User> updateUserInfo(int id, Map<String, String> map){
-        String password = map.get("password");
-        String phoneNumber = map.get("phoneNumber");
-        String name = map.get("name");
-        User user = new User(id, password, phoneNumber, name);
-        String sex = map.get("sex");
-        String age = map.get("age");
-//        judge if the potential parameters are entered
-        if(age != null || !sex.equals("None")){
-            if(age == null){
-                int temp = 1;
-                if(sex.equals("Female")){
-                    temp = 0;
-                }
-                user.setSex(temp);
-                user.setAge(-1);
-            } else if (sex.equals("None")) {
-                user.setAge(Integer.parseInt(age));
-            }else{
-                int temp = 1;
-                if(sex.equals("Female")){
-                    temp = 0;
-                }
-                user.setSex(temp);
-                user.setAge(Integer.parseInt(age));
-            }
-        }
-        Map<String, User> reMap = new HashMap<>();
+    public int updateProfile(int id, String image){
         int res = 0;
         try{
-            res = userMapper.editUser(user);
+            res = userMapper.updateUserImage(id, image);
+            return res;
         }catch (Exception e){
-            res = -1;
+            return -1;
         }
-        reMap.put("user", user);
-        reMap.put("res", new User(res));
-        return reMap;
     }
+
 
 
 }
