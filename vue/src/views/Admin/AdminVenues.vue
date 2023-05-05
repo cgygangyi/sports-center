@@ -1,68 +1,125 @@
 <template>
     <div>
-        <a-row :gutter="24" type="flex">
-            <a-col :span="24" class="mb-24">
-                <AdminTable
-                    :data="this.venueData"
-                    :columns="venueColumns"
-                    title="Venues table"
-                ></AdminTable>
-            </a-col>
-        </a-row>
+        <a-card :bordered="false" class="header-solid mb-24" :bodyStyle="{padding: 0, paddingTop: '16px'}">
+            <template #title>
+                <h5 class="font-semibold">Venues</h5>
+            </template>
+            <div class="mx-25">
+                <a-row type="flex" :gutter="24">
+                    <a-col :span="24" :md="8">
+                        <a-select v-model="pageSize2" @change="onPageSize2Change" style="width: 70px">
+                            <a-select-option value="5">5</a-select-option>
+                            <a-select-option value="10">10</a-select-option>
+                            <a-select-option value="15">15</a-select-option>
+                            <a-select-option value="20">20</a-select-option>
+                            <a-select-option value="25">25</a-select-option>
+                        </a-select>
+                        <label for="" class="ml-10">entries per page</label>
+                    </a-col>
+                    <a-col :span="24" :md="8" class="text-right">
+                        <a-input-search placeholder="input search text" style="max-width: 200px;" v-model="query" @change="onSearchChange" />
+                    </a-col>
+                    <a-col :span="24" :md="8" class="text-right">
+                        <button @click="jump">add a new venue</button>
+                    </a-col>
+                </a-row>
+            </div>
+
+            <a-table class="mt-20" :columns="columns" :data-source="data" :pagination="{pageSize: pageSize2,}" />
+        </a-card>
     </div>
+
 </template>
 
 <script>
-
-import AdminTable from '../../components/Cards/AdminTable.vue'
-
 import { getAllVenues } from '@/api/venue'
 
-const venueColumns = [
+const columns = [
     {
         title: 'ID',
-        dataIndex: 'id'
+        dataIndex: 'id',
+        sorter: (a, b) => a.id - b.id,
+        sortDirections: ['descend', 'ascend']
     },
     {
         title: 'Name',
-        dataIndex: 'name'
+        dataIndex: 'name',
+        sorter: (a, b) => a.name.length - b.name.length,
+        sortDirections: ['descend', 'ascend']
     },
     {
-        title: 'ADDRESS',
+        title: 'Type',
+        dataIndex: 'typeName'
+    },
+    {
+        title: 'Address',
         dataIndex: 'address'
     },
     {
         title: 'Price',
-        dataIndex: 'price'
-    },
-    {
-        title: '',
-        scopedSlots: { customRender: 'editBtn' },
-        width: 50
+        dataIndex: 'price',
+        sorter: (a, b) => a.price - b.price,
+        sortDirections: ['descend', 'ascend']
     }
 ]
 
-export default ({
+export default {
     components: {
-        AdminTable
     },
     data() {
         return {
-            venueData: [],
+            columns,
+            data: [],
+            pageSize: 10,
+            pageSize2: 10,
+            query: ''
 
-            venueColumns: venueColumns
         }
     },
-
-    beforeCreate() {
+    beforeCreate () {
         getAllVenues().then((response) => {
-            this.venueData = response.data
-            console.log(this.venueData)
+            this.data = response.data.data
+            console.log(this.data)
         })
+    },
+    methods: {
+        jump() {
+            this.$router.push('/admin/venues/add')
+        },
+        // Event handler for first table's size change.
+        onPageSizeChange() {
+            this.pageSize = parseInt(this.pageSize)
+        },
+
+        // Event handler for second table's size change.
+        onPageSize2Change() {
+            this.pageSize2 = parseInt(this.pageSize2)
+        },
+
+        // Event handler for second table's search.
+        onSearchChange() {
+            if (this.query.length > 0) {
+                this.data = this.data.filter((row) => {
+                    for (const key in row) {
+                        if (row[key]
+                            .toString()
+                            .toLowerCase()
+                            .includes(this.query.trim().toLowerCase())) { return true }
+                    }
+                    return false
+                })
+            } else {
+                getAllVenues().then((response) => {
+                    this.data = response.data.data
+                    console.log(this.data)
+                })
+            }
+        }
+
     }
-})
+}
 
 </script>
 
-<style>
+<style lang="scss">
 </style>

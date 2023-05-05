@@ -105,6 +105,12 @@ let routes = [
         component: () => import('../views/Admin/AdminVenues.vue')
     },
     {
+        path: '/admin/venues/add',
+        name: 'Venues management',
+        layout: 'admindashboard',
+        component: () => import('../views/Admin/AdminVenuesAdd.vue')
+    },
+    {
         path: '/admin/users',
         name: 'User management',
         layout: 'admindashboard',
@@ -114,7 +120,7 @@ let routes = [
         path: '/admin/user',
         name: 'User management',
         layout: 'admindashboard',
-        component: () => import('../views/Admin/AdminUser.vue')
+        component: () => import('../views/Admin/AdminUserAdd.vue')
     },
     {
         path: '/admin/states',

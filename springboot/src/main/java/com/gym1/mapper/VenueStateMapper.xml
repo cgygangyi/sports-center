@@ -45,5 +45,18 @@
         where id = #{id}
     </update>
 
+    <select id="queryVenueStateByDate" resultType="com.gym1.entity.VenueState">
+        select *
+        from venue_state
+        where begin between #{begin} and #{end}
+        order by begin
+    </select>
+
+    <select id="queryVenueStateByDate2" resultType="com.gym1.entity.VenueState">
+        select s.venueId, s.begin, s.end
+        from venue_state s
+        where begin between #{begin} and #{end}
+        order by begin
+    </select>
 
 </mapper>
