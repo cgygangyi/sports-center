@@ -11,4 +11,9 @@
         where t.name = #{name}
     </select>
 
+    <select id="queryAllType" resultType="String">
+        select t.name
+        from venue_type t
+    </select>
+
 </mapper>

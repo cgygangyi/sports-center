@@ -59,4 +59,9 @@
         order by begin
     </select>
 
+    <insert id="addVenueState" parameterType="com.gym1.entity.VenueState">
+        insert into venue_state (venueId, begin, end, free, open)
+        values (#{venueId}, #{begin}, #{end}, #{free}, #{open})
+    </insert>
+
 </mapper>

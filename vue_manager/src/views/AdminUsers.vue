@@ -1,0 +1,80 @@
+<template>
+    <div>
+        <a-row :gutter="24" type="flex">
+            <a-col :span="24" class="mb-24">
+                <AdminTable
+                    :data="this.userData"
+                    :columns="userColumns"
+                    title="Users Table"
+                ></AdminTable>
+            </a-col>
+        </a-row>
+    </div>
+</template>
+
+<script>
+
+import AdminTable from '@/components/Cards/AdminTable.vue'
+
+import { getAllUsers } from '@/api/user'
+
+const userColumns = [
+    {
+        title: 'ID',
+        dataIndex: 'id'
+    },
+    {
+        title: 'Username',
+        dataIndex: 'username'
+    },
+    {
+        title: 'Email',
+        dataIndex: 'email'
+    },
+    {
+        title: 'Name',
+        dataIndex: 'name'
+    },
+    {
+        title: 'Phone Number',
+        dataIndex: 'phoneNumber'
+    },
+    {
+        title: 'Age',
+        dataIndex: 'age'
+    },
+    {
+        title: 'Sex',
+        dataIndex: 'sex'
+    },
+    {
+        title: '',
+        scopedSlots: { customRender: 'editBtn' },
+        width: 50
+    }
+]
+
+export default ({
+    components: {
+        AdminTable
+    },
+    data() {
+        return {
+            userData: [],
+
+            userColumns: userColumns
+        }
+    },
+
+    beforeCreate() {
+        getAllUsers().then((response) => {
+            this.userData = response.data
+            console.log(this.userData)
+        })
+    }
+})
+
+</script>
+
+<style>
+</style>

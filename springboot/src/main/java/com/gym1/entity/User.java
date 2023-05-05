@@ -20,6 +20,13 @@ public class User {
         this.id = id;
     }
 
+    public User(int id, String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.id = id;
+    }
+
+
     public User(String username, String password, String phoneNumber, String name, String email) {
         this.username = username;
         this.password = password;
@@ -112,7 +119,7 @@ public class User {
         this.email = email;
     }
     public String getImage() {
-        return "data:image/png;base64," + image;
+        return image;
     }
     public void setImage(String image) {
         this.image = image;

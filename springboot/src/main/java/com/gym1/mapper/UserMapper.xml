@@ -39,6 +39,18 @@
         where id = #{id}
     </update>
 
+    <select id="queryUserByUsername2" parameterType="String" resultType="com.gym1.entity.User">
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image
+        from user u
+        where username=#{username} and admin = 1
+    </select>
+
+    <select id="queryUserByUsername3" parameterType="String" resultType="com.gym1.entity.User">
+        select r.id, r.username, r.password
+        from root r
+        where username=#{username}
+    </select>
+
 </mapper>
 
 
