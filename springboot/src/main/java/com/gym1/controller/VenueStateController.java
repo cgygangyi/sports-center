@@ -79,7 +79,7 @@ public class VenueStateController {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, num);
         Date date = calendar.getTime();
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
         String res = formatter.format(date).substring(0,11);
         reMap.put("code", 9008);
         reMap.put("msg", "Success!");
