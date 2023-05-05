@@ -73,21 +73,19 @@ public class VenueStateService {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, num);
         Date date = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, num+1);
         Date date1 = calendar.getTime();
-
-        Date begin = new Date(date.getYear(), date.getMonth(), date.getDay(), 0, 0, 0);
-        Date end = new Date(date1.getYear(), date1.getMonth(), date1.getDay(), 0, 0, 0);
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 
-        List<VenueState> venueStates = venueStateMapper.
-                queryVenueStateByDate(formatter.format(begin).substring(0,11) + "00:00:00",
-                        formatter.format(end).substring(0,11) + "00:00:00");
-        List<VenueState> venueStates2 = venueStateMapper.
-                queryVenueStateByDate2(formatter.format(begin).substring(0,11) + "00:00:00",
-                        formatter.format(end).substring(0,11) + "00:00:00");
+        String begin = formatter.format(date).substring(0,11) + "00:00:00";
+        String end = formatter.format(date1).substring(0,11) + "00:00:00";
+
+        List<VenueState> venueStates = venueStateMapper.queryVenueStateByDate(begin, end);
+        List<VenueState> venueStates2 = venueStateMapper.queryVenueStateByDate2(begin, end);
         List<Venue> venues = venueMapper.queryAllVenue();
         List<VenueState> res = new ArrayList<VenueState>();
+
 
         Calendar calendar2 = Calendar.getInstance();
         Date now = calendar2.getTime();
@@ -118,30 +116,41 @@ public class VenueStateService {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, num);
         Date date = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, num+1);
         Date date1 = calendar.getTime();
         String [] number = list.split(" ");
-
-        Date begin = new Date(date.getYear(), date.getMonth(), date.getDay(), 0, 0, 0);
-        Date end = new Date(date1.getYear(), date1.getMonth(), date1.getDay(), 0, 0, 0);
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 
-        List<VenueState> venueStates = venueStateMapper.
-                queryVenueStateByDate(formatter.format(begin).substring(0,11) + "00:00:00",
-                        formatter.format(end).substring(0,11) + "00:00:00");
-        List<VenueState> venueStates2 = venueStateMapper.
-                queryVenueStateByDate2(formatter.format(begin).substring(0,11) + "00:00:00",
-                        formatter.format(end).substring(0,11) + "00:00:00");
+        String begin = formatter.format(date).substring(0,11) + "00:00:00";
+        String end = formatter.format(date1).substring(0,11) + "00:00:00";
+
+        List<VenueState> venueStates = venueStateMapper.queryVenueStateByDate(begin, end);
+        List<VenueState> venueStates2 = venueStateMapper.queryVenueStateByDate2(begin, end);
         List<Venue> venues = venueMapper.queryAllVenue();
 
         Date date2;
         Date date3;
         int res = 1;
+        int a = 0;
+        int b = 0;
         for (String string : number){
             int position = Integer.parseInt(string);
-            int venueId = venues.get((position-position%10)/10).getId();
-            date2 = new Date(date.getYear(), date.getMonth(), date.getDay(), (position%10)+8, 0, 0);
-            date3 = new Date(date.getYear(), date.getMonth(), date.getDay(), (position%10)+9, 0, 0);
+            a = 0;
+            if (position%10 == 0){
+                a = position/10-1;
+            }else{
+                a = (position - position % 10) / 10;
+            }
+            int venueId = venues.get(a).getId();
+            b = 0;
+            if (position%10 == 0){
+                b = 10;
+            }else{
+                b = (position%10);
+            }
+            date2 = new Date(date.getYear(), date.getMonth(), date.getDay(), b+8, 0, 0);
+            date3 = new Date(date.getYear(), date.getMonth(), date.getDay(), b+9, 0, 0);
             if (venueStates2.contains(new VenueState(venueId, date2, date3))){
                 int temp = venueStates2.indexOf(new VenueState(venueId, date2, date3));
                 int venueStateId = venueStates.get(temp).getId();
@@ -172,30 +181,41 @@ public class VenueStateService {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, num);
         Date date = calendar.getTime();
-        calendar.add(Calendar.DATE, 1);
+        calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, num+1);
         Date date1 = calendar.getTime();
         String [] number = list.split(" ");
-
-        Date begin = new Date(date.getYear(), date.getMonth(), date.getDay(), 0, 0, 0);
-        Date end = new Date(date1.getYear(), date1.getMonth(), date1.getDay(), 0, 0, 0);
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 
-        List<VenueState> venueStates = venueStateMapper.
-                queryVenueStateByDate(formatter.format(begin).substring(0,11) + "00:00:00",
-                        formatter.format(end).substring(0,11) + "00:00:00");
-        List<VenueState> venueStates2 = venueStateMapper.
-                queryVenueStateByDate2(formatter.format(begin).substring(0,11) + "00:00:00",
-                        formatter.format(end).substring(0,11) + "00:00:00");
+        String begin = formatter.format(date).substring(0,11) + "00:00:00";
+        String end = formatter.format(date1).substring(0,11) + "00:00:00";
+
+        List<VenueState> venueStates = venueStateMapper.queryVenueStateByDate(begin, end);
+        List<VenueState> venueStates2 = venueStateMapper.queryVenueStateByDate2(begin, end);
         List<Venue> venues = venueMapper.queryAllVenue();
 
         Date date2;
         Date date3;
         int res = 1;
+        int a = 0;
+        int b = 0;
         for (String string : number) {
             int position = Integer.parseInt(string);
-            int venueId = venues.get((position - position % 10) / 10).getId();
-            date2 = new Date(date.getYear(), date.getMonth(), date.getDay(), (position%10)+8, 0, 0);
-            date3 = new Date(date.getYear(), date.getMonth(), date.getDay(), (position%10)+9, 0, 0);
+            a = 0;
+            if (position%10 == 0){
+                a = position/10-1;
+            }else{
+                a = (position - position % 10) / 10;
+            }
+            int venueId = venues.get(a).getId();
+            b = 0;
+            if (position%10 == 0){
+                b = 10;
+            }else{
+                b = (position%10);
+            }
+            date2 = new Date(date.getYear(), date.getMonth(), date.getDay(), b+8, 0, 0);
+            date3 = new Date(date.getYear(), date.getMonth(), date.getDay(), b+9, 0, 0);
             int temp = venueStates2.indexOf(new VenueState(venueId, date2, date3));
             int venueStateId = venueStates.get(temp).getId();
             try{

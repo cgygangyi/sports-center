@@ -29,7 +29,7 @@ public class VenueStateController {
     }
 
 
-    @GetMapping("/admin/openVenue/{num}")
+    @PostMapping("/admin/openVenue/{num}")
     public Map<String, Object> openVenue(@PathVariable int num, @RequestBody Map map){
         Map<String, Object> reMap = new HashMap<>();
         String list = map.get("list").toString();
@@ -51,7 +51,7 @@ public class VenueStateController {
     }
 
 
-    @GetMapping("/admin/closeVenue/{num}")
+    @PostMapping("/admin/closeVenue/{num}")
     public Map<String, Object> closeVenue(@PathVariable int num, @RequestBody Map map){
         Map<String, Object> reMap = new HashMap<>();
         String list = map.get("list").toString();
