@@ -119,7 +119,7 @@ public class User {
         this.email = email;
     }
     public String getImage() {
-        return "data:image/png;base64," + image;
+        return image;
     }
     public void setImage(String image) {
         this.image = image;
