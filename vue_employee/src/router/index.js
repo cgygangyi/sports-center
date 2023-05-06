@@ -28,6 +28,24 @@ let routes = [
         component: () => import('../views/AdminVenueDetail.vue')
     },
     {
+        path: '/admin/venuesComment',
+        name: 'Venues comments management',
+        layout: 'admindashboard',
+        component: () => import('../views/AdminVenueComment.vue')
+    },
+    {
+        path: '/admin/venuesOrder',
+        name: 'Venues order management',
+        layout: 'admindashboard',
+        component: () => import('../views/AdminVenueOrder.vue')
+    },
+    {
+        path: '/admin/venues/order/detail',
+        name: 'Venues order management',
+        layout: 'admindashboard',
+        component: () => import('../views/AdminVenueInvoice.vue')
+    },
+    {
         path: '/admin/items',
         name: 'Equipments management',
         layout: 'admindashboard',
@@ -38,6 +56,24 @@ let routes = [
         name: 'Equipments management',
         layout: 'admindashboard',
         component: () => import('../views/AdminItemDetail.vue')
+    },
+    {
+        path: '/admin/itemsComment',
+        name: 'Equipments comments management',
+        layout: 'admindashboard',
+        component: () => import('../views/AdminItemComment.vue')
+    },
+    {
+        path: '/admin/itemsOrder',
+        name: 'Equipments orders management',
+        layout: 'admindashboard',
+        component: () => import('../views/AdminItemOrder.vue')
+    },
+    {
+        path: '/admin/items/order/detail',
+        name: 'Equipments order management',
+        layout: 'admindashboard',
+        component: () => import('../views/AdminItemInvoice.vue')
     },
     {
         path: '/admin/users',

@@ -102,4 +102,12 @@ public class OrderService {
         }
     }
 
+    public List<Order> getAll(){
+        return orderMapper.queryAllOrder();
+    }
+
+    public Order getReceipt(int id){
+        return orderMapper.queryOrderById(id);
+    }
+
 }

@@ -45,3 +45,14 @@ export function deleteVenueComment(id) {
         }
     })
 }
+
+// admin get all comment
+export function getAllVenueComment() {
+    return request({
+        url: '/comment/admin/getAll',
+        method: 'get',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}

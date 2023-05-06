@@ -21,4 +21,8 @@ public interface ItemOrderMapper {
 
     int deleteItemOrder(int id);
 
+    List<ItemOrder> queryAllItemOrder();
+
+    ItemOrder queryItemOrderByItemOrderId(int id);
+
 }

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 
-
 @RestController
 @CrossOrigin
 @RequestMapping("/comment")
@@ -101,6 +100,24 @@ public class CommentController {
         }
         return reMap;
     }
+
+
+    @GetMapping("/admin/getAll")
+    public Map<String, Object> getAll(){
+        Map<String, Object> reMap = new HashMap<>();
+        List<Comment> res = commentService.getAll();
+        if (res.size() != 0){
+            reMap.put("code", 1011);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 1012);
+            reMap.put("msg", "There are no comments!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
 
 }
 

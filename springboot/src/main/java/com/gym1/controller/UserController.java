@@ -130,12 +130,6 @@ public class UserController {
     }
 
 
-    @GetMapping("/getAll")
-    public List<User> getAll(){
-        return userService.getAllUser();
-    }
-
-
     @PostMapping("/admin/login")
     public Map<String, Object> adminLogin(@RequestBody Map map){
         String username = (String) map.get("username");
@@ -184,5 +178,45 @@ public class UserController {
             return reMap;
         }
     }
+
+
+    @GetMapping("/admin/getAll")
+    public Map<String, Object> getAll(){
+        Map<String, Object> reMap = new HashMap<>();
+        List<User> res = userService.getAllUser();
+        if (res.size() != 0){
+            reMap.put("code", 7021);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 7022);
+            reMap.put("msg", "There are no comments!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @PostMapping("/root/manageAdmin/{id}")
+    public Map<String, Object> manageAdmin(@PathVariable int id, @RequestBody Map map){
+        Map<String, Object> reMap = new HashMap<>();
+        int num = Integer.parseInt(map.get("num").toString());
+        int res = userService.manageAdmin(id, num);
+        if (res == -1){
+            reMap.put("code", 7023);
+            reMap.put("msg", "Error!");
+            reMap.put("data", res);
+        }else if(res == 0){
+            reMap.put("code", 7024);
+            reMap.put("msg", "Failure!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 7025);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
 
 }

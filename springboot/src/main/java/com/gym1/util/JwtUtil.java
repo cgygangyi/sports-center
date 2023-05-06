@@ -24,11 +24,9 @@ public class JwtUtil {
                 .setSubject("sportsCenter")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE))
-                // user information
                 .claim("id", id)
                 .claim("username", username)
                 .claim("password", password)
-                // sign method
                 .signWith(SignatureAlgorithm.HS256, APP_SECRET)
                 .compact();
     }
@@ -56,6 +54,7 @@ public class JwtUtil {
         return true;
     }
 
+
     public static String getMemberIdByJwtToken(HttpServletRequest request) {
         String jwtToken = request.getHeader("token");
         if(StringUtils.isEmpty(jwtToken)) return "";
@@ -82,4 +81,5 @@ public class JwtUtil {
         Claims claims = claimsJws.getBody();
         return (String)claims.get("password");
     }
+
 }

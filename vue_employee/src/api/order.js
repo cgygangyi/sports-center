@@ -71,3 +71,47 @@ export function deleteOrder(id) {
         }
     })
 }
+
+// get all item orders
+export function getAllItemOrders() {
+    return request({
+        url: '/itemOrder/admin/getAll',
+        method: 'get',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// get all venue orders
+export function getAllVenueOrders() {
+    return request({
+        url: '/order/admin/getAll',
+        method: 'get',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// get venue order's receipt
+export function getVenueOrderReceipt(id) {
+    return request({
+        url: '/order/getReceipt/' + id,
+        method: 'get',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// get item order's receipt
+export function getItemOrderReceipt(id) {
+    return request({
+        url: '/itemOrder/getReceipt/' + id,
+        method: 'get',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}

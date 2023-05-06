@@ -33,7 +33,11 @@
 
 <script>
 import { getAllItems } from '@/api/item'
-
+const stringSorter = function(a, b, attr) {
+    if (a[attr] < b[attr]) { return -1 }
+    if (a[attr] > b[attr]) { return 1 }
+    return 0
+}
 const columns = [
     {
         title: 'ID',
@@ -44,7 +48,7 @@ const columns = [
     {
         title: 'Name',
         dataIndex: 'itemName',
-        sorter: (a, b) => a.name.length - b.name.length,
+        sorter: (a, b) => stringSorter(a, b, 'itemName'),
         sortDirections: ['descend', 'ascend']
     },
     {

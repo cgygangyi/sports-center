@@ -43,7 +43,8 @@
 </template>
 
 <script>
-import { userLogin } from '@/api/user'
+import { adminLogin } from '@/api/user'
+
 export default ({
     data() {
         return {
@@ -56,9 +57,10 @@ export default ({
             e.preventDefault()
             this.form.validateFields((err, values) => {
                 if (!err) {
-                    userLogin(values).then(res => {
+                    console.log(values)
+                    adminLogin(values).then(res => {
                         console.log(res.data)
-                        if (res.data.code === 7002) {
+                        if (res.data.code === 7016) {
                             localStorage.setItem('token', res.data.data)
                             this.$router.go(0)
                             // this.$notification.success({

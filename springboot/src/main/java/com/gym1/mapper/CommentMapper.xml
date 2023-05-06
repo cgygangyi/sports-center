@@ -31,4 +31,11 @@
         where id = #{id}
     </delete>
 
+    <select id="queryAllComment" resultType="com.gym1.entity.Comment">
+        select c.id, c.commentTime, c.info, u.username, u.image, v.name, v.image venueImage
+        from comment c left join user u on c.userId = u.id
+        left join venue v
+        on v.id = c.venueId
+    </select>
+
 </mapper>

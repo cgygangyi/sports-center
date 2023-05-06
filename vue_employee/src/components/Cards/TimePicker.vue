@@ -8,7 +8,7 @@
             </tr>
             </thead>
             <tr v-for="(index, i) in vueneList" :key="i">
-                <th :colspan="4">vuene</th>
+                <th :colspan="4">{{ headers[i] }}</th>
                 <th v-for="j in timeList" :key="j"
                     :colspan="4"
                     :id="index*10+j"
@@ -18,15 +18,30 @@
                 </th>
             </tr>
         </table>
+        <h5>After selecting time slots, click the button to open or close the time slots you choose</h5>
+        <a-button @click="setOpen">set open</a-button>
+        <a-button @click="setClose">set close</a-button>
+
     </div>
 </template>
 
 <script>
+import { setOpen, setClose } from '@/api/venueState'
+
 export default {
     components: {
     },
     props: {
         data: {
+            type: Array,
+            // eslint-disable-next-line vue/require-valid-default-prop
+            default: []
+        },
+        day: {
+            type: Number,
+            default: 0
+        },
+        headers: {
             type: Array,
             // eslint-disable-next-line vue/require-valid-default-prop
             default: []
@@ -43,13 +58,15 @@ export default {
             open: []
         }
     },
-    mounted() {
+    beforeMount () {
         this.venueLength = this.data.length / 10
         console.log(this.venueLength)
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < this.venueLength; i++) {
             this.vueneList.push(i)
-            console.log(this.vueneList)
         }
+        console.log(this.vueneList)
+    },
+    mounted() {
         for (let i = 0; i < this.timeLength; i++) {
             const change = document.getElementById(i)
             this.open[i] = 0
@@ -85,6 +102,42 @@ export default {
         console.log(this.data)
     },
     methods: {
+        setOpen() {
+            // const map = "{list='" + sessionStorage.getItem('chosen') + "'}"
+            let map = this.chosen.toString()
+            for (let i = 0; i < map.length; i++) {
+                if (map[i] === ',') {
+                    map = map.replace(',', ' ')
+                }
+            }
+            map = map.replace('[', '')
+            map = map.replace(']', '')
+            console.log(this.chosen)
+            setOpen(this.day, map).then((response) => {
+                console.log(response)
+                this.$message.success('Update Successfully!')
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
+        setClose() {
+            // const map = "{list='" + sessionStorage.getItem('chosen') + "'}"
+            let map = this.chosen.toString()
+            for (let i = 0; i < map.length; i++) {
+                if (map[i] === ',') {
+                    map = map.replace(',', ' ')
+                }
+            }
+            map = map.replace('[', '')
+            map = map.replace(']', '')
+            console.log(this.chosen)
+            setClose(this.day, map).then((response) => {
+                console.log(response)
+                this.$message.success('Update Successfully!')
+            }).catch((error) => {
+                console.log(error)
+            })
+        },
         isClick(id) {
             if (!(this.data[id].open === 1 && this.data[id].free === 0)) {
                 console.log(id)
@@ -112,13 +165,13 @@ export default {
                     // change.style.backgroundColor = 'gray'
                     // this.$set(this.data[id], 'open', 0)
                 }
-                const index = this.chosen.indexOf(this.data[id].id)
+                const index = this.chosen.indexOf(id + 1)
                 if (index > -1) { // 如果该单元格已经在 chosen 数组中，从 chosen 数组中移除
                     this.chosen.splice(index, 1)
                 } else { // 如果该单元格不在 chosen 数组中，将其添加到 chosen 数组中
-                    this.chosen.push(this.data[id].id)
+                    this.chosen.push(id + 1)
                 }
-                console.log(this.chosen)
+                // console.log(this.chosen)
                 sessionStorage.setItem('chosen', JSON.stringify(this.chosen)) // 存储所有选中的单元格 ID
             }
         }

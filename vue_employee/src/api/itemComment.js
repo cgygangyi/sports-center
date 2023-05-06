@@ -46,3 +46,14 @@ export function deleteItemComment(id) {
         }
     })
 }
+
+// admin get all comment
+export function getAllItemComment() {
+    return request({
+        url: '/itemComment/admin/getAll',
+        method: 'get',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}

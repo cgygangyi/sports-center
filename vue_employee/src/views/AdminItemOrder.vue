@@ -2,7 +2,7 @@
     <div>
         <a-card :bordered="false" class="header-solid mb-24" :bodyStyle="{padding: 0, paddingTop: '16px'}">
             <template #title>
-                <h5 class="font-semibold">Venues</h5>
+                <h5 class="font-semibold">Equipments orders</h5>
             </template>
             <div class="mx-25">
                 <a-row type="flex" :gutter="24">
@@ -32,14 +32,12 @@
 </template>
 
 <script>
-import { getAllVenues } from '@/api/venue'
-
+import { getAllItemOrders } from '@/api/order'
 const stringSorter = function(a, b, attr) {
     if (a[attr] < b[attr]) { return -1 }
     if (a[attr] > b[attr]) { return 1 }
     return 0
 }
-
 const columns = [
     {
         title: 'ID',
@@ -48,19 +46,27 @@ const columns = [
         sortDirections: ['descend', 'ascend']
     },
     {
-        title: 'Name',
-        dataIndex: 'name',
-        sorter: (a, b) => stringSorter(a, b, 'name'),
+        title: 'Time',
+        dataIndex: 'orderTime',
+        sorter: (a, b) => Date.parse(a.orderTime) > Date.parse(b.orderTime),
         sortDirections: ['descend', 'ascend']
     },
     {
-        title: 'Type',
-        dataIndex: 'typeName'
+        title: 'Item name',
+        dataIndex: 'itemName',
+        sorter: (a, b) => stringSorter(a, b, 'itemName'),
+        sortDirections: ['descend', 'ascend']
     },
     {
-        title: 'Address',
-        dataIndex: 'address',
-        sorter: (a, b) => stringSorter(a, b, 'address'),
+        title: 'Username',
+        dataIndex: 'username',
+        sorter: (a, b) => stringSorter(a, b, 'username'),
+        sortDirections: ['descend', 'ascend']
+    },
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        sorter: (a, b) => stringSorter(a, b, 'name'),
         sortDirections: ['descend', 'ascend']
     },
     {
@@ -90,7 +96,7 @@ export default {
         }
     },
     beforeCreate () {
-        getAllVenues().then((response) => {
+        getAllItemOrders().then((response) => {
             this.data = response.data.data
             console.log(this.data)
         })
@@ -98,19 +104,15 @@ export default {
     methods: {
         jump(text, record) {
             this.$router.push({
-                path: '/admin/venues/detail',
+                path: '/admin/items/order/detail',
                 query: {
                     id: record.id
                 }
             })
         },
-
-        // Event handler for second table's size change.
         onPageSize2Change() {
             this.pageSize2 = parseInt(this.pageSize2)
         },
-
-        // Event handler for second table's search.
         onSearchChange() {
             if (this.query.length > 0) {
                 this.data = this.data.filter((row) => {
@@ -123,7 +125,7 @@ export default {
                     return false
                 })
             } else {
-                getAllVenues().then((response) => {
+                getAllItemOrders().then((response) => {
                     this.data = response.data.data
                     console.log(this.data)
                 })

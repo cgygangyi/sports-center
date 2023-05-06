@@ -21,6 +21,9 @@ public class Order extends Venue{
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
     private Date orderTime;
     private int comment;
+    private String username;
+    private String userName;
+    private String phoneNumber;
 
     public Order( int venueStateId, int userId, Date orderTime) {
         this.venueStateId = venueStateId;
@@ -52,6 +55,19 @@ public class Order extends Venue{
         this.begin = begin;
         this.end = end;
         this.orderTime = orderTime;
+    }
+
+    public Order(int id, Date orderTime, Date end, Date begin,
+                 String name, String address, double price,
+                 String userN, String username, String phoneNumber) {
+        super(name, address, price);
+        this.id = id;
+        this.begin = begin;
+        this.end = end;
+        this.orderTime = orderTime;
+        this.userName = userN;
+        this.username = username;
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
@@ -97,6 +113,24 @@ public class Order extends Venue{
     }
     public void setComment(int comment) {
         this.comment = comment;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public String getUserName() {
+        return userName;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override

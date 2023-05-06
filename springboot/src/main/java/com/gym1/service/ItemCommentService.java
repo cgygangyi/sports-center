@@ -1,6 +1,7 @@
 package com.gym1.service;
 
 
+import com.gym1.entity.Comment;
 import com.gym1.entity.ItemComment;
 import com.gym1.mapper.ItemCommentMapper;
 import com.gym1.mapper.ItemOrderMapper;
@@ -69,6 +70,10 @@ public class ItemCommentService {
         }catch (Exception e){
             return -1;
         }
+    }
+
+    public List<ItemComment> getAll(){
+        return itemCommentMapper.queryAllItemComment();
     }
 
 }

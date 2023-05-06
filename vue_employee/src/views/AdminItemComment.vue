@@ -2,7 +2,7 @@
     <div>
         <a-card :bordered="false" class="header-solid mb-24" :bodyStyle="{padding: 0, paddingTop: '16px'}">
             <template #title>
-                <h5 class="font-semibold">Venues</h5>
+                <h5 class="font-semibold">Equipments Comments</h5>
             </template>
             <div class="mx-25">
                 <a-row type="flex" :gutter="24">
@@ -23,7 +23,15 @@
             </div>
             <a-table class="mt-20" :columns="columns" :data-source="data" :pagination="{pageSize: pageSize2,}">
                 <template slot="operation" slot-scope="text, record">
-                    <a @click="jump(text,record)">View details</a>
+                    <a-popconfirm
+                        title="Are you sure delete this comment?"
+                        ok-text="Yes"
+                        cancel-text="No"
+                        @confirm="confirm(record.id)"
+                        @cancel="cancel"
+                    >
+                        <a href="#" class="danger">Delete</a>
+                    </a-popconfirm>
                 </template>
             </a-table>
         </a-card>
@@ -32,14 +40,12 @@
 </template>
 
 <script>
-import { getAllVenues } from '@/api/venue'
-
+import { deleteItemComment, getAllItemComment } from '@/api/itemComment'
 const stringSorter = function(a, b, attr) {
     if (a[attr] < b[attr]) { return -1 }
     if (a[attr] > b[attr]) { return 1 }
     return 0
 }
-
 const columns = [
     {
         title: 'ID',
@@ -48,25 +54,25 @@ const columns = [
         sortDirections: ['descend', 'ascend']
     },
     {
-        title: 'Name',
-        dataIndex: 'name',
-        sorter: (a, b) => stringSorter(a, b, 'name'),
+        title: 'Time',
+        dataIndex: 'commentTime',
+        sorter: (a, b) => a.commentTime - b.commentTime,
         sortDirections: ['descend', 'ascend']
     },
     {
-        title: 'Type',
-        dataIndex: 'typeName'
+        title: 'Content',
+        dataIndex: 'info'
     },
     {
-        title: 'Address',
-        dataIndex: 'address',
-        sorter: (a, b) => stringSorter(a, b, 'address'),
+        title: 'Username',
+        dataIndex: 'username',
+        sorter: (a, b) => stringSorter(a, b, 'username'),
         sortDirections: ['descend', 'ascend']
     },
     {
-        title: 'Price',
-        dataIndex: 'price',
-        sorter: (a, b) => a.price - b.price,
+        title: 'Item name',
+        dataIndex: 'itemName',
+        sorter: (a, b) => stringSorter(a, b, 'itemName'),
         sortDirections: ['descend', 'ascend']
     },
     {
@@ -90,19 +96,23 @@ export default {
         }
     },
     beforeCreate () {
-        getAllVenues().then((response) => {
+        getAllItemComment().then((response) => {
             this.data = response.data.data
             console.log(this.data)
         })
     },
     methods: {
-        jump(text, record) {
-            this.$router.push({
-                path: '/admin/venues/detail',
-                query: {
-                    id: record.id
-                }
+        confirm(e) {
+            console.log(e)
+            deleteItemComment(e).then(res => {
+                this.$message.success('Delete successfully')
+                getAllItemComment().then((response) => {
+                    this.data = response.data.data
+                    console.log(this.data)
+                })
             })
+        },
+        cancel(e) {
         },
 
         // Event handler for second table's size change.
@@ -123,7 +133,7 @@ export default {
                     return false
                 })
             } else {
-                getAllVenues().then((response) => {
+                getAllItemComment().then((response) => {
                     this.data = response.data.data
                     console.log(this.data)
                 })

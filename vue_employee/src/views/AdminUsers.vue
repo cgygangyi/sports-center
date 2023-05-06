@@ -22,6 +22,10 @@
                 </a-row>
             </div>
             <a-table class="mt-20" :columns="columns" :data-source="data" :pagination="{pageSize: pageSize2,}">
+                <template slot="Gender" slot-scope="text, record">
+                    <p v-if="text=1" :key="record">Male</p>
+                    <p v-else :key="record">Female</p>
+                </template>
             </a-table>
         </a-card>
     </div>
@@ -29,8 +33,12 @@
 </template>
 
 <script>
-import { getAllUsers } from '@/api/user'
-
+import { adminGetAllUsers } from '@/api/user'
+const stringSorter = function(a, b, attr) {
+    if (a[attr] < b[attr]) { return -1 }
+    if (a[attr] > b[attr]) { return 1 }
+    return 0
+}
 const columns = [
     {
         title: 'ID',
@@ -39,24 +47,35 @@ const columns = [
         sortDirections: ['descend', 'ascend']
     },
     {
+        title: 'Username',
+        dataIndex: 'username',
+        sorter: (a, b) => stringSorter(a, b, 'username'),
+        sortDirections: ['descend', 'ascend']
+    },
+    {
         title: 'Name',
         dataIndex: 'name',
-        sorter: (a, b) => a.name.length - b.name.length,
+        sorter: (a, b) => stringSorter(a, b, 'name'),
         sortDirections: ['descend', 'ascend']
     },
     {
-        title: 'Type',
-        dataIndex: 'typeName'
-    },
-    {
-        title: 'Address',
-        dataIndex: 'address'
-    },
-    {
-        title: 'Price',
-        dataIndex: 'price',
-        sorter: (a, b) => a.price - b.price,
+        title: 'Phone number',
+        dataIndex: 'phoneNumber',
+        sorter: (a, b) => stringSorter(a, b, 'phoneNumber'),
         sortDirections: ['descend', 'ascend']
+    },
+    {
+        title: 'Email',
+        dataIndex: 'email',
+        sorter: (a, b) => stringSorter(a, b, 'email'),
+        sortDirections: ['descend', 'ascend']
+    },
+    {
+        title: 'Gender',
+        dataIndex: 'sex',
+        sorter: (a, b) => a.sex - b.sex,
+        sortDirections: ['descend', 'ascend'],
+        scopedSlots: { customRender: 'Gender' }
     }
 ]
 
@@ -74,7 +93,7 @@ export default {
         }
     },
     beforeCreate () {
-        getAllUsers().then((response) => {
+        adminGetAllUsers().then((response) => {
             this.data = response.data.data
             console.log(this.data)
         })
@@ -98,7 +117,7 @@ export default {
                     return false
                 })
             } else {
-                getAllUsers().then((response) => {
+                adminGetAllUsers().then((response) => {
                     this.data = response.data.data
                     console.log(this.data)
                 })

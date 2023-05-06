@@ -23,3 +23,27 @@ export function getAllStatesByDay(day) {
         }
     })
 }
+
+// set venue state as open
+export function setOpen(day, map) {
+    return request({
+        url: '/venueState/admin/openVenue/' + day,
+        method: 'post',
+        data: { list: map },
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// set venue state as close
+export function setClose(day, map) {
+    return request({
+        url: '/venueState/admin/closeVenue/' + day,
+        method: 'post',
+        data: { list: map },
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
