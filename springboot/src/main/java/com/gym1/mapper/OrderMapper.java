@@ -27,4 +27,6 @@ public interface OrderMapper {
 
     int queryVenueStateIdByOrderId(int id);
 
+    Order queryOrderById(int id);
+
 }

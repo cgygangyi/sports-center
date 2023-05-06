@@ -32,8 +32,21 @@ public class ItemOrder {
         this.phoneNum = phoneNumber;
         this.name = name;
         this.itemName = itemName;
-        this.image = "data:image/png;base64,"+image;
+        this.image = image;
 
+    }
+
+    public ItemOrder(int id, Date orderTime, int number, double price, String phoneNumber,
+                     String name, String itemName, String image, String username) {
+        this.id = id;
+        this.orderTime = orderTime;
+        this.number = number;
+        this.price = price;
+        this.phoneNum = phoneNumber;
+        this.name = name;
+        this.itemName = itemName;
+        this.image = image;
+        this.username = username;
     }
 
     public ItemOrder(int id, int userId, int itemId, int number, double price,

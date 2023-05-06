@@ -51,8 +51,8 @@ public class VenueStateService {
                 int month = Integer.parseInt(formatter.format(date).substring(5,7));
                 int day = Integer.parseInt(formatter.format(date).substring(8,10));
 
-                begin = new Date(year-1900, month-1, day, j, 0, 0);
-                end = new Date(year-1900, month-1, day, j+1, 0, 0);
+                begin = new Date(year-1900, month-1, day+i, j, 0, 0);
+                end = new Date(year-1900, month-1, day+i, j+1, 0, 0);
 
                 if (query1.contains(new VenueState(id, begin, end))){
                     res.add(num, query.get(query1.indexOf(new VenueState(id, begin, end))));

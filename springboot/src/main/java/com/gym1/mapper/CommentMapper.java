@@ -17,4 +17,6 @@ public interface CommentMapper {
 
     int deleteCommentById(int id);
 
+    List<Comment> queryAllComment();
+
 }

@@ -3,6 +3,7 @@ package com.gym1.service;
 
 import com.gym1.entity.Item;
 import com.gym1.entity.ItemOrder;
+import com.gym1.entity.Order;
 import com.gym1.entity.User;
 import com.gym1.mapper.ItemMapper;
 import com.gym1.mapper.ItemOrderMapper;
@@ -65,6 +66,14 @@ public class ItemOrderService {
         }catch (Exception e){
             return -1;
         }
+    }
+
+    public List<ItemOrder> getAll(){
+        return itemOrderMapper.queryAllItemOrder();
+    }
+
+    public ItemOrder getReceipt(int id){
+        return itemOrderMapper.queryItemOrderByItemOrderId(id);
     }
 
 }

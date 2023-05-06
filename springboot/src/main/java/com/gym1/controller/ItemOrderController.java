@@ -2,8 +2,10 @@ package com.gym1.controller;
 
 
 import com.gym1.entity.ItemOrder;
+import com.gym1.entity.Order;
 import com.gym1.service.ItemOrderService;
 import com.gym1.util.JwtUtil;
+import com.gym1.util.QRCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -99,5 +101,44 @@ public class ItemOrderController {
         return reMap;
     }
 
+
+    @GetMapping("/admin/getAll")
+    public Map<String, Object> getAll(){
+        Map<String, Object> reMap = new HashMap<>();
+        List<ItemOrder> res = itemOrderService.getAll();
+        if (res.size() != 0){
+            reMap.put("code", 4011);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 4012);
+            reMap.put("msg", "There are no comments!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @GetMapping("/getReceipt/{orderId}")
+    public Map<String, Object> getReceipt(@PathVariable int orderId){
+        Map<String, Object> reMap = new HashMap<>();
+        ItemOrder order = itemOrderService.getReceipt(orderId);
+        String content = "{\"Name\":" + " \"" + order.getName() + "\"," +
+                " \"Phone Number:\"" + " \"" + order.getPhoneNum() + "\"," +
+                " \"Username:\"" + " \"" + order.getUsername()+ "\"}";
+        String code = QRCodeUtil.createQRCode(content);
+        if (code.equals("Failure")){
+            reMap.put("code", 4013);
+            reMap.put("msg", "Failure!");
+            reMap.put("data", order);
+            reMap.put("QRCode", code);
+        }else{
+            reMap.put("code", 4014);
+            reMap.put("msg", "Success!");
+            reMap.put("data", order);
+            reMap.put("QRCode", code);
+        }
+        return reMap;
+    }
 
 }

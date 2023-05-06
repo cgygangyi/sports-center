@@ -70,4 +70,8 @@ public class CommentService {
         }
     }
 
+    public List<Comment> getAll(){
+        return commentMapper.queryAllComment();
+    }
+
 }

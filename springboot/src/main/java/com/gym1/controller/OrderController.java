@@ -1,12 +1,15 @@
 package com.gym1.controller;
 
 
+import com.gym1.entity.Comment;
 import com.gym1.entity.Order;
 import com.gym1.service.OrderService;
 import com.gym1.util.JwtUtil;
+import com.gym1.util.QRCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,6 +98,45 @@ public class OrderController {
             reMap.put("code", 5010);
             reMap.put("msg", "Success!");
             reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+    @GetMapping("/admin/getAll")
+    public Map<String, Object> getAll(){
+        Map<String, Object> reMap = new HashMap<>();
+        List<Order> res = orderService.getAll();
+        if (res.size() != 0){
+            reMap.put("code", 5011);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 5012);
+            reMap.put("msg", "There are no comments!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @GetMapping("/getReceipt/{orderId}")
+    public Map<String, Object> getReceipt(@PathVariable int orderId){
+        Map<String, Object> reMap = new HashMap<>();
+        Order order = orderService.getReceipt(orderId);
+        String content = "{\"Name\":" + " \"" + order.getUserName() + "\"," +
+                " \"Phone Number:\"" + " \"" + order.getPhoneNumber() + "\"," +
+                " \"Username:\"" + " \"" + order.getUsername() + "\"}";
+        String code = QRCodeUtil.createQRCode(content);
+        if (code.equals("Failure")){
+            reMap.put("code", 5013);
+            reMap.put("msg", "Failure!");
+            reMap.put("data", order);
+            reMap.put("QRCode", code);
+        }else{
+            reMap.put("code", 5014);
+            reMap.put("msg", "Success!");
+            reMap.put("data", order);
+            reMap.put("QRCode", code);
         }
         return reMap;
     }

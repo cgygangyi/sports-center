@@ -12,8 +12,8 @@
     </select>
 
     <select id="queryAllUser" resultType="com.gym1.entity.User">
-        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image
-        from user
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image, u.admin
+        from user u
     </select>
 
     <insert id="addUser" parameterType="com.gym1.entity.User">
@@ -50,6 +50,12 @@
         from root r
         where username=#{username}
     </select>
+
+    <update id="updateUserAdminById">
+        UPDATE user
+        SET admin = #{num}
+        where id = #{id}
+    </update>
 
 </mapper>
 

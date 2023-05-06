@@ -51,4 +51,21 @@
         where o.id = #{id}
     </select>
 
+    <select id="queryAllOrder" resultType="com.gym1.entity.Order">
+        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price, u.name usern, u.username, u.phoneNumber
+        from `order` o left join venue_state s on o.venueStateId = s.id
+            left join user u on u.id = o.userId
+        left join venue v
+        on s.venueId = v.id
+    </select>
+
+    <select id="queryOrderById" resultType="com.gym1.entity.Order">
+        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price, u.name usern, u.username, u.phoneNumber
+        from `order` o left join venue_state s on o.venueStateId = s.id
+            left join user u on u.id = o.userId
+        left join venue v
+        on s.venueId = v.id
+        where o.id = #{id}
+    </select>
+
 </mapper>

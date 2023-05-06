@@ -117,5 +117,14 @@ public class UserService {
         return userMapper.queryUserByUsername3(username);
     }
 
+    public int manageAdmin(int id, int num){
+        int res = 0;
+        try{
+            res = userMapper.updateUserAdminById(id, num);
+            return res;
+        }catch (Exception e){
+            return -1;
+        }
+    }
 
 }

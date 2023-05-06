@@ -1,6 +1,7 @@
 package com.gym1.mapper;
 
 
+import com.gym1.entity.Comment;
 import com.gym1.entity.ItemComment;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
@@ -17,5 +18,7 @@ public interface ItemCommentMapper {
     List<ItemComment> queryItemCommentByUserId(int id);
 
     int deleteItemCommentById(int id);
+
+    List<ItemComment> queryAllItemComment();
 
 }

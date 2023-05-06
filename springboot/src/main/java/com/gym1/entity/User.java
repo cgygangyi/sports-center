@@ -70,6 +70,24 @@ public class User {
         }
     }
 
+    public User(int id, int age, int sex, String username, String password,
+                String phoneNumber, String name, String email, String image, int admin) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.sex = sex;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.age = age;
+        if (image == null){
+            this.image = DefaultProfile.getDefaultProfile();
+        }else{
+            this.image = image;
+        }
+        this.admin = admin;
+    }
+
     public int getId() {
         return id;
     }
