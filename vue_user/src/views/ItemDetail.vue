@@ -32,9 +32,32 @@
                                 </a-form-item>
                             </a-col>
                             <a-col :span="8">
-                                <a-form-item>
-                                    <a-button type="primary" html-type="submit" block>PURCHASE</a-button>
-                                </a-form-item>
+                                <a-button type="primary" @click="showModal">
+                                    PURCHASE
+                                </a-button>
+                                <a-modal v-model="visible" title="Please select a paying method" @ok="handleOk">
+                                    <a-tabs default-active-key="1" @change="callback">
+                                        <a-tab-pane key="1" tab="Card">
+                                            <a-select default-value="" style="width: 80%" @change="handleChange">
+                                                <a-select-option value="jack">
+                                                    Jack
+                                                </a-select-option>
+                                                <a-select-option value="lucy">
+                                                    Lucy
+                                                </a-select-option>
+                                                <a-select-option value="disabled" disabled>
+                                                    Disabled
+                                                </a-select-option>
+                                                <a-select-option value="Yiminghe">
+                                                    yiminghe
+                                                </a-select-option>
+                                            </a-select>
+                                        </a-tab-pane>
+                                        <a-tab-pane key="2" tab="Cash" force-render>
+                                            Content of Tab Pane 2
+                                        </a-tab-pane>
+                                    </a-tabs>
+                                </a-modal>
                             </a-col>
                         </a-row>
                     </a-form>
@@ -85,6 +108,7 @@ export default ({
     },
     data() {
         return {
+            visible: false,
             form: this.$form.createForm(this),
             itemData: {},
             description: [],
@@ -105,8 +129,11 @@ export default ({
     },
 
     methods: {
-        handleSubmit (e) {
-            e.preventDefault()
+        showModal() {
+            this.visible = true
+        },
+        handleOk(e) {
+            console.log(e)
             this.form.validateFields((err, values) => {
                 if (!err) {
                     // add count into valuse, in json format
@@ -120,6 +147,10 @@ export default ({
                     console.log(err)
                 }
             })
+            this.visible = false
+        },
+        handleSubmit (e) {
+            e.preventDefault()
         }
     }
 })

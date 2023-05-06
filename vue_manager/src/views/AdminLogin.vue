@@ -6,8 +6,7 @@
             <!-- Sign Up Form Column -->
             <a-col :span="24" :md="12" :lg="{span: 12, offset: 0}" :xl="{span: 6, offset: 5}" class="col-form">
 
-                <h3 class="text-dark mb-15">Join us today</h3>
-                <p class="text-muted">Enter your email and password to register</p>
+                <h3 class="text-dark mb-15">Manager Login</h3>
 
                 <!-- Sign Up Form -->
                 <a-form
@@ -58,7 +57,7 @@ export default ({
                 if (!err) {
                     userLogin(values).then(res => {
                         console.log(res.data)
-                        if (res.data.code === 7002) {
+                        if (res.data.code === 7019) {
                             localStorage.setItem('token', res.data.data)
                             this.$router.go(0)
                             // this.$notification.success({

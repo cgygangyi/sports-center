@@ -5,21 +5,9 @@ import request from '../utils/request'
 // login function
 export function userLogin(map) {
     return request({
-        url: '/user/login',
+        url: '/user/root/login',
         method: 'post',
         data: map
-    })
-}
-
-// register function
-export function userRegister(map) {
-    return request({
-        url: '/user/register',
-        method: 'post',
-        data: map,
-        headers: {
-            token: localStorage.getItem('token')
-        }
     })
 }
 
@@ -77,6 +65,29 @@ export function updateUserAvatar(map) {
         url: '/user/updateProfile',
         method: 'post',
         data: map,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// admin get all users
+export function adminGetAllUsers() {
+    return request({
+        url: '/user/admin/getAll',
+        method: 'get',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// manager manage admin
+export function managerManageAdmin(id, map) {
+    return request({
+        url: '/user/root/manageAdmin/' + id,
+        method: 'post',
+        data: { num: map },
         headers: {
             token: localStorage.getItem('token')
         }

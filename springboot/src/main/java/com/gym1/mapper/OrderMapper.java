@@ -29,4 +29,5 @@ public interface OrderMapper {
 
     Order queryOrderById(int id);
 
+    int queryOrderIdByOrder(Order order);
 }

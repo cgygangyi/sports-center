@@ -36,21 +36,7 @@ export default ({
     beforeCreate() {
         getAllItems().then((response) => {
             console.log(response.data)
-            const img = ['images/venue-1.jpeg', 'images/venue-2.jpeg', 'images/venue-3.jpeg', 'images/venue-4.jpeg', 'images/venue-5.jpeg']
             this.projects = response.data.data
-            for (let i = 0; i < this.projects.length; i++) {
-                const index = parseInt(Math.random() * img.length)
-                this.projects[i].cover = img[index]
-            }
-            for (let i = 0; i < 5; i++) {
-                this.projects[i].cover = img[2]
-            }
-            for (let i = 5; i < 9; i++) {
-                this.projects[i].cover = img[0]
-            }
-            for (let i = 9; i < 16; i++) {
-                this.projects[i].cover = img[3]
-            }
         })
     }
 

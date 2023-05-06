@@ -40,34 +40,22 @@ let routes = [
         component: () => import('../views/AdminUsers.vue')
     },
     {
-        path: '/admin/user',
-        name: 'User management',
+        path: '/admin/items',
+        name: 'Equipments management',
         layout: 'admindashboard',
-        component: () => import('../views/AdminUserAdd.vue')
+        component: () => import('../views/AdminItems.vue')
     },
     {
-        path: '/admin/states',
-        name: 'States management',
+        path: '/admin/items/add',
+        name: 'Equipments management',
         layout: 'admindashboard',
-        component: () => import('../views/AdminStates.vue')
-    },
-    {
-        path: '/admin/addVenue',
-        name: 'add venue',
-        layout: 'admindashboard',
-        component: () => import('../views/AdminAddVenue.vue')
+        component: () => import('../views/AdminItemsAdd.vue')
     },
     {
         path: '/logout',
         name: 'logout',
         layout: 'admindashboard',
         component: () => import('../views/UserLogout.vue')
-    },
-    {
-        path: '/test',
-        name: 'test',
-        layout: 'admindashboard',
-        component: () => import('../views/1Test.vue')
     }
 ]
 

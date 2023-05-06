@@ -20,7 +20,7 @@
                         <a-input-search placeholder="input search text" style="max-width: 200px;" v-model="query" @change="onSearchChange" />
                     </a-col>
                     <a-col :span="24" :md="8" class="text-right">
-                        <a-button size="large" @click="jump">
+                        <a-button size="large" @click="jumpAdd">
                             Add
                         </a-button>
                     </a-col>
@@ -28,7 +28,7 @@
             </div>
             <a-table class="mt-20" :columns="columns" :data-source="data" :pagination="{pageSize: pageSize2,}">
                 <template slot="operation" slot-scope="text, record">
-                    <a @click="print(text,record)">View details</a>
+                    <a @click="jump(text,record)">View details</a>
                 </template>
             </a-table>
         </a-card>
@@ -38,6 +38,12 @@
 
 <script>
 import { getAllVenues } from '@/api/venue'
+
+const stringSorter = function(a, b, attr) {
+    if (a[attr] < b[attr]) { return -1 }
+    if (a[attr] > b[attr]) { return 1 }
+    return 0
+}
 
 const columns = [
     {
@@ -49,7 +55,7 @@ const columns = [
     {
         title: 'Name',
         dataIndex: 'name',
-        sorter: (a, b) => a.name.length - b.name.length,
+        sorter: (a, b) => stringSorter(a, b, 'name'),
         sortDirections: ['descend', 'ascend']
     },
     {
@@ -58,7 +64,9 @@ const columns = [
     },
     {
         title: 'Address',
-        dataIndex: 'address'
+        dataIndex: 'address',
+        sorter: (a, b) => stringSorter(a, b, 'address'),
+        sortDirections: ['descend', 'ascend']
     },
     {
         title: 'Price',
@@ -93,15 +101,16 @@ export default {
         })
     },
     methods: {
-        print(text, record) {
-            console.log(text, record)
-        },
-        jump() {
+        jumpAdd() {
             this.$router.push('/admin/venues/add')
         },
-        // Event handler for first table's size change.
-        onPageSizeChange() {
-            this.pageSize = parseInt(this.pageSize)
+        jump(text, record) {
+            this.$router.push({
+                path: '/admin/venues/detail',
+                query: {
+                    id: record.id
+                }
+            })
         },
 
         // Event handler for second table's size change.

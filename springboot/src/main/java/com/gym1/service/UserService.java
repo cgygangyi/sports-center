@@ -81,9 +81,10 @@ public class UserService {
         }catch (Exception e){
             res = -1;
         }
+        User user1 = new User(res);
         Map<String, User> reMap = new HashMap<>();
         reMap.put("user", user);
-        reMap.put("res", new User(res));
+        reMap.put("res", user1);
         return reMap;
     }
 

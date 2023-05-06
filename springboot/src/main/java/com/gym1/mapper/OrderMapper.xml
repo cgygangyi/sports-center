@@ -68,4 +68,10 @@
         where o.id = #{id}
     </select>
 
+    <select id="queryOrderIdByOrder" resultType="int" parameterType="com.gym1.entity.Order">
+        select o.id
+        from `order` o
+        where o.venueStateId = #{venueStateId} and o.userId = #{userId}
+    </select>
+
 </mapper>

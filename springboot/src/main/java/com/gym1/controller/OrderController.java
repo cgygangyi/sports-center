@@ -7,7 +7,10 @@ import com.gym1.service.OrderService;
 import com.gym1.util.JwtUtil;
 import com.gym1.util.QRCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -26,7 +29,7 @@ public class OrderController {
 
 
     @PostMapping("/makeOrder/{venueStateId}")
-    public Map<String, Object> makeOrder(HttpServletRequest request, @PathVariable int venueStateId){
+    public Map<String, Object> makeOrder(HttpServletRequest request, @PathVariable int venueStateId) throws MessagingException {
         Map<String, Object> reMap = new HashMap<>();
         int res = orderService.addOrder(venueStateId, JwtUtil.getMemberIdByJwtToken(request));
         if(res == -2){

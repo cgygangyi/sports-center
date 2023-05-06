@@ -38,13 +38,30 @@
                     </a-col>
                     <a-col :span="12">
                         <a-form-item class="mb-10" label="Type" :colon="false">
-                            <a-input
-                                v-decorator="['type',
-                                                { rules: [{ required: true, message: 'Please input your name!' }] },
-                                            ]"
-                                placeholder="Type"
+                            <a-select
+                                v-decorator="[
+                                  'type',
+                                  { rules: [{ required: true, message: 'Please select a type!' }] },
+                                ]"
+                                placeholder="Select a option and change input text above"
+                                @change="handleSelectChange"
                             >
-                            </a-input>
+                                <a-select-option value="Table tennis venue">
+                                    Table tennis venue
+                                </a-select-option>
+                                <a-select-option value="Basketball venue">
+                                    Basketball venue
+                                </a-select-option>
+                                <a-select-option value="Volleyball venue">
+                                    Volleyball venue
+                                </a-select-option>
+                                <a-select-option value="Badminton venue">
+                                    Badminton venue
+                                </a-select-option>
+                                <a-select-option value="Tennis venue">
+                                    Tennis venue
+                                </a-select-option>
+                            </a-select>
                         </a-form-item>
                     </a-col>
                     <a-col :span="12">
@@ -118,10 +135,13 @@ export default {
                     // delete data:image/png;base64, at the beginning of the string
                     values.upload = values.upload.slice(22)
                     console.log('Received values of form: ', values)
-                    addNewVenue(values).then(() => {
-                        this.$message.success('Venue added successfully')
-                        this.$router.push('/admin/venues')
-                        this.$router.go(0)
+                    addNewVenue(values).then((res) => {
+                        if (res.data.code === 8007) {
+                            this.$message.success('Venue added successfully')
+                            this.$router.push('/admin/venues')
+                        } else {
+                            this.$message.error(res.data.msg)
+                        }
                     })
                 }
             })

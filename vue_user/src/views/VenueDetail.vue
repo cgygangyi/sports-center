@@ -146,11 +146,11 @@ export default ({
                 this.$message.warning('Please choose a time slot!')
                 return
             }
+            console.log(id)
             bookVenue(id).then((response) => {
                 console.log(response)
-                if (response.data === '') {
-                    this.$message.warning('Please login first!')
-                } else {
+                if (response.data.code === 5003) {
+                    sessionStorage.removeItem('chosen')
                     this.ModalText = 'Booking......'
                     this.confirmLoading = true
                     setTimeout(() => {
@@ -158,6 +158,8 @@ export default ({
                         this.confirmLoading = false
                         this.$message.success('Successfully booked!')
                     }, 1000)
+                } else {
+                    this.$message.warning(response.data.message)
                 }
             }).catch((error) => {
                 console.log(error)

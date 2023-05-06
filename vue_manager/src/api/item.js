@@ -21,3 +21,15 @@ export function getItemInfo(id) {
         method: 'get'
     })
 }
+
+// manager add an item
+export function addItem(map) {
+    return request({
+        url: '/item/addItem',
+        method: 'post',
+        data: map,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}

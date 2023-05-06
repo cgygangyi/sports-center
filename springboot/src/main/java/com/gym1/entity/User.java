@@ -1,6 +1,10 @@
 package com.gym1.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gym1.util.DefaultProfile;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 
 
@@ -15,6 +19,11 @@ public class User {
     private String email;
     private String image;
     private int admin;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+08")
+    private Date membership;
+    private String card;
+    private int isMember;
 
     public User(int id){
         this.id = id;
@@ -147,6 +156,24 @@ public class User {
     }
     public void setAdmin(int admin) {
         this.admin = admin;
+    }
+    public Date getMembership() {
+        return membership;
+    }
+    public void setMembership(Date membership) {
+        this.membership = membership;
+    }
+    public String getCard() {
+        return card;
+    }
+    public void setCard(String card) {
+        this.card = card;
+    }
+    public int getIsMember() {
+        return isMember;
+    }
+    public void setIsMember(int isMember) {
+        this.isMember = isMember;
     }
     @Override
     public boolean equals(Object o) {
