@@ -98,12 +98,6 @@ let routes = [
         name: 'logout',
         layout: 'admindashboard',
         component: () => import('../views/UserLogout.vue')
-    },
-    {
-        path: '/test',
-        name: 'test',
-        layout: 'admindashboard',
-        component: () => import('../views/1Test.vue')
     }
 ]
 

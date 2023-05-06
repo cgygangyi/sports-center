@@ -223,4 +223,48 @@ public class UserController {
     }
 
 
+    @PostMapping("/addCard")
+    public Map<String, Object> manageAdmin(HttpServletRequest request, @RequestBody Map map){
+        Map<String, Object> reMap = new HashMap<>();
+        String card = map.get("card").toString();
+        int id = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        int res = userService.updateCard(card, id);
+        if (res == -1){
+            reMap.put("code", 7026);
+            reMap.put("msg", "Error!");
+            reMap.put("data", res);
+        }else if(res == 0){
+            reMap.put("code", 7027);
+            reMap.put("msg", "Failure!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 7028);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @PostMapping("/deleteCard")
+    public Map<String, Object> manageAdmin(HttpServletRequest request){
+        Map<String, Object> reMap = new HashMap<>();
+        int id = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        int res = userService.updateCard(null, id);
+        if (res == -1){
+            reMap.put("code", 7029);
+            reMap.put("msg", "Error!");
+            reMap.put("data", res);
+        }else if(res == 0){
+            reMap.put("code", 7030);
+            reMap.put("msg", "Failure!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 7031);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
 }

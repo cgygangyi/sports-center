@@ -46,7 +46,7 @@ export default {
     },
     beforeMount() {
         if (localStorage.getItem('token') === null) {
-            this.$router.replace('/empty')
+            this.$router.replace('/home')
             this.$message.error('Please login first')
         } else {
             getAllChatMessages().then((response) => {

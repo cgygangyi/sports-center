@@ -25,4 +25,6 @@ public interface UserMapper {
 
     int updateUserAdminById(int id, int num);
 
+    int updateUserCardById(int id, String card);
+
 }

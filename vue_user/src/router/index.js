@@ -93,12 +93,6 @@ let routes = [
         component: () => import('../views/UserAvatar.vue')
     },
     {
-        path: '/empty',
-        name: 'Empty',
-        layout: 'dashboard',
-        component: () => import('../views/ReLoad.vue')
-    },
-    {
         path: '/membership',
         name: 'Membership',
         layout: 'dashboard',
@@ -154,7 +148,9 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     const token = localStorage.getItem('token')
     if (token === null || token === '') {
-        if (to.path === '/login' || to.path === '/register') {
+        if (to.path === '/login' || to.path === '/register' || to.path === '/home' || to.path === '/venues' ||
+            to.path === '/equipments' || to.path === '/venueDetail' || to.path === '/chat' ||
+            to.path === '/itemDetail') {
             next()
         } else {
             next('/home')

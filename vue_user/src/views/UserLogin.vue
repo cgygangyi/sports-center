@@ -73,7 +73,6 @@ export default ({
                         if (res.data.code === 7002) {
                             localStorage.setItem('token', res.data.data)
                             this.$router.go(0)
-                            this.$router.replace({ path: '/empty' })
                             this.$message.success(res.data.message)
                         } else {
                             this.$message.error(res.data.message)

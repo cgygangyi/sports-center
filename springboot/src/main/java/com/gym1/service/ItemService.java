@@ -52,7 +52,11 @@ public class ItemService {
     public int editItem(String name, String info, double price, String image, int itemId){
         int res = 0;
         try{
-            res = itemMapper.updateItemById(name, info, price, image, itemId);
+            if (image.equals("data:image/png;base64,")){
+                res = itemMapper.updateItemById2(name, info, price, itemId);
+            }else{
+                res = itemMapper.updateItemById(name, info, price, image, itemId);
+            }
             return res;
         }catch (Exception e){
             return -1;

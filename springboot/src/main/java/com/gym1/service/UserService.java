@@ -128,4 +128,15 @@ public class UserService {
         }
     }
 
+    public int updateCard(String card, int id){
+        int res = 0;
+        try{
+            res = userMapper.updateUserCardById(id, card);
+            return res;
+        }catch (Exception e){
+            return -1;
+        }
+    }
+
+
 }

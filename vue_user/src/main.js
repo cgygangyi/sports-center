@@ -11,7 +11,6 @@ Vue.use(Antd)
 
 Vue.config.productionTip = false
 
-// Adding template layouts to the vue components.
 Vue.component('layout-dashboard', DashboardLayout)
 
 new Vue({

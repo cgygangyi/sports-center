@@ -15,6 +15,8 @@ public interface VenueMapper {
 
     int updateVenueById(String image, int type, String name, String address, double price, int venueId);
 
+    int updateVenueById2(int type, String name, String address, double price, int venueId);
+
     List<Venue> queryAllVenue();
 
     Venue queryVenueById(int venueId);
