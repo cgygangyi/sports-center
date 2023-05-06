@@ -21,4 +21,6 @@ public interface ItemMapper {
 
     int updateItemById(String name, String info, double price, String image, int itemId);
 
+    int updateItemById2(String name, String info, double price, int itemId);
+
 }

@@ -49,7 +49,11 @@ public class VenueService {
         int typeId = venueTypeMapper.queryVenueTypeIdByVenueTypeName(type);
         int res = 0;
         try{
-            res = venueMapper.updateVenueById(image, typeId, name, address, price, venueId);
+            if (image.equals("data:image/png;base64,")){
+                res = venueMapper.updateVenueById2(typeId, name, address, price, venueId);
+            }else{
+                res = venueMapper.updateVenueById(image, typeId, name, address, price, venueId);
+            }
             return res;
         }catch (Exception e){
             return -1;

@@ -5,9 +5,9 @@ import com.gym1.entity.User;
 import com.gym1.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
+
 
 
 @Service
@@ -81,9 +81,10 @@ public class UserService {
         }catch (Exception e){
             res = -1;
         }
+        User user1 = new User(res);
         Map<String, User> reMap = new HashMap<>();
         reMap.put("user", user);
-        reMap.put("res", new User(res));
+        reMap.put("res", user1);
         return reMap;
     }
 
@@ -126,5 +127,44 @@ public class UserService {
             return -1;
         }
     }
+
+    public int updateCard(String card, int id){
+        int res = 0;
+        try{
+            res = userMapper.updateUserCardById(id, card);
+            return res;
+        }catch (Exception e){
+            return -1;
+        }
+    }
+
+    public int subscribe(int id, int num){
+        User user = userMapper.queryUserById(id);
+        int res = 0;
+        if (user.getIsMember() == 1){
+            Date date = user.getMembership();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.MONTH, num);
+            date = calendar.getTime();
+            try{
+                res = userMapper.updateUserMembershipById(id, date);
+                return res;
+            }catch (Exception e){
+                return -1;
+            }
+        }else{
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.MONTH, num);
+            Date date = calendar.getTime();
+            try{
+                res = userMapper.updateUserMembershipById(id, date);
+                return res;
+            }catch (Exception e){
+                return -1;
+            }
+        }
+    }
+
 
 }

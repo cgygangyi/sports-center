@@ -40,4 +40,10 @@
         where id = #{itemId}
     </update>
 
+    <update id="updateItemById2">
+        UPDATE item
+        SET itemName = #{name}, info = #{info}, price = #{price}
+        where id = #{itemId}
+    </update>
+
 </mapper>

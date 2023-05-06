@@ -83,7 +83,7 @@ public class EmailUtil {
                 "  </style>\n" +
                 "</html>";
     }
-    
+
     public static String itemOrderEmail(){
         return null;
     }
