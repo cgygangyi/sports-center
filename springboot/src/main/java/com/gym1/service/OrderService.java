@@ -2,11 +2,20 @@ package com.gym1.service;
 
 
 import com.gym1.entity.Order;
+import com.gym1.entity.User;
 import com.gym1.entity.VenueState;
 import com.gym1.mapper.OrderMapper;
+import com.gym1.mapper.UserMapper;
 import com.gym1.mapper.VenueStateMapper;
+import com.gym1.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +29,16 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
-    public int addOrder(int id, String userId){
+    @Value("${spring.mail.username}")
+    private String from;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    public int addOrder(int id, String userId) throws MessagingException {
         int uId = Integer.parseInt(userId);
         VenueState venueState = venueStateMapper.queryVenueStateById(id);
         if (venueState.getOpen() == 1 && venueState.getFree() == 1){
@@ -35,6 +53,27 @@ public class OrderService {
                         Date date = new Date(System.currentTimeMillis());
                         Order order = new Order(id, uId, date);
                         b = orderMapper.addOrder(order);
+                        if (b != 0){
+                            int oId = orderMapper.queryOrderIdByOrder(order);
+                            Order order1 = orderMapper.queryOrderById(oId);
+                            MimeMessage message = mailSender.createMimeMessage();
+                            MimeMessageHelper minehelper = new MimeMessageHelper(message, true);
+                            minehelper.setFrom(from);
+                            User user = userMapper.queryUserById(uId);
+                            minehelper.setTo(user.getEmail());
+                            minehelper.setSubject("Order Successfully");
+                            SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+                            String year = formatter.format(date).substring(0,4);
+                            String month = formatter.format(date).substring(5,7);
+                            String day = formatter.format(date).substring(8,10);
+                            String begin = formatter.format(order1.getBegin());
+                            String end = formatter.format(order1.getEnd());
+                            String content = EmailUtil.orderEmail(year, month, day, oId, order1.getUserName(),
+                                    order1.getPhoneNumber(), order1.getUsername(), order1.getName(), order1.getAddress(),
+                                    begin, end, order1.getPrice()+"", formatter.format(date));
+                           minehelper.setText(content, true);
+                            mailSender.send(message);
+                        }
                         return b;
                     }catch (Exception e1){
                         venueStateMapper.updateVenueStateFree(id, 1);

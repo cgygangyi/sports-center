@@ -5,6 +5,7 @@ import com.gym1.entity.User;
 import com.gym1.service.UserService;
 import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Value("${spring.mail.username}")
+    private String from;
 
 
     @PostMapping("/login")
