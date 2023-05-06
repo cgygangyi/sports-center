@@ -1,7 +1,7 @@
 <template>
     <a-card :bordered="false" class="header-solid h-full mb-24" :bodyStyle="{paddingTop: '14px'}" ref="scrollDiv">
         <div id="chatBox" v-for="(message, index) in messages" :key="index">
-            <div class="outgoing_msg" v-if="message.userid=1">
+            <div class="outgoing_msg" v-if="message.userId==1">
                 <div class="sent_msg">
                     <p class="bg-primary">{{ message.info }}</p>
                     <span class="time_date">{{ message.time }}</span>

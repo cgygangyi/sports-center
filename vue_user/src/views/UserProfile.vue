@@ -32,19 +32,11 @@
                                     </h4>
                                 </div>
                             </a-anchor-link>
-                            <a-anchor-link href="#2fa">
+                            <a-anchor-link href="#payment">
                                 <div slot="title" class="ant-list-item-meta">
                                     <a-icon type="safety-certificate" theme="filled" class="text-gray-6 text-lg" />
                                     <h4 class="ant-list-item-meta-title">
-                                        <span class="font-regular">2FA</span>
-                                    </h4>
-                                </div>
-                            </a-anchor-link>
-                            <a-anchor-link href="#delete-account">
-                                <div slot="title" class="ant-list-item-meta">
-                                    <a-icon type="delete" theme="filled" class="text-gray-6 text-lg" />
-                                    <h4 class="ant-list-item-meta-title">
-                                        <span class="font-regular">Delete Account</span>
+                                        <span class="font-regular">Payment</span>
                                     </h4>
                                 </div>
                             </a-anchor-link>
@@ -58,15 +50,15 @@
                 <a-card :bordered="false" id="profile" class="card-profile-head" :bodyStyle="{padding: 0,}">
                     <template #title>
                         <a-row type="flex" align="middle">
-                            <a-col :span="24" :md="12" class="col-info">
+                            <a-col :span="24" :md="10" class="col-info">
                                 <a-avatar :size="74" shape="square" :src="userData.image" />
                                 <div class="avatar-info">
                                     <h4 class="font-semibold m-0">{{userData.username}}</h4>
                                 </div>
                             </a-col>
-                            <a-button type="primary" @click="jump">
-                                change avatar
-                            </a-button>
+                            <a-col :md="4">
+                                <a-button @click="jump">change avatar</a-button>
+                            </a-col>
                         </a-row>
                     </template>
                 </a-card>
@@ -181,64 +173,45 @@
                         </a-row>
                     </a-form>
                 </a-card>
-                <a-card :bordered="false" id="2fa" class="header-solid mb-24">
+                <a-card :bordered="false" id="payment" class="header-solid mb-24">
                     <template #title>
-                        <h5 class="mb-0 font-semibold">Two-factor authentication</h5>
-                    </template>
-                    <a-tag slot="extra" color="success" class="ant-tag-success px-10 py-5 font-bold">ENABLED</a-tag>
-                    <a-form
-                        :hideRequiredMark="true"
-                    >
                         <a-row type="flex" align="middle">
-                            <a-col>
-                                <h6 class="font-regular mb-0">Email</h6>
+                            <a-col :span="24" :md="12">
+                                <h6 class="font-semibold m-0">Payment Methods</h6>
                             </a-col>
-                            <a-col class="ml-auto">
-                                <span class="mr-15">841359795@qq.com</span>
-                                <a-button size="small" class="font-bold px-25">EDIT</a-button>
-                            </a-col>
-                        </a-row>
-                        <hr class="gradient-line">
-                        <a-row type="flex" align="middle">
-                            <a-col>
-                                <h6 class="font-regular mb-0">Phone number</h6>
-                            </a-col>
-                            <a-col class="ml-auto">
-                                <span class="mr-15">No Phone Number</span>
-                                <a-button size="small" class="font-bold px-25">ADD</a-button>
-                            </a-col>
-                        </a-row>
-                        <hr class="gradient-line">
-                    </a-form>
-                </a-card>
-                <a-card :bordered="false" id="delete-account" class="header-solid mb-24">
-                    <template #title>
-                        <h5 class="font-semibold">Delete Account</h5>
-                        <p class="font-regular">Once you delete your account, there is no going back. Please be certain.</p>
-                    </template>
-                    <a-form
-                        id="components-form-demo-normal-login"
-                        class="login-form list-settings-sessions"
-                        :hideRequiredMark="true"
-                    >
-                        <a-row type="flex" align="middle">
-                            <a-col style="min-width: 40px;" class="text-center">
-                                <a-switch></a-switch>
-                            </a-col>
-                            <a-col class="pl-15">
-                                <p class="mb-0 font-semibold">Confirm</p>
-                                <small class="text-dark">I want to delete my account.</small>
-                            </a-col>
-                            <a-col :span="24" :md="12" class="ml-auto" style="display: flex; align-items: center; justify-content: flex-end">
-                                <a-button>
-                                    DEACTIVATE
-                                </a-button>
-                                <a-button type="danger" class="ml-10">
-                                    DELETE ACCOUNT
+                            <a-col :span="24" :md="12" style="display: flex; align-items: center; justify-content: flex-end">
+                                <a-button type="primary">
+                                    ADD NEW CARD
                                 </a-button>
                             </a-col>
                         </a-row>
-                    </a-form>
+                    </template>
+                    <a-row :gutter="[24, 24]">
+                        <a-col :span="24" :md="12">
+                            <a-card class="payment-method-card">
+                                <img src="images/logos/mastercard-logo.png" alt="">
+                                <h6 class="card-number">**** **** **** 7362</h6>
+                                <a-button type="link">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path class="fill-gray-7" d="M13.5858 3.58579C14.3668 2.80474 15.6332 2.80474 16.4142 3.58579C17.1953 4.36683 17.1953 5.63316 16.4142 6.41421L15.6213 7.20711L12.7929 4.37868L13.5858 3.58579Z"/>
+                                        <path class="fill-gray-7" d="M11.3787 5.79289L3 14.1716V17H5.82842L14.2071 8.62132L11.3787 5.79289Z"/>
+                                    </svg>
+                                </a-button>
+                            </a-card>
+                        </a-col>
+                        <a-col :span="24" :md="12">
+                            <a-card class="payment-method-card">
+                                <img src="images/logos/visa-logo.png" alt="">
+                                <h6 class="card-number">**** **** **** 3288</h6>
+                                <a-button type="link">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path class="fill-gray-7" d="M13.5858 3.58579C14.3668 2.80474 15.6332 2.80474 16.4142 3.58579C17.1953 4.36683 17.1953 5.63316 16.4142 6.41421L15.6213 7.20711L12.7929 4.37868L13.5858 3.58579Z"/>
+                                        <path class="fill-gray-7" d="M11.3787 5.79289L3 14.1716V17H5.82842L14.2071 8.62132L11.3787 5.79289Z"/>
+                                    </svg>
+                                </a-button>
+                            </a-card>
+                        </a-col>
+                    </a-row>
                 </a-card>
             </a-col>
 

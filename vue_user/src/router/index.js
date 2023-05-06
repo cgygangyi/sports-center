@@ -97,6 +97,24 @@ let routes = [
         name: 'Empty',
         layout: 'dashboard',
         component: () => import('../views/ReLoad.vue')
+    },
+    {
+        path: '/membership',
+        name: 'Membership',
+        layout: 'dashboard',
+        component: () => import('../views/MemberShip.vue')
+    },
+    {
+        path: '/itemInvoice',
+        name: 'Item Receipt',
+        layout: 'dashboard',
+        component: () => import('../views/ItemInvoice.vue')
+    },
+    {
+        path: '/venueInvoice',
+        name: 'Venue Receipt',
+        layout: 'dashboard',
+        component: () => import('../views/VenueInvoice.vue')
     }
 ]
 
@@ -136,10 +154,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     const token = localStorage.getItem('token')
     if (token === null || token === '') {
-        if (to.path === '/login' || to.path === '/register' || to.path === '/home' || to.path === '/venues' ||
-			to.path === '/equipments' || to.path === '/venueDetail' || to.path === '/admin/home' ||
-			to.path === '/admin/venues' || to.path === '/admin/users' || to.path === '/admin/states' ||
-            to.path === '/chat' || to.path === '/itemDetail') {
+        if (to.path === '/login' || to.path === '/register') {
             next()
         } else {
             next('/home')

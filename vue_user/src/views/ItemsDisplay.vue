@@ -5,7 +5,7 @@
                 <a-col :span="24" :md="12" :xl="6" v-for="(project, index) in projects" :key="index">
                     <ItemCard
                         :id="project.id"
-                        :name="project.name"
+                        :name="project.itemName"
                         :cover="project.image"
                         :price="project.price"
                         class="mb-15"
