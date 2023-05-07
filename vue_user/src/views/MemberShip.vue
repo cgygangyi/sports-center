@@ -11,7 +11,7 @@
                             </a-tag>
                             <h1 class="font-semibold">
                                 <small>￥</small>
-                                <span>59</span>
+                                <span>199</span>
                             </h1>
                             <ul class="list-pricing">
                                 <li>
@@ -33,9 +33,29 @@
                                     Free parking
                                 </li>
                             </ul>
-                            <a-button type="primary" block>
+                            <a-button type="primary" block @click="showModal(1)">
                                 JOIN <a-icon type="arrow-right" class="ml-5" />
                             </a-button>
+                            <a-modal
+                                title="Title"
+                                :visible="visible"
+                                :confirm-loading="confirmLoading"
+                                @ok="handleOk"
+                                @cancel="handleCancel"
+                            >
+                                <a-tabs default-active-key="1" @change="callback">
+                                    <a-tab-pane key="1" tab="Card">
+                                        <p v-if="cardNumber==null">Sorry, you haven't add any card yet. Go to profile page to add one.</p>
+                                        <a-card class="payment-method-card" v-else>
+                                            <img src="images/logos/visa-logo.png" alt="">
+                                            <h6 class="card-number">**** **** **** {{ cardNumber }}</h6>
+                                        </a-card>
+                                    </a-tab-pane>
+                                    <a-tab-pane key="2" tab="Cash" force-render>
+                                        Content of Tab Pane 2
+                                    </a-tab-pane>
+                                </a-tabs>
+                            </a-modal>
                         </a-card>
 
                     </a-col>
@@ -46,7 +66,7 @@
                             </a-tag>
                             <h1 class="font-semibold">
                                 <small>￥</small>
-                                <span>89</span>
+                                <span>499</span>
                             </h1>
 
                             <ul class="list-pricing">
@@ -70,7 +90,7 @@
                                 </li>
                             </ul>
 
-                            <a-button type="dark" block>
+                            <a-button type="dark" block @click="showModal(3)">
                                 JOIN <a-icon type="arrow-right" class="ml-5" />
                             </a-button>
                         </a-card>
@@ -83,7 +103,7 @@
                             </a-tag>
                             <h1 class="font-semibold">
                                 <small>￥</small>
-                                <span>99</span>
+                                <span>899</span>
                             </h1>
 
                             <ul class="list-pricing">
@@ -107,7 +127,7 @@
                                 </li>
                             </ul>
 
-                            <a-button type="primary" block>
+                            <a-button type="primary" block @click="showModal(12)">
                                 JOIN <a-icon type="arrow-right" class="ml-5" />
                             </a-button>
                         </a-card>
@@ -163,24 +183,55 @@
 
                     </a-col>
                 </a-row>
-                <!-- / FAQ -->
-
             </div>
-            <!-- / Main Container -->
-
         </div>
-
     </div>
 </template>
 
 <script>
 
+import { getUserProfile, subscribeMembership } from '@/api/user'
+
 export default ({
     data() {
         return {
+            visible: false,
+            confirmLoading: false,
+            number: 0,
+            cardNumber: ''
         }
     },
+    beforeMount () {
+        getUserProfile().then(res => {
+            this.cardNumber = res.data.card
+            if (this.cardNumber !== null) {
+                this.cardNumber = this.cardNumber.slice(-4)
+            }
+        })
+    },
     methods: {
+        showModal(num) {
+            this.visible = true
+            this.number = num
+        },
+        handleOk(e) {
+            this.confirmLoading = true
+            subscribeMembership(this.number).then(res => {
+                setTimeout(() => {
+                    this.visible = false
+                    this.confirmLoading = false
+                    if (res.data.code === 7034) {
+                        this.$message.success('Subscribe successfully')
+                    } else {
+                        this.$message.error(res.data.msg)
+                    }
+                }, 1000)
+                console.log(res)
+            })
+        },
+        handleCancel(e) {
+            this.visible = false
+        }
     }
 })
 

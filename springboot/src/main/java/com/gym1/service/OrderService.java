@@ -3,9 +3,11 @@ package com.gym1.service;
 
 import com.gym1.entity.Order;
 import com.gym1.entity.User;
+import com.gym1.entity.Venue;
 import com.gym1.entity.VenueState;
 import com.gym1.mapper.OrderMapper;
 import com.gym1.mapper.UserMapper;
+import com.gym1.mapper.VenueMapper;
 import com.gym1.mapper.VenueStateMapper;
 import com.gym1.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +40,14 @@ public class OrderService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public int addOrder(int id, String userId) throws MessagingException {
+    @Autowired
+    private VenueMapper venueMapper;
+
+    public int addOrder(int id, String userId, String status) throws MessagingException {
         int uId = Integer.parseInt(userId);
         VenueState venueState = venueStateMapper.queryVenueStateById(id);
+        int venueId = venueStateMapper.queryVenueIdByVenueStateId(id);
+        Venue venue = venueMapper.queryVenueById(venueId);
         if (venueState.getOpen() == 1 && venueState.getFree() == 1){
             int a = 0;
             int b = 0;
@@ -51,7 +58,15 @@ public class OrderService {
                 }else{
                     try{
                         Date date = new Date(System.currentTimeMillis());
-                        Order order = new Order(id, uId, date);
+                        double price = venue.getPrice();
+                        if (status.equals("user")){
+                            User user = userMapper.queryUserById(uId);
+                            if (user.getIsMember() == 1){
+                                int t = (int)(price * 0.75 * 100);
+                                price = (double)(t / 100);
+                            }
+                        }
+                        Order order = new Order(id, uId, date, price);
                         b = orderMapper.addOrder(order);
                         if (b != 0){
                             int oId = orderMapper.queryOrderIdByOrder(order);
@@ -72,7 +87,7 @@ public class OrderService {
                                     order1.getPhoneNumber(), order1.getUsername(), order1.getName(), order1.getAddress(),
                                     begin, end, order1.getPrice()+"", formatter.format(date));
                            minehelper.setText(content, true);
-                            mailSender.send(message);
+                           mailSender.send(message);
                         }
                         return b;
                     }catch (Exception e1){

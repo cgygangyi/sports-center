@@ -194,16 +194,16 @@ import { makeVenueComment } from '@/api/venueComment'
 import { makeItemComment } from '@/api/itemComment'
 
 // Next event's list.
-const eventsData = [
-    {
-        id: '1',
-        title: 'No.1 Basketball venue',
-        code: '29 April 2023, at 13:00',
-        iconClass: 'text-primary',
-        icon: 'calendar',
-        iconBgColor: 'rgba(234,6,6,.03)'
-    }
-]
+// const eventsData = [
+//     {
+//         id: '1',
+//         title: 'No.1 Basketball venue',
+//         code: '29 April 2023, at 13:00',
+//         iconClass: 'text-primary',
+//         icon: 'calendar',
+//         iconBgColor: 'rgba(234,6,6,.03)'
+//     }
+// ]
 
 // Chart data.
 const chartData = {
@@ -227,6 +227,7 @@ export default {
     },
     data() {
         return {
+            eventsData: [],
             form: this.$form.createForm(this, { name: 'coordinated' }),
             visibleVenue: false,
             visibleItem: false,
@@ -237,9 +238,6 @@ export default {
             activeKey: ['1'],
             venueOrders: [],
             itemOrders: [],
-
-            // Next event's list.
-            eventsData,
 
             // Chart data.
             chartData,
@@ -300,6 +298,15 @@ export default {
                     start: this.venueOrders[i].begin,
                     end: this.venueOrders[i].end,
                     className: 'bg-warning text-dark'
+                })
+                // add elements to this.eventsData which means the next events
+                this.eventsData.push({
+                    id: this.venueOrders[i].id,
+                    title: this.venueOrders[i].name,
+                    code: this.venueOrders[i].begin + ' - ' + this.venueOrders[i].end,
+                    iconClass: 'text-primary',
+                    icon: 'calendar',
+                    iconBgColor: 'rgba(234,6,6,.03)'
                 })
             }
         })
@@ -390,6 +397,7 @@ export default {
                 console.log(res)
                 this.$message.success('Delete successfully!')
                 this.venueOrders = this.venueOrders.filter(item => item.id !== e)
+                this.eventsData = this.eventsData.filter(item => item.id !== e)
             })
         },
         confirmItem(e) {

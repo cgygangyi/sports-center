@@ -33,8 +33,16 @@ export default ({
             projects: []
         }
     },
-
+    activated () {
+        window.location.reload()
+    },
     beforeCreate() {
+        getAllVenues().then((response) => {
+            console.log(response)
+            this.projects = response.data.data
+        })
+    },
+    mounted () {
         getAllVenues().then((response) => {
             console.log(response)
             this.projects = response.data.data

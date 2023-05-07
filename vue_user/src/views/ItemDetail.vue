@@ -35,23 +35,14 @@
                                 <a-button type="primary" @click="showModal">
                                     PURCHASE
                                 </a-button>
-                                <a-modal v-model="visible" title="Please select a paying method" @ok="handleOk">
+                                <a-modal v-model="visible" title="Please select a paying method" @ok="handleOk" :confirm-loading="confirmLoading">
                                     <a-tabs default-active-key="1" @change="callback">
                                         <a-tab-pane key="1" tab="Card">
-                                            <a-select default-value="" style="width: 80%" @change="handleChange">
-                                                <a-select-option value="jack">
-                                                    Jack
-                                                </a-select-option>
-                                                <a-select-option value="lucy">
-                                                    Lucy
-                                                </a-select-option>
-                                                <a-select-option value="disabled" disabled>
-                                                    Disabled
-                                                </a-select-option>
-                                                <a-select-option value="Yiminghe">
-                                                    yiminghe
-                                                </a-select-option>
-                                            </a-select>
+                                            <p v-if="cardNumber==null">Sorry, you haven't add any card yet. Go to profile page to add one.</p>
+                                            <a-card class="payment-method-card" v-else>
+                                                <img src="images/logos/visa-logo.png" alt="">
+                                                <h6 class="card-number">**** **** **** {{ cardNumber }}</h6>
+                                            </a-card>
                                         </a-tab-pane>
                                         <a-tab-pane key="2" tab="Cash" force-render>
                                             Content of Tab Pane 2
@@ -98,6 +89,7 @@ import moment from 'moment'
 import { getItemInfo } from '@/api/item'
 import { getItemCommentById } from '@/api/itemComment'
 import { makeItemOrder } from '@/api/order'
+import { getUserProfile } from '@/api/user'
 
 export default ({
     query: {
@@ -108,12 +100,14 @@ export default ({
     },
     data() {
         return {
+            confirmLoading: false,
             visible: false,
             form: this.$form.createForm(this),
             itemData: {},
             description: [],
             comments: [],
-            moment
+            moment,
+            cardNumber: ''
 
         }
     },
@@ -126,6 +120,12 @@ export default ({
             this.comments = res.data.data
             console.log(this.comments)
         })
+        getUserProfile().then(res => {
+            this.cardNumber = res.data.card
+            if (this.cardNumber !== null) {
+                this.cardNumber = this.cardNumber.slice(-4)
+            }
+        })
     },
 
     methods: {
@@ -134,14 +134,23 @@ export default ({
         },
         handleOk(e) {
             console.log(e)
+            this.confirmLoading = true
             this.form.validateFields((err, values) => {
                 if (!err) {
                     // add count into valuse, in json format
                     values.number = document.getElementById('count').value
                     console.log('Received values of form: ', values)
-                    makeItemOrder(this.itemData.id, values).then(res => {
+                    makeItemOrder(this.itemData.id, values.number).then(res => {
                         console.log(res)
-                        this.$message.success('Order Success')
+                        if (res.data.code === 4003) {
+                            setTimeout(() => {
+                                this.visible = false
+                                this.confirmLoading = false
+                                this.$message.success('Order Success')
+                            }, 1000)
+                        } else {
+                            this.$message.error(res.data.msg)
+                        }
                     })
                 } else {
                     console.log(err)

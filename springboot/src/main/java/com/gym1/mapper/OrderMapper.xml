@@ -6,12 +6,12 @@
 <mapper namespace="com.gym1.mapper.OrderMapper">
 
     <insert id="addOrder" parameterType="com.gym1.entity.Order">
-        insert into `order`(orderTime, venueStateId, userId, comment)
-        values (#{orderTime}, #{venueStateId}, #{userId}, #{comment})
+        insert into `order`(orderTime, venueStateId, userId, comment, price)
+        values (#{orderTime}, #{venueStateId}, #{userId}, #{comment}, #{price})
     </insert>
 
     <select id="queryOrderByUserId" resultType="com.gym1.entity.Order">
-        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price
+        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, o.price
         from `order` o left join venue_state s on o.venueStateId = s.id
         left join venue v
         on s.venueId = v.id
@@ -33,7 +33,7 @@
     </update>
 
     <select id="queryOrderByUserIdComment" resultType="com.gym1.entity.Order">
-        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price
+        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, o.price
         from `order` o left join venue_state s on o.venueStateId = s.id
         left join venue v
         on s.venueId = v.id
@@ -52,7 +52,7 @@
     </select>
 
     <select id="queryAllOrder" resultType="com.gym1.entity.Order">
-        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price, u.name usern, u.username, u.phoneNumber
+        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, o.price, u.name usern, u.username, u.phoneNumber
         from `order` o left join venue_state s on o.venueStateId = s.id
             left join user u on u.id = o.userId
         left join venue v
@@ -60,7 +60,7 @@
     </select>
 
     <select id="queryOrderById" resultType="com.gym1.entity.Order">
-        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, v.price, u.name usern, u.username, u.phoneNumber
+        select o.id, o.orderTime, s.end, s.begin, v.name, v.address, o.price, u.name usern, u.username, u.phoneNumber
         from `order` o left join venue_state s on o.venueStateId = s.id
             left join user u on u.id = o.userId
         left join venue v
@@ -71,7 +71,7 @@
     <select id="queryOrderIdByOrder" resultType="int" parameterType="com.gym1.entity.Order">
         select o.id
         from `order` o
-        where o.venueStateId = #{venueStateId} and o.userId = #{userId}
+        where o.venueStateId = #{venueStateId} and o.userId = #{userId} and o.orderTime = #{orderTime}
     </select>
 
 </mapper>

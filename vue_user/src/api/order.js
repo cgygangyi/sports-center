@@ -55,6 +55,7 @@ export function bookVenue(id) {
     return request({
         url: '/order/makeOrder/' + id,
         method: 'post',
+        data: { status: 'user' },
         headers: {
             token: localStorage.getItem('token')
         }
@@ -84,14 +85,14 @@ export function deleteItemOrder(id) {
 }
 
 // make item order
-export function makeItemOrder(id, data) {
+export function makeItemOrder(id, num) {
     return request({
         url: '/itemOrder/makeOrder/' + id,
         method: 'post',
         headers: {
             token: localStorage.getItem('token')
         },
-        data: data
+        data: { number: num, status: 'user' }
     })
 }
 

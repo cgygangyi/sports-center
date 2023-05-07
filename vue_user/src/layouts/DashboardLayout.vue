@@ -26,7 +26,7 @@
 
                 <!-- Page Content -->
                 <a-layout-content  style="background-color: #EEEEEE">
-                    <router-view />
+                    <router-view/>
                 </a-layout-content>
                 <!-- / Page Content -->
 

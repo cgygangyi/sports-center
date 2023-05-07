@@ -12,7 +12,7 @@
                         @submit="handleSubmit"
                     >
                         <a-row :gutter="[24]">
-                            <a-col :span="12">
+                            <a-col :span="24">
                                 <a-form-item class="mb-10" label="Username" :colon="false">
                                     <a-input
                                         v-decorator="[
@@ -30,8 +30,19 @@
                                 <a-form-item class="mb-10" label="Email Address" :colon="false">
                                     <a-input
                                         v-decorator="[
-                                            'email',
-                                            { rules: [{ required: true, message: 'Please input your email!' }] },
+                                          'email',
+                                          {
+                                            rules: [
+                                              {
+                                                type: 'email',
+                                                message: 'The input is not valid E-mail!',
+                                              },
+                                              {
+                                                required: true,
+                                                message: 'Please input your E-mail!',
+                                              },
+                                            ],
+                                          },
                                         ]"
                                         placeholder="Email"
                                     >
@@ -39,29 +50,58 @@
                                 </a-form-item>
                             </a-col>
                             <a-col :span="12">
-                                <a-form-item class="mb-10" label="Password" :colon="false">
+                                <a-form-item class="mb-10" label="verification code" :colon="false">
                                     <a-input
                                         v-decorator="[
-                                            'password',
-                                            { rules: [{ required: true, message: 'Please input your Password!' }] },
+                                            'code',
+                                            { rules: [{ required: true, message: 'Please input email verification code!' }, {validator: validateToCode } ] },
                                         ]"
-                                        type="password"
-                                        placeholder="******"
+                                        placeholder="6 digits"
                                     >
                                     </a-input>
+                                    <a-button @click="getCode" :loading="loading">{{ buttonText }}</a-button>
                                 </a-form-item>
                             </a-col>
                             <a-col :span="12">
-                                <a-form-item class="mb-10" label="Repeat Password" :colon="false">
+                                <a-form-item class="mb-10" label="Password" has-feedback :colon="false">
                                     <a-input
                                         v-decorator="[
-                                            'Confirm password',
-                                            { rules: [{ required: true, message: 'Please input your Password!' }] },
+                                          'password',
+                                          {
+                                            rules: [
+                                              { required: true, message: 'Please input your password!' },
+                                              { validator: validateToNextPassword },
+                                              { min: 6, message: 'Min length of password is 6' },
+                                              { max: 20, message: 'Max length of password is 20' }
+                                            ],
+                                          },
                                         ]"
                                         type="password"
                                         placeholder="******"
-                                    >
-                                    </a-input>
+                                    />
+                                </a-form-item>
+                            </a-col>
+                            <a-col :span="12">
+                                <a-form-item class="mb-10" label="Confirm Password" has-feedback :colon="false">
+                                    <a-input
+                                        v-decorator="[
+                                          'confirm',
+                                          {
+                                            rules: [
+                                              {
+                                                required: true,
+                                                message: 'Please confirm your password!',
+                                              },
+                                              {
+                                                validator: compareToFirstPassword,
+                                              },
+                                            ],
+                                          },
+                                        ]"
+                                        type="password"
+                                        placeholder="******"
+                                        @blur="handleConfirmBlur"
+                                    />
                                 </a-form-item>
                             </a-col>
                             <a-col :span="12">
@@ -132,17 +172,39 @@
 
 <script>
 
-import { userRegister } from '@/api/user'
+import { userRegister, verifyUsernameAndEmail } from '@/api/user'
 
 export default ({
     data() {
         return {
+            loading: false,
+            codeStorage: '',
+            buttonText: 'Get Code'
         }
     },
     beforeCreate() {
         this.form = this.$form.createForm(this, { name: 'normal_login' })
     },
     methods: {
+        getCode() {
+            // check if username and email is entered
+            const username = this.form.getFieldValue('username')
+            const email = this.form.getFieldValue('email')
+            if (!username || !email) {
+                this.$message.error('Please enter username and email')
+                return
+            }
+            verifyUsernameAndEmail(username, email).then(res => {
+                if (res.data.code === 7036) {
+                    this.$message.success('code sent successfully')
+                    this.codeStorage = res.data.data
+                    this.loading = true
+                    this.startCountdown()
+                } else {
+                    this.$message.warning(res.data.msg)
+                }
+            })
+        },
         handleSubmit(e) {
             e.preventDefault()
             this.form.validateFields((err, values) => {
@@ -159,6 +221,49 @@ export default ({
                     console.log('Received values of form: ', values)
                 }
             })
+        },
+        handleConfirmBlur(e) {
+            const value = e.target.value
+            this.confirmDirty = this.confirmDirty || !!value
+        },
+        compareToFirstPassword(rule, value, callback) {
+            const form = this.form
+            if (value && value !== form.getFieldValue('password')) {
+                // eslint-disable-next-line node/no-callback-literal
+                callback('Two passwords that you enter is inconsistent!')
+            } else {
+                callback()
+            }
+        },
+        validateToNextPassword(rule, value, callback) {
+            const form = this.form
+            if (value && this.confirmDirty) {
+                form.validateFields(['confirm'], { force: true })
+            }
+            callback()
+        },
+        validateToCode(rule, value, callback) {
+            const decode = this.codeStorage[5] + this.codeStorage[11] + this.codeStorage[17] + this.codeStorage[23] + this.codeStorage[29] + this.codeStorage[35]
+            console.log(decode)
+            if (value && value !== decode) {
+                // eslint-disable-next-line node/no-callback-literal
+                callback('Code is not correct')
+            } else {
+                callback()
+            }
+        },
+        startCountdown() {
+            let count = 60
+            const timer = setInterval(() => {
+                if (count === 0) {
+                    this.loading = false
+                    this.buttonText = 'Get Code'
+                    clearInterval(timer)
+                } else {
+                    count--
+                    this.buttonText = `${count}s`
+                }
+            }, 1000)
         }
     }
 })

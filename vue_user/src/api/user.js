@@ -82,3 +82,24 @@ export function updateUserAvatar(map) {
         }
     })
 }
+
+// subscribe membership
+export function subscribeMembership(num) {
+    return request({
+        url: '/user/subscribe',
+        method: 'post',
+        data: { num: num },
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// verify username and email
+export function verifyUsernameAndEmail(username, email) {
+    return request({
+        url: '/user/verifyUsername',
+        method: 'post',
+        data: { username: username, email: email }
+    })
+}

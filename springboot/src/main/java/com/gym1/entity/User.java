@@ -1,11 +1,11 @@
 package com.gym1.entity;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gym1.util.DefaultProfile;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import java.util.Calendar;
 import java.util.Date;
-
 
 
 public class User {
@@ -80,6 +80,37 @@ public class User {
     }
 
     public User(int id, int age, int sex, String username, String password,
+                String phoneNumber, String name, String email, String image,
+            String card, Date membership) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.sex = sex;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.age = age;
+        if (image == null){
+            this.image = DefaultProfile.getDefaultProfile();
+        }else{
+            this.image = image;
+        }
+        this.card = card;
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        this.membership = membership;
+        if (membership == null){
+            this.isMember = 0;
+        }else {
+            if (membership.compareTo(date) == -1){
+                this.isMember = 0;
+            }else{
+                this.isMember = 1;
+            }
+        }
+    }
+
+    public User(int id, int age, int sex, String username, String password,
                 String phoneNumber, String name, String email, String image, int admin) {
         this.id = id;
         this.username = username;
@@ -95,6 +126,38 @@ public class User {
             this.image = image;
         }
         this.admin = admin;
+    }
+
+    public User(int id, int age, int sex, String username, String password,
+                String phoneNumber, String name, String email, String image, int admin,
+                String card, Date membership) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.sex = sex;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.age = age;
+        if (image == null){
+            this.image = DefaultProfile.getDefaultProfile();
+        }else{
+            this.image = image;
+        }
+        this.admin = admin;
+        this.card = card;
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        this.membership = membership;
+        if (membership == null){
+            this.isMember = 0;
+        }else {
+            if (membership.compareTo(date) == -1){
+                this.isMember = 0;
+            }else{
+                this.isMember = 1;
+            }
+        }
     }
 
     public int getId() {

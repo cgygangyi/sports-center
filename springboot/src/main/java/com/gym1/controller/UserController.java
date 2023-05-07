@@ -54,11 +54,7 @@ public class UserController {
     public Map<String, Object> register(@RequestBody Map map){
         Map<String, Object> reMap = new HashMap<>();
         int res = userService.registerService(map);
-        if (res == -2){
-            reMap.put("code", 7004);
-            reMap.put("msg", "The username has existed!");
-            reMap.put("data", res);
-        }else if(res == -1){
+        if (res == -1){
             reMap.put("code", 7005);
             reMap.put("msg", "Error!");
             reMap.put("data", res);
@@ -265,6 +261,63 @@ public class UserController {
             reMap.put("data", res);
         }
         return reMap;
+    }
+
+
+    @PostMapping("/subscribe")
+    public Map<String, Object> subscribe(HttpServletRequest request, @RequestBody Map map){
+        Map<String, Object> reMap = new HashMap<>();
+        int id = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        int number = Integer.parseInt(map.get("num").toString());
+        int res = userService.subscribe(id, number);
+        if (res == -1){
+            reMap.put("code", 7032);
+            reMap.put("msg", "Error!");
+            reMap.put("data", res);
+        }else if(res == 0){
+            reMap.put("code", 7033);
+            reMap.put("msg", "Failure!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 7034);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @PostMapping("/verifyUsername")
+    public Map<String, Object> verifyUsername(@RequestBody Map map){
+        Map<String, Object> reMap = new HashMap<>();
+        String email = map.get("email").toString();
+        String username = map.get("username").toString();
+        String res = userService.verifyUsername(username, email);
+        if (res.equals("0")){
+            reMap.put("code", 7004);
+            reMap.put("msg", "The username has existed!");
+            reMap.put("data", res);
+        }else if(res.equals("1")){
+            reMap.put("code", 7035);
+            reMap.put("msg", "Error!");
+            reMap.put("data", res);
+        }else{
+            res = "oc5d>" + res.charAt(0) + "uirm?" + res.charAt(1) +"5s*54" + res.charAt(2) +"dsu.x"
+                    + res.charAt(3) +"65d)s" + res.charAt(4) +"pvf08" + res.charAt(5);
+            reMap.put("code", 7036);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+    @GetMapping("/a")
+    public Map<String, Object> a(@RequestBody Map map){
+        double a = 12.3654;
+        int p = (int)(a*100);
+        double b = (double) p/100;
+        System.out.println(b);
+        return null;
     }
 
 }

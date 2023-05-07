@@ -6,13 +6,13 @@
 <mapper namespace="com.gym1.mapper.UserMapper">
     
     <select id="queryUserByUsername" parameterType="String" resultType="com.gym1.entity.User">
-        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image, u.card, u.membership
         from user u
         where username=#{username}
     </select>
 
     <select id="queryAllUser" resultType="com.gym1.entity.User">
-        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image, u.admin
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image, u.admin, u.card, u.membership
         from user u
     </select>
 
@@ -22,7 +22,7 @@
     </insert>
 
     <select id="queryUserById" resultType="com.gym1.entity.User">
-        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image
+        select u.id, u.age, u.sex, u.username, u.password, u.phoneNumber, u.name, u.email, u.image, u.card, u.membership
         from user u
         where u.id = #{id}
     </select>
@@ -60,6 +60,12 @@
     <update id="updateUserCardById">
         UPDATE user
         SET card = #{card}
+        where id = #{id}
+    </update>
+
+    <update id="updateUserMembershipById">
+        UPDATE user
+        SET membership = #{date}
         where id = #{id}
     </update>
 

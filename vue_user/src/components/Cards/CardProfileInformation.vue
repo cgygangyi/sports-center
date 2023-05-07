@@ -16,6 +16,9 @@
             <a-descriptions-item label="Gender">
                 {{ sex }}
             </a-descriptions-item>
+            <a-descriptions-item label="Membership" v-if="membership!=''">
+                {{ date }}
+            </a-descriptions-item>
 		</a-descriptions>
 
         <hr class="my-25">
@@ -60,6 +63,14 @@ export default ({
             default: ''
         },
         sex: {
+            type: String,
+            default: ''
+        },
+        membership: {
+            type: Number,
+            default: 0
+        },
+        date: {
             type: String,
             default: ''
         }

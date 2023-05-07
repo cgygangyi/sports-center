@@ -154,9 +154,10 @@ export default ({
                     this.ModalText = 'Booking......'
                     this.confirmLoading = true
                     setTimeout(() => {
+                        alert('Booking success!')
                         this.visible = false
                         this.confirmLoading = false
-                        this.$message.success('Successfully booked!')
+                        this.$router.go(0)
                     }, 1000)
                 } else {
                     this.$message.warning(response.data.message)

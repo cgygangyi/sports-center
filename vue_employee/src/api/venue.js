@@ -7,6 +7,7 @@ export function getAllVenues() {
     return request({
         url: '/venue/getAll',
         method: 'get',
+        data: { status: 'admin' },
         // header is the token in local storage
         headers: {
             token: localStorage.getItem('token')
@@ -18,7 +19,8 @@ export function getAllVenues() {
 export function getVenueById(id) {
     return request({
         url: '/venue/getVenueInfo/' + id,
-        method: 'get'
+        method: 'get',
+        data: { status: 'admin' }
     })
 }
 
