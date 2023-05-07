@@ -12,12 +12,15 @@ public class Venue extends VenueType{
 
     public Venue(){}
 
+    public Venue(double price){
+        this.price = price;
+    }
+
     public Venue(int type, String name, String address, double price) {
         this.typeId = type;
         this.name = name;
         this.address = address;
         this.price = price;
-
     }
 
     public Venue(String name, String address, double price) {

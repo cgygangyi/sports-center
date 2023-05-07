@@ -1,7 +1,10 @@
 package com.gym1.service;
 
 
+import com.gym1.entity.Item;
+import com.gym1.entity.User;
 import com.gym1.entity.Venue;
+import com.gym1.mapper.UserMapper;
 import com.gym1.mapper.VenueMapper;
 import com.gym1.mapper.VenueTypeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +21,34 @@ public class VenueService {
     @Autowired
     private VenueTypeMapper venueTypeMapper;
 
+    @Autowired
+    private UserMapper userMapper;
 
-    public List<Venue> getAllVenue(){
-        return venueMapper.queryAllVenue();
+
+    public List<Venue> getAllVenue(int uId, String status){
+        List<Venue> venues = venueMapper.queryAllVenue();
+        if (status.equals("user")){
+            User user = userMapper.queryUserById(uId);
+            if (user.getIsMember() == 1){
+                for (Venue venue : venues){
+                    int price = (int)(venue.getPrice() * 0.75 * 100);
+                    venue.setPrice((double)(price / 100));
+                }
+            }
+        }
+        return venues;
     }
 
-    public Venue getVenueInfo(int venueId){
-        return venueMapper.queryVenueById(venueId);
+    public Venue getVenueInfo(int venueId, int uId, String status){
+        Venue venue = venueMapper.queryVenueById(venueId);
+        if (status.equals("user")){
+            User user = userMapper.queryUserById(uId);
+            if (user.getIsMember() == 1){
+                int price = (int)(venue.getPrice() * 0.75 * 100);
+                venue.setPrice((double)(price / 100));
+            }
+        }
+        return venue;
     }
 
     public int addVenue(String image, String type, String name, String address, double price){

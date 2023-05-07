@@ -29,9 +29,11 @@ public class OrderController {
 
 
     @PostMapping("/makeOrder/{venueStateId}")
-    public Map<String, Object> makeOrder(HttpServletRequest request, @PathVariable int venueStateId) throws MessagingException {
+    public Map<String, Object> makeOrder(HttpServletRequest request, @PathVariable int venueStateId,
+                                         @RequestBody Map map) throws MessagingException {
         Map<String, Object> reMap = new HashMap<>();
-        int res = orderService.addOrder(venueStateId, JwtUtil.getMemberIdByJwtToken(request));
+        String status = map.get("status").toString();
+        int res = orderService.addOrder(venueStateId, JwtUtil.getMemberIdByJwtToken(request), status);
         if(res == -2){
             reMap.put("code", 5001);
             reMap.put("message", "Failure!");

@@ -3,10 +3,13 @@ package com.gym1.controller;
 
 import com.gym1.entity.Item;
 import com.gym1.service.ItemService;
+import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Encoder;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -51,10 +54,16 @@ public class ItemController {
     }
 
 
-    @GetMapping("/getAllItem")
-    public Map<String, Object> getAllItem(){
+    @PostMapping("/getAllItem")
+    public Map<String, Object> getAllItem(HttpServletRequest request, @RequestBody Map map){
+        String status = map.get("status").toString();
+        String jwtToken = request.getHeader("token");
+        int uId = 1;
+        if (jwtToken != null){
+            uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        }
         Map<String, Object> reMap = new HashMap<>();
-        List<Item> res = itemService.getAllItem();
+        List<Item> res = itemService.getAllItem(uId, status);
         if (res.size() == 0){
             reMap.put("code", 3005);
             reMap.put("msg", "There are no items!");
@@ -68,10 +77,13 @@ public class ItemController {
     }
 
 
-    @GetMapping("/getItemInfo/{itemId}")
-    public Map<String, Object> getItemInfo(@PathVariable int itemId){
+    @PostMapping("/getItemInfo/{itemId}")
+    public Map<String, Object> getItemInfo(HttpServletRequest request, @RequestBody Map map,
+                                           @PathVariable int itemId){
+        int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        String status = map.get("status").toString();
         Map<String, Object> reMap = new HashMap<>();
-        Item item = itemService.getItemInfo(itemId);
+        Item item = itemService.getItemInfo(itemId, uId, status);
         reMap.put("code", 3004);
         reMap.put("msg", "Success!");
         reMap.put("data", item);

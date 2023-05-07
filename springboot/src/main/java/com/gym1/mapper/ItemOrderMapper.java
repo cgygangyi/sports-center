@@ -25,4 +25,6 @@ public interface ItemOrderMapper {
 
     ItemOrder queryItemOrderByItemOrderId(int id);
 
+    int queryItemOrderIdByItemOrder(ItemOrder itemOrder);
+
 }

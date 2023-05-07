@@ -31,5 +31,6 @@ public interface VenueStateMapper {
 
     List<VenueState> queryVenueStateByDate2(String begin, String end);
 
+    int queryVenueIdByVenueStateId(int id);
 
 }

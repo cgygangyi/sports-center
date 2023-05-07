@@ -32,6 +32,14 @@ public class Order extends Venue{
         this.comment = 0;
     }
 
+    public Order( int venueStateId, int userId, Date orderTime, double price) {
+        super(price);
+        this.venueStateId = venueStateId;
+        this.userId = userId;
+        this.orderTime = orderTime;
+        this.comment = 0;
+    }
+
     public Order(int id, int venueStateId, int userId) {
         this.id = id;
         this.venueStateId = venueStateId;

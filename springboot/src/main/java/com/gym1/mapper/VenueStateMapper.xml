@@ -64,4 +64,10 @@
         values (#{venueId}, #{begin}, #{end}, #{free}, #{open})
     </insert>
 
+    <select id="queryVenueIdByVenueStateId" resultType="int">
+        select s.venueId
+        from venue_state s
+        where s.id = #{id}
+    </select>
+
 </mapper>

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
 
 
 @RestController
@@ -54,11 +56,7 @@ public class UserController {
     public Map<String, Object> register(@RequestBody Map map){
         Map<String, Object> reMap = new HashMap<>();
         int res = userService.registerService(map);
-        if (res == -2){
-            reMap.put("code", 7004);
-            reMap.put("msg", "The username has existed!");
-            reMap.put("data", res);
-        }else if(res == -1){
+        if (res == -1){
             reMap.put("code", 7005);
             reMap.put("msg", "Error!");
             reMap.put("data", res);
@@ -107,6 +105,7 @@ public class UserController {
         reMap.put("code", 7011);
         reMap.put("msg", "Success!");
         reMap.put("data", user);
+        reMap.put("card", user.getCard());
         return reMap;
     }
 
@@ -290,5 +289,43 @@ public class UserController {
         return reMap;
     }
 
+
+    @PostMapping("/verifyUsername")
+    public Map<String, Object> verifyUsername(@RequestBody Map map){
+        Map<String, Object> reMap = new HashMap<>();
+        String email = map.get("email").toString();
+        String username = map.get("username").toString();
+        String res = userService.verifyUsername(username, email);
+        if (res.equals("0")){
+            reMap.put("code", 7004);
+            reMap.put("msg", "The username has existed!");
+            reMap.put("data", res);
+        }else if(res.equals("1")){
+            reMap.put("code", 7035);
+            reMap.put("msg", "Error!");
+            reMap.put("data", res);
+        }else{
+            String temp = "";
+            Random random = new Random();
+            for (int i = 0; i < 6; i++){
+                for (int j = 0; j < 5; j++){
+                    temp = temp + (char)(random.nextInt(30)+48);
+                }
+                temp = temp + res.charAt(i);
+            }
+            reMap.put("code", 7036);
+            reMap.put("msg", "Success!");
+            reMap.put("data", temp);
+        }
+        return reMap;
+    }
+
+    @GetMapping("/a")
+    public Map<String, Object> a(HttpServletRequest request, @RequestBody Map map){
+        String jwtToken = request.getHeader("token");
+
+        System.out.println(jwtToken);
+        return null;
+    }
 
 }

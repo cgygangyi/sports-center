@@ -3,13 +3,18 @@ package com.gym1.service;
 
 import com.gym1.entity.Item;
 import com.gym1.entity.ItemOrder;
-import com.gym1.entity.Order;
 import com.gym1.entity.User;
 import com.gym1.mapper.ItemMapper;
 import com.gym1.mapper.ItemOrderMapper;
 import com.gym1.mapper.UserMapper;
+import com.gym1.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import javax.mail.internet.MimeMessage;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +32,11 @@ public class ItemOrderService {
     @Autowired
     UserMapper userMapper;
 
+    @Value("${spring.mail.username}")
+    private String from;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     public int makeOrder(int itemId, String userId, Map map){
         int uId = Integer.parseInt(userId);
@@ -39,11 +49,39 @@ public class ItemOrderService {
         int number = Integer.parseInt(map.get("number").toString());
         Date date = new Date(System.currentTimeMillis());
         double price = itemPrice * number;
+        String status = map.get("status").toString();
+        if (status.equals("user")){
+            User user1 = userMapper.queryUserById(uId);
+            if (user1.getIsMember() == 1){
+                int t = (int)(price * 0.75 * 100);
+                price = (double)(t / 100);
+            }
+        }
         ItemOrder itemOrder = new ItemOrder(uId, itemId, number, price,
                 username, name, phoneNumber, date);
         int res = 0;
         try{
             res = itemOrderMapper.addItemOrder(itemOrder);
+            if (res != 0){
+                int oId = itemOrderMapper.queryItemOrderIdByItemOrder(itemOrder);
+                MimeMessage message = mailSender.createMimeMessage();
+                ItemOrder itemOrder1 = itemOrderMapper.queryItemOrderByItemOrderId(itemId);
+                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
+                mimeMessageHelper.setFrom(from);
+                User user1 = userMapper.queryUserById(uId);
+                mimeMessageHelper.setTo(user.getEmail());
+                mimeMessageHelper.setSubject("Order Successfully");
+                SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+                String year = formatter.format(date).substring(0,4);
+                String month = formatter.format(date).substring(5,7);
+                String day = formatter.format(date).substring(8,10);
+                String content = EmailUtil.itemOrderEmail(year, month, day, oId, user1.getName(),
+                        user1.getPhoneNumber(), user1.getUsername(), itemOrder1.getName(),
+                        number, price+"", formatter.format(date));
+                mimeMessageHelper.setText(content, true);
+                mailSender.send(message);
+            }
+            return res;
         }catch (Exception e){
             res = -1;
         }

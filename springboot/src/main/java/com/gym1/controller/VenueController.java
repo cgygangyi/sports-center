@@ -3,8 +3,10 @@ package com.gym1.controller;
 
 import com.gym1.entity.Venue;
 import com.gym1.service.VenueService;
+import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -20,10 +22,12 @@ public class VenueController {
     private VenueService venueService;
 
 
-    @GetMapping("/getVenueInfo/{venueId}")
-    public Map<String, Object> getVenueInfo(@PathVariable int venueId){
+    @PostMapping("/getVenueInfo/{venueId}")
+    public Map<String, Object> getVenueInfo(HttpServletRequest request, @RequestBody Map map, @PathVariable int venueId){
+        int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        String status = map.get("status").toString();
         Map<String, Object> reMap = new HashMap<>();
-        Venue res = venueService.getVenueInfo(venueId);
+        Venue res = venueService.getVenueInfo(venueId, uId, status);
         reMap.put("code", 8001);
         reMap.put("msg", "Success!");
         reMap.put("data", res);
@@ -31,10 +35,16 @@ public class VenueController {
     }
 
 
-    @GetMapping("/getAll")
-    public Map<String, Object> getAll(){
+    @PostMapping("/getAll")
+    public Map<String, Object> getAll(HttpServletRequest request, @RequestBody Map map){
+        int uId = 1;
+        String status = map.get("status").toString();
+        String jwtToken = request.getHeader("token");
+        if (jwtToken != null){
+            uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        }
         Map<String, Object> reMap = new HashMap<>();
-        List<Venue> res = venueService.getAllVenue();
+        List<Venue> res = venueService.getAllVenue( uId, status);
         if (res.size() == 0){
             reMap.put("code", 8002);
             reMap.put("msg", "There are no venues!");
