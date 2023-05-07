@@ -37,7 +37,7 @@
                                 JOIN <a-icon type="arrow-right" class="ml-5" />
                             </a-button>
                             <a-modal
-                                title="Title"
+                                title="Please select a paying method"
                                 :visible="visible"
                                 :confirm-loading="confirmLoading"
                                 @ok="handleOk"
@@ -52,7 +52,7 @@
                                         </a-card>
                                     </a-tab-pane>
                                     <a-tab-pane key="2" tab="Cash" force-render>
-                                        Content of Tab Pane 2
+                                        <img src="images/QRCode.png" alt="">
                                     </a-tab-pane>
                                 </a-tabs>
                             </a-modal>

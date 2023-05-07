@@ -24,7 +24,8 @@
                     </div>
 
                     <h5 class="mb-0 mt-20 font-semibold">Price: {{ this.venueData.price }} (CNY/hour)</h5>
-                    <h5 class="mb-0 mt-20 font-semibold">address: {{ this.venueData.address }}</h5>
+                    <h5 class="mb-0 mt-20 font-semibold">Address: {{ this.venueData.address }}</h5>
+                    <h5 class="mb-0 mt-20 font-semibold">Type: {{ this.venueData.typeName }}</h5>
 
                     <h6 class="mt-20 font-semibold"><small>Description:</small></h6>
 
@@ -44,6 +45,18 @@
                             >
                                 <p>{{ ModalText }}</p>
                                 <TimePicker :data="ModalData"></TimePicker>
+                                <a-tabs default-active-key="1" @change="callback">
+                                    <a-tab-pane key="1" tab="Card">
+                                        <p v-if="cardNumber==null">Sorry, you haven't add any card yet. Go to profile page to add one.</p>
+                                        <a-card class="payment-method-card" v-else>
+                                            <img src="images/logos/visa-logo.png" alt="">
+                                            <h6 class="card-number">**** **** **** {{ cardNumber }}</h6>
+                                        </a-card>
+                                    </a-tab-pane>
+                                    <a-tab-pane key="2" tab="Cash" force-render>
+                                        <img src="images/QRCode.png" alt="">
+                                    </a-tab-pane>
+                                </a-tabs>
                             </a-modal>
                         </a-col>
                     </a-row>
@@ -84,6 +97,7 @@ import TimePicker from '@/components/Cards/TimePicker'
 import { getVenueTime } from '@/api/venueState'
 import { bookVenue } from '@/api/order'
 import { getVenueCommentById } from '@/api/venueComment'
+import { getUserProfile } from '@/api/user'
 
 export default ({
     components: {
@@ -97,6 +111,7 @@ export default ({
     },
     data() {
         return {
+            cardNumber: '',
             venueData: {},
             description: [],
             ModalText: 'Please click to select a time slot(just one for each choose)',
@@ -117,6 +132,12 @@ export default ({
         getVenueCommentById(this.$route.query.id).then(res => {
             this.comments = res.data.data
             console.log(this.comments)
+        })
+        getUserProfile().then(res => {
+            this.cardNumber = res.data.card
+            if (this.cardNumber !== null) {
+                this.cardNumber = this.cardNumber.slice(-4)
+            }
         })
     },
 

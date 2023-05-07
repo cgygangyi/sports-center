@@ -45,7 +45,7 @@
                                             </a-card>
                                         </a-tab-pane>
                                         <a-tab-pane key="2" tab="Cash" force-render>
-                                            Content of Tab Pane 2
+                                            <img src="images/QRCode.png" alt="">
                                         </a-tab-pane>
                                     </a-tabs>
                                 </a-modal>
