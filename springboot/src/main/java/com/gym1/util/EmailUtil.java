@@ -157,7 +157,7 @@ public class EmailUtil {
                 "                <span style=\"color:red\">Day</span>\n" +
                 "              </div>\n" +
                 "              <div>\n" +
-                "                Order Number:\n" +
+                "                Item Order Number:\n" +
                 "                <span style=\"color:#9C5223;font-weight:bold\">" + id + "</span>\n" +
                 "              </div>\n" +
                 "            </div>\n" +

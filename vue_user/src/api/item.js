@@ -6,7 +6,7 @@ import request from '../utils/request'
 export function getAllItems() {
     return request({
         url: '/item/getAllItem',
-        method: 'get',
+        method: 'post',
         data: { status: 'user' },
         // header is the token in local storage
         headers: {
@@ -19,7 +19,10 @@ export function getAllItems() {
 export function getItemInfo(id) {
     return request({
         url: '/item/getItemInfo/' + id,
-        method: 'get',
-        data: { status: 'user' }
+        method: 'post',
+        data: { status: "'user'" },
+        headers: {
+            token: localStorage.getItem('token')
+        }
     })
 }

@@ -22,7 +22,7 @@ public class VenueController {
     private VenueService venueService;
 
 
-    @GetMapping("/getVenueInfo/{venueId}")
+    @PostMapping("/getVenueInfo/{venueId}")
     public Map<String, Object> getVenueInfo(HttpServletRequest request, @RequestBody Map map, @PathVariable int venueId){
         int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
         String status = map.get("status").toString();
@@ -35,10 +35,14 @@ public class VenueController {
     }
 
 
-    @GetMapping("/getAll")
+    @PostMapping("/getAll")
     public Map<String, Object> getAll(HttpServletRequest request, @RequestBody Map map){
-        int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        int uId = 1;
         String status = map.get("status").toString();
+        String jwtToken = request.getHeader("token");
+        if (jwtToken != null){
+            uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        }
         Map<String, Object> reMap = new HashMap<>();
         List<Venue> res = venueService.getAllVenue( uId, status);
         if (res.size() == 0){

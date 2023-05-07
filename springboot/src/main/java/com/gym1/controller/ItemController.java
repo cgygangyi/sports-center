@@ -54,10 +54,14 @@ public class ItemController {
     }
 
 
-    @GetMapping("/getAllItem")
+    @PostMapping("/getAllItem")
     public Map<String, Object> getAllItem(HttpServletRequest request, @RequestBody Map map){
-        int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
         String status = map.get("status").toString();
+        String jwtToken = request.getHeader("token");
+        int uId = 1;
+        if (jwtToken != null){
+            uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));
+        }
         Map<String, Object> reMap = new HashMap<>();
         List<Item> res = itemService.getAllItem(uId, status);
         if (res.size() == 0){
@@ -73,7 +77,7 @@ public class ItemController {
     }
 
 
-    @GetMapping("/getItemInfo/{itemId}")
+    @PostMapping("/getItemInfo/{itemId}")
     public Map<String, Object> getItemInfo(HttpServletRequest request, @RequestBody Map map,
                                            @PathVariable int itemId){
         int uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));

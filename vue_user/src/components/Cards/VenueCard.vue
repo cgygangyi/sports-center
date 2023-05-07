@@ -53,6 +53,10 @@ export default ({
 
     methods: {
         jump() {
+            if (localStorage.getItem('token') === null || localStorage.getItem('token') === '') {
+                this.$message.error('Please login first')
+                return
+            }
             this.$router.push({
                 path: '/venueDetail',
                 query: {

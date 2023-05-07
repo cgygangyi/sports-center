@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+
 
 
 @RestController
@@ -103,6 +105,7 @@ public class UserController {
         reMap.put("code", 7011);
         reMap.put("msg", "Success!");
         reMap.put("data", user);
+        reMap.put("card", user.getCard());
         return reMap;
     }
 
@@ -302,21 +305,26 @@ public class UserController {
             reMap.put("msg", "Error!");
             reMap.put("data", res);
         }else{
-            res = "oc5d>" + res.charAt(0) + "uirm?" + res.charAt(1) +"5s*54" + res.charAt(2) +"dsu.x"
-                    + res.charAt(3) +"65d)s" + res.charAt(4) +"pvf08" + res.charAt(5);
+            String temp = "";
+            Random random = new Random();
+            for (int i = 0; i < 6; i++){
+                for (int j = 0; j < 5; j++){
+                    temp = temp + (char)(random.nextInt(30)+48);
+                }
+                temp = temp + res.charAt(i);
+            }
             reMap.put("code", 7036);
             reMap.put("msg", "Success!");
-            reMap.put("data", res);
+            reMap.put("data", temp);
         }
         return reMap;
     }
 
     @GetMapping("/a")
-    public Map<String, Object> a(@RequestBody Map map){
-        double a = 12.3654;
-        int p = (int)(a*100);
-        double b = (double) p/100;
-        System.out.println(b);
+    public Map<String, Object> a(HttpServletRequest request, @RequestBody Map map){
+        String jwtToken = request.getHeader("token");
+
+        System.out.println(jwtToken);
         return null;
     }
 

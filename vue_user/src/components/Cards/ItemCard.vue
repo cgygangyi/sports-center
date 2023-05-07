@@ -8,7 +8,7 @@
         <a-row type="flex" :gutter="6" class="card-footer" align="middle">
             <a-col :span="12">
                 <div>
-                    <a-button size="small" @click="jump">Book</a-button>
+                    <a-button size="small" @click="jump">Purchase</a-button>
 
                 </div>
             </a-col>
@@ -46,6 +46,10 @@ export default ({
 
     methods: {
         jump() {
+            if (localStorage.getItem('token') === null || localStorage.getItem('token') === '') {
+                this.$message.error('Please login first')
+                return
+            }
             this.$router.push({
                 path: '/itemDetail',
                 query: {

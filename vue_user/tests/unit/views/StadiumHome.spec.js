@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
 import StadiumHome from '@/views/StadiumHome.vue'
-import WidgetCounter from '@/components/Widgets/WidgetCounter.vue'
 import CardOrderHistory from '@/components/Cards/CardOrderHistory.vue'
 import Vue from 'vue'
 Vue.config.silent = true

@@ -254,7 +254,7 @@ export default {
                 },
                 selectable: true,
                 editable: true,
-                initialDate: '2023-04-01',
+                initialDate: '2023-05-01',
                 events: [],
                 views: {
                     month: {
