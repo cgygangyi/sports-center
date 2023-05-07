@@ -59,7 +59,6 @@ export default ({
         }
     },
     beforeCreate () {
-        console.log('clear token')
         localStorage.removeItem('token')
         this.form = this.$form.createForm(this, { name: 'normal_login' })
     },
@@ -69,7 +68,6 @@ export default ({
             this.form.validateFields((err, values) => {
                 if (!err) {
                     userLogin(values).then(res => {
-                        console.log(res.data)
                         if (res.data.code === 7002) {
                             localStorage.setItem('token', res.data.data)
                             this.$router.go(0)

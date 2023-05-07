@@ -64,7 +64,6 @@ export default ({
     },
     beforeCreate() {
         getAllVenues().then((response) => {
-            console.log(response)
             this.projects = response.data.data
             this.projFilter = this.projects
         })
@@ -78,7 +77,6 @@ export default ({
                     return project.typeName === value
                 })
             }
-            console.log(this.projFilter)
         },
         onSearchChange() {
             if (this.query.length > 0) {

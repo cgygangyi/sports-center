@@ -50,8 +50,11 @@ export default {
             this.$message.error('Please login first')
         } else {
             getAllChatMessages().then((response) => {
-                console.log(response)
-                this.messages = response.data.data
+                if (response.data.code === 6005) {
+                    this.messages = response.data.data
+                } else {
+                    this.$message.error(response.data.msg)
+                }
             })
         }
     },
@@ -69,7 +72,6 @@ export default {
                         } else {
                             this.$message.success('Send message successfully')
                             getAllChatMessages().then((response) => {
-                                console.log(response)
                                 this.messages = response.data.data
                             })
                         }

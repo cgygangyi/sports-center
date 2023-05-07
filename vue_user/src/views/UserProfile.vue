@@ -287,14 +287,12 @@ export default ({
     },
     beforeMount() {
         getUserProfile().then(res => {
-            console.log(res.data)
             this.userData = res.data.data
             this.cardNumber = res.data.card
             // get last for digit
             if (this.cardNumber !== null) {
                 this.cardNumber = this.cardNumber.slice(-4)
             }
-            console.log(this.cardNumber)
             this.$forceUpdate()
         })
     },
@@ -326,7 +324,6 @@ export default ({
                                 this.$message.success('Success!')
                                 this.visible = false
                                 getUserProfile().then(res => {
-                                    console.log(res.data)
                                     this.userData = res.data.data
                                     this.cardNumber = res.data.card
                                     // get last for digit
@@ -368,11 +365,8 @@ export default ({
             e.preventDefault()
             this.form.validateFields((err, values) => {
                 if (!err) {
-                    console.log('Received values of form: ', values)
                     updateUserProfile(values).then(res => {
-                        console.log(res.data)
                         getUserProfile().then(res => {
-                            console.log(res.data)
                             this.userData = res.data.data
                             this.$forceUpdate()
                         })

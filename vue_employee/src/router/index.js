@@ -94,6 +94,12 @@ let routes = [
         component: () => import('../views/AdminAddVenue.vue')
     },
     {
+        path: '/chat',
+        name: 'Chat room',
+        layout: 'admindashboard',
+        component: () => import('../views/ChatRoom.vue')
+    },
+    {
         path: '/logout',
         name: 'logout',
         layout: 'admindashboard',

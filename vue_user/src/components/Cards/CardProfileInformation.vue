@@ -13,8 +13,11 @@
 			<a-descriptions-item label="Age" id="age">
 				{{ age }}
 			</a-descriptions-item>
-            <a-descriptions-item label="Gender">
-                {{ sex }}
+            <a-descriptions-item label="Gender" v-if="sex==1">
+                Male
+            </a-descriptions-item>
+            <a-descriptions-item label="Gender" v-else>
+                Female
             </a-descriptions-item>
             <a-descriptions-item label="Membership" v-if="membership!=''">
                 {{ date }}

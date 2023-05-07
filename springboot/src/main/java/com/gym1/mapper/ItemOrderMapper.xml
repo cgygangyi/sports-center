@@ -5,7 +5,7 @@
 
 <mapper namespace="com.gym1.mapper.ItemOrderMapper">
 
-    <insert id="addItemOrder" parameterType="com.gym1.entity.ItemOrder">
+    <insert id="addItemOrder" parameterType="com.gym1.entity.ItemOrder"  >
         insert into item_order (orderTime, itemId, number, price, userId, comment)
         values (#{orderTime}, #{itemId}, #{number}, #{price}, #{userId}, #{comment})
     </insert>
@@ -58,11 +58,10 @@
         where o.id = #{id}
     </select>
 
-    <select id="queryItemOrderIdByItemOrder" resultType="int" parameterType="com.gym1.entity.ItemOrder">
+    <select id="queryItemOrderIdByItemOrder" resultType="int">
         select o.id
         from item_order o
-        where o.orderTime = #{orderTime} and o.itemId = #{itemId} and o.number = #{number}
-          and o.price = #{price} and o.userId = #{userId}
+        where  o.itemId = #{itemId} and o.number = #{number} and o.price = #{price} and o.userId = #{userId} and o.orderTime = #{date}
     </select>
 
 </mapper>

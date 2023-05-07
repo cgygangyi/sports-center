@@ -47,15 +47,6 @@ export default ({
     data() {
         return {
         }
-    },
-
-    beforeCreate() {
-    },
-
-    beforeMount() {
-    },
-
-    methods: {
     }
 })
 

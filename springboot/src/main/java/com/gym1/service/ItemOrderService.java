@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,7 +40,7 @@ public class ItemOrderService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public int makeOrder(int itemId, String userId, Map map){
+    public int makeOrder(int itemId, String userId, Map map) throws MessagingException {
         int uId = Integer.parseInt(userId);
         Item item = itemMapper.queryItemById(itemId).get(0);
         User user = userMapper.queryUserById(uId);
@@ -63,9 +65,8 @@ public class ItemOrderService {
         try{
             res = itemOrderMapper.addItemOrder(itemOrder);
             if (res != 0){
-                int oId = itemOrderMapper.queryItemOrderIdByItemOrder(itemOrder);
                 MimeMessage message = mailSender.createMimeMessage();
-                ItemOrder itemOrder1 = itemOrderMapper.queryItemOrderByItemOrderId(itemId);
+                Item item2 = itemMapper.queryItemById(itemId).get(0);
                 MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
                 mimeMessageHelper.setFrom(from);
                 User user1 = userMapper.queryUserById(uId);
@@ -75,8 +76,8 @@ public class ItemOrderService {
                 String year = formatter.format(date).substring(0,4);
                 String month = formatter.format(date).substring(5,7);
                 String day = formatter.format(date).substring(8,10);
-                String content = EmailUtil.itemOrderEmail(year, month, day, oId, user1.getName(),
-                        user1.getPhoneNumber(), user1.getUsername(), itemOrder1.getName(),
+                String content = EmailUtil.itemOrderEmail(year, month, day, user1.getName(),
+                        user1.getPhoneNumber(), user1.getUsername(), item2.getItemName(),
                         number, price+"", formatter.format(date));
                 mimeMessageHelper.setText(content, true);
                 mailSender.send(message);

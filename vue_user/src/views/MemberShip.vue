@@ -226,7 +226,6 @@ export default ({
                         this.$message.error(res.data.msg)
                     }
                 }, 1000)
-                console.log(res)
             })
         },
         handleCancel(e) {

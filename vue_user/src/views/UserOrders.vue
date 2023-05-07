@@ -66,7 +66,7 @@
                                             <a-button @click="showVenueModal">
                                                 Comment
                                             </a-button>
-                                            <a-modal v-model="visibleVenue" title="Basic Modal" :footer="null">
+                                            <a-modal v-model="visibleVenue" title="Make Comment" :footer="null">
                                                 <a-form :form="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }" @submit="handleVenueSubmit(order.id)">
                                                     <a-form-item label="Comment">
                                                         <a-input
@@ -148,8 +148,8 @@
                                         <a-button @click="showItemModal">
                                             Comment
                                         </a-button>
-                                        <a-modal v-model="visibleItem" title="Basic Modal" :footer="null">
-                                            <a-form :form="form" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }" @submit="handleItemSubmit(order.id)">
+                                        <a-modal v-model="visibleItem" title="Make Comment" :footer="null">
+                                            <a-form :form="form2" :label-col="{ span: 5 }" :wrapper-col="{ span: 12 }" @submit="handleItemSubmit(order.id)">
                                                 <a-form-item label="Comment">
                                                     <a-input
                                                         v-decorator="['comment', { rules: [{ required: true, message: 'Please input your comment!' }] }]"
@@ -229,6 +229,7 @@ export default {
         return {
             eventsData: [],
             form: this.$form.createForm(this, { name: 'coordinated' }),
+            form2: this.$form.createForm(this),
             visibleVenue: false,
             visibleItem: false,
             comments: [],
@@ -282,15 +283,9 @@ export default {
 
         }
     },
-    watch: {
-        activeKey(key) {
-            console.log(key)
-        }
-    },
     beforeMount() {
         getUserOrders().then(res => {
             this.venueOrders = res.data.data
-            console.log(this.venueOrders)
             // add elements to this.calendarOptions.events
             for (let i = 0; i < this.venueOrders.length; i++) {
                 this.calendarOptions.events.push({
@@ -312,7 +307,6 @@ export default {
         })
         getUserItemOrders().then(res => {
             this.itemOrders = res.data.data
-            console.log(this.itemOrders)
         })
         this.$forceUpdate()
     },
@@ -340,34 +334,31 @@ export default {
             this.form.validateFields((err, values) => {
                 if (!err) {
                     makeVenueComment(id, values).then(res => {
-                        console.log(res)
-                        this.visibleVenue = false
-                        this.form.resetFields()
-                        this.$message.success('Comment successfully!')
-                    }).catch(err => {
-                        console.log(err)
-                        this.$message.error('Comment failed!')
+                        if (res.data.code === 1003) {
+                            this.visibleVenue = false
+                            this.form.resetFields()
+                            this.$message.success('Comment successfully!')
+                        } else {
+                            this.$message.error(res.data.msg)
+                        }
                     })
-                    console.log('Received values of form: ', values)
                 }
             })
         },
         showItemModal() {
-            this.visibleVenue = true
+            this.visibleItem = true
         },
         handleItemSubmit: function (id) {
-            this.form.validateFields((err, values) => {
+            this.form2.validateFields((err, values) => {
                 if (!err) {
                     makeItemComment(id, values).then(res => {
-                        console.log(res)
-                        this.visibleVenue = false
+                        this.visibleItem = false
                         this.form.resetFields()
                         this.$message.success('Comment successfully!')
+                        // eslint-disable-next-line node/handle-callback-err
                     }).catch(err => {
-                        console.log(err)
                         this.$message.error('Comment failed!')
                     })
-                    console.log('Received values of form: ', values)
                 }
             })
         },
@@ -375,11 +366,9 @@ export default {
             if (e.target.value === 'all') {
                 getUserOrders().then(res => {
                     this.venueOrders = res.data.data
-                    console.log(this.venueOrders)
                 })
                 getUserItemOrders().then(res => {
                     this.itemOrders = res.data.data
-                    console.log(this.itemOrders)
                 })
             } else {
                 getUncommentedVenueOrders().then(res => {
@@ -392,18 +381,14 @@ export default {
             this.$forceUpdate()
         },
         confirmVenue(e) {
-            console.log(e)
             deleteOrder(e).then(res => {
-                console.log(res)
                 this.$message.success('Delete successfully!')
                 this.venueOrders = this.venueOrders.filter(item => item.id !== e)
                 this.eventsData = this.eventsData.filter(item => item.id !== e)
             })
         },
         confirmItem(e) {
-            console.log(e)
             deleteItemOrder(e).then(res => {
-                console.log(res)
                 this.$message.success('Delete successfully!')
                 this.itemOrders = this.itemOrders.filter(item => item.id !== e)
             })

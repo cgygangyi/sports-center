@@ -39,6 +39,7 @@ public class VenueController {
     public Map<String, Object> getAll(HttpServletRequest request, @RequestBody Map map){
         int uId = 1;
         String status = map.get("status").toString();
+        System.out.println(status);
         String jwtToken = request.getHeader("token");
         if (jwtToken != null){
             uId = Integer.parseInt(JwtUtil.getMemberIdByJwtToken(request));

@@ -2,6 +2,7 @@ package com.gym1.mapper;
 import com.gym1.entity.ItemOrder;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,6 +26,7 @@ public interface ItemOrderMapper {
 
     ItemOrder queryItemOrderByItemOrderId(int id);
 
-    int queryItemOrderIdByItemOrder(ItemOrder itemOrder);
+    int queryItemOrderIdByItemOrder(int userId, int itemId, int number, double price,
+                                    String username, String name, String phoneNumber, String date);
 
 }

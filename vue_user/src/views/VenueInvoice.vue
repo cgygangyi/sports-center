@@ -111,7 +111,6 @@ export default {
     beforeMount() {
         getVenueOrderReceipt(this.$route.query.id).then(res => {
             this.order = res.data
-            console.log(this.order)
         })
     },
     methods: {

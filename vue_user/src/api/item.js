@@ -20,7 +20,7 @@ export function getItemInfo(id) {
     return request({
         url: '/item/getItemInfo/' + id,
         method: 'post',
-        data: { status: "'user'" },
+        data: { status: 'user' },
         headers: {
             token: localStorage.getItem('token')
         }

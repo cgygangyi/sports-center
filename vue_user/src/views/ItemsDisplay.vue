@@ -35,7 +35,6 @@ export default ({
 
     beforeCreate() {
         getAllItems().then((response) => {
-            console.log(response.data)
             this.projects = response.data.data
         })
     }

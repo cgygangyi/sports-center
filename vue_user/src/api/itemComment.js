@@ -27,7 +27,7 @@ export function getUserItemComment() {
 // make item comment
 export function makeItemComment(id, map) {
     return request({
-        url: '/itemComment/makeItemComment/' + id,
+        url: '/itemComment/makeComment/' + id,
         method: 'post',
         data: map,
         headers: {

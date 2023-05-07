@@ -46,14 +46,12 @@ export default {
     mounted() {
         for (let i = 0; i < 40; i++) {
             const change = document.getElementById(i)
-            console.log(this.data[i].id)
             // this.data[i].open = 1
             if (this.data[i].open === 0) {
                 change.style.backgroundColor = 'grey'
             } else if (this.data[i].free === 0) {
                 change.style.backgroundColor = 'red'
             } else {
-                console.log(change)
                 change.style.backgroundColor = 'white'
             }
         }
@@ -73,8 +71,6 @@ export default {
             const change = document.getElementById(t + 100)
             change.innerHTML = dataString
         }
-        console.log(this.book_date)
-        console.log(this.data)
     },
     methods: {
         isClick(id) {

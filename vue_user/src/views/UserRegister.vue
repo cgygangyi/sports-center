@@ -210,15 +210,13 @@ export default ({
             this.form.validateFields((err, values) => {
                 if (!err) {
                     userRegister(values).then(res => {
-                        console.log(res)
-                        if (res.data === -1) {
-                            this.$message.error('username already exists')
-                        } else {
+                        if (res.data.code === 7007) {
                             this.$message.success('sign up successfully')
                             this.$router.push({ path: '/login' })
+                        } else {
+                            this.$message.error(res.data.msg)
                         }
                     })
-                    console.log('Received values of form: ', values)
                 }
             })
         },
@@ -244,7 +242,6 @@ export default ({
         },
         validateToCode(rule, value, callback) {
             const decode = this.codeStorage[5] + this.codeStorage[11] + this.codeStorage[17] + this.codeStorage[23] + this.codeStorage[29] + this.codeStorage[35]
-            console.log(decode)
             if (value && value !== decode) {
                 // eslint-disable-next-line node/no-callback-literal
                 callback('Code is not correct')

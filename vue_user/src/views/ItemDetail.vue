@@ -114,11 +114,9 @@ export default ({
     beforeMount() {
         getItemInfo(this.$route.query.id).then(res => {
             this.itemData = res.data.data
-            console.log(this.itemData)
         })
         getItemCommentById(this.$route.query.id).then(res => {
             this.comments = res.data.data
-            console.log(this.comments)
         })
         getUserProfile().then(res => {
             this.cardNumber = res.data.card
@@ -133,15 +131,12 @@ export default ({
             this.visible = true
         },
         handleOk(e) {
-            console.log(e)
             this.confirmLoading = true
             this.form.validateFields((err, values) => {
                 if (!err) {
                     // add count into valuse, in json format
                     values.number = document.getElementById('count').value
-                    console.log('Received values of form: ', values)
                     makeItemOrder(this.itemData.id, values.number).then(res => {
-                        console.log(res)
                         if (res.data.code === 4003) {
                             setTimeout(() => {
                                 this.visible = false
@@ -152,11 +147,8 @@ export default ({
                             this.$message.error(res.data.msg)
                         }
                     })
-                } else {
-                    console.log(err)
                 }
             })
-            this.visible = false
         },
         handleSubmit (e) {
             e.preventDefault()

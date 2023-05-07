@@ -1,5 +1,9 @@
 <template>
     <div>
+        <a-button-group class="mb-24">
+            <a-button @click="selectAll" type="primary">select all</a-button>
+            <a-button @click="deselectAll">deselect all</a-button>
+        </a-button-group>
         <table class="calendar-table">
             <thead>
             <tr>
@@ -19,9 +23,10 @@
             </tr>
         </table>
         <h5>After selecting time slots, click the button to open or close the time slots you choose</h5>
-        <a-button @click="setOpen">set open</a-button>
-        <a-button @click="setClose">set close</a-button>
-
+        <a-button-group>
+            <a-button @click="setOpen">open</a-button>
+            <a-button @click="setClose" type="danger">close</a-button>
+        </a-button-group>
     </div>
 </template>
 
@@ -102,6 +107,10 @@ export default {
         console.log(this.data)
     },
     methods: {
+        selectAll() {
+        },
+        deselectAll() {
+        },
         setOpen() {
             // const map = "{list='" + sessionStorage.getItem('chosen') + "'}"
             let map = this.chosen.toString()
@@ -115,7 +124,8 @@ export default {
             console.log(this.chosen)
             setOpen(this.day, map).then((response) => {
                 console.log(response)
-                this.$message.success('Update Successfully!')
+                alert('Update Successfully!')
+                this.$router.go(0)
             }).catch((error) => {
                 console.log(error)
             })
@@ -133,7 +143,8 @@ export default {
             console.log(this.chosen)
             setClose(this.day, map).then((response) => {
                 console.log(response)
-                this.$message.success('Update Successfully!')
+                alert('Update Successfully!')
+                this.$router.go(0)
             }).catch((error) => {
                 console.log(error)
             })

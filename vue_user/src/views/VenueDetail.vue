@@ -15,14 +15,6 @@
 
                     <h3>{{ this.venueData.name }}</h3>
 
-                    <div class="rating">
-                        <a-icon type="star" theme="filled" />
-                        <a-icon type="star" theme="filled" />
-                        <a-icon type="star" theme="filled" />
-                        <a-icon type="star" theme="filled" />
-                        <a-icon type="star" />
-                    </div>
-
                     <h5 class="mb-0 mt-20 font-semibold">Price: {{ this.venueData.price }} (CNY/hour)</h5>
                     <h5 class="mb-0 mt-20 font-semibold">Address: {{ this.venueData.address }}</h5>
                     <h5 class="mb-0 mt-20 font-semibold">Type: {{ this.venueData.typeName }}</h5>
@@ -127,11 +119,9 @@ export default ({
         getVenueById(this.$route.query.id).then(res => {
             this.venueData = res.data.data
             this.description = this.venueData.introduction.split('\n')
-            console.log(this.venueData)
         })
         getVenueCommentById(this.$route.query.id).then(res => {
             this.comments = res.data.data
-            console.log(this.comments)
         })
         getUserProfile().then(res => {
             this.cardNumber = res.data.card
@@ -149,14 +139,12 @@ export default ({
             }
             this.ModalText = 'Please click to select a time slot(just one for each choose)'
             getVenueTime(this.$route.query.id).then((response) => {
-                console.log(response)
                 if (response.data === '') {
                     this.$message.warning('Please login first!')
                 } else {
                     this.ModalData = response.data
                     this.visible = true
                 }
-                console.log(this.ModalData)
             }).catch((error) => {
                 console.log(error)
             })
@@ -167,9 +155,7 @@ export default ({
                 this.$message.warning('Please choose a time slot!')
                 return
             }
-            console.log(id)
             bookVenue(id).then((response) => {
-                console.log(response)
                 if (response.data.code === 5003) {
                     sessionStorage.removeItem('chosen')
                     this.ModalText = 'Booking......'
@@ -188,7 +174,6 @@ export default ({
             })
         },
         handleCancel(e) {
-            console.log('Clicked cancel button')
             this.visible = false
         }
     }

@@ -139,7 +139,7 @@ public class EmailUtil {
     }
 
 
-    public static String itemOrderEmail(String year, String month, String day, int id, String name, String phone,
+    public static String itemOrderEmail(String year, String month, String day, String name, String phone,
                                         String username, String itemName, int number,
                                         String money, String time){
         return "<html lang=\"en\">\n" +
@@ -157,8 +157,7 @@ public class EmailUtil {
                 "                <span style=\"color:red\">Day</span>\n" +
                 "              </div>\n" +
                 "              <div>\n" +
-                "                Item Order Number:\n" +
-                "                <span style=\"color:#9C5223;font-weight:bold\">" + id + "</span>\n" +
+                "                <span style=\"color:#9C5223;font-weight:bold\"></span>\n" +
                 "              </div>\n" +
                 "            </div>\n" +
                 "      \n" +

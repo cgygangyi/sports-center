@@ -8,6 +8,8 @@ import com.gym1.util.JwtUtil;
 import com.gym1.util.QRCodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ public class ItemOrderController {
 
     @PostMapping("/makeOrder/{itemId}")
     public Map<String, Object> makeOrder(HttpServletRequest request, @PathVariable int itemId,
-                                         @RequestBody Map map){
+                                         @RequestBody Map map) throws MessagingException {
         Map<String, Object> reMap = new HashMap<>();
         int res = itemOrderService.makeOrder(itemId, JwtUtil.getMemberIdByJwtToken(request), map);
         if (res == -1){

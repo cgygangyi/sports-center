@@ -97,26 +97,30 @@ export default {
     beforeMount() {
         getUserItemComment().then(res => {
             this.itemComments = res.data.data
-            console.log(this.itemComments)
         })
         getUserVenueComment().then(res => {
             this.venueComments = res.data.data
-            console.log(this.venueComments)
         })
     },
     methods: {
         confirmVenue(e) {
-            console.log(e)
             deleteVenueComment(e).then(res => {
-                this.$message.success('Delete successfully')
-                this.venueComments = this.venueComments.filter(item => item.id !== e)
+                if (res.data.code === 1010) {
+                    this.$message.success('Delete successfully')
+                    this.venueComments = this.venueComments.filter(item => item.id !== e)
+                } else {
+                    this.$message.error(res.data.msg)
+                }
             })
         },
         confirmItem(e) {
-            console.log(e)
             deleteItemComment(e).then(res => {
-                this.$message.success('Delete successfully')
-                this.itemComments = this.itemComments.filter(item => item.id !== e)
+                if (res.data.code === 1010) {
+                    this.$message.success('Delete successfully')
+                    this.itemComments = this.itemComments.filter(item => item.id !== e)
+                } else {
+                    this.$message.error(res.data.msg)
+                }
             })
         },
         cancel(e) {

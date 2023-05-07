@@ -43,7 +43,6 @@ export default {
                 if (!err) {
                     values.upload = values.upload[0].thumbUrl
                     values.upload = values.upload.slice(22)
-                    console.log('Received values of form: ', values)
                     updateUserAvatar(values).then(() => {
                         this.$message.success('Avatar updated successfully')
                     })
@@ -51,7 +50,6 @@ export default {
             })
         },
         normFile(e) {
-            console.log('Upload event:', e)
             if (Array.isArray(e)) {
                 return e
             }
