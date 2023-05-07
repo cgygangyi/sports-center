@@ -108,10 +108,42 @@ export default {
     },
     methods: {
         selectAll() {
+            for (let i = 0; i < this.timeLength; i++) {
+                const change = document.getElementById(i)
+                if (this.open[i] === 0&&!(this.data[i].open === 1 && this.data[i].free === 0)) { // 如果该单元格未被选择，切换颜色并更新 booked 属性
+                    this.open[i] = 1
+                    const change = document.getElementById(i)
+                    // //
+                    // // change.innerHTML = '已预定'
+                    change.style.backgroundColor = 'green'
+                    // this.$set(this.data[id], 'open', 1)
+                    // change.class.remove('gray-cell')
+                    // change.classList.add('white-cell')
+                    this.chosen.push(i + 1)
+                }
         },
-        deselectAll() {
+        deselectAll(){
+                for (let i = 0; i < this.timeLength; i++) {
+                    const change = document.getElementById(i)
+                    if (this.open[i] === 1&&!(this.data[i].open === 1 && this.data[i].free === 0)) { // 如果该单元格被选择，切换颜色并更新 booked 属性
+                        this.open[i] = 0
+                        const change = document.getElementById(i)
+                        if (this.data[i].open === 0) {
+                            change.style.backgroundColor = 'grey'
+                        } else {
+                            change.style.backgroundColor = 'white'
+                        }
+                        // this.$set(this.data[id], 'open', 1)
+                        // change.class.remove('gray-cell')
+                        // change.classList.add('white-cell')
+                    }
+                    const index = this.chosen.indexOf(i + 1)
+                    if (index > -1) { // 如果该单元格已经在 chosen 数组中，从 chosen 数组中移除
+                        this.chosen.splice(index, 1)
+                    }
+
         },
-        setOpen() {
+        setOpen(){
             // const map = "{list='" + sessionStorage.getItem('chosen') + "'}"
             let map = this.chosen.toString()
             for (let i = 0; i < map.length; i++) {
