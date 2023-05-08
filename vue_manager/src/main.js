@@ -6,10 +6,6 @@ import AdminDashboardLayout from './layouts/AdminDashboard.vue'
 import router from './router'
 
 import './scss/app.scss'
-
-import * as echarts from 'echarts'
-
-Vue.prototype.$echarts = echarts
 Vue.use(Antd)
 
 Vue.config.productionTip = false
