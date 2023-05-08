@@ -22,7 +22,7 @@
                         Billed to: {{ order.data.userName}}
                     </h6>
                     <p>
-                        {{ order.data.phoneNumber }}
+                        {{ order.data.phoneNum }}
                     </p>
                 </a-col>
             </a-row>
