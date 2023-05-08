@@ -19,8 +19,11 @@ export function getAllItems() {
 export function getItemInfo(id) {
     return request({
         url: '/item/getItemInfo/' + id,
-        method: 'get',
-        data: { status: 'admin' }
+        method: 'post',
+        data: { status: 'admin' },
+        headers: {
+            token: localStorage.getItem('token')
+        }
     })
 }
 
@@ -28,6 +31,29 @@ export function getItemInfo(id) {
 export function addItem(map) {
     return request({
         url: '/item/addItem',
+        method: 'post',
+        data: map,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// manager delete an item
+export function deleteItem(id) {
+    return request({
+        url: '/item/deleteItem/' + id,
+        method: 'post',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// manager edit an item
+export function editItem(id, map) {
+    return request({
+        url: '/item/editItem/' + id,
         method: 'post',
         data: map,
         headers: {

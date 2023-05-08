@@ -13,6 +13,15 @@ export default ({
         'data',
         'height'
     ],
+    watch: {
+        data: {
+            handler: function (val, oldVal) {
+                this.chart.data = val
+                this.chart.update()
+            },
+            deep: true
+        }
+    },
     data() {
         return {
             chart: null
@@ -86,8 +95,6 @@ export default ({
             }
         })
     },
-    // Right before the component is destroyed,
-    // also destroy the chart.
     beforeDestroy: function () {
         this.chart.destroy()
     }

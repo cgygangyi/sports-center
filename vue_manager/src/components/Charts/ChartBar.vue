@@ -13,12 +13,23 @@ export default ({
         'data',
         'height'
     ],
+    watch: {
+        data: {
+            handler: function (val, oldVal) {
+                this.chart.data = val
+                this.chart.update()
+            },
+            deep: true
+        }
+    },
     data() {
         return {
             chart: null
         }
     },
     mounted () {
+        this.$nextTick(() => {
+        })
         const ctx = this.$refs.chart.getContext('2d')
         this.chart = new Chart(ctx, {
             type: 'bar',
@@ -96,6 +107,6 @@ export default ({
 
 <style scoped>
 	canvas {
-		background-image: linear-gradient(to right, #00369E, #005CFD, #A18DFF ) ;
+		background-image: linear-gradient(to right, #000010, #005CFD, #A18DFF ) ;
 	}
 </style>

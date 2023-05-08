@@ -2,7 +2,7 @@
     <div>
         <a-card :bordered="false" class="header-solid mb-24" :bodyStyle="{padding: 0, paddingTop: '16px'}">
             <template #title>
-                <h5 class="font-semibold">Add an equipment</h5>
+                <h5 class="font-semibold">Edit the equipment</h5>
             </template>
             <a-form
                 id="components-form-demo-validate-other"
@@ -77,9 +77,15 @@
 </template>
 
 <script>
-import { addItem } from '@/api/item'
+import { editItem, getItemInfo } from '@/api/item'
 
 export default {
+    query: {
+        id: {
+            type: String,
+            required: true
+        }
+    },
     data: () => ({
         formItemLayout: {
             labelCol: { span: 6 },
@@ -88,33 +94,48 @@ export default {
     }),
     beforeCreate() {
         this.form = this.$form.createForm(this, { name: 'validate_other' })
+        getItemInfo(this.$route.query.id).then((res) => {
+            this.form.setFieldsValue({
+                name: res.data.data.itemName,
+                info: res.data.data.info,
+                price: res.data.data.price,
+                // set form item 'upload' value
+                upload: [
+                    {
+                        uid: '-1',
+                        name: 'image.png',
+                        status: 'done',
+                        thumbUrl: res.data.data.image
+                    }
+                ]
+            })
+        })
     },
     methods: {
         handleSubmit(e) {
             e.preventDefault()
+            // eslint-disable-next-line node/handle-callback-err
             this.form.validateFields((err, values) => {
-                if (!err) {
-                    if (values.upload === undefined) {
-                        this.$message.warning('Please upload an image')
-                        return
-                    }
-                    if (values.upload.length !== 1) {
-                        this.$message.warning('No more than 1 image')
-                        return
-                    }
-                    values.upload = values.upload[0].thumbUrl
-                    values.upload = values.upload.slice(22)
-                    console.log('Received values of form: ', values)
-                    addItem(values).then((res) => {
-                        console.log(res)
-                        if (res.data.code === 3004) {
-                            this.$message.success('Item added successfully')
-                            this.$router.push('/admin/items')
-                        } else {
-                            this.$message.error(res.data.msg)
-                        }
-                    })
+                console.log(values.upload)
+                if (values.upload.length === 0) {
+                    this.$message.warning('Please upload an image')
+                    return
                 }
+                if (values.upload.length !== 1) {
+                    this.$message.warning('No more than 1 image')
+                    return
+                }
+                values.upload = values.upload[0].thumbUrl
+                values.upload = values.upload.slice(22)
+                console.log('Received values of form: ', values)
+                editItem(this.$route.query.id, values).then((res) => {
+                    if (res.data.code === 3010) {
+                        this.$message.success('Edit successfully')
+                        this.$router.push('/admin/items')
+                    } else {
+                        this.$message.error(res.data.msg)
+                    }
+                })
             })
         },
         normFile(e) {
@@ -128,7 +149,7 @@ export default {
 }
 </script>
 <style>
-#components-form-demo-validate-other .dropbox {
+#components-form-demo-validate-other {
     height: 180px;
     line-height: 1.5;
 }

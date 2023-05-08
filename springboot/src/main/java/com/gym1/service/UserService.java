@@ -275,4 +275,50 @@ public class UserService {
     }
 
 
+    public Map<String, String> getWeeklyTendency(){
+        Map<String, String> reMap = new HashMap<>();
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        if (day == -1){
+            day = 7;
+        }
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.add(Calendar.DATE, 1-day);
+        int temp = 1-day;
+        Date date = calendar1.getTime();
+        List<String> time = new ArrayList<>();
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+        for (int i = 0; i < 6; i++){
+            calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, temp-7*i);
+            date = calendar.getTime();
+            time.add(i, formatter.format(date).substring(0,11) + "00:00:00");
+        }
+        double res = 0;
+        double a;
+        double b;
+        for (int i = 0; i < 6; i++){
+            res = 0;
+            if (i == 0){
+                List<User> users = userMapper.queryAllUser();
+                for (User user : users){
+                    if (user.getIsMember() == 1){
+                        res += 199;
+                    }
+                }
+                a = itemOrderMapper.sumPriceByDate2(time.get(i));
+                b = orderMapper.sumPriceByDate2(time.get(i));
+                res = res + a + b;
+                reMap.put(i+"", res+"");
+            }else{
+                a = itemOrderMapper.sumPriceByDate(time.get(i), time.get(i-1));
+                b = orderMapper.sumPriceByDate(time.get(i), time.get(i-1));
+                res = res + a + b;
+                reMap.put(i+"", res+"");
+            }
+        }
+        return reMap;
+    }
+
+
 }

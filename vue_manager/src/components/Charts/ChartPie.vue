@@ -1,9 +1,9 @@
 <template>
-	<div>
-		<!-- Doughnut chart -->
-		<canvas ref="chart" class="chart-doughnut" :style="{'height': height + 'px'}"></canvas>
-		<!-- / Doughnut chart -->
-	</div>
+    <div>
+        <!-- Pie chart -->
+        <canvas ref="chart" class="chart-pie" :style="{'height': height + 'px'}"></canvas>
+        <!-- / Pie chart -->
+    </div>
 </template>
 
 <script>
@@ -12,41 +12,37 @@ Chart.register(...registerables)
 
 export default ({
     props: [
+        'data'
     ],
     data() {
         return {
-            height: 300
+            chart: null
+        }
+    },
+    watch: {
+        data: {
+            handler: function (val, oldVal) {
+                this.chart.data = val
+                this.chart.update()
+            },
+            deep: true
         }
     },
     mounted () {
         const ctx = this.$refs.chart.getContext('2d')
-
         this.chart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Creative Tim', 'Github', 'Bootsnipp', 'Dev.to', 'Codeinwp'],
-                datasets: [{
-                    label: 'Projects',
-                    weight: 9,
-                    cutout: 60,
-                    tension: 0.9,
-                    pointRadius: 2,
-                    borderWidth: 2,
-                    backgroundColor: ['#FADB14', '#B37FEB', '#52C41A', '#1890FF', '#F5222D'],
-                    data: [15, 20, 12, 60, 20],
-                    fill: false
-                }]
-            },
+            type: 'pie',
+            data: this.data,
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        display: false
+                        display: true
                     }
                 },
                 interaction: {
-                    intersect: false,
+                    intersect: true,
                     mode: 'index'
                 },
                 scales: {

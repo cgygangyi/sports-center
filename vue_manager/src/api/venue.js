@@ -19,8 +19,11 @@ export function getAllVenues() {
 export function getVenueById(id) {
     return request({
         url: '/venue/getVenueInfo/' + id,
-        method: 'get',
-        data: { status: 'admin' }
+        method: 'post',
+        data: { status: 'admin' },
+        headers: {
+            token: localStorage.getItem('token')
+        }
     })
 }
 
@@ -30,5 +33,28 @@ export function addNewVenue(form) {
         url: '/venue/addVenue',
         method: 'post',
         data: form
+    })
+}
+
+// manager delete a venue
+export function deleteVenue(id) {
+    return request({
+        url: '/venue/deleteVenue/' + id,
+        method: 'post',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}
+
+// manager edit a venue
+export function editVenue(id, form) {
+    return request({
+        url: '/venue/editVenue/' + id,
+        method: 'post',
+        data: form,
+        headers: {
+            token: localStorage.getItem('token')
+        }
     })
 }

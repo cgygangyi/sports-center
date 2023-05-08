@@ -122,7 +122,6 @@ export default {
             e.preventDefault()
             this.form.validateFields((err, values) => {
                 if (!err) {
-                    console.log(values.upload.length)
                     if (values.upload === undefined) {
                         this.$message.warning('Please upload an image')
                         return

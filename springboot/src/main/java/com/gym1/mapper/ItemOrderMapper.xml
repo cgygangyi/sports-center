@@ -72,4 +72,16 @@
         where i.id = #{id} and i.valid = 1 and o.orderTime > #{day}
     </select>
 
+    <select id="sumPriceByDate2" resultType="double">
+        select COALESCE(SUM( o.price ),0) AS activitySales
+        from item_order o
+        where o.orderTime > #{begin}
+    </select>
+
+    <select id="sumPriceByDate" resultType="double">
+        select COALESCE(SUM( o.price ),0) AS activitySales
+        from item_order o
+        where o.orderTime between #{begin} and #{end}
+    </select>
+
 </mapper>

@@ -28,7 +28,18 @@
             </div>
             <a-table class="mt-20" :columns="columns" :data-source="data" :pagination="{pageSize: pageSize2,}">
                 <template slot="operation" slot-scope="text, record">
-                    <a @click="jump(text,record)">View details</a>
+                    <a @click="jumpDetail(text,record)">View details </a>
+                    <a-divider type="vertical" />
+                    <a @click="jumpEdit(text,record)"> Edit</a>
+                    <a-divider type="vertical" />
+                    <a-popconfirm
+                        title="Are you sure delete this venue?"
+                        ok-text="Yes"
+                        cancel-text="No"
+                        @confirm="confirm(record.id)"
+                    >
+                        <a href="#" class="text-danger">Delete</a>
+                    </a-popconfirm>
                 </template>
             </a-table>
         </a-card>
@@ -37,7 +48,7 @@
 </template>
 
 <script>
-import { getAllVenues } from '@/api/venue'
+import { deleteVenue, getAllVenues } from '@/api/venue'
 
 const stringSorter = function(a, b, attr) {
     if (a[attr] < b[attr]) { return -1 }
@@ -101,12 +112,30 @@ export default {
         })
     },
     methods: {
+        confirm(id) {
+            deleteVenue(id).then((res) => {
+                if (res.data.code === 8013) {
+                    this.$message.success('Delete successfully')
+                    this.data = this.data.filter((row) => row.id !== id)
+                } else {
+                    this.$message.error(res.data.msg)
+                }
+            })
+        },
         jumpAdd() {
             this.$router.push('/admin/venues/add')
         },
-        jump(text, record) {
+        jumpDetail(text, record) {
             this.$router.push({
                 path: '/admin/venues/detail',
+                query: {
+                    id: record.id
+                }
+            })
+        },
+        jumpEdit(text, record) {
+            this.$router.push({
+                path: '/admin/venues/edit',
                 query: {
                     id: record.id
                 }

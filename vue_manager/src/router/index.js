@@ -28,6 +28,12 @@ let routes = [
         component: () => import('../views/AdminVenues.vue')
     },
     {
+        path: '/admin/venues/detail',
+        name: 'Venues management',
+        layout: 'admindashboard',
+        component: () => import('../views/AdminVenueDetail.vue')
+    },
+    {
         path: '/admin/venues/add',
         name: 'Venues management',
         layout: 'admindashboard',
@@ -46,10 +52,28 @@ let routes = [
         component: () => import('../views/AdminItems.vue')
     },
     {
+        path: '/admin/items/detail',
+        name: 'Equipments management',
+        layout: 'admindashboard',
+        component: () => import('../views/AdminItemDetail.vue')
+    },
+    {
         path: '/admin/items/add',
         name: 'Equipments management',
         layout: 'admindashboard',
         component: () => import('../views/AdminItemsAdd.vue')
+    },
+    {
+        path: '/admin/items/edit',
+        name: 'Equipments management',
+        layout: 'admindashboard',
+        component: () => import('../views/AdminItemEdit.vue')
+    },
+    {
+        path: '/admin/venues/edit',
+        name: 'Venues management',
+        layout: 'admindashboard',
+        component: () => import('../views/AdminVenueEdit.vue')
     },
     {
         path: '/logout',
@@ -103,7 +127,7 @@ router.beforeEach((to, from, next) => {
         }
     } else {
         if (to.path === '/login') {
-            next('/admin/venues')
+            next('/admin/home')
         } else {
             next()
         }
