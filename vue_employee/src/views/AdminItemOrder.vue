@@ -70,6 +70,12 @@ const columns = [
         sortDirections: ['descend', 'ascend']
     },
     {
+        title: 'Number',
+        dataIndex: 'number',
+        sorter: (a, b) => a.number - b.number,
+        sortDirections: ['descend', 'ascend']
+    },
+    {
         title: 'Price',
         dataIndex: 'price',
         sorter: (a, b) => a.price - b.price,

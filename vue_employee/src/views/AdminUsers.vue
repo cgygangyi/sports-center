@@ -2,7 +2,7 @@
     <div>
         <a-card :bordered="false" class="header-solid mb-24" :bodyStyle="{padding: 0, paddingTop: '16px'}">
             <template #title>
-                <h5 class="font-semibold">Venues</h5>
+                <h5 class="font-semibold">Users</h5>
             </template>
             <div class="mx-25">
                 <a-row type="flex" :gutter="24">

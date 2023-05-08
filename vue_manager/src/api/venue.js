@@ -6,7 +6,7 @@ import request from '../utils/request'
 export function getAllVenues() {
     return request({
         url: '/venue/getAll',
-        method: 'get',
+        method: 'post',
         data: { status: 'admin' },
         // header is the token in local storage
         headers: {
