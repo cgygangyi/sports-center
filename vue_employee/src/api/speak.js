@@ -24,3 +24,14 @@ export function sendMessage(map) {
         }
     })
 }
+
+// admin delete message
+export function deleteMessage(id) {
+    return request({
+        url: '/speak/admin/deleteSpeak/' + id,
+        method: 'post',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+}

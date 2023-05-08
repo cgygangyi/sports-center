@@ -25,4 +25,6 @@ public interface VenueMapper {
 
     List<Venue> queryVenueByNameType(String type, String name);
 
+    int countVenueTypeNumber(int type);
+
 }

@@ -64,4 +64,12 @@
         where  o.itemId = #{itemId} and o.number = #{number} and o.price = #{price} and o.userId = #{userId} and o.orderTime = #{date}
     </select>
 
+    <select id="countNumberByItemId" resultType="int">
+        select COALESCE(SUM( o.number ),0) AS activitySales
+        from item_order o
+        left join item i
+        on i.id = o.itemId
+        where i.id = #{id} and i.valid = 1 and o.orderTime > #{day}
+    </select>
+
 </mapper>

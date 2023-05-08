@@ -2,14 +2,9 @@
     <div class="sign-in">
 
         <a-row type="flex" :gutter="[24,24]" align="middle" class="row-main my-0">
-
-            <!-- Sign Up Form Column -->
             <a-col :span="24" :md="12" :lg="{span: 12, offset: 0}" :xl="{span: 6, offset: 5}" class="col-form">
 
-                <h3 class="text-dark mb-15">Join us today</h3>
-                <p class="text-muted">Enter your email and password to register</p>
-
-                <!-- Sign Up Form -->
+                <h3 class="text-dark mb-15">Employee Login</h3>
                 <a-form
                     id="components-form-demo-normal-signup"
                     :form="form"
@@ -63,11 +58,6 @@ export default ({
                         if (res.data.code === 7016) {
                             localStorage.setItem('token', res.data.data)
                             this.$router.go(0)
-                            // this.$notification.success({
-                            //     message: 'Notification Title',
-                            //     description:
-                            //         'This is the content of the notification. This is the content of the notification. This is the content of the notification.'
-                            // })
                             this.$router.push('/admin/venues')
                             this.$message.success('Login Success')
                         } else {

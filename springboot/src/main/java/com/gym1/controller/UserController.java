@@ -3,15 +3,13 @@ package com.gym1.controller;
 
 import com.gym1.entity.User;
 import com.gym1.service.UserService;
+import com.gym1.util.EncryptionUtil;
 import com.gym1.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 
 
@@ -37,7 +35,7 @@ public class UserController {
             reMap.put("code", 7001);
             reMap.put("message", "Username doesn't exist!");
             return reMap;
-        }else if(res.getPassword().equals(password)){
+        }else if(EncryptionUtil.decrypt(res.getPassword()).equals(password)){
             String id = res.getId() + "";
             String token = JwtUtil.getJwtToken(id, username, password);
             reMap.put("code", 7002);
@@ -139,11 +137,12 @@ public class UserController {
         String password = (String) map.get("password");
         User res = userService.adminLoginService(username);
         Map<String, Object> reMap = new HashMap<>();
+        System.out.println(EncryptionUtil.decrypt(res.getPassword()));
         if (res == null){
             reMap.put("code", 7015);
             reMap.put("message", "Username doesn't exist!");
             return reMap;
-        }else if(res.getPassword().equals(password)){
+        }else if(EncryptionUtil.decrypt(res.getPassword()).equals(password)){
             String id = res.getId() + "";
             String token = JwtUtil.getJwtToken(id, username, password);
             reMap.put("code", 7016);
@@ -168,7 +167,7 @@ public class UserController {
             reMap.put("code", 7018);
             reMap.put("message", "Username doesn't exist!");
             return reMap;
-        } else if (res.getPassword().equals(password)) {
+        } else if (EncryptionUtil.decrypt(res.getPassword()).equals(password)) {
             String id = res.getId() + "";
             String token = JwtUtil.getJwtToken(id, username, password);
             reMap.put("code", 7019);
@@ -305,17 +304,60 @@ public class UserController {
             reMap.put("msg", "Error!");
             reMap.put("data", res);
         }else{
-            String temp = "";
-            Random random = new Random();
-            for (int i = 0; i < 6; i++){
-                for (int j = 0; j < 5; j++){
-                    temp = temp + (char)(random.nextInt(30)+48);
-                }
-                temp = temp + res.charAt(i);
-            }
+            res= EncryptionUtil.encryption(res);
             reMap.put("code", 7036);
             reMap.put("msg", "Success!");
-            reMap.put("data", temp);
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @GetMapping("/root/getVenueProportion")
+    public Map<String, Object> getVenueProportion(){
+        Map<String, Object> reMap = new HashMap<>();
+        Map<String, String> res = userService.getVenueProportion();
+        if (res.size() != 0){
+            reMap.put("code", 7037);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 7038);
+            reMap.put("msg", "There are no venues!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+    @GetMapping("/root/getVenueBooking")
+    public Map<String, Object> getVenueBooking(){
+        Map<String, Object> reMap = new HashMap<>();
+        Map<String, String> res = userService.getVenueBooking();
+        if (res.size() != 0){
+            reMap.put("code", 7039);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 7040);
+            reMap.put("msg", "There are no venues!");
+            reMap.put("data", res);
+        }
+        return reMap;
+    }
+
+
+    @GetMapping("/root/getItemBooking")
+    public Map<String, Object> getItemBooking(){
+        Map<String, Object> reMap = new HashMap<>();
+        Map<String, String> res = userService.getItemBooking();
+        if (res.size() != 0){
+            reMap.put("code", 7041);
+            reMap.put("msg", "Success!");
+            reMap.put("data", res);
+        }else{
+            reMap.put("code", 7042);
+            reMap.put("msg", "There are no items!");
+            reMap.put("data", res);
         }
         return reMap;
     }
@@ -323,9 +365,9 @@ public class UserController {
 
     @GetMapping("/a")
     public Map<String, Object> a(HttpServletRequest request, @RequestBody Map map){
-        String jwtToken = request.getHeader("token");
-
-        System.out.println(jwtToken);
+        Calendar calendar = Calendar.getInstance();
+        int a = calendar.get(Calendar.DAY_OF_WEEK);
+        System.out.println(a);
         return null;
     }
 

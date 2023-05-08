@@ -5,6 +5,15 @@
                 <div class="sent_msg">
                     <p class="bg-primary">{{ message.info }}</p>
                     <span class="time_date">{{ message.time }}</span>
+                    <a-popconfirm
+                        title="Are you sure delete this comment?"
+                        ok-text="Yes"
+                        cancel-text="No"
+                        @confirm="confirm(message.id)"
+                        @cancel="cancel"
+                    >
+                        <a href="#" class="text-danger">Delete</a>
+                    </a-popconfirm>
                 </div>
             </div>
             <div class="incoming_msg" v-else>
@@ -13,6 +22,15 @@
                     <div class="received_withd_msg">
                         <p class="">{{ message.info }}</p>
                         <span class="time_date">{{ message.username }}</span>
+                        <a-popconfirm
+                            title="Are you sure delete this message?"
+                            ok-text="Yes"
+                            cancel-text="No"
+                            @confirm="confirm(message.id)"
+                            @cancel="cancel"
+                        >
+                            <a href="#" class="text-danger">Delete</a>
+                        </a-popconfirm>
                     </div>
                 </div>
             </div>
@@ -34,7 +52,7 @@
 </template>
 
 <script>
-import { getAllChatMessages, sendMessage } from '@/api/speak'
+import { deleteMessage, getAllChatMessages, sendMessage } from '@/api/speak'
 
 export default {
     data() {
@@ -62,6 +80,19 @@ export default {
         window.scrollTo(0, 1000)
     },
     methods: {
+        confirm(e) {
+            console.log(e)
+            deleteMessage(e).then((response) => {
+                if (response.data.code === 6008) {
+                    this.$message.success('Delete successfully')
+                    getAllChatMessages().then((response) => {
+                        this.messages = response.data.data
+                    })
+                } else {
+                    this.$message.error(response.data.msg)
+                }
+            })
+        },
         handleSubmit(e) {
             e.preventDefault()
             this.form.validateFields((err, values) => {

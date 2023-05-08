@@ -9,6 +9,7 @@ import './scss/app.scss'
 
 Vue.use(Antd)
 
+Vue.config.silent = true
 Vue.config.productionTip = false
 
 // Adding template layouts to the vue components.

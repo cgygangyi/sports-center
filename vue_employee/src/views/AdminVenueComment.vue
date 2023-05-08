@@ -30,7 +30,7 @@
                         @confirm="confirm(record.id)"
                         @cancel="cancel"
                     >
-                        <a href="#" class="danger">Delete</a>
+                        <a href="#" class="text-danger">Delete</a>
                     </a-popconfirm>
                 </template>
             </a-table>

@@ -29,4 +29,6 @@ public interface ItemOrderMapper {
     int queryItemOrderIdByItemOrder(int userId, int itemId, int number, double price,
                                     String username, String name, String phoneNumber, String date);
 
+    int countNumberByItemId(int id, String day);
+
 }

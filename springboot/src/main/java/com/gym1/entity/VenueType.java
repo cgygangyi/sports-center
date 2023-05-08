@@ -13,6 +13,11 @@ public class VenueType {
 
     }
 
+    public VenueType(int id, String typeName){
+        this.id = id;
+        this.typeName = typeName;
+    }
+
     public VenueType(String introduction, String typeName){
         this.introduction = introduction;
         this.typeName = typeName;

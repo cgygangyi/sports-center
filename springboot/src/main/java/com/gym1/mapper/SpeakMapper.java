@@ -13,4 +13,6 @@ public interface SpeakMapper {
 
     List<Speak> queryAllSpeak();
 
+    int deleteSpeakById(int id);
+
 }

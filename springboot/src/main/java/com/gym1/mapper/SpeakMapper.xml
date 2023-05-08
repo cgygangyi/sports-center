@@ -18,4 +18,9 @@
         order by s.time
     </select>
 
+    <delete id="deleteSpeakById">
+        delete from speak
+        where id = #{id}
+    </delete>
+
 </mapper>

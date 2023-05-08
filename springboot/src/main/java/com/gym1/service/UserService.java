@@ -1,9 +1,13 @@
 package com.gym1.service;
 
 
+import com.gym1.entity.Item;
 import com.gym1.entity.User;
-import com.gym1.mapper.UserMapper;
+import com.gym1.entity.Venue;
+import com.gym1.entity.VenueType;
+import com.gym1.mapper.*;
 import com.gym1.util.EmailUtil;
+import com.gym1.util.EncryptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,6 +15,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -27,10 +32,26 @@ public class UserService {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private VenueTypeMapper venueTypeMapper;
+
+    @Autowired
+    private VenueMapper venueMapper;
+
+    @Autowired
+    private OrderMapper orderMapper;
+
+    @Autowired
+    private ItemMapper itemMapper;
+
+    @Autowired
+    private ItemOrderMapper itemOrderMapper;
+
 
     public int registerService(Map map){
         String username = map.get("username").toString();
         String password = map.get("password").toString();
+        password = EncryptionUtil.encryption(password);
         String phoneNumber = map.get("phoneNumber").toString();
         String name = map.get("name").toString();
         String email = map.get("email").toString();
@@ -63,6 +84,7 @@ public class UserService {
 
     public Map<String, User> updateUserInfo(int id, Map<String, String> map){
         String password = map.get("password");
+        password = EncryptionUtil.encryption(password);
         String phoneNumber = map.get("phoneNumber");
         String name = map.get("name");
         User user = new User(id, password, phoneNumber, name);
@@ -196,6 +218,60 @@ public class UserService {
                 return "1";
             }
         }
+    }
+
+
+    public Map<String, String> getVenueProportion(){
+        Map<String, String> reMap = new HashMap<>();
+        List<VenueType> venueType = venueTypeMapper.queryAll();
+        System.out.println(venueType);
+        for (VenueType type : venueType){
+            int number = venueMapper.countVenueTypeNumber(type.getId());
+            reMap.put(type.getTypeName(), number+"");
+        }
+        return  reMap;
+    }
+
+
+    public Map<String, String> getVenueBooking(){
+        Map<String, String> reMap = new HashMap<>();
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        if (day == -1){
+            day = 7;
+        }
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.add(Calendar.DATE, 1-day);
+        Date date = calendar1.getTime();
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+        String week = formatter.format(date).substring(0,11) + "00:00:00";
+        List<Venue> venues = venueMapper.queryAllVenue();
+        for (Venue venue : venues){
+            int number = orderMapper.countNumberByVenueId(venue.getId(), week);
+            reMap.put(venue.getName(), number+"");
+        }
+        return  reMap;
+    }
+
+
+    public Map<String, String> getItemBooking(){
+        Map<String, String> reMap = new HashMap<>();
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        if (day == -1){
+            day = 7;
+        }
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.add(Calendar.DATE, 1-day);
+        Date date = calendar1.getTime();
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+        String week = formatter.format(date).substring(0,11) + "00:00:00";
+        List<Item> items = itemMapper.queryAllItem();
+        for (Item item : items){
+            int number = itemOrderMapper.countNumberByItemId(item.getId(), week);
+            reMap.put(item.getItemName(), number+"");
+        }
+        return  reMap;
     }
 
 

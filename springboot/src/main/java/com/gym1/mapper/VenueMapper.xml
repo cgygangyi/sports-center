@@ -53,4 +53,11 @@
         where id = #{id}
     </update>
 
+    <select id="countVenueTypeNumber" resultType="int">
+        SELECT COUNT(v.name)
+        FROM venue v
+        WHERE v.type = #{type} and v.valid = 1
+    </select>
+
+
 </mapper>

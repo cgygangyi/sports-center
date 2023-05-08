@@ -74,4 +74,12 @@
         where o.venueStateId = #{venueStateId} and o.userId = #{userId}
     </select>
 
+    <select id="countNumberByVenueId" resultType="int">
+        select COUNT(v.name)
+        from `order` o left join venue_state s on o.venueStateId = s.id
+        left join venue v
+        on s.venueId = v.id
+        where v.id = #{id} and o.orderTime > #{day} and v.valid = 1
+    </select>
+
 </mapper>

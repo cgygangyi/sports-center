@@ -19,4 +19,6 @@ public interface VenueTypeMapper {
     List<String> queryAllType();
 
     int queryVenueTypeIdByVenueTypeName(String name);
+
+    List<VenueType> queryAll();
 }

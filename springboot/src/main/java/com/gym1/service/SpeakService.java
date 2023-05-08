@@ -40,4 +40,14 @@ public class SpeakService {
         return speaks;
     }
 
+    public int deleteSpeak(int id){
+        int res = 0;
+        try{
+            res = speakMapper.deleteSpeakById(id);
+            return res;
+        }catch (Exception e){
+            return -1;
+        }
+    }
+
 }

@@ -16,4 +16,9 @@
         from venue_type t
     </select>
 
+    <select id="queryAll" resultType="com.gym1.entity.VenueType">
+        select t.id, t.name typeName
+        from venue_type t
+    </select>
+
 </mapper>
