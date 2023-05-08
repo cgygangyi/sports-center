@@ -373,31 +373,4 @@ public class UserController {
         return reMap;
     }
 
-
-    @GetMapping("/a")
-    public Map<String, Object> a(HttpServletRequest request, @RequestBody Map map){
-        Map<String, String> reMap = new HashMap<>();
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-        if (day == -1){
-            day = 7;
-        }
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.add(Calendar.DATE, 1-day);
-        int temp = 1-day;
-        Date date = calendar1.getTime();
-        List<String> time = new ArrayList<>();
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
-        for (int i = 0; i < 6; i++){
-            calendar = Calendar.getInstance();
-            calendar.add(Calendar.DATE, temp-7*i);
-            date = calendar.getTime();
-            time.add(i, formatter.format(date).substring(0,11) + "00:00:00");
-        }
-        System.out.println(time);
-        return null;
-    }
-
-
-
 }

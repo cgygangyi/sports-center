@@ -1,8 +1,3 @@
-<!--
-	This is the Invoice page, it uses the dashboard layout in:
-	"./layouts/Dashboard.vue" .
- -->
-
 <template>
 
     <div>
@@ -19,11 +14,8 @@
                 </a-col>
                 <a-col :span="24" :md="8" class="ml-auto text-right">
                     <h6 class="font-semibold">
-                        Billed to: {{ order.data.userName}}
+                        Billed to: {{ order.data.name}}
                     </h6>
-                    <p>
-                        {{ order.data.phoneNumber }}
-                    </p>
                 </a-col>
             </a-row>
             <a-row :gutter="[24]" type="flex" class="invoice-info mt-10">
@@ -46,24 +38,21 @@
             <table class="table-invoice mt-10">
                 <thead>
                 <tr>
-                    <th colspan="4" class="font-semibold">Venue</th>
-                    <th class="font-semibold">start time</th>
-                    <th class="font-semibold">end time</th>
+                    <th colspan="4" class="font-semibold">Item</th>
+                    <th class="font-semibold">Quantity</th>
                     <th class="font-semibold">Amount</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td colspan="4"> {{ order.data.name }} </td>
-                    <td>{{ order.data.begin }}</td>
-                    <td>{{ order.data.end }}</td>
+                    <td colspan="4"> {{ order.data.itemName }} </td>
+                    <td>{{ order.data.number }}</td>
                     <td>CNY {{ order.data.price }}</td>
                 </tr>
                 </tbody>
                 <tfoot>
                 <tr>
                     <th colspan="4"></th>
-                    <th></th>
                     <th> <h5 class="font-semibold">Total</h5> </th>
                     <th> <h5 class="font-semibold">CNY {{ order.data.price }}</h5> </th>
                 </tr>

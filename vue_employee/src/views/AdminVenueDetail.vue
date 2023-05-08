@@ -55,7 +55,7 @@
                                     @confirm="confirm(item.id)"
                                     @cancel="cancel"
                                 >
-                                    <a href="#">Delete</a>
+                                    <a href="#" class="text-danger">Delete</a>
                                 </a-popconfirm>
                             </a-comment>
                         </a-list-item>
