@@ -16,6 +16,7 @@
                     <h6 class="font-semibold">
                         Billed to: {{ order.data.name}}
                     </h6>
+                    <p>phone number: {{ order.data.phoneNum }}</p>
                 </a-col>
             </a-row>
             <a-row :gutter="[24]" type="flex" class="invoice-info mt-10">
@@ -131,5 +132,10 @@ export default {
     .sidebar-overlay {
         display: none ;
     }
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 0 8px 0 8px;
 }
 </style>
